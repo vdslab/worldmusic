@@ -1,0 +1,42 @@
+{
+  "name": "worldmusic",
+  "version": "1.0.0",
+  "description": "SpotifyAPIを使用して、世界各国の音楽事情について可視化するためのレポジトリです。（team2021-musical）",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "gh-pages -d build",
+    "build": "react-scripts build",
+    "start": "react-scripts start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vdslab/worldmusic.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vdslab/worldmusic/issues"
+  },
+  "dependencies": {
+    "bulma": "^0.9.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "gh-pages": "^3.1.0",
+    "react-scripts": "^4.0.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
