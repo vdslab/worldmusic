@@ -2,7 +2,7 @@ import json
 import csv
 
 result = []
-with open("a.csv", "r") as f:
+with open("a20.csv", "r") as f:
     reader = csv . reader(f)
     for line in reader:
         result.append(line)
@@ -22,7 +22,7 @@ for i in range(2, len(result)):
     streams.append(result[i][3])
     ids.append(result[i][4][31:])
 
-with open('aa.csv', 'w') as csv_file:
+with open('aa20.csv', 'w') as csv_file:
     fieldnames = ['ranking', 'track', 'artist', 'stream', 'id']
     writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
