@@ -23834,7 +23834,1406 @@
         }
     ],
     "2017/04/21-2017/04/28":[
-
+        {
+            "track": "Alleen",
+            "ranking": "1",
+            "id": "1VDFn1PCpp8EOXLMURS8kP",
+            "stream": "1778570",
+            "artist": "Lil Kleine"
+        },
+        {
+            "track": "Habiba",
+            "ranking": "2",
+            "id": "6G41AeVgQkpvEbTxN5fNkW",
+            "stream": "1583769",
+            "artist": "Boef"
+        },
+        {
+            "track": "Shape of You",
+            "ranking": "3",
+            "id": "7qiZfU4dY1lWllzX7mPBI3",
+            "stream": "1409727",
+            "artist": "Ed Sheeran"
+        },
+        {
+            "track": "Symphony (feat. Zara Larsson)",
+            "ranking": "4",
+            "id": "1x5sYLZiu9r5E43kMlt9f8",
+            "stream": "1284782",
+            "artist": "Clean Bandit"
+        },
+        {
+            "track": "Despacito - Remix",
+            "ranking": "5",
+            "id": "5CtI0qwDJkDQGwXD1H1cLb",
+            "stream": "1282972",
+            "artist": "Luis Fonsi"
+        },
+        {
+            "track": "Swalla (feat. Nicki Minaj & Ty Dolla $ign)",
+            "ranking": "6",
+            "id": "6kex4EBAj0WHXDKZMEJaaF",
+            "stream": "1260319",
+            "artist": "Jason Derulo"
+        },
+        {
+            "track": "It Ain't Me (with Selena Gomez)",
+            "ranking": "7",
+            "id": "3eR23VReFzcdmS7TYCrhCe",
+            "stream": "1084570",
+            "artist": "Kygo"
+        },
+        {
+            "track": "Weak",
+            "ranking": "8",
+            "id": "3E2Zh20GDCR9B1EYjfXWyv",
+            "stream": "1067142",
+            "artist": "AJR"
+        },
+        {
+            "track": "Something Just Like This",
+            "ranking": "9",
+            "id": "6RUKPb4LETWmmr3iAEQktW",
+            "stream": "966749",
+            "artist": "The Chainsmokers"
+        },
+        {
+            "track": "Tempo (feat. Sevn Alias, Bko & Boef)",
+            "ranking": "10",
+            "id": "2YeKWxs3kfBFt7UduCEXub",
+            "stream": "950240",
+            "artist": "Jairzinho"
+        },
+        {
+            "track": "Stay (with Alessia Cara)",
+            "ranking": "11",
+            "id": "0dA2Mk56wEzDgegdC6R17g",
+            "stream": "899745",
+            "artist": "Zedd"
+        },
+        {
+            "track": "Passionfruit",
+            "ranking": "12",
+            "id": "7hDc8b7IXETo14hHIHdnhd",
+            "stream": "892152",
+            "artist": "Drake"
+        },
+        {
+            "track": "Slapend Rijk",
+            "ranking": "13",
+            "id": "3PiDnD8RhPrlmzMpAgF9xK",
+            "stream": "864694",
+            "artist": "Boef"
+        },
+        {
+            "track": "You Don't Know Me - Radio Edit",
+            "ranking": "14",
+            "id": "00lNx0OcTJrS3MKHcB80HY",
+            "stream": "825097",
+            "artist": "Jax Jones"
+        },
+        {
+            "track": "Energie",
+            "ranking": "15",
+            "id": "1riPE3NCV1OBmSXqpYiMJY",
+            "stream": "823763",
+            "artist": "Ronnie Flex"
+        },
+        {
+            "track": "Mask Off",
+            "ranking": "16",
+            "id": "3rOSwuTsUlJp0Pu0MkN8r8",
+            "stream": "786084",
+            "artist": "Future"
+        },
+        {
+            "track": "Scared to Be Lonely",
+            "ranking": "17",
+            "id": "3ebXMykcMXOcLeJ9xZ17XH",
+            "stream": "758580",
+            "artist": "Martin Garrix"
+        },
+        {
+            "track": "Galway Girl",
+            "ranking": "18",
+            "id": "0afhq8XCExXpqazXczTSve",
+            "stream": "755920",
+            "artist": "Ed Sheeran"
+        },
+        {
+            "track": "HUMBLE.",
+            "ranking": "19",
+            "id": "7KXjTSCq5nL1LoYtL7XAwS",
+            "stream": "705336",
+            "artist": "Kendrick Lamar"
+        },
+        {
+            "track": "Issues",
+            "ranking": "20",
+            "id": "1sXUWdKx03aP9Gmzft58rt",
+            "stream": "697598",
+            "artist": "Julia Michaels"
+        },
+        {
+            "track": "Despacito (Featuring Daddy Yankee)",
+            "ranking": "21",
+            "id": "4aWmUDTfIPGksMNLV2rQP2",
+            "stream": "695992",
+            "artist": "Luis Fonsi"
+        },
+        {
+            "track": "Tuesday",
+            "ranking": "22",
+            "id": "7abpmGpF7PGep2rDU68GBR",
+            "stream": "684747",
+            "artist": "Burak Yeter"
+        },
+        {
+            "track": "Slide (feat. Frank Ocean & Migos)",
+            "ranking": "23",
+            "id": "7tr2za8SQg2CI8EDgrdtNl",
+            "stream": "659184",
+            "artist": "Calvin Harris"
+        },
+        {
+            "track": "There's Nothing Holdin' Me Back",
+            "ranking": "24",
+            "id": "79cuOz3SPQTuFrp8WgftAu",
+            "stream": "639209",
+            "artist": "Shawn Mendes"
+        },
+        {
+            "track": "Ex (feat. Webb)",
+            "ranking": "25",
+            "id": "6EDnqtAZxZu5pGXyPjgvU8",
+            "stream": "625576",
+            "artist": "LouiVos"
+        },
+        {
+            "track": "Party",
+            "ranking": "26",
+            "id": "5bznfV59JXjzobL625Da2v",
+            "stream": "576690",
+            "artist": "Jonna Fraser"
+        },
+        {
+            "track": "That's What I Like",
+            "ranking": "27",
+            "id": "0KKkJNfGyhkQ5aFogxQAPU",
+            "stream": "555300",
+            "artist": "Bruno Mars"
+        },
+        {
+            "track": "Paris",
+            "ranking": "28",
+            "id": "72jbDTw1piOOj770jWNeaG",
+            "stream": "547176",
+            "artist": "The Chainsmokers"
+        },
+        {
+            "track": "Salam",
+            "ranking": "29",
+            "id": "5zhTxSctAPGFmXSZ7RPmxG",
+            "stream": "545471",
+            "artist": "Boef"
+        },
+        {
+            "track": "September Song",
+            "ranking": "30",
+            "id": "0FuTx2s3YH1ppmtiM6l0zI",
+            "stream": "526654",
+            "artist": "JP Cooper"
+        },
+        {
+            "track": "Call On Me - Ryan Riback Extended Remix",
+            "ranking": "31",
+            "id": "78rIJddV4X0HkNAInEcYde",
+            "stream": "524807",
+            "artist": "Starley"
+        },
+        {
+            "track": "Veel Osso",
+            "ranking": "32",
+            "id": "7MyNwJf70OmVkQey6UsPnV",
+            "stream": "519444",
+            "artist": "Broederliefde"
+        },
+        {
+            "track": "Rockabye (feat. Sean Paul & Anne-Marie)",
+            "ranking": "33",
+            "id": "5knuzwU65gJK7IF5yJsuaW",
+            "stream": "518705",
+            "artist": "Clean Bandit"
+        },
+        {
+            "track": "Castle on the Hill",
+            "ranking": "34",
+            "id": "6PCUP3dWmTjcTtXY02oFdT",
+            "stream": "513435",
+            "artist": "Ed Sheeran"
+        },
+        {
+            "track": "Run Up (feat. PARTYNEXTDOOR & Nicki Minaj)",
+            "ranking": "35",
+            "id": "0fg8CqpjdojMyXLNzM2PaJ",
+            "stream": "511935",
+            "artist": "Major Lazer"
+        },
+        {
+            "track": "Ik Ga Weg",
+            "ranking": "36",
+            "id": "7LQtFOR1rnk9T8cKtByX7k",
+            "stream": "506114",
+            "artist": "Boef"
+        },
+        {
+            "track": "Solo Dance",
+            "ranking": "37",
+            "id": "6HUnnBwYZqcED1eQztxMBN",
+            "stream": "494745",
+            "artist": "Martin Jensen"
+        },
+        {
+            "track": "SUBEME LA RADIO (feat. Descemer Bueno & Zion & Lennox)",
+            "ranking": "38",
+            "id": "7nKBxz47S9SD79N086fuhn",
+            "stream": "494436",
+            "artist": "Enrique Iglesias"
+        },
+        {
+            "track": "Chained To The Rhythm",
+            "ranking": "39",
+            "id": "6520aj0B4FSKGVuKNsOCOi",
+            "stream": "472352",
+            "artist": "Katy Perry"
+        },
+        {
+            "track": "Wejoow",
+            "ranking": "40",
+            "id": "6oZuSPBQySlwY33BhdIm11",
+            "stream": "464466",
+            "artist": "Boef"
+        },
+        {
+            "track": "Cold",
+            "ranking": "41",
+            "id": "5NNlUMcOEOdoOIwwaWXv0k",
+            "stream": "462657",
+            "artist": "Maroon 5"
+        },
+        {
+            "track": "Kind Van De Duivel",
+            "ranking": "42",
+            "id": "4tM13V5qVHM6nKTx7aMWVj",
+            "stream": "456250",
+            "artist": "Jebroer"
+        },
+        {
+            "track": "Sign of the Times",
+            "ranking": "43",
+            "id": "5Ohxk2dO5COHF1krpoPigN",
+            "stream": "450734",
+            "artist": "Harry Styles"
+        },
+        {
+            "track": "Say You Won't Let Go",
+            "ranking": "44",
+            "id": "5uCax9HTNlzGybIStD3vDh",
+            "stream": "442259",
+            "artist": "James Arthur"
+        },
+        {
+            "track": "Away",
+            "ranking": "45",
+            "id": "5oUkY2Eb0yOrXL12KYS3UG",
+            "stream": "441418",
+            "artist": "Frenna"
+        },
+        {
+            "track": "Ciao Adios",
+            "ranking": "46",
+            "id": "3EfugazgSddQvzZpkof5I4",
+            "stream": "427641",
+            "artist": "Anne-Marie"
+        },
+        {
+            "track": "Laag/Boven",
+            "ranking": "47",
+            "id": "2e6HUZ6thgWkKKi5vOWNov",
+            "stream": "403071",
+            "artist": "SBMG"
+        },
+        {
+            "track": "DNA.",
+            "ranking": "48",
+            "id": "6HZILIRieu8S0iqY8kIKhj",
+            "stream": "399544",
+            "artist": "Kendrick Lamar"
+        },
+        {
+            "track": "Qifesh",
+            "ranking": "49",
+            "id": "5ReWXuKUmnUDMbAq0Adgwq",
+            "stream": "394237",
+            "artist": "Sevn Alias"
+        },
+        {
+            "track": "Niks Nieuws",
+            "ranking": "50",
+            "id": "5UOSxDStT3ZPoWhm4i6DVN",
+            "stream": "387434",
+            "artist": "Jonna Fraser"
+        },
+        {
+            "track": "Wie Praat Die Gaat",
+            "ranking": "51",
+            "id": "0VYKnG61teH9SpMqE3WBM8",
+            "stream": "379420",
+            "artist": "Boef"
+        },
+        {
+            "track": "Love Sensez",
+            "ranking": "52",
+            "id": "69CSidCDozLeVRV2S8lAsX",
+            "stream": "349446",
+            "artist": "Diaz & Bruno"
+        },
+        {
+            "track": "Westside",
+            "ranking": "53",
+            "id": "73jpyh5skC2tbah8eAzaAi",
+            "stream": "331053",
+            "artist": "Josylvio"
+        },
+        {
+            "track": "Skin",
+            "ranking": "54",
+            "id": "6y2Kaz9QI01XBKJ8mTb7Pf",
+            "stream": "321310",
+            "artist": "Rag'n'Bone Man"
+        },
+        {
+            "track": "I Don’t Wanna Live Forever (Fifty Shades Darker) - From \"Fifty Shades Darker (Original Motion Picture Soundtrack)\"",
+            "ranking": "55",
+            "id": "3NdDpSvN911VPGivFlV5d0",
+            "stream": "313030",
+            "artist": "ZAYN"
+        },
+        {
+            "track": "Pretty Girl - Cheat Codes X CADE Remix",
+            "ranking": "56",
+            "id": "1NDxZ7cFAo481dtYWdrUnR",
+            "stream": "300702",
+            "artist": "Maggie Lindemann"
+        },
+        {
+            "track": "I Love You",
+            "ranking": "57",
+            "id": "11Fo4dAH31K7UZHGqCkCmE",
+            "stream": "299676",
+            "artist": "Axwell /\\ Ingrosso"
+        },
+        {
+            "track": "I Need You",
+            "ranking": "58",
+            "id": "2YsP3FsnEeADADNxjYVMrG",
+            "stream": "293940",
+            "artist": "Armin van Buuren"
+        },
+        {
+            "track": "Let Me Love You (feat. Chris Crone)",
+            "ranking": "59",
+            "id": "2jfCy43LsFbCQoB6HyetlY",
+            "stream": "287053",
+            "artist": "SJUR"
+        },
+        {
+            "track": "Één ding",
+            "ranking": "60",
+            "id": "4SH4MfJ1bNAgq1wRSJUyKf",
+            "stream": "284717",
+            "artist": "F1rstman"
+        },
+        {
+            "track": "Casablanca",
+            "ranking": "61",
+            "id": "1VsClV89BOYGlN7RITBHYc",
+            "stream": "275343",
+            "artist": "Equalz"
+        },
+        {
+            "track": "I Feel It Coming",
+            "ranking": "62",
+            "id": "5GXAXm5YOmYT0kL5jHvYBt",
+            "stream": "275039",
+            "artist": "The Weeknd"
+        },
+        {
+            "track": "Unforgettable",
+            "ranking": "63",
+            "id": "1F2HXIJrE2Xn81OzT2zZvW",
+            "stream": "270761",
+            "artist": "French Montana"
+        },
+        {
+            "track": "Chantaje (feat. Maluma)",
+            "ranking": "64",
+            "id": "6mICuAdrwEjh6Y6lroV2Kg",
+            "stream": "270027",
+            "artist": "Shakira"
+        },
+        {
+            "track": "Het Is Een Feit",
+            "ranking": "65",
+            "id": "0iuLGMsB9xBbg5D4iabTtT",
+            "stream": "269498",
+            "artist": "Broederliefde"
+        },
+        {
+            "track": "Believer",
+            "ranking": "66",
+            "id": "0CcQNd8CINkwQfe1RDtGV6",
+            "stream": "255202",
+            "artist": "Imagine Dragons"
+        },
+        {
+            "track": "Still Got Time (feat. PARTYNEXTDOOR)",
+            "ranking": "67",
+            "id": "000xQL6tZNLJzIrtIgxqSl",
+            "stream": "255155",
+            "artist": "ZAYN"
+        },
+        {
+            "track": "LOYALTY. FEAT. RIHANNA.",
+            "ranking": "68",
+            "id": "6SwRhMLwNqEi6alNPVG00n",
+            "stream": "252818",
+            "artist": "Kendrick Lamar"
+        },
+        {
+            "track": "Open (feat. Moksi & Jonna Fraser)",
+            "ranking": "69",
+            "id": "4o9w0YfbgE2TjM7r4ppC9A",
+            "stream": "235036",
+            "artist": "Yellow Claw"
+        },
+        {
+            "track": "Good Life (with G-Eazy & Kehlani)",
+            "ranking": "70",
+            "id": "1Eck97uRMlprKOOJN9oO1E",
+            "stream": "234901",
+            "artist": "G-Eazy"
+        },
+        {
+            "track": "Happier",
+            "ranking": "71",
+            "id": "2RttW7RAu5nOAfq6YFvApB",
+            "stream": "234567",
+            "artist": "Ed Sheeran"
+        },
+        {
+            "track": "The One",
+            "ranking": "72",
+            "id": "0wfbD5rAksdXUzRvMfM3x5",
+            "stream": "233477",
+            "artist": "The Chainsmokers"
+        },
+        {
+            "track": "Doorgaan (feat. Kevin, Josylvio, Bko & Vic 9)",
+            "ranking": "73",
+            "id": "4kv3C9039VmtzykQCBefqp",
+            "stream": "231304",
+            "artist": "Jairzinho"
+        },
+        {
+            "track": "Kangoeroe",
+            "ranking": "74",
+            "id": "3F6whybjFrbMYRUvyZF60a",
+            "stream": "230681",
+            "artist": "Boef"
+        },
+        {
+            "track": "Range Sessie",
+            "ranking": "75",
+            "id": "32LHcw3FjMQKNddzrQNYJ4",
+            "stream": "227969",
+            "artist": "Boef"
+        },
+        {
+            "track": "Perfect",
+            "ranking": "76",
+            "id": "0tgVpDi06FyKpA1z0VMD4v",
+            "stream": "226750",
+            "artist": "Ed Sheeran"
+        },
+        {
+            "track": "Jungle",
+            "ranking": "77",
+            "id": "2Ro1i5jA2krJYkFJOrRrFa",
+            "stream": "226534",
+            "artist": "Broederliefde"
+        },
+        {
+            "track": "Green Light",
+            "ranking": "78",
+            "id": "0gbBzIqrECJOEPvQJIBFs5",
+            "stream": "224704",
+            "artist": "Lorde"
+        },
+        {
+            "track": "iSpy (feat. Lil Yachty)",
+            "ranking": "79",
+            "id": "2EEeOnHehOozLq4aS0n6SL",
+            "stream": "222435",
+            "artist": "KYLE"
+        },
+        {
+            "track": "De Manier",
+            "ranking": "80",
+            "id": "68qTD5PAoqFgrkw5W2DHL5",
+            "stream": "221180",
+            "artist": "Kraantje Pappie"
+        },
+        {
+            "track": "Closer",
+            "ranking": "81",
+            "id": "7BKLCZ1jbUBVqRi2FVlTVw",
+            "stream": "220767",
+            "artist": "The Chainsmokers"
+        },
+        {
+            "track": "Overal (feat. DJ Youss-F)",
+            "ranking": "82",
+            "id": "7bQQ2B4EVLDiMA79EbT2qe",
+            "stream": "217472",
+            "artist": "F1rstman"
+        },
+        {
+            "track": "ELEMENT.",
+            "ranking": "83",
+            "id": "1EaKU4dMbesXXd3BrLCtYG",
+            "stream": "213601",
+            "artist": "Kendrick Lamar"
+        },
+        {
+            "track": "Laden",
+            "ranking": "84",
+            "id": "0C08wbBjY0QNlWeVarxdXv",
+            "stream": "213524",
+            "artist": "Armoo"
+        },
+        {
+            "track": "Location",
+            "ranking": "85",
+            "id": "152lZdxL1OR0ZMW6KquMif",
+            "stream": "212397",
+            "artist": "Khalid"
+        },
+        {
+            "track": "Now Or Never",
+            "ranking": "86",
+            "id": "0Nhu3zSYbEz32IYiobV75e",
+            "stream": "211593",
+            "artist": "Halsey"
+        },
+        {
+            "track": "Met Zjnoen Opstaan",
+            "ranking": "87",
+            "id": "74fQ27CR7IJdvlape75OKl",
+            "stream": "205429",
+            "artist": "Lijpe"
+        },
+        {
+            "track": "Fetty Wap",
+            "ranking": "88",
+            "id": "75gJj5hYRFOi5LKCstPcaD",
+            "stream": "205394",
+            "artist": "Boef"
+        },
+        {
+            "track": "My Love",
+            "ranking": "89",
+            "id": "7887EjnwYduvgqpPysG50Z",
+            "stream": "200711",
+            "artist": "Frenna"
+        },
+        {
+            "track": "Cocaïne",
+            "ranking": "90",
+            "id": "4NqJPY7gqdMIZwl4O3mLYb",
+            "stream": "198015",
+            "artist": "Boef"
+        },
+        {
+            "track": "Till You're Loved",
+            "ranking": "91",
+            "id": "70rYp3dhUBTz9Da3OgmlA1",
+            "stream": "197734",
+            "artist": "Mr. Probz"
+        },
+        {
+            "track": "XO TOUR Llif3",
+            "ranking": "92",
+            "id": "2eMwDehkIC1j68U6FA3Eiq",
+            "stream": "197409",
+            "artist": "Lil Uzi Vert"
+        },
+        {
+            "track": "Werken",
+            "ranking": "93",
+            "id": "5VWSnSob84NAxS4ohVX9nd",
+            "stream": "197113",
+            "artist": "Boef"
+        },
+        {
+            "track": "No Lie",
+            "ranking": "94",
+            "id": "3cFsmM51N5zMAuu1nNY4Tw",
+            "stream": "195808",
+            "artist": "Sean Paul"
+        },
+        {
+            "track": "Dive",
+            "ranking": "95",
+            "id": "51ChrwmUPDJvedPQnIU8Ls",
+            "stream": "195066",
+            "artist": "Ed Sheeran"
+        },
+        {
+            "track": "BBB",
+            "ranking": "96",
+            "id": "7jHxlScnIVoggKeLYvISRS",
+            "stream": "193845",
+            "artist": "Bokoesam"
+        },
+        {
+            "track": "LOVE. FEAT. ZACARI.",
+            "ranking": "97",
+            "id": "6PGoSes0D9eUDeeAafB2As",
+            "stream": "193452",
+            "artist": "Kendrick Lamar"
+        },
+        {
+            "track": "Oceans Away",
+            "ranking": "98",
+            "id": "6A8dnC0xkiuWN4BshmTB2I",
+            "stream": "191785",
+            "artist": "A R I Z O N A"
+        },
+        {
+            "track": "This Town",
+            "ranking": "99",
+            "id": "5nA67Y0XX9JipZwYxX7Gl7",
+            "stream": "190760",
+            "artist": "Niall Horan"
+        },
+        {
+            "track": "Gass (feat. Jason Futuristic, BKO & Jairzinho)",
+            "ranking": "100",
+            "id": "4mBNcduSWagbQJk8I14pGW",
+            "stream": "190299",
+            "artist": "Sevn Alias"
+        },
+        {
+            "track": "Brand New",
+            "ranking": "101",
+            "id": "1YzfE0WsLidP7KHbEAKZF0",
+            "stream": "189261",
+            "artist": "Murda"
+        },
+        {
+            "track": "Abu Dhabi",
+            "ranking": "102",
+            "id": "3KSXqVzRcFTciICDWv0sxS",
+            "stream": "187969",
+            "artist": "Josylvio"
+        },
+        {
+            "track": "Scars To Your Beautiful",
+            "ranking": "103",
+            "id": "0prNGof3XqfTvNDxHonvdK",
+            "stream": "187104",
+            "artist": "Alessia Cara"
+        },
+        {
+            "track": "Speciaal",
+            "ranking": "104",
+            "id": "4GUyhTID6mBssYE4nz3DG1",
+            "stream": "187027",
+            "artist": "Boef"
+        },
+        {
+            "track": "Touch",
+            "ranking": "105",
+            "id": "5Ua3GXyHwiSfpNTMjq6m2z",
+            "stream": "183170",
+            "artist": "Little Mix"
+        },
+        {
+            "track": "When You Love Someone",
+            "ranking": "106",
+            "id": "5fX2oPyLCe5mBKqGDbOWqC",
+            "stream": "178088",
+            "artist": "James TW"
+        },
+        {
+            "track": "Louis Vuitton",
+            "ranking": "107",
+            "id": "1hikPCpDhD4e21XzoNlmNZ",
+            "stream": "177053",
+            "artist": "Armoo"
+        },
+        {
+            "track": "One Dance",
+            "ranking": "108",
+            "id": "1xznGGDReH1oQq0xzbwXa3",
+            "stream": "176757",
+            "artist": "Drake"
+        },
+        {
+            "track": "No Promises (feat. Demi Lovato)",
+            "ranking": "109",
+            "id": "1louJpMmzEicAn7lzDalPW",
+            "stream": "176522",
+            "artist": "Cheat Codes"
+        },
+        {
+            "track": "Are You Sure? (feat. Ty Dolla $ign)",
+            "ranking": "110",
+            "id": "0fH86zQcE2CmATQju6WpXv",
+            "stream": "174878",
+            "artist": "Kris Kross Amsterdam"
+        },
+        {
+            "track": "Ma Cherie (feat. SBMG, I$si & Rasskulz)",
+            "ranking": "111",
+            "id": "5KeFf74SOmDX8TX72YobCk",
+            "stream": "174211",
+            "artist": "CJaye"
+        },
+        {
+            "track": "Hear Me Now",
+            "ranking": "112",
+            "id": "1a5Yu5L18qNxVhXx38njON",
+            "stream": "173009",
+            "artist": "Alok"
+        },
+        {
+            "track": "Intro",
+            "ranking": "113",
+            "id": "4vw3C4Ro3OUD0MNmROKm6e",
+            "stream": "170647",
+            "artist": "D-Double"
+        },
+        {
+            "track": "How Would You Feel (Paean)",
+            "ranking": "114",
+            "id": "6PJ8FF6UR8FZXfEvpHkIVN",
+            "stream": "170415",
+            "artist": "Ed Sheeran"
+        },
+        {
+            "track": "Mattaboy (feat. Jairzinho & Sevn Alias)",
+            "ranking": "115",
+            "id": "5dXUCE5cxxscOFr1e03N7I",
+            "stream": "169683",
+            "artist": "BKO"
+        },
+        {
+            "track": "Zeg Mij",
+            "ranking": "116",
+            "id": "3cr07R8m2voOPbk1yQj1DI",
+            "stream": "167400",
+            "artist": "Boef"
+        },
+        {
+            "track": "What Do I Know?",
+            "ranking": "117",
+            "id": "2pJZ1v8HezrAoZ0Fhzby92",
+            "stream": "165340",
+            "artist": "Ed Sheeran"
+        },
+        {
+            "track": "Portland",
+            "ranking": "118",
+            "id": "2bjwRfXMk4uRgOD9IBYl9h",
+            "stream": "164784",
+            "artist": "Drake"
+        },
+        {
+            "track": "Slecht Blijft",
+            "ranking": "119",
+            "id": "5wbELbOJDwV9tU1wZYJdkz",
+            "stream": "163343",
+            "artist": "Boef"
+        },
+        {
+            "track": "Barcelona",
+            "ranking": "120",
+            "id": "3Lfiu5sZ4M4B6JaKMBc0FU",
+            "stream": "163145",
+            "artist": "Ed Sheeran"
+        },
+        {
+            "track": "Lover & Best Friend",
+            "ranking": "121",
+            "id": "4Jgbeh3kqsKwXyBCrqjkMO",
+            "stream": "160457",
+            "artist": "Jonna Fraser"
+        },
+        {
+            "track": "The Cure",
+            "ranking": "122",
+            "id": "51PIvodunv6NmX5250zxAh",
+            "stream": "160358",
+            "artist": "Lady Gaga"
+        },
+        {
+            "track": "Shed a Light",
+            "ranking": "123",
+            "id": "1cG0umU5TKStygKsPFZ9pY",
+            "stream": "159444",
+            "artist": "Robin Schulz"
+        },
+        {
+            "track": "24K Magic",
+            "ranking": "124",
+            "id": "6b8Be6ljOzmkOmFslEb23P",
+            "stream": "158510",
+            "artist": "Bruno Mars"
+        },
+        {
+            "track": "El Amante",
+            "ranking": "125",
+            "id": "3umS4y3uQDkqekNjVpiRUs",
+            "stream": "158122",
+            "artist": "Nicky Jam"
+        },
+        {
+            "track": "In the Name of Love",
+            "ranking": "126",
+            "id": "04DwTuZ2VBdJCCC5TROn7L",
+            "stream": "157858",
+            "artist": "Martin Garrix"
+        },
+        {
+            "track": "Concreet",
+            "ranking": "127",
+            "id": "6Fjit2BTPMFDgM9dREVqBH",
+            "stream": "157229",
+            "artist": "SBMG"
+        },
+        {
+            "track": "New Man",
+            "ranking": "128",
+            "id": "5HDPtsnyb3maFmPL8LLUTG",
+            "stream": "156799",
+            "artist": "Ed Sheeran"
+        },
+        {
+            "track": "Love Me Now",
+            "ranking": "129",
+            "id": "6nxQdXa1uAL0rY72wPZu89",
+            "stream": "155952",
+            "artist": "John Legend"
+        },
+        {
+            "track": "Let Me Love You",
+            "ranking": "130",
+            "id": "4pdPtRcBmOSQDlJ3Fk945m",
+            "stream": "155626",
+            "artist": "DJ Snake"
+        },
+        {
+            "track": "Heatstroke (feat. Young Thug, Pharrell Williams & Ariana Grande)",
+            "ranking": "131",
+            "id": "60APt5N2NRaKWf5xzJdzyC",
+            "stream": "155221",
+            "artist": "Calvin Harris"
+        },
+        {
+            "track": "Glimp Van De Duivel (feat. Nielson)",
+            "ranking": "132",
+            "id": "5IfgA1gKbLK1aK0V1AyonR",
+            "stream": "154794",
+            "artist": "Ali B"
+        },
+        {
+            "track": "Starboy",
+            "ranking": "133",
+            "id": "5aAx2yezTd8zXrkmtKl66Z",
+            "stream": "154769",
+            "artist": "The Weeknd"
+        },
+        {
+            "track": "Beckham",
+            "ranking": "134",
+            "id": "5XntxhFTQA3AFsREzI2H1p",
+            "stream": "154729",
+            "artist": "Boef"
+        },
+        {
+            "track": "Starving",
+            "ranking": "135",
+            "id": "1qOLh0tI7trd1zdDKxYZTe",
+            "stream": "154682",
+            "artist": "Hailee Steinfeld"
+        },
+        {
+            "track": "Okido",
+            "ranking": "136",
+            "id": "5wasgZvi3QdppQ4Q6keNBU",
+            "stream": "153955",
+            "artist": "Kinderen voor Kinderen"
+        },
+        {
+            "track": "Supermarket Flowers",
+            "ranking": "137",
+            "id": "4VuS959DSpr82t3qBqCrWG",
+            "stream": "152434",
+            "artist": "Ed Sheeran"
+        },
+        {
+            "track": "Fake Love",
+            "ranking": "138",
+            "id": "343YBumqHu19cGoGARUTsd",
+            "stream": "152388",
+            "artist": "Drake"
+        },
+        {
+            "track": "Pompen",
+            "ranking": "139",
+            "id": "3B23etXBXxq1aCmFB8dby9",
+            "stream": "152022",
+            "artist": "Kraantje Pappie"
+        },
+        {
+            "track": "XXX. FEAT. U2.",
+            "ranking": "140",
+            "id": "4iYRa2btalAzPZoSYfROqF",
+            "stream": "152020",
+            "artist": "Kendrick Lamar"
+        },
+        {
+            "track": "Wasteman",
+            "ranking": "141",
+            "id": "1iYDdQ1KfnPmt9gQ3gPalm",
+            "stream": "150771",
+            "artist": "Frenna"
+        },
+        {
+            "track": "Cold Water (feat. Justin Bieber & MØ)",
+            "ranking": "142",
+            "id": "6DNtNfH8hXkqOX1sjqmI7p",
+            "stream": "150594",
+            "artist": "Major Lazer"
+        },
+        {
+            "track": "Kopzorgen",
+            "ranking": "143",
+            "id": "3tIF7WC5lSAzBtFLP8LxQP",
+            "stream": "149377",
+            "artist": "Boef"
+        },
+        {
+            "track": "Ik Kom Bij Je",
+            "ranking": "144",
+            "id": "5CeKSGsjyGQ0ck2UeMDbBw",
+            "stream": "148243",
+            "artist": "Jonna Fraser"
+        },
+        {
+            "track": "Mi No Lob",
+            "ranking": "145",
+            "id": "2LWH17bsVlVNm9K3emk8Gb",
+            "stream": "147353",
+            "artist": "Broederliefde"
+        },
+        {
+            "track": "Eng",
+            "ranking": "146",
+            "id": "7lU6Bsf1wmHUEgnQW6oIlR",
+            "stream": "146961",
+            "artist": "Lijpe"
+        },
+        {
+            "track": "YAH.",
+            "ranking": "147",
+            "id": "4BHSjbYylfOH5WAGusDyni",
+            "stream": "146450",
+            "artist": "Kendrick Lamar"
+        },
+        {
+            "track": "Human",
+            "ranking": "148",
+            "id": "58zsLZPvfflaiIbNWoA22O",
+            "stream": "146236",
+            "artist": "Rag'n'Bone Man"
+        },
+        {
+            "track": "Los",
+            "ranking": "149",
+            "id": "2sj449WbJZVN2RXwETgtV4",
+            "stream": "145722",
+            "artist": "Dio"
+        },
+        {
+            "track": "Sorry",
+            "ranking": "150",
+            "id": "39HyltGRsg2q0s5PMA9ala",
+            "stream": "145384",
+            "artist": "Kensington"
+        },
+        {
+            "track": "Waarom (feat. Sevn Alias)",
+            "ranking": "151",
+            "id": "2XW87Px99RlAkWSYYa9pPD",
+            "stream": "144147",
+            "artist": "Kevin"
+        },
+        {
+            "track": "How Far I'll Go - From \"Moana\"",
+            "ranking": "152",
+            "id": "5hYTyyh2odQKphUbMqc5gN",
+            "stream": "142718",
+            "artist": "Alessia Cara"
+        },
+        {
+            "track": "Hey Ma (with Pitbull & J Balvin feat. Camila Cabello) - Spanish Version",
+            "ranking": "153",
+            "id": "2Vdub5mY4lad7w64bFPUez",
+            "stream": "142588",
+            "artist": "Pitbull"
+        },
+        {
+            "track": "Congratulations",
+            "ranking": "154",
+            "id": "3a1lNhkSLSkpJE4MSHpDu9",
+            "stream": "141333",
+            "artist": "Post Malone"
+        },
+        {
+            "track": "Dancing On My Own",
+            "ranking": "155",
+            "id": "02WacdrRpm4zlP8H7X6bnQ",
+            "stream": "141288",
+            "artist": "Calum Scott"
+        },
+        {
+            "track": "Je Gaat Zo Dik",
+            "ranking": "156",
+            "id": "6jku2VMPsAtqBjD8qhE67l",
+            "stream": "140746",
+            "artist": "Lil Kleine"
+        },
+        {
+            "track": "Love On The Brain",
+            "ranking": "157",
+            "id": "2aksifNn5ph8igDOkPBA02",
+            "stream": "139997",
+            "artist": "Rihanna"
+        },
+        {
+            "track": "Vrij Zijn",
+            "ranking": "158",
+            "id": "1fMNFmpQjc7CjXlE9LnM8T",
+            "stream": "139335",
+            "artist": "Jairzinho"
+        },
+        {
+            "track": "Lights Down Low",
+            "ranking": "159",
+            "id": "1sYSP7gKa5kdKIfhANfori",
+            "stream": "139079",
+            "artist": "MAX"
+        },
+        {
+            "track": "Blem",
+            "ranking": "160",
+            "id": "2XlHu0HcujBCkWMdIAvrqt",
+            "stream": "137472",
+            "artist": "Drake"
+        },
+        {
+            "track": "Beyonce (feat. Andy VDM)",
+            "ranking": "161",
+            "id": "0fXe1nwFan0sQoHwKI7s0q",
+            "stream": "137164",
+            "artist": "Tur-G"
+        },
+        {
+            "track": "PRIDE.",
+            "ranking": "162",
+            "id": "6IZvVAP7VPPnsGX6bvgkqg",
+            "stream": "135566",
+            "artist": "Kendrick Lamar"
+        },
+        {
+            "track": "Selfish (feat. Rihanna)",
+            "ranking": "163",
+            "id": "2Ce5IyMlVRVvN997ZJjJJA",
+            "stream": "135523",
+            "artist": "Future"
+        },
+        {
+            "track": "Leef",
+            "ranking": "164",
+            "id": "7jfy5GJjyoAOvDSCw9cir3",
+            "stream": "135183",
+            "artist": "André Hazes Jr."
+        },
+        {
+            "track": "Aslan",
+            "ranking": "165",
+            "id": "2wQjy7eamu1hIS6kvigogB",
+            "stream": "133105",
+            "artist": "Boef"
+        },
+        {
+            "track": "Perfect Strangers",
+            "ranking": "166",
+            "id": "1CUVN2kn7mW5FjkqXTR2W1",
+            "stream": "132932",
+            "artist": "Jonas Blue"
+        },
+        {
+            "track": "Lange Weg",
+            "ranking": "167",
+            "id": "4B68u9z3TQ82SzyIJNeAna",
+            "stream": "130813",
+            "artist": "Jonna Fraser"
+        },
+        {
+            "track": "Lust for Life (with The Weeknd)",
+            "ranking": "168",
+            "id": "5LYQSNHZxEA880URXFHg6h",
+            "stream": "130668",
+            "artist": "Lana Del Rey"
+        },
+        {
+            "track": "Flex Op Me Ex (feat. Chivv)",
+            "ranking": "169",
+            "id": "7ksAOf5OhWjNaQOfCzyAsM",
+            "stream": "129649",
+            "artist": "Architrackz"
+        },
+        {
+            "track": "I Would Like",
+            "ranking": "170",
+            "id": "4Q4jmPHwu0wrJvqrld0FQ6",
+            "stream": "129301",
+            "artist": "Zara Larsson"
+        },
+        {
+            "track": "Now She See Me (feat. Sevn Alias & Two Crooks)",
+            "ranking": "171",
+            "id": "3bfzlKH2WVXNvLcxEky2k5",
+            "stream": "128566",
+            "artist": "Jairzinho"
+        },
+        {
+            "track": "Nancy Mulligan",
+            "ranking": "172",
+            "id": "35QZaWQRkmnAVqBF1TLCxQ",
+            "stream": "127495",
+            "artist": "Ed Sheeran"
+        },
+        {
+            "track": "Mercy",
+            "ranking": "173",
+            "id": "4TZy1wLyHec06pwgFYDh1a",
+            "stream": "127433",
+            "artist": "Shawn Mendes"
+        },
+        {
+            "track": "Ik Was Al Binnen",
+            "ranking": "174",
+            "id": "3fsG2UErJoICD34tS10Cie",
+            "stream": "127242",
+            "artist": "Broederliefde"
+        },
+        {
+            "track": "Do Or Die",
+            "ranking": "175",
+            "id": "2Y63yg1Lgdp96IoiZIvjKz",
+            "stream": "127216",
+            "artist": "Jonna Fraser"
+        },
+        {
+            "track": "Weg Van Alle Stress (feat. Glowinthedark)",
+            "ranking": "176",
+            "id": "5A8eo7JROvGadNBrBxdBsl",
+            "stream": "126176",
+            "artist": "Sevn Alias"
+        },
+        {
+            "track": "FEEL.",
+            "ranking": "177",
+            "id": "2LTlO3NuNVN70lp2ZbVswF",
+            "stream": "126169",
+            "artist": "Kendrick Lamar"
+        },
+        {
+            "track": "CAN'T STOP THE FEELING! (Original Song from DreamWorks Animation's \"TROLLS\")",
+            "ranking": "178",
+            "id": "6JV2JOEocMgcZxYSZelKcc",
+            "stream": "125958",
+            "artist": "Justin Timberlake"
+        },
+        {
+            "track": "Wereld Van Verschil",
+            "ranking": "179",
+            "id": "3sFKaUpPWohKoND5g9XD6p",
+            "stream": "125950",
+            "artist": "BLØF"
+        },
+        {
+            "track": "Hearts Don't Break Around Here",
+            "ranking": "180",
+            "id": "2dfHh7ECGxfNqZTQno09Vk",
+            "stream": "125880",
+            "artist": "Ed Sheeran"
+        },
+        {
+            "track": "Tunnel Vision",
+            "ranking": "181",
+            "id": "4Q3N4Ct4zCuIHuZ65E3BD4",
+            "stream": "125571",
+            "artist": "Kodak Black"
+        },
+        {
+            "track": "Come Closer (feat. Drake)",
+            "ranking": "182",
+            "id": "2f9LSU0aBW04w6KL26DW8r",
+            "stream": "124197",
+            "artist": "WizKid"
+        },
+        {
+            "track": "History",
+            "ranking": "183",
+            "id": "0WCEaydwN65cvwaW8aqptF",
+            "stream": "122401",
+            "artist": "Olivia Holt"
+        },
+        {
+            "track": "Nervous (The Ooh Song) - Mark McCabe Remix",
+            "ranking": "184",
+            "id": "0L9lXMXddmoBbBUeF7A9An",
+            "stream": "121778",
+            "artist": "Gavin James"
+        },
+        {
+            "track": "Thinking out Loud",
+            "ranking": "185",
+            "id": "1Slwb6dOYkBlWal1PGtnNg",
+            "stream": "121146",
+            "artist": "Ed Sheeran"
+        },
+        {
+            "track": "Bibia Be Ye Ye",
+            "ranking": "186",
+            "id": "6SznMYPQJHzr3IwsAHLId2",
+            "stream": "121037",
+            "artist": "Ed Sheeran"
+        },
+        {
+            "track": "LUST.",
+            "ranking": "187",
+            "id": "06FCvd7rrRcF3DdvWH5Isp",
+            "stream": "120976",
+            "artist": "Kendrick Lamar"
+        },
+        {
+            "track": "Afro Trap Pt. 7 (La puissance)",
+            "ranking": "188",
+            "id": "6x8j5V85ZJHtvOSjSamcVc",
+            "stream": "120833",
+            "artist": "MHD"
+        },
+        {
+            "track": "The Night We Met",
+            "ranking": "189",
+            "id": "6mORGLOz79w6VsCRLWYYuK",
+            "stream": "119093",
+            "artist": "Lord Huron"
+        },
+        {
+            "track": "Openen",
+            "ranking": "190",
+            "id": "4m1LUEkx0rKHOOfDoGO3MS",
+            "stream": "119085",
+            "artist": "Two Crooks"
+        },
+        {
+            "track": "Never Give Up",
+            "ranking": "191",
+            "id": "1ssmjAYSU5PbmsjLq5yrNH",
+            "stream": "118708",
+            "artist": "Sia"
+        },
+        {
+            "track": "OMW",
+            "ranking": "192",
+            "id": "3uIwXFd6dhzkZJ3k8YhMT1",
+            "stream": "117874",
+            "artist": "Frenna"
+        },
+        {
+            "track": "Wasteman - Remix",
+            "ranking": "193",
+            "id": "65qP9nzgtuK73VfG2y2He7",
+            "stream": "117719",
+            "artist": "Kempi"
+        },
+        {
+            "track": "Naar Beneden",
+            "ranking": "194",
+            "id": "7kLzC4eyCotDtx6yahxyYJ",
+            "stream": "117051",
+            "artist": "ValsBezig"
+        },
+        {
+            "track": "Bad and Boujee (feat. Lil Uzi Vert)",
+            "ranking": "195",
+            "id": "4Km5HrUvYTaSUfiSGPJeQR",
+            "stream": "116874",
+            "artist": "Migos"
+        },
+        {
+            "track": "Treat You Better",
+            "ranking": "196",
+            "id": "4Hf7WnR761jpxPr5D46Bcd",
+            "stream": "116127",
+            "artist": "Shawn Mendes"
+        },
+        {
+            "track": "Vespa",
+            "ranking": "197",
+            "id": "0h62lp2zAJSdl1P8mvpNJP",
+            "stream": "115538",
+            "artist": "Rambo"
+        },
+        {
+            "track": "Love Yourself",
+            "ranking": "198",
+            "id": "3hB5DgAiMAQ4DzYbsMq1IT",
+            "stream": "113385",
+            "artist": "Justin Bieber"
+        },
+        {
+            "track": "Break Up Every Night",
+            "ranking": "199",
+            "id": "6cPyTS0Kk2sc4xQwC93kOg",
+            "stream": "112760",
+            "artist": "The Chainsmokers"
+        },
+        {
+            "track": "Doe Je Dans",
+            "ranking": "200",
+            "id": "5fNMMDMnBIhKUUdxmyElKb",
+            "stream": "111919",
+            "artist": "Bizzey"
+        }
     ],
     "2017/04/28-2017/05/05":[
 
