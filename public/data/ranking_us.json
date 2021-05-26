@@ -1,0 +1,1404 @@
+{
+    "2021-04-16--2021-04-23": [
+        {
+            "name": "RAPSTAR",
+            "ranking": "1",
+            "id": "43PGPuHIlVOc04jrZVh9L6",
+            "stream": "14135559",
+            "artist": "Polo G"
+        },
+        {
+            "name": "MONTERO (Call Me By Your Name)",
+            "ranking": "2",
+            "id": "67BtfxlNbhBmCDR2L2l8qd",
+            "stream": "10838771",
+            "artist": "Lil Nas X"
+        },
+        {
+            "name": "Peaches (feat. Daniel Caesar & Giveon)",
+            "ranking": "3",
+            "id": "4iJyoBOLtHqaGxP12qzhQI",
+            "stream": "9577020",
+            "artist": "Justin Bieber"
+        },
+        {
+            "name": "Kiss Me More (feat. SZA)",
+            "ranking": "4",
+            "id": "748mdHapucXQri7IAO8yFK",
+            "stream": "9460768",
+            "artist": "Doja Cat"
+        },
+        {
+            "name": "deja vu",
+            "ranking": "5",
+            "id": "61KpQadow081I2AsbeLcsb",
+            "stream": "8589981",
+            "artist": "Olivia Rodrigo"
+        },
+        {
+            "name": "Levitating (feat. DaBaby)",
+            "ranking": "6",
+            "id": "5nujrmhLynf4yMoMtj8AQF",
+            "stream": "7551790",
+            "artist": "Dua Lipa"
+        },
+        {
+            "name": "Solid (feat. Drake)",
+            "ranking": "7",
+            "id": "6rTInqW3YECMkQsBEHw4sd",
+            "stream": "7065777",
+            "artist": "Young Stoner Life"
+        },
+        {
+            "name": "Astronaut In The Ocean",
+            "ranking": "8",
+            "id": "3VT8hOC5vuDXBsHrR53WFh",
+            "stream": "6549299",
+            "artist": "Masked Wolf"
+        },
+        {
+            "name": "Heartbreak Anniversary",
+            "ranking": "9",
+            "id": "3FAJ6O0NOHQV8Mc5Ri6ENp",
+            "stream": "6041483",
+            "artist": "Giveon"
+        },
+        {
+            "name": "Up",
+            "ranking": "10",
+            "id": "1M4OcYkxAtu3ErzSgDEfoi",
+            "stream": "5824702",
+            "artist": "Cardi B"
+        },
+        {
+            "name": "Leave The Door Open",
+            "ranking": "11",
+            "id": "7MAibcTli4IisCtbHKrGMh",
+            "stream": "5613111",
+            "artist": "Bruno Mars"
+        },
+        {
+            "name": "Wants and Needs (feat. Lil Baby)",
+            "ranking": "12",
+            "id": "65OVbaJR5O1RmwOQx0875b",
+            "stream": "5277826",
+            "artist": "Drake"
+        },
+        {
+            "name": "Calling My Phone",
+            "ranking": "13",
+            "id": "3J8EOeKLTLXORtWPpOU5bE",
+            "stream": "5250062",
+            "artist": "Lil Tjay"
+        },
+        {
+            "name": "drivers license",
+            "ranking": "14",
+            "id": "7lPN2DXiMsVn7XUKtOW1CS",
+            "stream": "4925471",
+            "artist": "Olivia Rodrigo"
+        },
+        {
+            "name": "telepatía",
+            "ranking": "15",
+            "id": "6tDDoYIxWvMLTdKpjFkc1B",
+            "stream": "4905103",
+            "artist": "Kali Uchis"
+        },
+        {
+            "name": "Save Your Tears",
+            "ranking": "16",
+            "id": "5QO79kh1waicV47BqGRL3g",
+            "stream": "4754003",
+            "artist": "The Weeknd"
+        },
+        {
+            "name": "Heat Waves",
+            "ranking": "17",
+            "id": "02MWAaffLxlfxAUY7c5dvx",
+            "stream": "4714284",
+            "artist": "Glass Animals"
+        },
+        {
+            "name": "Ski",
+            "ranking": "18",
+            "id": "6755DFiZ7CWe2WMdTGW5C1",
+            "stream": "4664120",
+            "artist": "Young Stoner Life"
+        },
+        {
+            "name": "Streets",
+            "ranking": "19",
+            "id": "60ynsPSSKe6O3sfwRnIBRf",
+            "stream": "4536301",
+            "artist": "Doja Cat"
+        },
+        {
+            "name": "Good Days",
+            "ranking": "20",
+            "id": "3YJJjQPAbDT7mGpX3WtQ9A",
+            "stream": "4493490",
+            "artist": "SZA"
+        },
+        {
+            "name": "Best Friend (feat. Doja Cat)",
+            "ranking": "21",
+            "id": "2etHQJxIbV0soyPhelVs9Y",
+            "stream": "4485052",
+            "artist": "Saweetie"
+        },
+        {
+            "name": "DÁKITI",
+            "ranking": "22",
+            "id": "4MzXwWMhyBbmu6hOcLVD49",
+            "stream": "4381416",
+            "artist": "Bad Bunny"
+        },
+        {
+            "name": "What’s Next",
+            "ranking": "23",
+            "id": "3aQem4jVGdhtg116TmJnHz",
+            "stream": "4333665",
+            "artist": "Drake"
+        },
+        {
+            "name": "Diamonds Dancing (feat. Travis Scott)",
+            "ranking": "24",
+            "id": "7uZqvqXzzYMKrexKxdcGmd",
+            "stream": "4263440",
+            "artist": "Young Stoner Life"
+        },
+        {
+            "name": "Headshot (feat. Polo G & Fivio Foreign)",
+            "ranking": "25",
+            "id": "4eNOLmx8r2IJAVKvBBL1jv",
+            "stream": "4023042",
+            "artist": "Lil Tjay"
+        },
+        {
+            "name": "Back In Blood (feat. Lil Durk)",
+            "ranking": "26",
+            "id": "7FGdjbZ32vMybPuP0IuE7d",
+            "stream": "3953997",
+            "artist": "Pooh Shiesty"
+        },
+        {
+            "name": "Blinding Lights",
+            "ranking": "27",
+            "id": "0VjIjW4GlUZAMYd2vXMi3b",
+            "stream": "3770833",
+            "artist": "The Weeknd"
+        },
+        {
+            "name": "Mr. Perfectly Fine (Taylor’s Version) (From The Vault)",
+            "ranking": "28",
+            "id": "2CYVETnhM9aytqrazYYwrK",
+            "stream": "3699483",
+            "artist": "Taylor Swift"
+        },
+        {
+            "name": "Hold On",
+            "ranking": "29",
+            "id": "1nahzW3kfMuwReTka28tH5",
+            "stream": "3637932",
+            "artist": "Justin Bieber"
+        },
+        {
+            "name": "WITHOUT YOU",
+            "ranking": "30",
+            "id": "27OeeYzk6klgBh83TSvGMA",
+            "stream": "3380730",
+            "artist": "The Kid LAROI"
+        },
+        {
+            "name": "Martin & Gina",
+            "ranking": "31",
+            "id": "1VLtjHwRWOVJiE5Py7JxoQ",
+            "stream": "3350671",
+            "artist": "Polo G"
+        },
+        {
+            "name": "Mood (feat. iann dior)",
+            "ranking": "32",
+            "id": "4jPy3l0RUwlUI9T5XHBW2m",
+            "stream": "3344169",
+            "artist": "24kGoldn"
+        },
+        {
+            "name": "Run It Up (feat. Offset & Moneybagg Yo)",
+            "ranking": "33",
+            "id": "1dg3qy5DjoJodawfOCgrTP",
+            "stream": "3105302",
+            "artist": "Lil Tjay"
+        },
+        {
+            "name": "Beautiful Mistakes (feat. Megan Thee Stallion)",
+            "ranking": "34",
+            "id": "6fRxMU4LWwyaSSowV441IU",
+            "stream": "3082271",
+            "artist": "Maroon 5"
+        },
+        {
+            "name": "Proud of You (feat. Lil Uzi Vert & Yung Kayo)",
+            "ranking": "35",
+            "id": "16eZmQoeajKH8G2nPe2chk",
+            "stream": "3076679",
+            "artist": "Young Stoner Life"
+        },
+        {
+            "name": "On Me",
+            "ranking": "36",
+            "id": "4Iedi94TIaB2GGb1nMB68v",
+            "stream": "2992604",
+            "artist": "Lil Baby"
+        },
+        {
+            "name": "Sweater Weather",
+            "ranking": "37",
+            "id": "2QjOHCTQ1Jl3zawyYOpxh6",
+            "stream": "2957611",
+            "artist": "The Neighbourhood"
+        },
+        {
+            "name": "Lemonade (feat. Gunna, Don Toliver & NAV)",
+            "ranking": "38",
+            "id": "7hxHWCCAIIxFLCzvDgnQHX",
+            "stream": "2877239",
+            "artist": "Internet Money"
+        },
+        {
+            "name": "my ex's best friend (with blackbear)",
+            "ranking": "39",
+            "id": "7kDUspsoYfLkWnZR7qwHZl",
+            "stream": "2854121",
+            "artist": "Machine Gun Kelly"
+        },
+        {
+            "name": "Richer (feat. Polo G)",
+            "ranking": "40",
+            "id": "7HsjuVBM93Z2RoxjpWLgTT",
+            "stream": "2738116",
+            "artist": "Rod Wave"
+        },
+        {
+            "name": "Goosebumps - Remix",
+            "ranking": "41",
+            "id": "5uEYRdEIh9Bo4fpjDd4Na9",
+            "stream": "2735636",
+            "artist": "Travis Scott"
+        },
+        {
+            "name": "ROCKSTAR (feat. Roddy Ricch)",
+            "ranking": "42",
+            "id": "7ytR5pFWmSjzHJIeQkgog4",
+            "stream": "2728656",
+            "artist": "DaBaby"
+        },
+        {
+            "name": "For The Night (feat. Lil Baby & DaBaby)",
+            "ranking": "43",
+            "id": "0PvFJmanyNQMseIFrU708S",
+            "stream": "2680436",
+            "artist": "Pop Smoke"
+        },
+        {
+            "name": "Runaway",
+            "ranking": "44",
+            "id": "1v1oIWf2Xgh54kIWuKsDf6",
+            "stream": "2624288",
+            "artist": "AURORA"
+        },
+        {
+            "name": "Beat Box 3 (feat. DaBaby)",
+            "ranking": "45",
+            "id": "6toQdWWc4noiOk3Eo5mVDS",
+            "stream": "2607011",
+            "artist": "SpotemGottem"
+        },
+        {
+            "name": "WAP (feat. Megan Thee Stallion)",
+            "ranking": "46",
+            "id": "4Oun2ylbjFKMPTiaSbbCih",
+            "stream": "2584259",
+            "artist": "Cardi B"
+        },
+        {
+            "name": "Laugh Now Cry Later (feat. Lil Durk)",
+            "ranking": "47",
+            "id": "2SAqBLGA283SUiwJ3xOUVI",
+            "stream": "2578148",
+            "artist": "Drake"
+        },
+        {
+            "name": "What You Know Bout Love",
+            "ranking": "48",
+            "id": "1tkg4EHVoqnhR6iFEXb60y",
+            "stream": "2576535",
+            "artist": "Pop Smoke"
+        },
+        {
+            "name": "Met Him Last Night (feat. Ariana Grande)",
+            "ranking": "49",
+            "id": "4yyX2Iu4xJjW9xMvBZKSBi",
+            "stream": "2566349",
+            "artist": "Demi Lovato"
+        },
+        {
+            "name": "Cloud 9",
+            "ranking": "50",
+            "id": "6vFsBXYczYsP0H3lgunZOm",
+            "stream": "2519564",
+            "artist": "Beach Bunny"
+        },
+        {
+            "name": "34+35",
+            "ranking": "51",
+            "id": "6Im9k8u9iIzKMrmV7BWtlF",
+            "stream": "2508842",
+            "artist": "Ariana Grande"
+        },
+        {
+            "name": "Anyone",
+            "ranking": "52",
+            "id": "2WnAKZefdRHxtBEkRjFOHC",
+            "stream": "2491897",
+            "artist": "Justin Bieber"
+        },
+        {
+            "name": "Sunflower - Spider-Man: Into the Spider-Verse",
+            "ranking": "53",
+            "id": "0RiRZpuVRbi7oqRdSMwhQY",
+            "stream": "2461068",
+            "artist": "Post Malone"
+        },
+        {
+            "name": "All Girls Are The Same",
+            "ranking": "54",
+            "id": "4VXIryQMWpIdGgYR4TrjT1",
+            "stream": "2451718",
+            "artist": "Juice WRLD"
+        },
+        {
+            "name": "you broke me first",
+            "ranking": "55",
+            "id": "45bE4HXI0AwGZXfZtMp8JR",
+            "stream": "2414542",
+            "artist": "Tate McRae"
+        },
+        {
+            "name": "Circles",
+            "ranking": "56",
+            "id": "21jGcNKet2qwijlDFuPiPb",
+            "stream": "2384213",
+            "artist": "Post Malone"
+        },
+        {
+            "name": "Came and Saw (feat. Rowdy Rebel)",
+            "ranking": "57",
+            "id": "3GkEnNf2RWmdwkA2FfjQ3g",
+            "stream": "2376553",
+            "artist": "Young Stoner Life"
+        },
+        {
+            "name": "Wishing Well",
+            "ranking": "58",
+            "id": "2U5WueTLIK5WJLD7mvDODv",
+            "stream": "2371262",
+            "artist": "Juice WRLD"
+        },
+        {
+            "name": "Come & Go (with Marshmello)",
+            "ranking": "59",
+            "id": "2Y0wPrPQBrGhoLn14xRYCG",
+            "stream": "2351115",
+            "artist": "Juice WRLD"
+        },
+        {
+            "name": "4 Da Gang (with Roddy Ricch)",
+            "ranking": "60",
+            "id": "4KIkADzoVm3A10E9qyjsQ5",
+            "stream": "2345848",
+            "artist": "42 Dugg"
+        },
+        {
+            "name": "Fiel",
+            "ranking": "61",
+            "id": "7Bk0uXKk1uPT0XuQbpFzvs",
+            "stream": "2344424",
+            "artist": "Los Legendarios"
+        },
+        {
+            "name": "Lucid Dreams",
+            "ranking": "62",
+            "id": "285pBltuF7vW8TeWk8hdRR",
+            "stream": "2343067",
+            "artist": "Juice WRLD"
+        },
+        {
+            "name": "Holy (feat. Chance The Rapper)",
+            "ranking": "63",
+            "id": "6Xgq7MvZiet0hVi3KaDSgJ",
+            "stream": "2341340",
+            "artist": "Justin Bieber"
+        },
+        {
+            "name": "Watermelon Sugar",
+            "ranking": "64",
+            "id": "6UelLqGlWMcVH1E5c4H7lY",
+            "stream": "2333269",
+            "artist": "Harry Styles"
+        },
+        {
+            "name": "Forever After All",
+            "ranking": "65",
+            "id": "6IBcOGPsniK3Pso1wHIhew",
+            "stream": "2330318",
+            "artist": "Luke Combs"
+        },
+        {
+            "name": "Whats Poppin (feat. DaBaby, Tory Lanez & Lil Wayne) [Remix] - Bonus Track",
+            "ranking": "66",
+            "id": "0ZLuW8uOXdFNWcI40C0OC2",
+            "stream": "2329088",
+            "artist": "Jack Harlow"
+        },
+        {
+            "name": "Arcade",
+            "ranking": "67",
+            "id": "1J14CdDAvBTE1AJYUOwl6C",
+            "stream": "2280758",
+            "artist": "Duncan Laurence"
+        },
+        {
+            "name": "positions",
+            "ranking": "68",
+            "id": "35mvY5S1H3J2QZyna3TFe0",
+            "stream": "2271068",
+            "artist": "Ariana Grande"
+        },
+        {
+            "name": "Therefore I Am",
+            "ranking": "69",
+            "id": "54bFM56PmE4YLRnqpW6Tha",
+            "stream": "2270395",
+            "artist": "Billie Eilish"
+        },
+        {
+            "name": "Talking to the Moon",
+            "ranking": "70",
+            "id": "161DnLWsx1i3u1JT05lzqU",
+            "stream": "2269858",
+            "artist": "Bruno Mars"
+        },
+        {
+            "name": "LA NOCHE DE ANOCHE",
+            "ranking": "71",
+            "id": "2XIc1pqjXV3Cr2BQUGNBck",
+            "stream": "2269455",
+            "artist": "Bad Bunny"
+        },
+        {
+            "name": "We're Good",
+            "ranking": "72",
+            "id": "1diS6nkxMQc3wwC4G1j0bh",
+            "stream": "2232613",
+            "artist": "Dua Lipa"
+        },
+        {
+            "name": "Blueberry Faygo",
+            "ranking": "73",
+            "id": "22LAwLoDA5b4AaGSkg6bKW",
+            "stream": "2216249",
+            "artist": "Lil Mosey"
+        },
+        {
+            "name": "Dreams - 2004 Remaster",
+            "ranking": "74",
+            "id": "0ofHAoxe9vBkTCp2UQIavz",
+            "stream": "2211143",
+            "artist": "Fleetwood Mac"
+        },
+        {
+            "name": "Cupid's Chokehold / Breakfast in America",
+            "ranking": "75",
+            "id": "2Lhdl74nwwVGOE2Gv35QuK",
+            "stream": "2197646",
+            "artist": "Gym Class Heroes"
+        },
+        {
+            "name": "No Role Modelz",
+            "ranking": "76",
+            "id": "62vpWI1CHwFy7tMIcSStl8",
+            "stream": "2184469",
+            "artist": "J. Cole"
+        },
+        {
+            "name": "Someone You Loved",
+            "ranking": "77",
+            "id": "7qEHsqek33rTcFNT9PFqLf",
+            "stream": "2182809",
+            "artist": "Lewis Capaldi"
+        },
+        {
+            "name": "As I Am (feat. Khalid)",
+            "ranking": "78",
+            "id": "6F2r4HgpJnvKDmkN6JEN6J",
+            "stream": "2180168",
+            "artist": "Justin Bieber"
+        },
+        {
+            "name": "Love Story (Taylor’s Version)",
+            "ranking": "79",
+            "id": "6YvqWjhGD8mB5QXcbcUKtx",
+            "stream": "2169635",
+            "artist": "Taylor Swift"
+        },
+        {
+            "name": "Tombstone",
+            "ranking": "80",
+            "id": "5pRTz4O2qOkr5nawemy6Wb",
+            "stream": "2163455",
+            "artist": "Rod Wave"
+        },
+        {
+            "name": "Whoopty",
+            "ranking": "81",
+            "id": "1t9WgS8FN0534tLBRwbaxO",
+            "stream": "2113038",
+            "artist": "CJ"
+        },
+        {
+            "name": "21",
+            "ranking": "82",
+            "id": "3JKgcAa7r07ocVWcV8bS0H",
+            "stream": "2110595",
+            "artist": "Polo G"
+        },
+        {
+            "name": "Robbery",
+            "ranking": "83",
+            "id": "6Hj9jySrnFppAI0sEMCZpJ",
+            "stream": "2085404",
+            "artist": "Juice WRLD"
+        },
+        {
+            "name": "Don't Start Now",
+            "ranking": "84",
+            "id": "3PfIrDoz19wz7qK7tYeu62",
+            "stream": "2081576",
+            "artist": "Dua Lipa"
+        },
+        {
+            "name": "The Business",
+            "ranking": "85",
+            "id": "6f3Slt0GbA2bPZlz0aIFXN",
+            "stream": "2080214",
+            "artist": "Tiësto"
+        },
+        {
+            "name": "Time Today",
+            "ranking": "86",
+            "id": "2bo0HCDcZj8BYjoht9zYgk",
+            "stream": "2068406",
+            "artist": "Moneybagg Yo"
+        },
+        {
+            "name": "The Box",
+            "ranking": "87",
+            "id": "0nbXyq5TXYPCO7pr3N8S4I",
+            "stream": "2052690",
+            "artist": "Roddy Ricch"
+        },
+        {
+            "name": "Daddy Issues",
+            "ranking": "88",
+            "id": "5E30LdtzQTGqRvNd7l6kG5",
+            "stream": "2034359",
+            "artist": "The Neighbourhood"
+        },
+        {
+            "name": "Wasted On You",
+            "ranking": "89",
+            "id": "3cBsEDNhFI9E82vPj3kvi3",
+            "stream": "2033122",
+            "artist": "Morgan Wallen"
+        },
+        {
+            "name": "Bang!",
+            "ranking": "90",
+            "id": "5FQPpxOXsvkMN6v18gtpwY",
+            "stream": "2032286",
+            "artist": "AJR"
+        },
+        {
+            "name": "Heather",
+            "ranking": "91",
+            "id": "4xqrdfXkTW4T0RauPLv3WA",
+            "stream": "1994750",
+            "artist": "Conan Gray"
+        },
+        {
+            "name": "Big Gangsta",
+            "ranking": "92",
+            "id": "03ERnTvSV5fy8WAyvA4uNP",
+            "stream": "1976857",
+            "artist": "Kevin Gates"
+        },
+        {
+            "name": "Starting Over",
+            "ranking": "93",
+            "id": "3K07bGe8iljQ3mOKArHLDo",
+            "stream": "1963963",
+            "artist": "Chris Stapleton"
+        },
+        {
+            "name": "Electric Love",
+            "ranking": "94",
+            "id": "2GiJYvgVaD2HtM8GqD9EgQ",
+            "stream": "1959574",
+            "artist": "BØRNS"
+        },
+        {
+            "name": "goosebumps",
+            "ranking": "95",
+            "id": "6gBFPUFcJLzWGx4lenP6h2",
+            "stream": "1956547",
+            "artist": "Travis Scott"
+        },
+        {
+            "name": "Track Star",
+            "ranking": "96",
+            "id": "5hChuUMe5iHfjkXgzj1D4b",
+            "stream": "1952361",
+            "artist": "Mooski"
+        },
+        {
+            "name": "Body",
+            "ranking": "97",
+            "id": "0A1hoCfMLkiAgvhWkkucJa",
+            "stream": "1935429",
+            "artist": "Megan Thee Stallion"
+        },
+        {
+            "name": "Shy Away",
+            "ranking": "98",
+            "id": "2z0IupRlVRlDN5r2IVqHyN",
+            "stream": "1930460",
+            "artist": "Twenty One Pilots"
+        },
+        {
+            "name": "Life Is Good (feat. Drake)",
+            "ranking": "99",
+            "id": "1K5KBOgreBi5fkEHvg5ap3",
+            "stream": "1905808",
+            "artist": "Future"
+        },
+        {
+            "name": "Opp Stoppa (feat. 21 Savage)",
+            "ranking": "100",
+            "id": "78p1rF7xx1snnaKxtUzBHn",
+            "stream": "1881124",
+            "artist": "YBN Nahmir"
+        },
+        {
+            "name": "Put Your Records On",
+            "ranking": "101",
+            "id": "6AGOKlMZWLCaEJGnaROtF9",
+            "stream": "1876694",
+            "artist": "Ritt Momney"
+        },
+        {
+            "name": "Mr. Brightside",
+            "ranking": "102",
+            "id": "003vvx7Niy0yvhvHt4a68B",
+            "stream": "1861531",
+            "artist": "The Killers"
+        },
+        {
+            "name": "hot girl bummer",
+            "ranking": "103",
+            "id": "2mt1IqcFyY1zmYZT8Q3xw9",
+            "stream": "1857342",
+            "artist": "blackbear"
+        },
+        {
+            "name": "SLOW DANCING IN THE DARK",
+            "ranking": "104",
+            "id": "0rKtyWc8bvkriBthvHKY8d",
+            "stream": "1844030",
+            "artist": "Joji"
+        },
+        {
+            "name": "Paid the Fine (feat. Lil Baby & YTB Trench)",
+            "ranking": "105",
+            "id": "0GqaZ1L5KAXMNngAZbGvLf",
+            "stream": "1820666",
+            "artist": "Young Stoner Life"
+        },
+        {
+            "name": "20 Min",
+            "ranking": "106",
+            "id": "0uxSUdBrJy9Un0EYoBowng",
+            "stream": "1817388",
+            "artist": "Lil Uzi Vert"
+        },
+        {
+            "name": "Street Runner",
+            "ranking": "107",
+            "id": "3JYxIozjRsvEmHrIvfFhud",
+            "stream": "1809561",
+            "artist": "Rod Wave"
+        },
+        {
+            "name": "Slumber Party (feat. Princess Nokia)",
+            "ranking": "108",
+            "id": "11ZulcYY4lowvcQm4oe3VJ",
+            "stream": "1804419",
+            "artist": "Ashnikko"
+        },
+        {
+            "name": "Whiskey Glasses",
+            "ranking": "109",
+            "id": "6foY66mWZN0pSRjZ408c00",
+            "stream": "1803948",
+            "artist": "Morgan Wallen"
+        },
+        {
+            "name": "Slatty (feat. Yak Gotti & Lil Duke)",
+            "ranking": "110",
+            "id": "0ky8syPEVEfD7qCxMTW49X",
+            "stream": "1794562",
+            "artist": "Young Stoner Life"
+        },
+        {
+            "name": "Real As It Gets (feat. EST Gee)",
+            "ranking": "111",
+            "id": "7eX3um6NpOQKWJMGCi97XD",
+            "stream": "1789032",
+            "artist": "Lil Baby"
+        },
+        {
+            "name": "Tyler Herro",
+            "ranking": "112",
+            "id": "3w1WjD2zJqjBjDz5fwqQPJ",
+            "stream": "1781775",
+            "artist": "Jack Harlow"
+        },
+        {
+            "name": "Tongue Tied",
+            "ranking": "113",
+            "id": "0GO8y8jQk1PkHzS31d699N",
+            "stream": "1773504",
+            "artist": "Grouplove"
+        },
+        {
+            "name": "Before You Go",
+            "ranking": "114",
+            "id": "2gMXnyrvIjhVBUZwvLZDMP",
+            "stream": "1758851",
+            "artist": "Lewis Capaldi"
+        },
+        {
+            "name": "The Good Ones",
+            "ranking": "115",
+            "id": "3hLuHKzG1cmlRpq53ZVWd8",
+            "stream": "1753293",
+            "artist": "Gabby Barrett"
+        },
+        {
+            "name": "The Hills",
+            "ranking": "116",
+            "id": "7fBv7CLKzipRk6EC6TWHOB",
+            "stream": "1744832",
+            "artist": "The Weeknd"
+        },
+        {
+            "name": "Jocelyn Flores",
+            "ranking": "117",
+            "id": "7m9OqQk4RVRkw9JJdeAw96",
+            "stream": "1729074",
+            "artist": "XXXTENTACION"
+        },
+        {
+            "name": "shots in the dark (with Trippie Redd)",
+            "ranking": "118",
+            "id": "03m2VS3eYqKwbHvEykTYl5",
+            "stream": "1727891",
+            "artist": "iann dior"
+        },
+        {
+            "name": "BOP",
+            "ranking": "119",
+            "id": "6Ozh9Ok6h4Oi1wUSLtBseN",
+            "stream": "1722042",
+            "artist": "DaBaby"
+        },
+        {
+            "name": "Dior",
+            "ranking": "120",
+            "id": "79s5XnCN4TJKTVMSmOx8Ep",
+            "stream": "1721797",
+            "artist": "Pop Smoke"
+        },
+        {
+            "name": "Adore You",
+            "ranking": "121",
+            "id": "3jjujdWJ72nww5eGnfs2E7",
+            "stream": "1701876",
+            "artist": "Harry Styles"
+        },
+        {
+            "name": "Company (feat. Future)",
+            "ranking": "122",
+            "id": "3JVTsvTldB6arHVlmxmTnM",
+            "stream": "1698225",
+            "artist": "24kGoldn"
+        },
+        {
+            "name": "You All Over Me (feat. Maren Morris) (Taylor’s Version) (From The Vault)",
+            "ranking": "123",
+            "id": "4CHpVfAhuxNJ3ibExe6kxO",
+            "stream": "1696429",
+            "artist": "Taylor Swift"
+        },
+        {
+            "name": "Lemon Pepper Freestyle (feat. Rick Ross)",
+            "ranking": "124",
+            "id": "4FRW5Nza1Ym91BGV4nFWXI",
+            "stream": "1694592",
+            "artist": "Drake"
+        },
+        {
+            "name": "POPSTAR (feat. Drake)",
+            "ranking": "125",
+            "id": "6EDO9iiTtwNv6waLwa1UUq",
+            "stream": "1688296",
+            "artist": "DJ Khaled"
+        },
+        {
+            "name": "Cry Baby (feat. DaBaby)",
+            "ranking": "126",
+            "id": "4aarlAfLKVCTxUDNgbwhjH",
+            "stream": "1685582",
+            "artist": "Megan Thee Stallion"
+        },
+        {
+            "name": "My Head & My Heart",
+            "ranking": "127",
+            "id": "1KixkQVDUHggZMU9dUobgm",
+            "stream": "1683669",
+            "artist": "Ava Max"
+        },
+        {
+            "name": "You",
+            "ranking": "128",
+            "id": "2cc8Sw1OnCuA5bV8nqWqpE",
+            "stream": "1683212",
+            "artist": "Regard"
+        },
+        {
+            "name": "More Than My Hometown",
+            "ranking": "129",
+            "id": "5OELUCYgOHKFAvCERnAvfS",
+            "stream": "1671233",
+            "artist": "Morgan Wallen"
+        },
+        {
+            "name": "Bandit (with YoungBoy Never Broke Again)",
+            "ranking": "130",
+            "id": "6Gg1gjgKi2AK4e0qzsR7sd",
+            "stream": "1667163",
+            "artist": "Juice WRLD"
+        },
+        {
+            "name": "Pop Out (feat. Lil Tjay)",
+            "ranking": "131",
+            "id": "6uFn47ACjqYkc0jADwEdj1",
+            "stream": "1655188",
+            "artist": "Polo G"
+        },
+        {
+            "name": "Sand In My Boots",
+            "ranking": "132",
+            "id": "0uRrG2jRR5tuifsYIJHEao",
+            "stream": "1653322",
+            "artist": "Morgan Wallen"
+        },
+        {
+            "name": "Are You Bored Yet? (feat. Clairo)",
+            "ranking": "133",
+            "id": "57RA3JGafJm5zRtKJiKPIm",
+            "stream": "1651136",
+            "artist": "Wallows"
+        },
+        {
+            "name": "Godzilla (feat. Juice WRLD)",
+            "ranking": "134",
+            "id": "7FIWs0pqAYbP91WWM0vlTQ",
+            "stream": "1648814",
+            "artist": "Eminem"
+        },
+        {
+            "name": "LA CANCIÓN",
+            "ranking": "135",
+            "id": "0fea68AdmYNygeTGI4RC18",
+            "stream": "1643512",
+            "artist": "J Balvin"
+        },
+        {
+            "name": "Hello (feat. A Boogie Wit da Hoodie)",
+            "ranking": "136",
+            "id": "2r6OAV3WsYtXuXjvJ1lIDi",
+            "stream": "1637683",
+            "artist": "Pop Smoke"
+        },
+        {
+            "name": "death bed (coffee for your head)",
+            "ranking": "137",
+            "id": "7eJMfftS33KTjuF7lTsMCx",
+            "stream": "1636888",
+            "artist": "Powfu"
+        },
+        {
+            "name": "Beautiful Crazy",
+            "ranking": "138",
+            "id": "2rxQMGVafnNaRaXlRMWPde",
+            "stream": "1630396",
+            "artist": "Luke Combs"
+        },
+        {
+            "name": "XO Tour Llif3",
+            "ranking": "139",
+            "id": "7GX5flRQZVHRAGd6B4TmDO",
+            "stream": "1629460",
+            "artist": "Lil Uzi Vert"
+        },
+        {
+            "name": "lovely (with Khalid)",
+            "ranking": "140",
+            "id": "0u2P5u6lvoDfwTYjAADbn4",
+            "stream": "1628252",
+            "artist": "Billie Eilish"
+        },
+        {
+            "name": "Hell Of A View",
+            "ranking": "141",
+            "id": "1kBx9VGumfuvlfqdlAGorE",
+            "stream": "1622447",
+            "artist": "Eric Church"
+        },
+        {
+            "name": "The Less I Know The Better",
+            "ranking": "142",
+            "id": "6K4t31amVTZDgR3sKmwUJJ",
+            "stream": "1620446",
+            "artist": "Tame Impala"
+        },
+        {
+            "name": "The Spins",
+            "ranking": "143",
+            "id": "51pshtuYkgUQnt5huMPbKL",
+            "stream": "1618377",
+            "artist": "Mac Miller"
+        },
+        {
+            "name": "Masterpiece",
+            "ranking": "144",
+            "id": "26UxwWl9xCb83OynXELJcL",
+            "stream": "1618141",
+            "artist": "DaBaby"
+        },
+        {
+            "name": "Passionfruit",
+            "ranking": "145",
+            "id": "5mCPDVBb16L4XQwDdbRUpz",
+            "stream": "1615216",
+            "artist": "Drake"
+        },
+        {
+            "name": "Bad Boy (with Young Thug)",
+            "ranking": "146",
+            "id": "43CIWpJaJHRcI4mUSjqgc2",
+            "stream": "1612678",
+            "artist": "Juice WRLD"
+        },
+        {
+            "name": "TE MUDASTE",
+            "ranking": "147",
+            "id": "5RubKOuDoPn5Kj5TLVxSxY",
+            "stream": "1610840",
+            "artist": "Bad Bunny"
+        },
+        {
+            "name": "Otra Noche Sin Ti",
+            "ranking": "148",
+            "id": "2CdTLdDjwZdVcm0bresVWx",
+            "stream": "1603993",
+            "artist": "J Balvin"
+        },
+        {
+            "name": "HOLIDAY",
+            "ranking": "149",
+            "id": "6zFMeegAMYQo0mt8rXtrli",
+            "stream": "1600513",
+            "artist": "Lil Nas X"
+        },
+        {
+            "name": "MIDDLE CHILD",
+            "ranking": "150",
+            "id": "2JvzF1RMd7lE3KmFlsyZD8",
+            "stream": "1599113",
+            "artist": "J. Cole"
+        },
+        {
+            "name": "Go Crazy",
+            "ranking": "151",
+            "id": "1IIKrJVP1C9N7iPtG6eOsK",
+            "stream": "1587747",
+            "artist": "Chris Brown"
+        },
+        {
+            "name": "Cigarette Daydreams",
+            "ranking": "152",
+            "id": "0lkQOB949M2gLyut86aJ1b",
+            "stream": "1578422",
+            "artist": "Cage The Elephant"
+        },
+        {
+            "name": "505",
+            "ranking": "153",
+            "id": "58ge6dfP91o9oXMzq3XkIS",
+            "stream": "1575078",
+            "artist": "Arctic Monkeys"
+        },
+        {
+            "name": "Lonely (with benny blanco)",
+            "ranking": "154",
+            "id": "3S8jK1mGzQi24ilFb45DAZ",
+            "stream": "1570934",
+            "artist": "Justin Bieber"
+        },
+        {
+            "name": "Hayloft",
+            "ranking": "155",
+            "id": "2kS6td1yvmpNgZTt1q5pQq",
+            "stream": "1561107",
+            "artist": "Mother Mother"
+        },
+        {
+            "name": "7 Summers",
+            "ranking": "156",
+            "id": "4obHzpwGrjoTuZh2DItEMZ",
+            "stream": "1554662",
+            "artist": "Morgan Wallen"
+        },
+        {
+            "name": "SICKO MODE",
+            "ranking": "157",
+            "id": "2xLMifQCjDGFmkHkpNLD9h",
+            "stream": "1552071",
+            "artist": "Travis Scott"
+        },
+        {
+            "name": "HIGHEST IN THE ROOM",
+            "ranking": "158",
+            "id": "3eekarcy7kvN4yt5ZFzltW",
+            "stream": "1552027",
+            "artist": "Travis Scott"
+        },
+        {
+            "name": "Bubblegum Bitch",
+            "ranking": "159",
+            "id": "1yOL7ZiXGx5ULeLoktAUAg",
+            "stream": "1550274",
+            "artist": "MARINA"
+        },
+        {
+            "name": "Cover Me Up",
+            "ranking": "160",
+            "id": "0mKnuxVkPi5h0kuvZl44VM",
+            "stream": "1542829",
+            "artist": "Morgan Wallen"
+        },
+        {
+            "name": "Be Like That - feat. Swae Lee & Khalid",
+            "ranking": "161",
+            "id": "5f1joOtoMeyppIcJGZQvqJ",
+            "stream": "1536386",
+            "artist": "Kane Brown"
+        },
+        {
+            "name": "Everybody Talks",
+            "ranking": "162",
+            "id": "2iUmqdfGZcHIhS3b9E9EWq",
+            "stream": "1533858",
+            "artist": "Neon Trees"
+        },
+        {
+            "name": "Drip Too Hard (Lil Baby & Gunna)",
+            "ranking": "163",
+            "id": "78QR3Wp35dqAhFEc2qAGjE",
+            "stream": "1526476",
+            "artist": "Lil Baby"
+        },
+        {
+            "name": "You’re Mines Still (feat. Drake)",
+            "ranking": "164",
+            "id": "7E2C5rBLpCKwQlhJPVFBRS",
+            "stream": "1525554",
+            "artist": "Yung Bleu"
+        },
+        {
+            "name": "Ballin' (with Roddy Ricch)",
+            "ranking": "165",
+            "id": "3QzAOrNlsabgbMwlZt7TAY",
+            "stream": "1524819",
+            "artist": "Mustard"
+        },
+        {
+            "name": "Tennessee Whiskey",
+            "ranking": "166",
+            "id": "3fqwjXwUGN6vbzIwvyFMhx",
+            "stream": "1524379",
+            "artist": "Chris Stapleton"
+        },
+        {
+            "name": "Somebody’s Problem",
+            "ranking": "167",
+            "id": "42lqBjPYlmL1EXpMDXvhSN",
+            "stream": "1522176",
+            "artist": "Morgan Wallen"
+        },
+        {
+            "name": "After Party",
+            "ranking": "168",
+            "id": "527k23H0A4Q0UJN3vGs0Da",
+            "stream": "1520041",
+            "artist": "Don Toliver"
+        },
+        {
+            "name": "SugarCrash!",
+            "ranking": "169",
+            "id": "2ePtv8MlBO9nuuXABqAfEX",
+            "stream": "1519285",
+            "artist": "ElyOtto"
+        },
+        {
+            "name": "Dynamite",
+            "ranking": "170",
+            "id": "4saklk6nie3yiGePpBwUoc",
+            "stream": "1516850",
+            "artist": "BTS"
+        },
+        {
+            "name": "SAD!",
+            "ranking": "171",
+            "id": "3ee8Jmje8o58CHK66QrVC2",
+            "stream": "1514320",
+            "artist": "XXXTENTACION"
+        },
+        {
+            "name": "Mood Swings (feat. Lil Tjay)",
+            "ranking": "172",
+            "id": "5rZlwNFl01HqLWBQGryKSm",
+            "stream": "1513076",
+            "artist": "Pop Smoke"
+        },
+        {
+            "name": "Glad You Exist",
+            "ranking": "173",
+            "id": "472vIK1ldetTxRxG3ovaiY",
+            "stream": "1512127",
+            "artist": "Dan + Shay"
+        },
+        {
+            "name": "Ric Flair Drip (& Metro Boomin)",
+            "ranking": "174",
+            "id": "7sO5G9EABYOXQKNPNiE9NR",
+            "stream": "1507358",
+            "artist": "Offset"
+        },
+        {
+            "name": "Star Shopping",
+            "ranking": "175",
+            "id": "30bqVoKjX479ab90a8Pafp",
+            "stream": "1504154",
+            "artist": "Lil Peep"
+        },
+        {
+            "name": "Spicy (feat. Post Malone)",
+            "ranking": "176",
+            "id": "5IUtvfNvOyVYZUa6AJFrnP",
+            "stream": "1500298",
+            "artist": "Ty Dolla $ign"
+        },
+        {
+            "name": "I Can't Handle Change",
+            "ranking": "177",
+            "id": "0I1eFRytp4XRhLCjT6tZm7",
+            "stream": "1497033",
+            "artist": "Roar"
+        },
+        {
+            "name": "Take Me To Church",
+            "ranking": "178",
+            "id": "3dYD57lRAUcMHufyqn9GcI",
+            "stream": "1488495",
+            "artist": "Hozier"
+        },
+        {
+            "name": "Don't Stop Believin'",
+            "ranking": "179",
+            "id": "4bHsxqR3GMrXTxEPLuK5ue",
+            "stream": "1472039",
+            "artist": "Journey"
+        },
+        {
+            "name": "EL MAKINON",
+            "ranking": "180",
+            "id": "2FSGUA0gFgGeQdprjtGM2M",
+            "stream": "1470145",
+            "artist": "KAROL G"
+        },
+        {
+            "name": "willow",
+            "ranking": "181",
+            "id": "3Uo7WG0vmLQ07WB4BDwy7D",
+            "stream": "1467401",
+            "artist": "Taylor Swift"
+        },
+        {
+            "name": "BIG PURR (Prrdd) (feat. Pooh Shiesty)",
+            "ranking": "182",
+            "id": "5byWPNSh2hi0ULmDxBgLyV",
+            "stream": "1464863",
+            "artist": "Coi Leray"
+        },
+        {
+            "name": "Falling",
+            "ranking": "183",
+            "id": "1ZMiCix7XSAbfAJlEZWMCp",
+            "stream": "1463595",
+            "artist": "Harry Styles"
+        },
+        {
+            "name": "I Fall Apart",
+            "ranking": "184",
+            "id": "75ZvA4QfFiZvzhj2xkaWAh",
+            "stream": "1461910",
+            "artist": "Post Malone"
+        },
+        {
+            "name": "Dear Maria, Count Me In",
+            "ranking": "185",
+            "id": "0JJP0IS4w0fJx01EcrfkDe",
+            "stream": "1460643",
+            "artist": "All Time Low"
+        },
+        {
+            "name": "Roses - Imanbek Remix",
+            "ranking": "186",
+            "id": "0zLCBJZSiELJf02ucPP9wb",
+            "stream": "1459633",
+            "artist": "SAINt JHN"
+        },
+        {
+            "name": "Chasin' You",
+            "ranking": "187",
+            "id": "5MwynWK9s4hlyKHqhkNn4A",
+            "stream": "1456313",
+            "artist": "Morgan Wallen"
+        },
+        {
+            "name": "Say You Won't Let Go",
+            "ranking": "188",
+            "id": "5uCax9HTNlzGybIStD3vDh",
+            "stream": "1456243",
+            "artist": "James Arthur"
+        },
+        {
+            "name": "If the World Was Ending - feat. Julia Michaels",
+            "ranking": "189",
+            "id": "2kJwzbxV2ppxnQoYw4GLBZ",
+            "stream": "1453036",
+            "artist": "JP Saxe"
+        },
+        {
+            "name": "Sofia",
+            "ranking": "190",
+            "id": "7B3z0ySL9Rr0XvZEAjWZzM",
+            "stream": "1448855",
+            "artist": "Clairo"
+        },
+        {
+            "name": "Redbone",
+            "ranking": "191",
+            "id": "0wXuerDYiBnERgIpbb3JBR",
+            "stream": "1448828",
+            "artist": "Childish Gambino"
+        },
+        {
+            "name": "Money Trees",
+            "ranking": "192",
+            "id": "2HbKqm4o0w5wEeEFXm2sD4",
+            "stream": "1443293",
+            "artist": "Kendrick Lamar"
+        },
+        {
+            "name": "Batman",
+            "ranking": "193",
+            "id": "1xMvdOFQaql3EBkHmuh2TK",
+            "stream": "1442617",
+            "artist": "LPB Poody"
+        },
+        {
+            "name": "GO (feat. Juice WRLD)",
+            "ranking": "194",
+            "id": "2rPHUAeUPbNgTmK18FPTiZ",
+            "stream": "1439991",
+            "artist": "The Kid LAROI"
+        },
+        {
+            "name": "Runnin",
+            "ranking": "195",
+            "id": "5SWnsxjhdcEDc7LJjq9UHk",
+            "stream": "1436769",
+            "artist": "21 Savage"
+        },
+        {
+            "name": "Mr Loverman",
+            "ranking": "196",
+            "id": "2IVsRhKrx8hlQBOWy4qebo",
+            "stream": "1433662",
+            "artist": "Ricky Montgomery"
+        },
+        {
+            "name": "ROLLIN N CONTROLLIN FREESTYLE",
+            "ranking": "197",
+            "id": "1xqRKo0SDFDO5Jy8yEVD0X",
+            "stream": "1432161",
+            "artist": "DUSTY LOCANE"
+        },
+        {
+            "name": "10,000 Hours (with Justin Bieber)",
+            "ranking": "198",
+            "id": "2wrJq5XKLnmhRXHIAf9xBa",
+            "stream": "1429298",
+            "artist": "Dan + Shay"
+        },
+        {
+            "name": "Sunday Best",
+            "ranking": "199",
+            "id": "1Cv1YLb4q0RzL6pybtaMLo",
+            "stream": "1429237",
+            "artist": "Surfaces"
+        },
+        {
+            "name": "ROXANNE",
+            "ranking": "200",
+            "id": "696DnlkuDOXcMAnKlTgXXK",
+            "stream": "1420583",
+            "artist": "Arizona Zervas"
+        }
+    ]
+}
