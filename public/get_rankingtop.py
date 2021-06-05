@@ -3,17 +3,19 @@ import csv
 import pandas as pd
 import os
 
-folder = './data/data_by_country/germany/'
-file = 'America-2016-12-23--2016-12-30-details.csv'
+# 複数ファイルのとき
+filelist =os.listdir('data/data_by_country/Germany')
 
-filelist =os.listdir('data/data_by_country/germany')
+# 1ファイルのとき
+# filelist = 'Germany-2016-12-23--2016-12-30-details.csv'
+
+path = './data/data_by_country/Germany'
 
 csv_file = []
 datas = []
 
 for file in filelist:
-    print(file)
-    with codecs.open(folder+file, "r", encoding='utf-8',errors='ignore') as f:
+    with codecs.open(path+'/'+file, "r", encoding='utf-8',errors='ignore') as f:
         reader = csv . reader(f)
         for line in reader:
             line.pop(0)
@@ -23,8 +25,7 @@ for file in filelist:
             datas.append(csv_file[i])
 
 df = pd.DataFrame(datas,columns=['name', 'acousticness', 'danceability', 'energy', 'instrumentalness',
-                                      'liveness', 'loudness', 'mode', 'speechiness', 'tempo', 'time_signature', 'valence', 'streams'])
-    
+                                      'liveness', 'loudness', 'mode', 'speechiness', 'tempo', 'time_signature', 'valence', 'streams','country','id'])
 
 filename = 'top10'+'-'+'Germany.csv'
 

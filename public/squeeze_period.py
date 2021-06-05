@@ -12,15 +12,11 @@ year_2018 = []
 year_2019 = []
 year_2020 = []
 year_2021 = []
-year_2016_name = []
-year_2017_name = []
-year_2018_name = []
-year_2019_name = []
-year_2020_name = []
-year_2021_name = []
 
 country = 'America'
 yearslist = ['2016','2017','2018','2019','2020','2021']
+y = 2016
+
 
 # 年次が同じだったら繰り返し、変わったらcsvを作成して別の年次を作成する
 
@@ -33,35 +29,31 @@ for file in filelist:
         for line in reader:
             line.pop(0)
             fileyear = re.split('[/-]',file)
-            if '2016' in fileyear and line[0] not in year_2016_name:
+            if '2016' in fileyear:
                 year_2016.append(line)
-                year_2016_name.append(line[0])
-            elif '2017' in fileyear and line[0] not in year_2017_name:
+            elif '2017' in fileyear:
                 year_2017.append(line)
-                year_2017_name.append(line[0])
-            elif '2018' in fileyear and line[0] not in year_2018_name:
+            elif '2018' in fileyear:
                 year_2018.append(line)
-                year_2018_name.append(line[0])
-            elif '2019' in fileyear and line[0] not in year_2019_name:
+            elif '2019' in fileyear:
                 year_2019.append(line)
-                year_2019_name.append(line[0])
-            elif '2020' in fileyear and line[0] not in year_2020_name:
+            elif '2020' in fileyear:
                 year_2020.append(line)
-                year_2020_name.append(line[0])
-            elif '2021' in fileyear and line[0] not in year_2021_name:
+            else:
                 year_2021.append(line)
-                year_2021_name.append(line[0])
+            
 
+    
 
 years = [year_2016,year_2017,year_2018,year_2019,year_2020,year_2021]
 
-for year in years:
-    del year[0]
+for data in years:
+    del data[0]
 
-
 for year in years:
+    
     df = pd.DataFrame(year,columns=['name', 'acousticness', 'danceability', 'energy', 'instrumentalness',
-                                      'liveness', 'loudness', 'mode', 'speechiness', 'tempo', 'time_signature', 'valence', 'streams'])
+                                      'liveness', 'loudness', 'mode', 'speechiness', 'tempo', 'time_signature', 'valence', 'streams','country','id'])
 
     filename = country+str(y)+'.csv'
     df.to_csv(filename)
