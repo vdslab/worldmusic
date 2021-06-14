@@ -54,6 +54,8 @@ function createBins(streams, value, minValue, maxValue, numBins) {
     // print(values_aco[i]);
     if (0 <= j && j < numBins) {
       bins[j] += streams[i];
+    } else if (j == numBins) {
+      bins[numBins - 1] += streams[i];
     }
   }
   print(bins);
@@ -86,11 +88,15 @@ function drawHistogram(bins, value) {
       520 - ((height * 0.8) / 10) * (i + 1)
     );
   }
+
+  diff = (max(value) - min(value)) / 50;
+  s = min(value);
   for (let i = 0; i <= bins.length; ++i) {
     push();
     translate(binWidth * i + 125, 535);
     rotate(radians(90));
-    text(((max(value) - min(value)) / 50) * i, 0, 0);
+    text(s, 0, 0);
     pop();
+    s += diff;
   }
 }
