@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/vdslab/worldmusic.git"
   },
-  "homepage":"https://vdslab.github.io/worldmusic/",
+  "homepage": "https://vdslab.github.io/worldmusic/",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -20,6 +20,8 @@
     "url": "https://github.com/vdslab/worldmusic/issues"
   },
   "dependencies": {
+    "@nivo/core": "^0.70.1",
+    "@nivo/swarmplot": "^0.70.1",
     "bulma": "^0.9.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"

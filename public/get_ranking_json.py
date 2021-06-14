@@ -3,10 +3,13 @@ import csv
 from create_ranking_json import get_json
 import os
 
-filelist = os.listdir('./files/Japan')
+# filelist = os.listdir('./count_streams')
+filelist = ["America2016.csv"]
 
 
 for file in filelist:
-    csv_path = './files/Japan/'+file
-    print(file)
-    get_json(csv_path, './ranking_jp.json')
+    csv_path = './count_streams/'+file
+    # print(file)
+    filename = file[:-4]
+    print(filename)
+    get_json(csv_path,'./'+filename+'.json')
