@@ -24,6 +24,7 @@ function preload() {
 
 function setup() {
   let c = createCanvas(1200, 600);
+
   noLoop();
   for (let f = 0; f < features.length; f++) {
     background(255);
