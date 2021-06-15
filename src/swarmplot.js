@@ -1,64 +1,6 @@
 import React from "react";
 import { ResponsiveSwarmPlot } from "@nivo/swarmplot";
-import Jsondata from "./America2016.json";
-
-// const data = [
-//   {
-//     id: "0.0",
-//     group: "group A",
-//     price: 136,
-//     volume: 9,
-//   },
-//   {
-//     id: "0.1",
-//     group: "group A",
-//     price: 299,
-//     volume: 7,
-//   },
-//   {
-//     id: "0.2",
-//     group: "group A",
-//     price: 358,
-//     volume: 19,
-//   },
-
-//   {
-//     id: "1.0",
-//     group: "group B",
-//     price: 102,
-//     volume: 11,
-//   },
-//   {
-//     id: "1.1",
-//     group: "group B",
-//     price: 157,
-//     volume: 4,
-//   },
-//   {
-//     id: "1.2",
-//     group: "group B",
-//     price: 184,
-//     volume: 7,
-//   },
-//   {
-//     id: "2.70",
-//     group: "group C",
-//     price: 225,
-//     volume: 6,
-//   },
-//   {
-//     id: "2.71",
-//     group: "group C",
-//     price: 161,
-//     volume: 17,
-//   },
-//   {
-//     id: "2.72",
-//     group: "group C",
-//     price: 406,
-//     volume: 13,
-//   },
-// ];
+import Jsondata from "./2016.json";
 
 const MyResponsiveSwarmPlot = ({ data }) => {
   let streams = [];
@@ -72,7 +14,18 @@ const MyResponsiveSwarmPlot = ({ data }) => {
   return (
     <ResponsiveSwarmPlot
       data={data}
-      groups={["America"]}
+      groups={[
+        "America",
+        "Canada",
+        "England",
+        // "England",
+        // "France",
+        // "Germany",
+        // "Global",
+        // "Japan",
+        // "Netherland",
+      ]}
+      //   groupBy={"country"}
       identity={"id"}
       value="acousticness"
       valueFormat=".2f"
@@ -85,9 +38,10 @@ const MyResponsiveSwarmPlot = ({ data }) => {
       size={{
         key: "streams",
         values: [Math.min(...streams), Math.max(...streams)],
-        sizes: [4, 40],
+        sizes: [4, 50],
       }}
-      spacing={15}
+      animate={false}
+      spacing={5}
       forceStrength={4}
       simulationIterations={100}
       borderColor={{
@@ -103,7 +57,7 @@ const MyResponsiveSwarmPlot = ({ data }) => {
         tickSize: 10,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "group if vertical, price if horizontal",
+        legend: "country if vertical, acousticness if horizontal",
         legendPosition: "middle",
         legendOffset: -46,
       }}
@@ -112,7 +66,7 @@ const MyResponsiveSwarmPlot = ({ data }) => {
         tickSize: 10,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "price if vertical, group if horizontal",
+        legend: "country if vertical, acousticness if horizontal",
         legendPosition: "middle",
         legendOffset: 76,
       }}
@@ -121,7 +75,7 @@ const MyResponsiveSwarmPlot = ({ data }) => {
         tickSize: 10,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "group if vertical, price if horizontal",
+        legend: "country if vertical, acousticness if horizontal",
         legendPosition: "middle",
         legendOffset: 46,
       }}
@@ -130,12 +84,12 @@ const MyResponsiveSwarmPlot = ({ data }) => {
         tickSize: 10,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "price if vertical, group if horizontal",
+        legend: "country if vertical, acousticness if horizontal",
         legendPosition: "middle",
         legendOffset: -76,
       }}
-      motionStiffness={50}
-      motionDamping={10}
+      motionStiffness={90}
+      motionDamping={15}
     />
   );
 };
