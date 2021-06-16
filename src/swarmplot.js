@@ -1,33 +1,32 @@
 import React from "react";
 import { ResponsiveSwarmPlot } from "@nivo/swarmplot";
-import Jsondata from "./2016.json";
 
-const MyResponsiveSwarmPlot = ({ data }) => {
+const MyResponsiveSwarmPlot = ({ data, year }) => {
+  const features = [
+    "acousticness",
+    "danceability",
+    "energy",
+    "liveness",
+    "loudness",
+    "mode",
+    "speechiness",
+    "tempo",
+    "valence",
+  ];
+  const feature = features[0];
   let streams = [];
   let value = [];
   data.map((d) => {
     streams.push(d.streams);
-    value.push(d.acousticness);
-    // console.log(d.id);
+    value.push(d.valence);
   });
-  //   console.log(value);
   return (
     <ResponsiveSwarmPlot
       data={data}
-      groups={[
-        "America",
-        "Canada",
-        "England",
-        // "England",
-        // "France",
-        // "Germany",
-        // "Global",
-        // "Japan",
-        // "Netherland",
-      ]}
-      //   groupBy={"country"}
+      animate={false}
+      groups={[data[0][14]]}
       identity={"id"}
-      value="acousticness"
+      value={feature}
       valueFormat=".2f"
       valueScale={{
         type: "linear",
@@ -38,7 +37,7 @@ const MyResponsiveSwarmPlot = ({ data }) => {
       size={{
         key: "streams",
         values: [Math.min(...streams), Math.max(...streams)],
-        sizes: [4, 50],
+        sizes: [4, 100],
       }}
       animate={false}
       spacing={5}
@@ -57,7 +56,7 @@ const MyResponsiveSwarmPlot = ({ data }) => {
         tickSize: 10,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "country if vertical, acousticness if horizontal",
+        legend: year,
         legendPosition: "middle",
         legendOffset: -46,
       }}
@@ -75,7 +74,7 @@ const MyResponsiveSwarmPlot = ({ data }) => {
         tickSize: 10,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "country if vertical, acousticness if horizontal",
+        legend: feature,
         legendPosition: "middle",
         legendOffset: 46,
       }}
@@ -84,7 +83,7 @@ const MyResponsiveSwarmPlot = ({ data }) => {
         tickSize: 10,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "country if vertical, acousticness if horizontal",
+        legend: "streams",
         legendPosition: "middle",
         legendOffset: -76,
       }}
@@ -94,10 +93,10 @@ const MyResponsiveSwarmPlot = ({ data }) => {
   );
 };
 
-export default function App() {
+export const Drawswarm = ({ data, year }) => {
   return (
     <div style={{ width: 1600, height: 800 }}>
-      <MyResponsiveSwarmPlot data={Jsondata} />
+      <MyResponsiveSwarmPlot data={data} year={year} />
     </div>
   );
-}
+};
