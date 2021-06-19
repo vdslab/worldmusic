@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import userReducer from "./Count";
 
+//sliceをくっつけてstoreとする
 const reducer = combineReducers({
   user: userReducer,
 });
