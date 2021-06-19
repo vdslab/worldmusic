@@ -47,7 +47,7 @@ const MyResponsiveSwarmPlot = ({ data, year }) => {
         from: "color",
         modifiers: [
           ["darker", 0.6],
-          ["opacity", 0.5],
+          ["opacity", 0.1],
         ],
       }}
       margin={{ top: 80, right: 100, bottom: 80, left: 100 }}
