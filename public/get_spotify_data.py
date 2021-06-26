@@ -24,6 +24,6 @@ def getDetails(track_id):
     BASE_URL = 'https://api.spotify.com/v1/'
 
     # actual GET request with proper header
-    r = requests.get(BASE_URL + 'audio-features/' + track_id, headers=headers)
+    r = requests.get(BASE_URL + 'tracks/' + track_id, headers=headers)
 
     return r.json()

@@ -5,6 +5,7 @@ from get_spotify_data import getDetails
 import pandas as pd
 import codecs
 
+country = 'Global'
 
 def get_json(csvfile):
     count = 0
@@ -34,7 +35,7 @@ def get_json(csvfile):
                 print(count, music_id)
                 ids.append(music_id)
                 name = data[1]
-                streams = data[3]
+                length = data[3]
                 speechiness = detail['speechiness']
                 instrumentalness = detail['instrumentalness']
                 liveness = detail['liveness']
@@ -47,16 +48,18 @@ def get_json(csvfile):
                 acousticness = detail['acousticness']
                 time_signature = detail['time_signature']
                 detail = [name, acousticness, danceability, energy, instrumentalness,
-                          liveness, loudness, mode, speechiness, tempo, time_signature, valence, streams]
+                          liveness, loudness, mode, speechiness, tempo, time_signature, valence, length,country,music_id]
                 datas.append(detail)
             except Exception:
                 pass
 
+    print(datas)
     # objectからjsonファイル作成
     df = pd.DataFrame(datas, columns=['name', 'acousticness', 'danceability', 'energy', 'instrumentalness',
-                                      'liveness', 'loudness', 'mode', 'speechiness', 'tempo', 'time_signature', 'valence', 'streams'])
+                                      'liveness', 'loudness', 'mode', 'speechiness', 'tempo', 'time_signature', 'valence', 'length','country','music_id'])
     array = re.split('[/-]', csvfile)
-    filename = array[2]+'-'+array[6]+'-'+array[7]+'-'+array[8] + \
-        '--'+array[10]+'-'+array[11]+'-'+array[12][:2]+'-details.csv'
-    print(filename)
-    df.to_csv(filename)
+    print(array)
+    filename = country+'-'+array[7]+'-'+array[8]+'-'+array[9] + \
+        '--'+array[11]+'-'+array[12]+'-'+array[13][:2]+'-details.csv'
+    # print(filename)
+    df.to_csv('./data/data_by_country/GL/'+filename)
