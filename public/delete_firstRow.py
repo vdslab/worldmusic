@@ -1,7 +1,7 @@
 import pandas as pd
 
-name = "Music"
-df = pd.read_csv("./data/"+name+".csv")
+name = "Ranking"
+df = pd.read_csv("./data/"+name+".csv",dtype=object)
 print(df.columns)
 df = df.drop(columns='Unnamed: 0')
 #print(df)

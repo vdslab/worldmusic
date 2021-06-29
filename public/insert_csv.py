@@ -2,8 +2,8 @@ import sqlite3
 import csv
 import os
 
-dbname = 'database.db'
-target_table_name = 'MusicArtistId'
+dbname = './data/database.db'
+target_table_name = 'Ranking'
 import_table_name = './data/'+target_table_name+'2.csv'
 is_header_skip = False
 
@@ -53,7 +53,6 @@ if __name__ == '__main__':
     conn.text_factory = str #use  UTF-8
     cur = conn.cursor()
 
-    cur.execute("PRAGMA foreign_keys = ON")
     sql.insert_csv_file()
 
     conn.commit()
