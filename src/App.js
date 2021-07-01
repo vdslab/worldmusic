@@ -10,6 +10,7 @@ import Count from "./components/Count";
 import "./style.css";
 import HeatMap from "./components/HeatMap";
 import WorldMap from "./components/WorldMap";
+import { check } from "./api";
 
 // import JsonUS from "./America2021.json";
 // import JsonAu from "./Australia2021.json";
@@ -33,12 +34,13 @@ const App = () => {
   //   JsonGl,
   //   JsonNe,
   // ];
-  const year = "2021";
+  // const year = "2021";
+  const data = check();
+  console.log(data);
 
   return (
     <div>
       <Header />
-
       <div className="columns is-gapless">
         <div className="column">
           <WorldMap />
