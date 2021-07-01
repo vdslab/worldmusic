@@ -4,7 +4,6 @@
   "description": "SpotifyAPIを使用して、世界各国の音楽事情について可視化するためのレポジトリです。（team2021-musical）",
   "main": "index.js",
   "scripts": {
-    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "start": "react-scripts start"
   },
@@ -12,7 +11,6 @@
     "type": "git",
     "url": "git+https://github.com/vdslab/worldmusic.git"
   },
-  "homepage": "https://vdslab.github.io/worldmusic/",
   "keywords": [],
   "author": "",
   "license": "ISC",
