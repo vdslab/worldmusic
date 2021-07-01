@@ -34,13 +34,19 @@ const App = () => {
   //   JsonGl,
   //   JsonNe,
   // ];
+<<<<<<< HEAD
   const year = "2021";
   const data = check();
   console.log(data);
+=======
+  // const year = "2021";
+  const data = check();
+  console.log(data);
+
+>>>>>>> f4a210d0b0b73b2cf34895cbc5b5a3173f57ce09
   return (
     <div>
       <Header />
-
       <div className="columns is-gapless">
         <div className="column">
           <WorldMap />
