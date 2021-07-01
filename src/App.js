@@ -1,5 +1,5 @@
-import { ResponsiveSwarmPlot } from "@nivo/swarmplot";
-import { Drawswarm } from "./components/swarmplot";
+// import { ResponsiveSwarmPlot } from "@nivo/swarmplot";
+// import { Drawswarm } from "./components/swarmplot";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SimilarSongs from "./components/SimilarSongs";
@@ -11,31 +11,18 @@ import "./style.css";
 import HeatMap from "./components/HeatMap";
 import WorldMap from "./components/WorldMap";
 import { check } from "./api";
-
-// import JsonUS from "./America2021.json";
-// import JsonAu from "./Australia2021.json";
-// import JsonCa from "./Canada2021.json";
-// import JsonUk from "./England2021.json";
-// import JsonFr from "./France2021.json";
-// import JsonGe from "./Germany2021.json";
-// import JsonJa from "./Japan2021.json";
-// import JsonGl from "./Global2021.json";
-// import JsonNe from "./Netherland2021.json";
+import { useState, useEffect } from "react";
 
 const App = () => {
-  // const Jsondata = [
-  //   JsonUS,
-  //   JsonAu,
-  //   JsonCa,
-  //   JsonUk,
-  //   JsonFr,
-  //   JsonGe,
-  //   JsonJa,
-  //   JsonGl,
-  //   JsonNe,
-  // ];
-  const year = "2021";
-  const data = check();
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const response = await fetch("/.netlify/functions/getData");
+      const data = await response.json();
+      setData(data);
+    })();
+  }, []);
+
   console.log(data);
   return (
     <div>
