@@ -18,8 +18,8 @@ const App = () => {
   useEffect(() => {
     (async () => {
       const response = await fetch("/.netlify/functions/getData");
-      const data = await response.json();
-      setData(data);
+      const sql = await response.json();
+      setData(sql);
     })();
   }, []);
 

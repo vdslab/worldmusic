@@ -23,14 +23,6 @@ const WorldMap = () => {
               </select>
             </div>
             <DrowWorldMap />
-            <input
-              class="slider is-fullwidth"
-              step="1"
-              min="0"
-              max="100"
-              value="50"
-              type="range"
-            ></input>
           </div>
         </div>
       </div>
