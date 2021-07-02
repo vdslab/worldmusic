@@ -3,11 +3,11 @@ import { DrowWorldMap } from "./drow_worldmap";
 import { useState } from "react";
 
 const WorldMap = () => {
-  const [year, setValue] = useState(0);
-  const [start,setStart] = useState("2017-01");
-  const [end,setEnd] = useState("2017-06");
+  const [year, setYear] = useState(0);
+  const [startPeriod,setStartPeriod] = useState("2017-01");
+  const [endPeriod,setEndPeriod] = useState("2017-06");
   const elements = ["acousticness","danceability","energy","instrumentalness","liveness","loudness","mode","speechiness","tempo","time_signature","valence"];
-  const textYear = [["2017-01","2017-06"],["2017-07","2017-12"],["2018-01","2018-06"],["2018-07","2018-12"],["2019-01","2019-06"],["2019-07","2019-12"],["2020-01","2020-06"],["2020-07","2020-12"]];
+  const textAboutYear = [["2017-01","2017-06"],["2017-07","2017-12"],["2018-01","2018-06"],["2018-07","2018-12"],["2019-01","2019-06"],["2019-07","2019-12"],["2020-01","2020-06"],["2020-07","2020-12"]];
   //let start = textYear[0][0];
   //let end = textYear[0][1];
 
@@ -31,16 +31,16 @@ const WorldMap = () => {
               value={year}
               onChange={(event) => {
                 //console.log(event.target.value);
-                setValue(event.target.value);
-                setStart(textYear[event.target.value][0]);
-                setEnd(textYear[event.target.value][1]);
+                setYear(event.target.value);
+                setStartPeriod(textAboutYear[event.target.value][0]);
+                setEndPeriod(textAboutYear[event.target.value][1]);
                 //start = textYear[event.target.value][0];
                 //end = textYear[event.target.value][1];
                 //console.log(start);
                 //console.log(end);
               }}
             ></input>
-            <output for="sliderWithValue">{start}〜{end}</output>
+            <output for="sliderWithValue">{startPeriod}〜{endPeriod}</output>
             <DrowWorldMap />
           </div>
         </div>
