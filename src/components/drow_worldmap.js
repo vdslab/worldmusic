@@ -37,6 +37,7 @@ const WorldMap = ({ features }) => {
                 stroke="black"
                 strokeWidth="1"
                 strokeOpacity="0.5"
+                countryname={item}
                 onMouseOver={(e) => {
                   select(e.target)
                     .attr('stroke', 'red')
@@ -46,8 +47,8 @@ const WorldMap = ({ features }) => {
                     .attr('stroke', 'black')
                 }}
                 onClick={(e) => {
-                  alert("task")
-                }}
+                  console.log(item.properties.ISO_A2)
+                }} 
               />
             ))
           }
