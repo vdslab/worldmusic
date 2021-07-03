@@ -32,6 +32,7 @@ const WorldMap = ({ features }) => {
   const centerPos = [0, 0];
   const scale = 78;
 
+  
   const projection = d3
     .geoMercator()
     .center(centerPos)
