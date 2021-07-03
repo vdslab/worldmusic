@@ -10,11 +10,10 @@ const WorldMap = () => {
   const textAboutYear = [["2017-01","2017-06"],["2017-07","2017-12"],["2018-01","2018-06"],["2018-07","2018-12"],["2019-01","2019-06"],["2019-07","2019-12"],["2020-01","2020-06"],["2020-07","2020-12"]];
   //let start = textYear[0][0];
   //let end = textYear[0][1];
-
   return (
     <div className="my-section">
       <div className="card" style={{ height: "40vh" }}>
-        <div className="card-content">
+        <div className="card-content" style={{ height: "40vh" }}>
           <div className="content">
             <div className="select is-small">
               <select onChange={(event) => {console.log(event.target.value);}}>
