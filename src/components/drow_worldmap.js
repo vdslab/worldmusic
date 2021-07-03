@@ -43,7 +43,7 @@ const WorldMap = ({ features }) => {
   //const svgWidth = margin.left+margin.right+width;
   //const svgHeight = -margin.bottom+margin.top+height;
 
-  // console.log(data);
+  //console.log(data);
 
   return (
     <div class="#map-container" style={{ height: "40vh" }}>

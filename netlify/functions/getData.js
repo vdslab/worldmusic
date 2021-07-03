@@ -20,10 +20,10 @@ exports.handler = async function (event) {
 
   const data = { year: year, period: period, feature: feature };
   try {
-    // const dbpath = "./netlify/functions/database.db";
-    // const db = new sqlite3.Database(dbpath);
-    // const result = await selectRows(db, "SELECT * FROM Country");
-    return { statusCode: 200, body: JSON.stringify(data) };
+    const dbpath = "./netlify/functions/database.db";
+    const db = new sqlite3.Database(dbpath);
+    const result = await selectRows(db, "SELECT Music.Musicid , Music.acousticness , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.startday BETWEEN '2020-09-01' AND '2020-09-31'");
+    return { statusCode: 200, body: JSON.stringify(result) };
   } catch (e) {
     return { statusCode: 500, body: "error" };
   }
