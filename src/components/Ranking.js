@@ -8,19 +8,19 @@ import { fetchData } from "../api";
 
 const Ranking = () => {
   const dispatch = useDispatch();
-  const year = useSelector((state) => state.detail.year);
-  const period = useSelector((state) => state.detail.period);
+  const startMonth = useSelector((state) => state.detail.startMonth);
+  const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
   const [dbData, setDbData] = useState([]);
 
-  console.log(year, period, feature, country);
+  // console.log(startMonth, endMonth, feature, country);
   useEffect(() => {
     (async () => {
-      const data = await fetchData(year, period, feature, country);
+      const data = await fetchData(startMonth, endMonth, feature, country);
       setDbData(data);
 
-      console.log(dbData);
+      // console.log(dbData);
     })();
   }, []);
 

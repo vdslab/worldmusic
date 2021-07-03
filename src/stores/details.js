@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
 
 //変数の宣言
 const initialState = {
-  year: 2020,
-  period: "01-06",
+  startMonth: "2018-01",
+  endMonth: "2018-06",
   feature: "acousticness",
   country: "UK",
 };
@@ -17,16 +16,17 @@ const slice = createSlice({
   initialState,
   reducers: {
     //ここで関数を作成する
-    changeYear: (state, action) => {
+    changeStartMonth: (state, action) => {
       //state.変数名で値を参照、変更できる
       //action.payloadでcompnents.ファイル名で宣言した関数で呼び出した引数を持ってくる
-      state.year = action.payload;
+      state.startMonth = action.payload;
       // changeData(changeDBYear(state.year));
     },
-    changePeriod: (state, action) => {
-      state.period = action.payload;
+    changeEndMonth: (state, action) => {
+      state.endMonth = action.payload;
     },
     changeFeature: (state, action) => {
+      // console.log(action.payload);
       state.feature = action.payload;
     },
 
@@ -37,4 +37,9 @@ const slice = createSlice({
 });
 
 export default slice.reducer;
-export const { changePeriod, changeFeature, changeYear } = slice.actions;
+export const {
+  changeStartMonth,
+  changeFeature,
+  changeEndMonth,
+  changeCountry,
+} = slice.actions;

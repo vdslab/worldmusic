@@ -14,10 +14,13 @@ async function sendRequest(path, args) {
   return await request.json();
 }
 
-export function fetchData(year, period, feature) {
+export function fetchData(startMonth, endMonth, feature, country) {
+  console.log(startMonth, endMonth);
+  console.log(1);
   return sendRequest("/getData", {
-    year: year,
-    period: period,
+    startMonth: startMonth,
+    endMonth: endMonth,
     feature: feature,
+    country: country,
   });
 }
