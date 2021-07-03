@@ -4,20 +4,26 @@ import * as d3 from "d3";
 import { select } from "d3-selection";
 import * as topojson from "topojson";
 import { fetchData } from "../api";
+import { dispatch } from "d3";
+import { changeCountry } from "../stores/details";
+import { useDispatch } from "react-redux";
+import React from "react";
+import { changeFeature } from "../stores/details";
+import { changeStartMonth, changeEndMonth } from "../stores/details";
 
 const WorldMap = ({ features }) => {
-  const year = useSelector((state) => state.detail.year);
-  const period = useSelector((state) => state.detail.period);
+  const d = useDispatch();
+  const startMonth = useSelector((state) => state.detail.startMonth);
+  const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
   const [dbData, setDbData] = useState([]);
-  console.log(year, period, feature);
   useEffect(() => {
     (async () => {
-      const data = await fetchData(year, period, feature, country);
+      const data = await fetchData(startMonth, endMonth, feature, country);
       setDbData(data);
     })();
-  }, []);
+  }, [startMonth, endMonth, feature, country]);
   console.log(dbData);
   const margin = {
     top: 30,
@@ -38,12 +44,67 @@ const WorldMap = ({ features }) => {
     .scale(scale);
 
   const path = d3.geoPath().projection(projection);
+  const [year, setYear] = useState(0);
+
+  const elements = [
+    "acousticness",
+    "danceability",
+    "energy",
+    "instrumentalness",
+    "liveness",
+    "loudness",
+    "mode",
+    "speechiness",
+    "tempo",
+    "time_signature",
+    "valence",
+  ];
+
+  const textAboutYear = [
+    ["2017-01", "2017-06"],
+    ["2017-07", "2017-12"],
+    ["2018-01", "2018-06"],
+    ["2018-07", "2018-12"],
+    ["2019-01", "2019-06"],
+    ["2019-07", "2019-12"],
+    ["2020-01", "2020-06"],
+    ["2020-07", "2020-12"],
+  ];
 
   //const svgWidth = margin.left+margin.right+width;
   //const svgHeight = -margin.bottom+margin.top+height;
 
   return (
-    <div class="#map-container" style={{ height: "40vh" }}>
+    <div className="#map-container" style={{ height: "40vh" }}>
+      <select
+        onChange={(event) => {
+          d(changeFeature(event.target.value));
+        }}
+      >
+        {elements.map((element, i) => {
+          return <option>{element}</option>;
+        })}
+      </select>
+      <input
+        className="slider is-fullwidth"
+        type="range"
+        id="getSliderValue"
+        min="0"
+        max="7"
+        step="1"
+        value={year}
+        onChange={(event) => {
+          setYear(event.target.value);
+          const s = textAboutYear[event.target.value][0];
+          const e = textAboutYear[event.target.value][1];
+          // console.log(s);
+          d(changeStartMonth(s));
+          d(changeEndMonth(e));
+        }}
+      ></input>
+      <output for="sliderWithValue">
+        {startMonth}〜{endMonth}
+      </output>
       <svg width="800" height="280" viewBox="50 50 800 280">
         <g>
           {features.map((item) => (
@@ -62,6 +123,8 @@ const WorldMap = ({ features }) => {
               }}
               onClick={(e) => {
                 console.log(item.properties.ISO_A2);
+                const c = item.properties.ISO_A2;
+                d(changeCountry(c));
               }}
             />
           ))}
