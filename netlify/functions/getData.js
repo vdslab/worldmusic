@@ -13,22 +13,18 @@ function selectRows(db, sql) {
   });
 }
 
-exports.handler = async function () {
+exports.handler = async function (event) {
+  const year = event.queryStringParameters.year || null;
+  const period = event.queryStringParameters.period || null;
+  const feature = event.queryStringParameters.feature || null;
+
+  const data = { year: year, period: period, feature: feature };
   try {
-    const dbpath = "./netlify/functions/database.db";
-    const db = new sqlite3.Database(dbpath);
-    const result = await selectRows(db, "SELECT * FROM Country");
-    return { statusCode: 200, body: JSON.stringify(result) };
+    // const dbpath = "./netlify/functions/database.db";
+    // const db = new sqlite3.Database(dbpath);
+    // const result = await selectRows(db, "SELECT * FROM Country");
+    return { statusCode: 200, body: JSON.stringify(data) };
   } catch (e) {
     return { statusCode: 500, body: "error" };
   }
-  // const result = {
-  //   id: 0,
-  //   name: "hatasa",
-  // };
-
-  // return {
-  //   statusCode: 200,
-  //   body: JSON.stringify(result),
-  // };
 };

@@ -15,13 +15,13 @@ import { useState, useEffect } from "react";
 
 const App = () => {
   const [data, setData] = useState([]);
-  useEffect(() => {
-    (async () => {
-      const response = await fetch("/.netlify/functions/getData");
-      const sql = await response.json();
-      setData(sql);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const response = await fetch("/.netlify/functions/getData");
+  //     const sql = await response.json();
+  //     setData(sql);
+  //   })();
+  // }, []);
 
   console.log(data);
   return (

@@ -2,15 +2,22 @@ import { useEffect, useState } from "react";
 import * as d3 from "d3";
 import { select } from "d3-selection";
 import * as topojson from "topojson";
+import { fetchData } from "../api";
 
 const WorldMap = ({ features }) => {
-  console.log(1);
-  const [data, setData] = useState([]);
+  const year = "2020";
+  const period = "01-06";
+  const feature = "Acousticness";
+  const [detail, setDetail] = useState([]);
+  console.log(year, period, feature);
   useEffect(() => {
     (async () => {
-      const response = await fetch("/.netlify/functions/getData");
-      const sql = await response.json();
-      setData(sql);
+      const data = await fetchData(year, period, feature);
+      setDetail(data);
+      console.log(detail);
+      // const response = await fetch("/.netlify/functions/getData");
+      // const sql = await response.json();
+      // setData(sql);
     })();
   }, []);
   const margin = {
@@ -36,7 +43,7 @@ const WorldMap = ({ features }) => {
   //const svgWidth = margin.left+margin.right+width;
   //const svgHeight = -margin.bottom+margin.top+height;
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div class="#map-container" style={{ height: "40vh" }}>

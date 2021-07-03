@@ -1,5 +1,5 @@
 const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database("../netlify/functions/example.db");
+const db = new sqlite3.Database("../netlify/functions/database.db");
 
 db.serialize(() => {
   // db.each('SELECT * FROM Country', (error, row) => { //全てのデータ取得
@@ -16,15 +16,17 @@ db.serialize(() => {
   //   }
   //   console.log(row['name']);
   // });
-  db.each("SELECT id, name FROM staffs", (error, row) => {
-    if (error) {
-      console.error("Error", error);
-      return;
+  db.each(
+    'SELECT * FROM Country INNER JOIN Ranking ON Country.countryid = Ranking.countryid WHERE Country.countryid = "JP"',
+    (error, row) => {
+      if (error) {
+        console.error("Error", error);
+        return;
+      }
+      console.log("country : " + row.countryid);
+      console.log("day : " + row.startday);
     }
-    console.log(row);
-    // console.log("country : " + row.countryid);
-    // console.log("day : " + row.startday);
-  });
+  );
 });
 
 db.close();
