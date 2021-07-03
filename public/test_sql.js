@@ -16,15 +16,30 @@ db.serialize(() => {
   //   }
   //   console.log(row['name']);
   // });
+  // db.each(
+  //   'SELECT * FROM Country INNER JOIN Ranking ON Country.countryid = Ranking.countryid WHERE Country.countryid = "JP"',
+  //   (error, row) => {
+  //     if (error) {
+  //       console.error("Error", error);
+  //       return;
+  //     }
+  //     console.log("country : " + row.countryid);
+  //     console.log("day : " + row.startday);
+  //   }
+  // );
+  //LEFT OUTER JOIN , INNER JOIN
   db.each(
-    'SELECT * FROM Country INNER JOIN Ranking ON Country.countryid = Ranking.countryid WHERE Country.countryid = "JP"',
+    'SELECT Music.Musicid , Music.acousticness , Ranking.startday , Ranking.countryid FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.countryid="JP" AND Ranking.startday BETWEEN "2020-09-01" AND "2020-09-31"',
     (error, row) => {
       if (error) {
         console.error("Error", error);
         return;
       }
-      console.log("country : " + row.countryid);
+      console.log("----");
+      console.log("acousticness : " + row.acousticness);
+      console.log("id : " + row.musicid);
       console.log("day : " + row.startday);
+      console.log("country : " + row.countryid);
     }
   );
 });

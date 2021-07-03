@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import * as d3 from "d3";
 import { select } from "d3-selection";
 import * as topojson from "topojson";
@@ -37,6 +36,7 @@ const WorldMap = ({ features }) => {
   const centerPos = [0, 0];
   const scale = 78;
 
+  
   const projection = d3
     .geoMercator()
     .center(centerPos)
@@ -73,6 +73,8 @@ const WorldMap = ({ features }) => {
 
   //const svgWidth = margin.left+margin.right+width;
   //const svgHeight = -margin.bottom+margin.top+height;
+
+  //console.log(data);
 
   return (
     <div className="#map-container" style={{ height: "40vh" }}>
