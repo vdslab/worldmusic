@@ -1,25 +1,24 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import * as d3 from "d3";
 import { select } from "d3-selection";
 import * as topojson from "topojson";
 import { fetchData } from "../api";
 
 const WorldMap = ({ features }) => {
-  const year = "2020";
-  const period = "01-06";
-  const feature = "Acousticness";
-  const [detail, setDetail] = useState([]);
+  const year = useSelector((state) => state.detail.year);
+  const period = useSelector((state) => state.detail.period);
+  const feature = useSelector((state) => state.detail.feature);
+  const country = useSelector((state) => state.detail.country);
+  const [dbData, setDbData] = useState([]);
   console.log(year, period, feature);
   useEffect(() => {
     (async () => {
-      const data = await fetchData(year, period, feature);
-      setDetail(data);
-      console.log(detail);
-      // const response = await fetch("/.netlify/functions/getData");
-      // const sql = await response.json();
-      // setData(sql);
+      const data = await fetchData(year, period, feature, country);
+      setDbData(data);
     })();
   }, []);
+  console.log(dbData);
   const margin = {
     top: 30,
     bottom: 50,
@@ -42,8 +41,6 @@ const WorldMap = ({ features }) => {
 
   //const svgWidth = margin.left+margin.right+width;
   //const svgHeight = -margin.bottom+margin.top+height;
-
-  // console.log(data);
 
   return (
     <div class="#map-container" style={{ height: "40vh" }}>
