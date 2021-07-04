@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 //変数の宣言
 const initialState = {
-  startMonth: "2018-01",
-  endMonth: "2018-06",
+  startMonth: "2020-07",
+  endMonth: "2020-12",
   feature: "acousticness",
   country: "UK",
 };
