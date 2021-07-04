@@ -10,7 +10,9 @@ import React from "react";
 import { changeFeature } from "../stores/details";
 import { changeStartMonth, changeEndMonth } from "../stores/details";
 import { useSelector } from "react-redux";
+
 import { interpolateTurbo } from "d3-interpolate";
+
 
 const WorldMap = ({ features }) => {
   const d = useDispatch();
@@ -25,20 +27,53 @@ const WorldMap = ({ features }) => {
       setDbData(data);
     })();
   }, [startMonth, endMonth, feature, country]);
-  //console.log(dbData[0][feature]);
-  
-  //const aveData = {}
+
+  console.log(dbData);
+
+  function calcWeightedAverage(country,db){
+    let total = 0;
+    let up = 0;
+    let down = 0;
+
+    db.map((d, i) => {
+      if(d.countryid == country){
+        down += d.stream
+        up += d.stream*d[feature]
+      }
+      //console.log(db[feature]);
+    })
+    total = up/down;
+    return total;
+  }
+
+  let test = [
+    {countryid:"AU",WeightAvarage:0},
+    {countryid:"CA",WeightAvarage:0},
+    {countryid:"DE",WeightAvarage:0},
+    {countryid:"FR",WeightAvarage:0},
+    {countryid:"JP",WeightAvarage:0},
+    {countryid:"NL",WeightAvarage:0},
+    {countryid:"UK",WeightAvarage:0},
+    {countryid:"US",WeightAvarage:0}
+  ]
+
+  test.map((t,i) => {
+    t.WeightAvarage = calcWeightedAverage(t.countryid,dbData);
+    console.log(t.WeightAvarage)
+  })
+
+
   const margin = {
     top: 30,
     bottom: 50,
     left: 50,
     right: 100,
   };
-
   const width = 900;
   const height = 500;
   const centerPos = [0, 0];
   const scale = 78;
+
 
   function calcWeightedAverage(country,db){
     let weightAverage = 0;
@@ -74,6 +109,7 @@ const WorldMap = ({ features }) => {
     //console.log(item.WeightAvarage);
     checkMinMax[i] = item.WeightAvarage;
   })
+
 
   const projection = d3
     .geoMercator()
