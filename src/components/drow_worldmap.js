@@ -111,6 +111,7 @@ const WorldMap = ({ features }) => {
     checkMinMax[i] = item.WeightAvarage;
   })
 
+  
 
   const projection = d3
     .geoMercator()
