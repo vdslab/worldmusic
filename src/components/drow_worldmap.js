@@ -23,13 +23,16 @@ const WorldMap = ({ features }) => {
   const [dbData, setDbData] = useState([]);
   useEffect(() => {
     (async () => {
-      console.log(startMonth);
+      console.log(startMonth,endMonth);
       const data = await fetchData(startMonth, endMonth, feature, country);
       setDbData(data);
     })();
   }, [startMonth, endMonth, feature, country]);
 
   console.log(dbData);
+
+  // const t = dbData.filter(item => item.countryid == "JP");
+  // console.log(t);
 
   function calcWeightedAverage(country,db){
     let total = 0;
@@ -86,7 +89,6 @@ const WorldMap = ({ features }) => {
         streamTotal += d.stream
         weightFeatureTotal += d.stream*d[feature]
       }
-      //console.log(db[feature]);
     })
     weightAverage = weightFeatureTotal/streamTotal;
     return weightAverage;
@@ -104,14 +106,12 @@ const WorldMap = ({ features }) => {
   ]
 
   let checkMinMax = [];
-
   weightAvgData.map((item,i) => {
     item.WeightAvarage = calcWeightedAverage(item.countryid,dbData);
-    //console.log(item.WeightAvarage);
+    console.log(i,item.WeightAvarage);
     checkMinMax[i] = item.WeightAvarage;
   })
-
-  
+  console.log(checkMinMax);
 
   const projection = d3
     .geoMercator()
@@ -120,7 +120,7 @@ const WorldMap = ({ features }) => {
     .scale(scale);
 
   const path = d3.geoPath().projection(projection);
-  const [year, setYear] = useState(7);
+  const [year, setYear] = useState(0);
 
   const elements = [
     "acousticness",
@@ -154,10 +154,13 @@ const WorldMap = ({ features }) => {
 
   function colorjudge(weightAvgData ,item){
     let color = "white";
+    checkMinMax = checkMinMax.filter((value => isNaN(value) == false));
     weightAvgData.map((test) => {
-      if(item.properties.ISO_A2 === test.countryid){
-        color = d3.interpolateTurbo(opacityjudge(weightAvgData,item,checkMinMax));
-        return color;
+      if(isNaN(test.WeightAvarage) == false){
+        if(item.properties.ISO_A2 === test.countryid){
+          color = d3.interpolateTurbo(opacityjudge(weightAvgData,item,checkMinMax));
+          return color;
+        }
       }
     });
     return color;
@@ -169,6 +172,7 @@ const WorldMap = ({ features }) => {
     let opacityMin = 0.1;
     const checkMax = Math.max(...checkMinMax);
     const checkMin = Math.min(...checkMinMax);
+    console.log(checkMax,checkMin);
     weightAvgData.map((test) => {
       if(item.properties.ISO_A2 === test.countryid){
         opacity = (opacityMax-opacityMin)*(test.WeightAvarage-checkMin)/(checkMax-checkMin)+opacityMin;

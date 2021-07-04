@@ -24,9 +24,14 @@ exports.handler = async function (event) {
     endMonth: endMonth,
     path: `SELECT Music.Musicid , Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.startday BETWEEN ${startMonth}-01 AND ${endMonth}-31`,
   };
+
+  console.log(data);
+
   try {
     const dbpath = "./netlify/functions/database.db";
     const db = new sqlite3.Database(dbpath);
+
+    //console.log(data);
 
     const result = await selectRows(
       db,
