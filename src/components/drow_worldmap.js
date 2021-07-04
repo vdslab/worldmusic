@@ -3,14 +3,10 @@ import * as d3 from "d3";
 import { select } from "d3-selection";
 import * as topojson from "topojson";
 import { fetchData } from "../api";
-import {
-  changeCountry,
-  changeFeature,
-  changeStartMonth,
-  changeEndMonth,
-} from "../stores/details";
+import { changeCountry, changeFeature } from "../stores/details";
 import { useDispatch, useSelector } from "react-redux";
-import selectPeriod from "./selectPeriod";
+import SelectPeriod from "./selectPeriod";
+import SelectFeature from "./selectFeature";
 
 const WorldMap = ({ features }) => {
   const dispatch = useDispatch();
@@ -21,9 +17,8 @@ const WorldMap = ({ features }) => {
   const country = useSelector((state) => state.detail.country);
 
   const [dbData, setDbData] = useState([]);
-  const [year, setYear] = useState(0);
   let checkMinMax = [];
-  // const [checkMinMax, setCheckMinMax] = useState([]);
+  const [checkMinMaxi, setCheckMinMaxi] = useState([]);
 
   const width = 900;
   const height = 500;
@@ -48,61 +43,31 @@ const WorldMap = ({ features }) => {
     { countryid: "US", WeightAvarage: 0 },
   ];
 
-  const elements = [
-    "acousticness",
-    "danceability",
-    "energy",
-    "instrumentalness",
-    "liveness",
-    "loudness",
-    "mode",
-    "speechiness",
-    "tempo",
-    "time_signature",
-    "valence",
-  ];
-
-  const textAboutYear = [
-    ["2017-01", "2017-06"],
-    ["2017-07", "2017-12"],
-    ["2018-01", "2018-06"],
-    ["2018-07", "2018-12"],
-    ["2019-01", "2019-06"],
-    ["2019-07", "2019-12"],
-    ["2020-01", "2020-06"],
-    ["2020-07", "2020-12"],
-  ];
-
-  const calcWeightedAverage = (country, db) => {
-    let weightAverage = 0;
+  const calcWeightedAverage = (country) => {
     let weightFeatureTotal = 0;
     let streamTotal = 0;
 
-    db.map((d, i) => {
+    dbData.map((d, i) => {
       if (d.countryid == country) {
         streamTotal += d.stream;
         weightFeatureTotal += d.stream * d[feature];
       }
     });
-    weightAverage = weightFeatureTotal / streamTotal;
-    return weightAverage;
+    return weightFeatureTotal / streamTotal;
   };
-
-  const colorjudge = (weightAvgData, item) => {
+  const colorjudge = (item) => {
     let color = "white";
     checkMinMax = checkMinMax.filter((value) => !isNaN(value));
     weightAvgData.map((data) => {
-      if (item.properties.ISO_A2 === data.countryid) {
-        color = d3.interpolateTurbo(
-          opacityjudge(weightAvgData, item, checkMinMax)
-        );
-        return color;
+      if (!isNaN(data.WeightAvarage)) {
+        if (item.properties.ISO_A2 === data.countryid) {
+          color = d3.interpolateTurbo(opacityjudge(item));
+        }
       }
     });
     return color;
   };
-
-  const opacityjudge = (weightAvgData, item, checkMinMax) => {
+  const opacityjudge = (item) => {
     let opacity = 0;
     let opacityMax = 1;
     let opacityMin = 0.1;
@@ -114,61 +79,32 @@ const WorldMap = ({ features }) => {
           ((opacityMax - opacityMin) * (data.WeightAvarage - checkMin)) /
             (checkMax - checkMin) +
           opacityMin;
-        return opacity;
       }
     });
     return opacity;
   };
-
   useEffect(() => {
     (async () => {
-      console.log(startMonth, endMonth);
       const data = await fetchData(startMonth, endMonth, feature, country);
       setDbData(data);
     })();
   }, [startMonth, endMonth, feature, country]);
 
   weightAvgData.map((item, i) => {
-    item.WeightAvarage = calcWeightedAverage(item.countryid, dbData);
+    item.WeightAvarage = calcWeightedAverage(item.countryid);
     checkMinMax[i] = item.WeightAvarage;
   });
 
   return (
     <div className="#map-container" style={{ height: "40vh" }}>
-      <select
-        onChange={(event) => {
-          dispatch(changeFeature(event.target.value));
-        }}
-      >
-        {elements.map((element, i) => {
-          return <option>{element}</option>;
-        })}
-      </select>
-      <input
-        className="slider is-fullwidth"
-        type="range"
-        id="getSliderValue"
-        min="0"
-        max="7"
-        step="1"
-        value={year}
-        onChange={(event) => {
-          setYear(event.target.value);
-          const s = textAboutYear[event.target.value][0];
-          const e = textAboutYear[event.target.value][1];
-          dispatch(changeStartMonth(s));
-          dispatch(changeEndMonth(e));
-        }}
-      ></input>
-      <output for="sliderWithValue">
-        {startMonth}〜{endMonth}
-      </output>
+      <SelectFeature />
+      <SelectPeriod />
       <svg width="800" height="280" viewBox="50 50 800 280">
         <g>
           {features.map((item) => (
             <path
               d={path(item)}
-              fill={colorjudge(weightAvgData, item)}
+              fill={colorjudge(item)}
               stroke="black"
               strokeWidth="1"
               strokeOpacity="0.5"

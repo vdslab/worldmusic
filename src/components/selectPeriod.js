@@ -1,15 +1,14 @@
 import React from "react";
-import { DrowWorldMap } from "./drow_worldmap";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { changeStartMonth, changeEndMonth } from "../stores/details";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-const selectPeriod = () => {
+function selectPeriod() {
   const dispatch = useDispatch();
   const [year, setYear] = useState(0);
   const startMonth = useSelector((state) => state.detail.startMonth);
   const endMonth = useSelector((state) => state.detail.endMonth);
+
   const textAboutYear = [
     ["2017-01", "2017-06"],
     ["2017-07", "2017-12"],
@@ -20,8 +19,29 @@ const selectPeriod = () => {
     ["2020-01", "2020-06"],
     ["2020-07", "2020-12"],
   ];
-
-  return <p>aaa</p>;
-};
+  return (
+    <div>
+      <input
+        className="slider is-fullwidth"
+        type="range"
+        id="getSliderValue"
+        min="0"
+        max="7"
+        step="1"
+        value={year}
+        onChange={(event) => {
+          setYear(event.target.value);
+          const s = textAboutYear[event.target.value][0];
+          const e = textAboutYear[event.target.value][1];
+          dispatch(changeStartMonth(s));
+          dispatch(changeEndMonth(e));
+        }}
+      ></input>
+      <output for="sliderWithValue">
+        {startMonth}〜{endMonth}
+      </output>
+    </div>
+  );
+}
 
 export default selectPeriod;

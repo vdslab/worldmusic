@@ -31,7 +31,7 @@ const Ranking = () => {
       <div className="card" style={{ height: "50vh" }}>
         <div className="card-content">
           <div className="content">ランキング</div>
-          <p>aaa</p>
+          {/* <p>aaa</p> */}
         </div>
       </div>
     </div>

@@ -17,7 +17,19 @@ const selectFeature = () => {
     "time_signature",
     "valence",
   ];
-  return <p>111111</p>;
+  return (
+    <div>
+      <select
+        onChange={(event) => {
+          dispatch(changeFeature(event.target.value));
+        }}
+      >
+        {elements.map((element, i) => {
+          return <option>{element}</option>;
+        })}
+      </select>
+    </div>
+  );
 };
 
 export default selectFeature;
