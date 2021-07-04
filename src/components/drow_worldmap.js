@@ -1,126 +1,52 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as d3 from "d3";
 import { select } from "d3-selection";
 import * as topojson from "topojson";
 import { fetchData } from "../api";
-import { dispatch, rgb } from "d3";
-import { changeCountry } from "../stores/details";
-import { useDispatch } from "react-redux";
-import React from "react";
-import { changeFeature } from "../stores/details";
-import { changeStartMonth, changeEndMonth } from "../stores/details";
-import { useSelector } from "react-redux";
-
-import { interpolateTurbo } from "d3-interpolate";
-
+import {
+  changeCountry,
+  changeFeature,
+  changeStartMonth,
+  changeEndMonth,
+} from "../stores/details";
+import { useDispatch, useSelector } from "react-redux";
+import selectPeriod from "./selectPeriod";
 
 const WorldMap = ({ features }) => {
-  const d = useDispatch();
+  const dispatch = useDispatch();
+
   const startMonth = useSelector((state) => state.detail.startMonth);
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
+
   const [dbData, setDbData] = useState([]);
-  useEffect(() => {
-    (async () => {
-      console.log(startMonth,endMonth);
-      const data = await fetchData(startMonth, endMonth, feature, country);
-      setDbData(data);
-    })();
-  }, [startMonth, endMonth, feature, country]);
+  const [year, setYear] = useState(0);
+  let checkMinMax = [];
+  // const [checkMinMax, setCheckMinMax] = useState([]);
 
-  console.log(dbData);
-
-  // const t = dbData.filter(item => item.countryid == "JP");
-  // console.log(t);
-
-  function calcWeightedAverage(country,db){
-    let total = 0;
-    let up = 0;
-    let down = 0;
-
-    db.map((d, i) => {
-      if(d.countryid == country){
-        down += d.stream
-        up += d.stream*d[feature]
-      }
-      //console.log(db[feature]);
-    })
-    total = up/down;
-    return total;
-  }
-
-  let test = [
-    {countryid:"AU",WeightAvarage:0},
-    {countryid:"CA",WeightAvarage:0},
-    {countryid:"DE",WeightAvarage:0},
-    {countryid:"FR",WeightAvarage:0},
-    {countryid:"JP",WeightAvarage:0},
-    {countryid:"NL",WeightAvarage:0},
-    {countryid:"UK",WeightAvarage:0},
-    {countryid:"US",WeightAvarage:0}
-  ]
-
-  test.map((t,i) => {
-    t.WeightAvarage = calcWeightedAverage(t.countryid,dbData);
-    //console.log(t.WeightAvarage)
-  })
-
-
-  const margin = {
-    top: 30,
-    bottom: 50,
-    left: 50,
-    right: 100,
-  };
   const width = 900;
   const height = 500;
   const centerPos = [0, 0];
   const scale = 78;
-
-
-  function calcWeightedAverage(country,db){
-    let weightAverage = 0;
-    let weightFeatureTotal = 0;
-    let streamTotal = 0;
-
-    db.map((d, i) => {
-      if(d.countryid == country){
-        streamTotal += d.stream
-        weightFeatureTotal += d.stream*d[feature]
-      }
-    })
-    weightAverage = weightFeatureTotal/streamTotal;
-    return weightAverage;
-  }
-
-  let weightAvgData = [
-    {countryid:"AU",WeightAvarage:0},
-    {countryid:"CA",WeightAvarage:0},
-    {countryid:"DE",WeightAvarage:0},
-    {countryid:"FR",WeightAvarage:0},
-    {countryid:"JP",WeightAvarage:0},
-    {countryid:"NL",WeightAvarage:0},
-    {countryid:"UK",WeightAvarage:0},
-    {countryid:"US",WeightAvarage:0}
-  ]
-
-  let checkMinMax = [];
-  weightAvgData.map((item,i) => {
-    item.WeightAvarage = calcWeightedAverage(item.countryid,dbData);
-    console.log(i,item.WeightAvarage);
-    checkMinMax[i] = item.WeightAvarage;
-  })
-  console.log(checkMinMax);
 
   const projection = d3
     .geoMercator()
     .center(centerPos)
     .translate([width / 2, height / 2])
     .scale(scale);
-
   const path = d3.geoPath().projection(projection);
-  const [year, setYear] = useState(0);
+
+  let weightAvgData = [
+    { countryid: "AU", WeightAvarage: 0 },
+    { countryid: "CA", WeightAvarage: 0 },
+    { countryid: "DE", WeightAvarage: 0 },
+    { countryid: "FR", WeightAvarage: 0 },
+    { countryid: "JP", WeightAvarage: 0 },
+    { countryid: "NL", WeightAvarage: 0 },
+    { countryid: "UK", WeightAvarage: 0 },
+    { countryid: "US", WeightAvarage: 0 },
+  ];
 
   const elements = [
     "acousticness",
@@ -147,47 +73,71 @@ const WorldMap = ({ features }) => {
     ["2020-07", "2020-12"],
   ];
 
-  //const svgWidth = margin.left+margin.right+width;
-  //const svgHeight = -margin.bottom+margin.top+height;
+  const calcWeightedAverage = (country, db) => {
+    let weightAverage = 0;
+    let weightFeatureTotal = 0;
+    let streamTotal = 0;
 
-  //console.log(data);
+    db.map((d, i) => {
+      if (d.countryid == country) {
+        streamTotal += d.stream;
+        weightFeatureTotal += d.stream * d[feature];
+      }
+    });
+    weightAverage = weightFeatureTotal / streamTotal;
+    return weightAverage;
+  };
 
-  function colorjudge(weightAvgData ,item){
+  const colorjudge = (weightAvgData, item) => {
     let color = "white";
-    checkMinMax = checkMinMax.filter((value => isNaN(value) == false));
-    weightAvgData.map((test) => {
-      if(isNaN(test.WeightAvarage) == false){
-        if(item.properties.ISO_A2 === test.countryid){
-          color = d3.interpolateTurbo(opacityjudge(weightAvgData,item,checkMinMax));
-          return color;
-        }
+    checkMinMax = checkMinMax.filter((value) => !isNaN(value));
+    weightAvgData.map((data) => {
+      if (item.properties.ISO_A2 === data.countryid) {
+        color = d3.interpolateTurbo(
+          opacityjudge(weightAvgData, item, checkMinMax)
+        );
+        return color;
       }
     });
     return color;
-  }
-  
-  function opacityjudge(weightAvgData,item,checkMinMax){
+  };
+
+  const opacityjudge = (weightAvgData, item, checkMinMax) => {
     let opacity = 0;
     let opacityMax = 1;
     let opacityMin = 0.1;
     const checkMax = Math.max(...checkMinMax);
     const checkMin = Math.min(...checkMinMax);
-    console.log(checkMax,checkMin);
-    weightAvgData.map((test) => {
-      if(item.properties.ISO_A2 === test.countryid){
-        opacity = (opacityMax-opacityMin)*(test.WeightAvarage-checkMin)/(checkMax-checkMin)+opacityMin;
+    weightAvgData.map((data) => {
+      if (item.properties.ISO_A2 === data.countryid) {
+        opacity =
+          ((opacityMax - opacityMin) * (data.WeightAvarage - checkMin)) /
+            (checkMax - checkMin) +
+          opacityMin;
         return opacity;
       }
     });
     return opacity;
-  }
+  };
 
-  const color = d3.interpolateYlGn(0.5);
+  useEffect(() => {
+    (async () => {
+      console.log(startMonth, endMonth);
+      const data = await fetchData(startMonth, endMonth, feature, country);
+      setDbData(data);
+    })();
+  }, [startMonth, endMonth, feature, country]);
+
+  weightAvgData.map((item, i) => {
+    item.WeightAvarage = calcWeightedAverage(item.countryid, dbData);
+    checkMinMax[i] = item.WeightAvarage;
+  });
+
   return (
     <div className="#map-container" style={{ height: "40vh" }}>
       <select
         onChange={(event) => {
-          d(changeFeature(event.target.value));
+          dispatch(changeFeature(event.target.value));
         }}
       >
         {elements.map((element, i) => {
@@ -206,9 +156,8 @@ const WorldMap = ({ features }) => {
           setYear(event.target.value);
           const s = textAboutYear[event.target.value][0];
           const e = textAboutYear[event.target.value][1];
-          // console.log(s);
-          d(changeStartMonth(s));
-          d(changeEndMonth(e));
+          dispatch(changeStartMonth(s));
+          dispatch(changeEndMonth(e));
         }}
       ></input>
       <output for="sliderWithValue">
@@ -219,7 +168,7 @@ const WorldMap = ({ features }) => {
           {features.map((item) => (
             <path
               d={path(item)}
-              fill={colorjudge(weightAvgData,item)}    
+              fill={colorjudge(weightAvgData, item)}
               stroke="black"
               strokeWidth="1"
               strokeOpacity="0.5"
@@ -230,10 +179,10 @@ const WorldMap = ({ features }) => {
               onMouseOut={(e) => {
                 select(e.target).attr("stroke", "black");
               }}
-              onClick={(e) => {
+              onClick={() => {
                 console.log(item.properties.ISO_A2);
                 const c = item.properties.ISO_A2;
-                d(changeCountry(c));
+                dispatch(changeCountry(c));
               }}
             />
           ))}
@@ -242,7 +191,6 @@ const WorldMap = ({ features }) => {
     </div>
   );
 };
-
 
 export const DrowWorldMap = () => {
   const [features, setFeatures] = useState([]);

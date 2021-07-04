@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { changeFeature } from "../stores/details";
 
-const featureSelect = () => {
+const selectFeature = () => {
   const dispatch = useDispatch();
   const elements = [
     "acousticness",
@@ -20,4 +20,4 @@ const featureSelect = () => {
   return <p>111111</p>;
 };
 
-export default featureSelect;
+export default selectFeature;

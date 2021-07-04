@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { changeYear } from "../stores/details";
 import { useState, useEffect } from "react";
 import { fetchData } from "../api";
+import selectPeriod from "./selectPeriod";
 // import { changeFeature, changeYear } from "../stores/Count";
 
 const Ranking = () => {
@@ -13,14 +14,15 @@ const Ranking = () => {
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
   const [dbData, setDbData] = useState([]);
+  const [da, setDa] = useState([]);
+
+  const array = ["q", "b", "c", "d", "e", "f"];
 
   // console.log(startMonth, endMonth, feature, country);
   useEffect(() => {
     (async () => {
       const data = await fetchData(startMonth, endMonth, feature, country);
       setDbData(data);
-
-      // console.log(dbData);
     })();
   }, []);
 
@@ -29,6 +31,7 @@ const Ranking = () => {
       <div className="card" style={{ height: "50vh" }}>
         <div className="card-content">
           <div className="content">ランキング</div>
+          <p>aaa</p>
         </div>
       </div>
     </div>

@@ -8,8 +8,8 @@ import {
   changeEndMonth,
 } from "../stores/details";
 import { useSelector } from "react-redux";
-import featureSelect from "./featureSelect";
-import periodSelect from "./periodSelect";
+// import featureSelect from "./featureSelect";
+// import periodSelect from "./periodSelect";
 
 const WorldMap = () => {
   const dispatch = useDispatch();
