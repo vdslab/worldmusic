@@ -16,7 +16,7 @@ async function sendRequest(path, args) {
 
 export function fetchData(startMonth, endMonth, feature, country) {
   console.log(startMonth, endMonth);
-  console.log(1);
+  //console.log(1);
   return sendRequest("/getData", {
     startMonth: startMonth,
     endMonth: endMonth,
