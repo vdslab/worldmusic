@@ -23,6 +23,7 @@ const WorldMap = ({ features }) => {
   const [dbData, setDbData] = useState([]);
   useEffect(() => {
     (async () => {
+      console.log(startMonth);
       const data = await fetchData(startMonth, endMonth, feature, country);
       setDbData(data);
     })();
@@ -59,7 +60,7 @@ const WorldMap = ({ features }) => {
 
   test.map((t,i) => {
     t.WeightAvarage = calcWeightedAverage(t.countryid,dbData);
-    console.log(t.WeightAvarage)
+    //console.log(t.WeightAvarage)
   })
 
 
@@ -170,8 +171,6 @@ const WorldMap = ({ features }) => {
     weightAvgData.map((test) => {
       if(item.properties.ISO_A2 === test.countryid){
         opacity = (opacityMax-opacityMin)*(test.WeightAvarage-checkMin)/(checkMax-checkMin)+opacityMin;
-        console.log(item.properties.ISO_A2);
-        console.log(opacity);
         return opacity;
       }
     });
