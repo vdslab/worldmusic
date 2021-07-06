@@ -18,17 +18,16 @@ const WorldMap = ({ features }) => {
 
   const [dbData, setDbData] = useState([]);
   let checkMinMax = [];
-  const [checkMinMaxi, setCheckMinMaxi] = useState([]);
-
-  const width = 900;
-  const height = 500;
+  
+  const width = 630;
+  const height = 250;
   const centerPos = [0, 0];
-  const scale = 78;
+  const scale = 75;
 
   const projection = d3
     .geoMercator()
     .center(centerPos)
-    .translate([width / 2, height / 2])
+    .translate([width/2,height-60])
     .scale(scale);
   const path = d3.geoPath().projection(projection);
 
@@ -96,11 +95,10 @@ const WorldMap = ({ features }) => {
   });
 
   return (
-    <div className="#map-container" style={{ height: "40vh" }}>
-      <SelectFeature />
-      <SelectPeriod />
-      <svg width="800" height="280" viewBox="50 50 800 280">
-        <g>
+    <div className="card">
+      <div className="card-content">
+        <svg viewBox="0 -30 770 310">
+          <g>
           {features.map((item) => (
             <path
               d={path(item)}
@@ -122,8 +120,26 @@ const WorldMap = ({ features }) => {
               }}
             />
           ))}
-        </g>
-      </svg>
+          </g>
+        </svg>
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item">
+          <span>
+            <SelectFeature />
+          </span>
+        </p>
+        <p class="card-footer-item">
+          <span>
+            <SelectPeriod />
+          </span>
+        </p>
+        <p class="card-footer-item">
+          <span>
+            色の詳細
+          </span>
+        </p>
+      </footer>
     </div>
   );
 };
