@@ -21,6 +21,10 @@ function selectPeriod() {
   ];
   return (
     <div>
+      <output for="sliderWithValue">
+        {startMonth}〜{endMonth}
+      </output>
+      <br></br>
       <input
         className="slider is-fullwidth"
         type="range"
@@ -37,9 +41,19 @@ function selectPeriod() {
           dispatch(changeEndMonth(e));
         }}
       ></input>
-      <output for="sliderWithValue">
-        {startMonth}〜{endMonth}
-      </output>
+      <br></br>
+      <svg width="129" height="10">
+        <g>
+          <line x1="8" y1="0" x2="8" y2="10" stroke="#4682b4" />
+          <line x1="23" y1="0" x2="23" y2="10" stroke="#4682b4" />
+          <line x1="40" y1="0" x2="40" y2="10" stroke="#4682b4" />
+          <line x1="57" y1="0" x2="57" y2="10" stroke="#4682b4" />
+          <line x1="73" y1="0" x2="73" y2="10" stroke="#4682b4" />
+          <line x1="90" y1="0" x2="90" y2="10" stroke="#4682b4" />
+          <line x1="105" y1="0" x2="105" y2="10" stroke="#4682b4" />
+          <line x1="120" y1="0" x2="120" y2="10" stroke="#4682b4" />
+        </g>
+      </svg>
     </div>
   );
 }
