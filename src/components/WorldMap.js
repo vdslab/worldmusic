@@ -20,13 +20,7 @@ const WorldMap = () => {
   //let end = textYear[0][1];
   return (
     <div className="my-section">
-      <div className="card" style={{ height: "40vh" }}>
-        <div className="card-content" style={{ height: "40vh" }}>
-          <div className="content">
-            <DrowWorldMap />
-          </div>
-        </div>
-      </div>
+      <DrowWorldMap />
     </div>
   );
 };

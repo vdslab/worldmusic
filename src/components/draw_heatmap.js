@@ -186,7 +186,7 @@ function HeatMapChart() {
 
   /**TODO:軸つける */
   return (
-    <div style={{ width: "250px" }}>
+    <div style={{ width: "300px" }}>
       <div>
         <svg
           viewBox={`${-margin.left} ${-margin.top} ${svgWidth} ${svgHeight}`}
@@ -221,7 +221,7 @@ function HeatMapChart() {
             loading...
           </text>
 
-          <Legend h={contentWidth} w={contentWidth} />
+          {/*<Legend h={contentWidth} w={contentWidth} />*/}
 
           {heatMapData.map((country, i) => {
             return country.timeData.map((item, j) => {
