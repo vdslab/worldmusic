@@ -68,6 +68,25 @@ function HorizontalAxis({ len, term, name, w }) {
   );
 }
 
+function Legend({ h, w }) {
+  const ticks = [...Array(11)].map((_, i) => i);
+  return (
+    <g transform={`translate(${w + 5},55)`}>
+      {ticks.map((value, i) => {
+        return (
+          <g transform={`translate(0,${(h / ticks.length / 2) * i})`}>
+            <rect
+              width={10}
+              height={h / ticks.length / 2}
+              fill={d3.interpolateTurbo(1 - value / 10)}
+            ></rect>
+          </g>
+        );
+      })}
+    </g>
+  );
+}
+
 function HeatMapChart() {
   /**startMonthとendMonth,countryは世界地図と連携づけるのに持っておく。今は未使用 */
   const startMonth = useSelector((state) => state.detail.startMonth);
@@ -153,7 +172,7 @@ function HeatMapChart() {
 
   const margin = {
     left: 50,
-    right: 10,
+    right: 30,
     top: 45,
     bottom: 10,
   };
@@ -202,7 +221,9 @@ function HeatMapChart() {
           >
             loading...
           </text>
-          {/*<line x1={x} y={y2} x2={x} y2={y1} stroke={strokeColor}></line>*/}
+
+          <Legend h={contentWidth} w={contentWidth} />
+
           {heatMapData.map((country, i) => {
             return country.timeData.map((item, j) => {
               return (
