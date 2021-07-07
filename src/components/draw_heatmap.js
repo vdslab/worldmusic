@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
 import * as d3 from "d3";
 import { fetchData } from "../api";
-import { changeCountry, changeFeature } from "../stores/details";
-import { useDispatch, useSelector } from "react-redux";
-import SelectPeriod from "./selectPeriod";
-import SelectFeature from "./selectFeature";
-import HeatMap from "./HeatMap";
+import { useSelector } from "react-redux";
 
-function App() {
+function HeatMapChart() {
   /**startMonthとendMonth,countryは世界地図と連携づけるのに持っておく。今は未使用 */
   const startMonth = useSelector((state) => state.detail.startMonth);
   const endMonth = useSelector((state) => state.detail.endMonth);
@@ -16,7 +12,7 @@ function App() {
 
   const term = [
     { start: "2017-01", end: "2017-06" },
-    { start: "2017-07", end: "2017-012" },
+    { start: "2017-07", end: "2017-12" },
     { start: "2018-01", end: "2018-06" },
     { start: "2018-07", end: "2018-12" },
     { start: "2019-01", end: "2019-06" },
@@ -35,14 +31,12 @@ function App() {
         countries.map(async (cId) => {
           const countryData = { coutry: cId };
           const timeData = await Promise.all(
-            term.map(async (t, i) => {
-              /*TODO:selectで国絞れるようにする*/
+            term.map(async (t) => {
               const data = await fetchData(t.start, t.end, feature, cId);
               const weightAve = makeData(data, cId);
               return { start: t.start, end: t.end, value: weightAve };
             })
           );
-          console.log(timeData);
           countryData["timeData"] = timeData;
           return countryData;
         })
@@ -51,16 +45,14 @@ function App() {
     })();
   }, [feature]);
 
-  function makeData(data, cId) {
+  function makeData(data) {
     let weightFeatureTotal = 0;
     let streamTotal = 0;
-    let weightAve = -1;
+    let weightAve = null;
     if (data.length) {
       data.map((d) => {
-        if (d.countryid === cId) {
-          streamTotal += d.stream;
-          weightFeatureTotal += d.stream * d[feature];
-        }
+        streamTotal += d.stream;
+        weightFeatureTotal += d.stream * d[feature];
       });
       weightAve = weightFeatureTotal / streamTotal;
     }
@@ -68,8 +60,10 @@ function App() {
   }
 
   const colorjudge = (item, start) => {
-    let color = "white";
-    color = d3.interpolateTurbo(opacityjudge(item, start));
+    let color = "lightgray";
+    if (item !== null) {
+      color = d3.interpolateTurbo(opacityjudge(item, start));
+    }
     return color;
   };
 
@@ -77,9 +71,11 @@ function App() {
     let opacity = 0;
     let opacityMax = 1;
     let opacityMin = 0.1;
-    const termData = heatMapData.map((country) => {
-      return country.timeData.filter((item) => item.start === start)[0].value;
-    });
+    const termData = heatMapData
+      .map((country) => {
+        return country.timeData.filter((item) => item.start === start)[0].value;
+      })
+      .filter((t) => t);
 
     const checkMax = Math.max(...termData);
     const checkMin = Math.min(...termData);
@@ -87,7 +83,6 @@ function App() {
     opacity =
       ((opacityMax - opacityMin) * (item - checkMin)) / (checkMax - checkMin) +
       opacityMin;
-    console.log(opacity);
     return opacity;
   };
 
@@ -134,4 +129,4 @@ function App() {
   );
 }
 
-export default App;
+export default HeatMapChart;

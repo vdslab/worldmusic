@@ -85,7 +85,8 @@ const WorldMap = ({ features }) => {
   };
   useEffect(() => {
     (async () => {
-      const data = await fetchData(startMonth, endMonth, feature, country);
+      console.log(country);
+      const data = await fetchData(startMonth, endMonth, feature, "ALL");
       setDbData(data);
     })();
   }, [startMonth, endMonth, feature, country]);
@@ -101,7 +102,7 @@ const WorldMap = ({ features }) => {
       <SelectPeriod />
       <svg width="800" height="280" viewBox="50 50 800 280">
         <g>
-          {features.map((item) => (
+          {features.map((item, i) => (
             <path
               d={path(item)}
               fill={colorjudge(item)}
@@ -120,6 +121,7 @@ const WorldMap = ({ features }) => {
                 const c = item.properties.ISO_A2;
                 dispatch(changeCountry(c));
               }}
+              key={i}
             />
           ))}
         </g>
