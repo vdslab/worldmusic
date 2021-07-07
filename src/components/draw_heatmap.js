@@ -2,6 +2,71 @@ import { useEffect, useState } from "react";
 import * as d3 from "d3";
 import { fetchData } from "../api";
 import { useSelector } from "react-redux";
+import { count } from "d3";
+
+function VerticalAxis({ len, countries, name, h }) {
+  return (
+    <g>
+      <text
+        transform={`rotate(-90)
+                translate(${-h / 2} -30)
+               `}
+        textAnchor="middle"
+        dominantBaseline="central"
+        fontSize="12"
+        style={{ userSelect: "none" }}
+      >
+        {name}
+      </text>
+      {countries.map((country, i) => {
+        return (
+          <g transform={`translate(0, ${len * i + len / 2})`} key={i}>
+            <text
+              x="-5"
+              textAnchor="end"
+              dominantBaseline="central"
+              fontSize="8"
+              style={{ userSelect: "none" }}
+            >
+              {country}
+            </text>
+          </g>
+        );
+      })}
+    </g>
+  );
+}
+
+function HorizontalAxis({ len, term, name, w }) {
+  return (
+    <g>
+      <text
+        transform={`translate(${w / 2} -40)`}
+        textAnchor="middle"
+        dominantBaseline="central"
+        fontSize="15"
+        style={{ userSelect: "none" }}
+      >
+        {name}
+      </text>
+      {term.map((t, i) => {
+        return (
+          <g transform={`translate(${len * i + len}, -15) rotate(-45)`} key={i}>
+            <text
+              x="0"
+              textAnchor="middle"
+              dominantBaseline="central"
+              fontSize="8"
+              style={{ userSelect: "none" }}
+            >
+              {t.start}
+            </text>
+          </g>
+        );
+      })}
+    </g>
+  );
+}
 
 function HeatMapChart() {
   /**startMonthとendMonth,countryは世界地図と連携づけるのに持っておく。今は未使用 */
@@ -29,7 +94,7 @@ function HeatMapChart() {
     (async () => {
       const data = await Promise.all(
         countries.map(async (cId) => {
-          const countryData = { coutry: cId };
+          const countryData = { countryName: cId };
           const timeData = await Promise.all(
             term.map(async (t) => {
               const data = await fetchData(t.start, t.end, feature, cId);
@@ -87,28 +152,57 @@ function HeatMapChart() {
   };
 
   const margin = {
-    left: 10,
+    left: 50,
     right: 10,
-    top: 10,
+    top: 45,
     bottom: 10,
   };
-  const contentWidth = 400;
-  const contentHeight = 80;
+  const contentWidth = 130;
+  const contentHeight = 130;
 
   const svgWidth = margin.left + margin.right + contentWidth;
   const svgHeight = margin.top + margin.bottom + contentHeight;
 
   /**TODO:引数渡していい感じにサイズとか調整できるようにする */
-  const len = 10;
+  const len = 15;
 
   /**TODO:軸つける */
   return (
-    <div style={{ width: "700px" }}>
+    <div style={{ width: "250px" }}>
       <div>
         <svg
           viewBox={`${-margin.left} ${-margin.top} ${svgWidth} ${svgHeight}`}
           style={{ border: "solid 0px" }}
         >
+          <VerticalAxis
+            len={len}
+            countries={countries}
+            name={"country"}
+            h={contentHeight}
+          />
+          <HorizontalAxis
+            len={len}
+            term={term}
+            name={"term"}
+            w={contentWidth}
+          />
+          <rect
+            x="0"
+            y="0"
+            fill="lightgray"
+            height={len * countries.length}
+            width={len * term.length}
+          />
+          <text
+            x={(len * countries.length) / 2}
+            y={(len * term.length) / 2}
+            textAnchor="middle"
+            dominantBaseline="central"
+            fontSize="12"
+          >
+            loading...
+          </text>
+          {/*<line x1={x} y={y2} x2={x} y2={y1} stroke={strokeColor}></line>*/}
           {heatMapData.map((country, i) => {
             return country.timeData.map((item, j) => {
               return (
