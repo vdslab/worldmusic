@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import * as d3 from "d3";
 import { fetchData } from "../api";
 import { useSelector } from "react-redux";
-import { count } from "d3";
 
 function VerticalAxis({ len, countries, name, h }) {
   return (
@@ -44,7 +43,7 @@ function HorizontalAxis({ len, term, name, w }) {
         transform={`translate(${w / 2} -40)`}
         textAnchor="middle"
         dominantBaseline="central"
-        fontSize="15"
+        fontSize="12"
         style={{ userSelect: "none" }}
       >
         {name}
