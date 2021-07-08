@@ -18,7 +18,7 @@ const WorldMap = ({ features }) => {
 
   const [dbData, setDbData] = useState([]);
   let checkMinMax = [];
-  
+
   const width = 630;
   const height = 250;
   const centerPos = [0, 0];
@@ -27,7 +27,7 @@ const WorldMap = ({ features }) => {
   const projection = d3
     .geoMercator()
     .center(centerPos)
-    .translate([width/2,height-60])
+    .translate([width / 2, height - 60])
     .scale(scale);
   const path = d3.geoPath().projection(projection);
 
@@ -84,7 +84,8 @@ const WorldMap = ({ features }) => {
   };
   useEffect(() => {
     (async () => {
-      const data = await fetchData(startMonth, endMonth, feature, country);
+      console.log(country);
+      const data = await fetchData(startMonth, endMonth, feature, "ALL");
       setDbData(data);
     })();
   }, [startMonth, endMonth, feature, country]);
@@ -99,27 +100,28 @@ const WorldMap = ({ features }) => {
       <div className="card-content">
         <svg viewBox="0 -30 770 310">
           <g>
-          {features.map((item) => (
-            <path
-              d={path(item)}
-              fill={colorjudge(item)}
-              stroke="black"
-              strokeWidth="1"
-              strokeOpacity="0.5"
-              countryname={item}
-              onMouseOver={(e) => {
-                select(e.target).attr("stroke", "red");
-              }}
-              onMouseOut={(e) => {
-                select(e.target).attr("stroke", "black");
-              }}
-              onClick={() => {
-                console.log(item.properties.ISO_A2);
-                const c = item.properties.ISO_A2;
-                dispatch(changeCountry(c));
-              }}
-            />
-          ))}
+            {features.map((item, i) => (
+              <path
+                d={path(item)}
+                fill={colorjudge(item)}
+                stroke="black"
+                strokeWidth="1"
+                strokeOpacity="0.5"
+                countryname={item}
+                onMouseOver={(e) => {
+                  select(e.target).attr("stroke", "red");
+                }}
+                onMouseOut={(e) => {
+                  select(e.target).attr("stroke", "black");
+                }}
+                onClick={() => {
+                  console.log(item.properties.ISO_A2);
+                  const c = item.properties.ISO_A2;
+                  dispatch(changeCountry(c));
+                }}
+                key={i}
+              />
+            ))}
           </g>
           <g transform="translate(650,260) rotate(-90)">
             <defs>
@@ -146,30 +148,58 @@ const WorldMap = ({ features }) => {
                 <stop offset="95%" stop-color={d3.interpolateTurbo(0.95)} />
                 <stop offset="100%" stop-color={d3.interpolateTurbo(1)} />
               </linearGradient>
-              </defs>
-              <rect x="0" y="10" width="300" height="20" fill="url('#gradient')" />
-              <line x1="0" y1="30" x2="0" y2="40" stroke="black" />
-              <text x="0" y="50" font-size="10" text-anchor="start">0</text>
-              <line x1="30" y1="30" x2="30" y2="40" stroke="black" />
-              <text x="30" y="50" font-size="10" text-anchor="start">0.1</text>
-              <line x1="60" y1="30" x2="60" y2="40" stroke="black" />
-              <text x="60" y="50" font-size="10" text-anchor="start">0.2</text>
-              <line x1="90" y1="30" x2="90" y2="40" stroke="black" />
-              <text x="90" y="50" font-size="10" text-anchor="start">0.3</text>
-              <line x1="120" y1="30" x2="120" y2="40" stroke="black" />
-              <text x="120" y="50" font-size="10" text-anchor="start">0.4</text>
-              <line x1="150" y1="30" x2="150" y2="40" stroke="black" />
-              <text x="150" y="50" font-size="10" text-anchor="start">0.5</text>
-              <line x1="180" y1="30" x2="180" y2="40" stroke="black" />
-              <text x="180" y="50" font-size="10" text-anchor="start">0.6</text>
-              <line x1="210" y1="30" x2="210" y2="40" stroke="black" />
-              <text x="210" y="50" font-size="10" text-anchor="start">0.7</text>
-              <line x1="240" y1="30" x2="240" y2="40" stroke="black" />
-              <text x="240" y="50" font-size="10" text-anchor="start">0.8</text>
-              <line x1="270" y1="30" x2="270" y2="40" stroke="black" />
-              <text x="270" y="50" font-size="10" text-anchor="start">0.9</text>
-              <line x1="300" y1="30" x2="300" y2="40" stroke="black" />
-              <text x="300" y="50" font-size="10" text-anchor="start">1</text>
+            </defs>
+            <rect
+              x="0"
+              y="10"
+              width="300"
+              height="20"
+              fill="url('#gradient')"
+            />
+            <line x1="0" y1="30" x2="0" y2="40" stroke="black" />
+            <text x="0" y="50" font-size="10" text-anchor="start">
+              0
+            </text>
+            <line x1="30" y1="30" x2="30" y2="40" stroke="black" />
+            <text x="30" y="50" font-size="10" text-anchor="start">
+              0.1
+            </text>
+            <line x1="60" y1="30" x2="60" y2="40" stroke="black" />
+            <text x="60" y="50" font-size="10" text-anchor="start">
+              0.2
+            </text>
+            <line x1="90" y1="30" x2="90" y2="40" stroke="black" />
+            <text x="90" y="50" font-size="10" text-anchor="start">
+              0.3
+            </text>
+            <line x1="120" y1="30" x2="120" y2="40" stroke="black" />
+            <text x="120" y="50" font-size="10" text-anchor="start">
+              0.4
+            </text>
+            <line x1="150" y1="30" x2="150" y2="40" stroke="black" />
+            <text x="150" y="50" font-size="10" text-anchor="start">
+              0.5
+            </text>
+            <line x1="180" y1="30" x2="180" y2="40" stroke="black" />
+            <text x="180" y="50" font-size="10" text-anchor="start">
+              0.6
+            </text>
+            <line x1="210" y1="30" x2="210" y2="40" stroke="black" />
+            <text x="210" y="50" font-size="10" text-anchor="start">
+              0.7
+            </text>
+            <line x1="240" y1="30" x2="240" y2="40" stroke="black" />
+            <text x="240" y="50" font-size="10" text-anchor="start">
+              0.8
+            </text>
+            <line x1="270" y1="30" x2="270" y2="40" stroke="black" />
+            <text x="270" y="50" font-size="10" text-anchor="start">
+              0.9
+            </text>
+            <line x1="300" y1="30" x2="300" y2="40" stroke="black" />
+            <text x="300" y="50" font-size="10" text-anchor="start">
+              1
+            </text>
           </g>
         </svg>
       </div>
@@ -185,9 +215,7 @@ const WorldMap = ({ features }) => {
           </span>
         </p>
         <p class="card-footer-item">
-          <span>
-            色の詳細？
-          </span>
+          <span>色の詳細？</span>
         </p>
       </footer>
     </div>

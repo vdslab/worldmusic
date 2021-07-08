@@ -19,26 +19,49 @@ exports.handler = async function (event) {
   const feature = event.queryStringParameters.feature || null;
   const country = event.queryStringParameters.country || null;
 
-  const data = {
-    startMonth: startMonth,
-    endMonth: endMonth,
-    path: `SELECT Music.Musicid , Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.startday BETWEEN ${startMonth}-01 AND ${endMonth}-31`,
-  };
+  /**TODO:応急処置, 後でちゃんとした書き方先輩に聞く */
 
-  console.log(data);
+  if (country !== "ALL") {
+    const data = {
+      startMonth: startMonth,
+      endMonth: endMonth,
+      path: `SELECT Music.Musicid , Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.countryid=${country} AND Ranking.startday BETWEEN ${startMonth}-01 AND ${endMonth}-31`,
+    };
 
-  try {
-    const dbpath = "./netlify/functions/database.db";
-    const db = new sqlite3.Database(dbpath);
+    console.log(data);
 
-    //console.log(data);
+    try {
+      const dbpath = "./netlify/functions/database.db";
+      const db = new sqlite3.Database(dbpath);
 
-    const result = await selectRows(
-      db,
-      `SELECT Music.Musicid , Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.startday BETWEEN '${startMonth}-01' AND '${endMonth}-31'`
-    );
-    return { statusCode: 200, body: JSON.stringify(result) };
-  } catch (e) {
-    return { statusCode: 500, body: "error" };
+      const result = await selectRows(
+        db,
+        `SELECT Music.Musicid , Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.countryid='${country}' AND Ranking.startday BETWEEN '${startMonth}-01' AND '${endMonth}-31'`
+      );
+      return { statusCode: 200, body: JSON.stringify(result) };
+    } catch (e) {
+      return { statusCode: 500, body: "error" };
+    }
+  } else {
+    const data = {
+      startMonth: startMonth,
+      endMonth: endMonth,
+      path: `SELECT Music.Musicid , Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.startday BETWEEN ${startMonth}-01 AND ${endMonth}-31`,
+    };
+
+    console.log(data);
+
+    try {
+      const dbpath = "./netlify/functions/database.db";
+      const db = new sqlite3.Database(dbpath);
+
+      const result = await selectRows(
+        db,
+        `SELECT Music.Musicid , Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.startday BETWEEN '${startMonth}-01' AND '${endMonth}-31'`
+      );
+      return { statusCode: 200, body: JSON.stringify(result) };
+    } catch (e) {
+      return { statusCode: 500, body: "error" };
+    }
   }
 };
