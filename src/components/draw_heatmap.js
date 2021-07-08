@@ -101,7 +101,7 @@ function HeatMapChart() {
     { start: "2019-01", end: "2019-06" },
     { start: "2019-07", end: "2019-12" },
     { start: "2020-01", end: "2020-06" },
-    { start: "2020-01", end: "2020-12" },
+    { start: "2020-07", end: "2020-12" },
   ];
 
   const countries = ["AU", "CA", "DE", "FR", "JP", "NL", "UK", "US"];
@@ -110,6 +110,7 @@ function HeatMapChart() {
 
   useEffect(() => {
     (async () => {
+      /**TODO:改善 */
       const data = await Promise.all(
         countries.map(async (cId) => {
           const countryData = { countryName: cId };
@@ -162,6 +163,7 @@ function HeatMapChart() {
 
     const checkMax = Math.max(...termData);
     const checkMin = Math.min(...termData);
+    console.log(checkMax, checkMin, start);
 
     opacity =
       ((opacityMax - opacityMin) * (item - checkMin)) / (checkMax - checkMin) +
