@@ -8,7 +8,6 @@ import {
 } from "d3-force";
 import { scaleLinear } from "d3-scale";
 import { select } from "d3-selection";
-// import { domain } from "process";
 import { extent } from "d3-array";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchData } from "../api";
@@ -35,7 +34,7 @@ const Swarmplt = () => {
 
   useEffect(() => {
     (async () => {
-      // console.log(1);
+      console.log(1);
       const data = await fetchData(startMonth, endMonth, feature, country);
       setDbData(data);
     })();
@@ -49,81 +48,56 @@ const Swarmplt = () => {
     const stream = jpData.map((item) => {
       return item.stream;
     });
+
     let fmax = Math.max(...f);
     let fmin = Math.min(...f);
     let streammax = Math.max(...stream);
     let streammin = Math.min(...stream);
     console.log(streammin, streammax);
-    const yScale = scaleLinear().domain([fmin, fmax]).range([200, 10]);
-
-    const rScale = scaleLinear().domain([streammin, streammax]).range([50, 10]);
-    const simulation = forceSimulation(jpData)
+    // const yScale = scaleLinear().domain([fmin, fmax]).range([200, 10]);
+    let yScale = scaleLinear()
+      .domain(extent(jpData.map((d) => +d.acousticness)))
+      .range([200, 10]);
+    const rScale = scaleLinear().domain([streammin, streammax]).range([30, 5]);
+    let marketcapDomain = extent(jpData.map((d) => d.stream));
+    marketcapDomain = marketcapDomain.map((d) => Math.sqrt(d));
+    let size = scaleLinear().domain(marketcapDomain).range([5, 20]);
+    let simulation = forceSimulation(jpData)
       .force(
         "x",
-        forceX((d) => {
+        forceX(() => {
           return 200;
-        }).strength(0)
+        }).strength(0.2)
       )
+
       .force(
         "y",
         forceY((d) => {
-          return 150;
-        }).strength(0.1)
+          return yScale(d.acousticness);
+        }).strength(1)
       )
-      // .force(
-      //   "y",
-      //   forceY()
-      //     .y(200)
-      //     .y((d) => {
-      //       return yScale(d.y);
-      //     })
-      //     .strength(0.5)
-      // forceY((d) => {
-      //   return yScale(d.y);
-      // }).strength(1)
-      // )
-      // .force(
-      //   "y",
-      //   forceY()
-      //     .y(100)
-      //     .strength((d) => {
-      //       return d.y;
-      //     })
-      //     .strength(0.2)
-      // )
+
       .force(
         "collide",
-        // forceCollide((d) => {
-        //   return d.r;
-        // })
-        forceCollide().radius((d) => {
-          return 10;
+        forceCollide((d) => {
+          return size(Math.sqrt(d.stream));
         })
+      )
+      .alphaDecay(0)
+      .alpha(0.3)
+      .on("tick", () =>
+        svg
+          .selectAll("circle")
+          .data(jpData)
+          .join("circle")
+          .style("fill", "red")
+          .attr("stroke", "black")
+          .attr("opacity", 0.7)
+          .attr("cx", (d) => 200)
+          .attr("cy", (d) => yScale(d.acousticness))
+          .attr("r", (d) => size(Math.sqrt(d.stream)))
       );
-    // .alphaDecay(0);
-    // .alpha(0.3);
-    // .force("chage", forceManyBody());
-    simulation.on("tick", () =>
-      svg
-        .selectAll("circle")
-        .data(jpData)
-        .join("circle")
-        .style("fill", "red")
-        .attr("stroke", "black")
-        .attr("opacity", 0.7)
-        .attr("cx", (d) => 200)
-        .attr("cy", (d) => yScale(d.acousticness))
-        .attr("r", (d) => d.stream / 10000)
-    );
   }, [startMonth, endMonth, feature, country]);
-  //   const simulation = forceSimulation(sampleData).force('x',forceX().strength(0.2)).force('y',forceY().strength(0.2)).force('collide',forceCollide((d) => {
-  //     return d.y*20+3
-  //   }))
-  //   simulation.on('tick',() =>
-  //   svg.selectAll().data(sampleData).join('circle').style('fill', () => 'red').attr('cx', (d) => 200)
-  //   .attr('cy', (d) => d.y)
-  //   .attr('r', (d) => d.r))
-  // }, [])
 
   return (
     <div>
