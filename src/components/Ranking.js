@@ -5,6 +5,7 @@ import { changeYear } from "../stores/details";
 import { useState, useEffect } from "react";
 import { fetchData } from "../api";
 import selectPeriod from "./selectPeriod";
+
 // import { changeFeature, changeYear } from "../stores/Count";
 
 const Ranking = () => {
@@ -20,10 +21,11 @@ const Ranking = () => {
 
   // console.log(startMonth, endMonth, feature, country);
   useEffect(() => {
-    (async () => {
-      const data = await fetchData(startMonth, endMonth, feature, country);
-      setDbData(data);
-    })();
+    // (async () => {
+    //   const data = await fetchData(startMonth, endMonth, feature, country);
+    //   setDbData(data);
+    // })();
+    // const simulation = f;
   }, []);
 
   return (
@@ -31,7 +33,7 @@ const Ranking = () => {
       <div className="card" style={{ height: "50vh" }}>
         <div className="card-content">
           <div className="content">ランキング</div>
-          {/* <p>aaa</p> */}
+          <p>aaa</p>
         </div>
       </div>
     </div>
