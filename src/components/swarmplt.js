@@ -55,27 +55,27 @@ const Swarmplt = () => {
     let streammin = Math.min(...stream);
     console.log(streammin, streammax);
     // const yScale = scaleLinear().domain([fmin, fmax]).range([200, 10]);
-    let yScale = scaleLinear()
+    let xScale = scaleLinear()
       .domain(extent(jpData.map((d) => +d.acousticness)))
-      .range([200, 10]);
+      .range([750, 10]);
     const rScale = scaleLinear().domain([streammin, streammax]).range([30, 5]);
     let marketcapDomain = extent(jpData.map((d) => d.stream));
     marketcapDomain = marketcapDomain.map((d) => Math.sqrt(d));
-    let size = scaleLinear().domain(marketcapDomain).range([5, 20]);
+    let size = scaleLinear().domain(marketcapDomain).range([1, 30]);
     let simulation = forceSimulation(jpData)
-      .force(
-        "x",
-        forceX(() => {
-          return 200;
-        }).strength(0.2)
-      )
+      // .force(
+      //   "x",
+      //   forceX(() => {
+      //     return 200;
+      //   }).strength(0.2)
+      // )
 
-      .force(
-        "y",
-        forceY((d) => {
-          return yScale(d.acousticness);
-        }).strength(1)
-      )
+      // .force(
+      //   "y",
+      //   forceY((d) => {
+      //     return yScale(d.acousticness);
+      //   }).strength(1)
+      // )
 
       .force(
         "collide",
@@ -93,8 +93,8 @@ const Swarmplt = () => {
           .style("fill", "red")
           .attr("stroke", "black")
           .attr("opacity", 0.7)
-          .attr("cx", (d) => 200)
-          .attr("cy", (d) => yScale(d.acousticness))
+          .attr("cx", (d) => xScale(d.acousticness))
+          .attr("cy", (d) => 100)
           .attr("r", (d) => size(Math.sqrt(d.stream)))
       );
   }, [startMonth, endMonth, feature, country]);
@@ -109,7 +109,7 @@ const Swarmplt = () => {
           })}
         </g>
       </svg> */}
-      <svg height="1000" width="500" ref={ref} />
+      <svg height="200" width="800" ref={ref} />
     </div>
   );
 };

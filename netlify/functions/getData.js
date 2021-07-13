@@ -21,6 +21,8 @@ exports.handler = async function (event) {
 
   /**TODO:応急処置, 後でちゃんとした書き方先輩に聞く */
 
+  console.log(country);
+
   if (country !== "ALL") {
     const data = {
       startMonth: startMonth,
