@@ -25,7 +25,7 @@ const Swarmplt = () => {
 
   useEffect(() => {
     (async () => {
-      console.log(1);
+      //console.log(1);
       const data = await fetchData(startMonth, endMonth, feature, country);
       setDbData(data);
     })();
@@ -33,26 +33,24 @@ const Swarmplt = () => {
 
     const xScale = scaleLinear()
       .domain(extent(dbData.map((d) => +d.acousticness)))
-      .range([750, 10]);
+      .range([600, 10]);
 
     let streamDomain = extent(dbData.map((d) => d.stream));
     streamDomain = streamDomain.map((d) => Math.sqrt(d));
-    let size = scaleLinear().domain(streamDomain).range([1, 30]);
+    let size = scaleLinear().domain(streamDomain).range([1, 7]);
     let simulation = forceSimulation(dbData)
-      // .force(
-      //   "x",
-      //   forceX(() => {
-      //     return 200;
-      //   }).strength(0.2)
-      // )
-
-      // .force(
-      //   "y",
-      //   forceY((d) => {
-      //     return yScale(d.acousticness);
-      //   }).strength(1)
-      // )
-
+      .force(
+        "x",
+        forceX((d) => {
+          return xScale(d.acousticness);
+        }).strength(5)
+      )
+      .force(
+        "y",
+        forceY((d) => {
+          return 125;
+        }).strength(0.2)
+      )
       .force(
         "collide",
         forceCollide((d) => {
@@ -69,15 +67,19 @@ const Swarmplt = () => {
           .style("fill", "red")
           .attr("stroke", "black")
           .attr("opacity", 0.7)
-          .attr("cx", (d) => xScale(d.acousticness))
-          .attr("cy", (d) => 100)
+          .attr("cx", (d) => d.x)
+          .attr("cy", (d) => d.y)
           .attr("r", (d) => size(Math.sqrt(d.stream)))
       );
+    let init_decay = setTimeout(function(){
+      console.log("start alpha decay");
+      simulation.alphaDecay(0.05);
+    },5000);
   }, [startMonth, endMonth, feature, country]);
 
   return (
     <div>
-      <svg height="200" width="800" ref={ref} />
+      <svg width="650" height="250" viewBox="0 0 650 250"ref={ref} />
     </div>
   );
 };
