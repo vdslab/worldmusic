@@ -163,7 +163,7 @@ function HeatMapChart() {
 
     const checkMax = Math.max(...termData);
     const checkMin = Math.min(...termData);
-    console.log(checkMax, checkMin, start);
+    // console.log(checkMax, checkMin, start);
 
     opacity =
       ((opacityMax - opacityMin) * (item - checkMin)) / (checkMax - checkMin) +
