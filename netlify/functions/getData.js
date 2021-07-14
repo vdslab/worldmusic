@@ -42,6 +42,8 @@ exports.handler = async function (event) {
     }
   }
 
+  console.log(country);
+
   if (country !== "ALL") {
     const data = {
       startMonth: startMonth,

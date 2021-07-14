@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 //変数の宣言
 const initialState = {
-  startMonth: "2017-01",
-  endMonth: "2017-06",
+  startMonth: "2018-01",
+  endMonth: "2018-06",
   feature: "acousticness",
-  country: "UK",
+  country: "JP",
 };
 
 //storeと呼ばれるデータの格納場所をsliceという名前で分割して役割ごとにそれぞれの変数で管理する
