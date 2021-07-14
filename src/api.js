@@ -15,7 +15,7 @@ async function sendRequest(path, args) {
   return await request.json();
 }
 
-export function fetchData(startMonth, endMonth, feature, country) {
+export function fetchData(startMonth, endMonth, feature, country, musicId) {
   console.log(startMonth, endMonth);
   //console.log(1);
   return sendRequest("/getData", {
@@ -23,5 +23,6 @@ export function fetchData(startMonth, endMonth, feature, country) {
     endMonth: endMonth,
     feature: feature,
     country: country,
+    musicId: musicId,
   });
 }
