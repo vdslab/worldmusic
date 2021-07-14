@@ -1,20 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  forceSimulation,
-  forceX,
-  forceY,
-  forceCollide,
-  forceManyBody,
-} from "d3-force";
+import { forceSimulation, forceX, forceY, forceCollide } from "d3-force";
 import { scaleLinear } from "d3-scale";
 import { select } from "d3-selection";
 import { extent } from "d3-array";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchData } from "../api";
+import { axisBottom } from "d3";
+import * as d3 from "d3";
 
-const Swarmplt = () => {
+const Swarmplt = ({ width, height }) => {
+  const duration = 500;
+  const margin = {
+    top: 10,
+    bottom: 500,
+    left: 50,
+    right: 40,
+  };
+
+  const innerWidth = width - margin.left - margin.right;
+  const innerHeight = height;
+
   const ref = useRef();
-  const svg = select(ref.current);
+  const svg = d3.select(ref.current);
 
   const [dbData, setDbData] = useState([]);
 
@@ -25,15 +32,27 @@ const Swarmplt = () => {
 
   useEffect(() => {
     (async () => {
-      //console.log(1);
+      console.log(1);
       const data = await fetchData(startMonth, endMonth, feature, country);
       setDbData(data);
     })();
     console.log(dbData);
+    d3.select(ref.current)
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  }, []);
 
+  useEffect(() => {
+    draw();
+  }, [startMonth, endMonth, feature, country]);
+
+  const draw = () => {
+    const swarmplt = svg.select("g");
     const xScale = scaleLinear()
       .domain(extent(dbData.map((d) => +d.acousticness)))
-      .range([600, 10]);
+      .range([525, 10]);
 
     let streamDomain = extent(dbData.map((d) => d.stream));
     streamDomain = streamDomain.map((d) => Math.sqrt(d));
@@ -60,7 +79,7 @@ const Swarmplt = () => {
       .alphaDecay(0)
       .alpha(0.3)
       .on("tick", () =>
-        svg
+        swarmplt
           .selectAll("circle")
           .data(dbData)
           .join("circle")
@@ -71,15 +90,27 @@ const Swarmplt = () => {
           .attr("cy", (d) => d.y)
           .attr("r", (d) => size(Math.sqrt(d.stream)))
       );
-    let init_decay = setTimeout(function(){
+    let init_decay = setTimeout(function () {
       console.log("start alpha decay");
       simulation.alphaDecay(0.05);
-    },5000);
-  }, [startMonth, endMonth, feature, country]);
+    }, 5000);
+
+    const xAxis = d3.axisBottom().scale(xScale);
+
+    swarmplt
+      .selectAll(".x.axis")
+      .data([null])
+      .join("g")
+      .classed("x axis", true)
+      .attr("transform", `translate(0,${innerHeight})`)
+      .transition()
+      .duration(duration)
+      .call(xAxis);
+  };
 
   return (
     <div>
-      <svg width="650" height="250" viewBox="0 0 650 250"ref={ref} />
+      <svg width="650" height="250" viewBox="0 0 650 250" ref={ref} />
     </div>
   );
 };
