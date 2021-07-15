@@ -5,10 +5,11 @@ import RaderChart from "./draw_raderchart";
 
 const TextDetail = ({ data }) => {
   return (
-    <div style={{ width: "40%" }}>
+    <div style={{ width: "40%", fontSize: "1rem" }}>
       <br />
+      <p style={{ marginBottom: "0px" }}>テンポ：{Math.round(data[0].tempo)}</p>
       <p style={{ marginBottom: "0px" }}>
-        テンポ：{Math.round(data[0].tempo)} &ensp; 拍子：
+        拍子：
         {data[0].time_signature}　
       </p>
       {/**TODO:キーの情報なしで単調長調だけかぁって感じ*/}
