@@ -119,7 +119,7 @@ function HeatMapChart() {
     { start: "2020-10", end: "2020-12" },
   ];
 
-  const countries = ["AU", "CA", "DE", "FR", "JP", "NL", "UK", "US"];
+  const countries = ["AU", "CA", "DE", "FR", "JP", "NL", "GB", "US"];
   const [heatMapData, setHeatMapData] = useState([]);
   const [Max,setMax] = useState(-Infinity);
   const [Min,setMin] = useState(Infinity);

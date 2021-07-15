@@ -3,10 +3,8 @@ import HeatMapChart from "./draw_heatmap";
 
 const HeatMap = () => {
   return (
-    <div className="card-content">
-      <div className="content">
+    <div>
         <HeatMapChart />
-      </div>
     </div>
   );
 };

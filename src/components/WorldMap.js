@@ -8,8 +8,6 @@ import {
   changeEndMonth,
 } from "../stores/details";
 import { useSelector } from "react-redux";
-// import featureSelect from "./featureSelect";
-// import periodSelect from "./periodSelect";
 
 const WorldMap = () => {
   const dispatch = useDispatch();
@@ -19,10 +17,8 @@ const WorldMap = () => {
   //let start = textYear[0][0];
   //let end = textYear[0][1];
   return (
-    <div className="card-content">
-      <div className="content">
+    <div>
       <DrowWorldMap />
-      </div>
     </div>
   );
 };
