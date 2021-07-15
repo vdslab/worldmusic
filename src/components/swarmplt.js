@@ -85,6 +85,7 @@ const Swarmplt = ({ width, height }) => {
           .join("circle")
           .style("fill", "red")
           .attr("stroke", "black")
+          .attr("stroke-width","0.1")
           .attr("opacity", 0.7)
           .attr("cx", (d) => d.x)
           .attr("cy", (d) => d.y)
