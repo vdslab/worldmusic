@@ -100,7 +100,6 @@ function HeatMapChart() {
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
-
   const term = [
     { start: "2017-01", end: "2017-03" },
     { start: "2017-04", end: "2017-06" },
@@ -121,10 +120,13 @@ function HeatMapChart() {
   ];
 
   const countries = ["AU", "CA", "DE", "FR", "JP", "NL", "UK", "US"];
-
   const [heatMapData, setHeatMapData] = useState([]);
+  const [Max,setMax] = useState(-Infinity);
+  const [Min,setMin] = useState(Infinity);
 
   useEffect(() => {
+    let Max = -Infinity;
+    let Min = Infinity;
     (async () => {
       /**TODO:改善 */
       const data = await Promise.all(
@@ -134,6 +136,12 @@ function HeatMapChart() {
             term.map(async (t) => {
               const data = await fetchData(t.start, t.end, feature, cId);
               const weightAve = makeData(data, cId);
+              if(Max < weightAve && weightAve != null){
+                Max = weightAve;
+              }
+              if(Min > weightAve && weightAve != null){
+                Min = weightAve;
+              }
               return { start: t.start, end: t.end, value: weightAve };
             })
           );
@@ -142,9 +150,12 @@ function HeatMapChart() {
         })
       );
       setHeatMapData(data);
+      setMax(Max);
+      setMin(Min);
     })();
   }, [feature]);
-
+  
+  console.log(Min,Max)
   function makeData(data) {
     let weightFeatureTotal = 0;
     let streamTotal = 0;
@@ -176,12 +187,9 @@ function HeatMapChart() {
         return country.timeData.filter((item) => item.start === start)[0].value;
       })
       .filter((t) => t);
-
-    const checkMax = Math.max(...termData);
-    const checkMin = Math.min(...termData);
-
+      
     opacity =
-      ((opacityMax - opacityMin) * (item - checkMin)) / (checkMax - checkMin) +
+      ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) +
       opacityMin;
     return opacity;
   };
@@ -204,10 +212,8 @@ function HeatMapChart() {
 
   const svgWidth = margin.left + margin.right + contentWidth;
   const svgHeight = margin.top + margin.bottom + contentHeight;
-
   /**TODO:引数渡していい感じにサイズとか調整できるようにする */
   const len = 15;
-
   return (
     <div style={{ width: "450px" }}>
       <div>

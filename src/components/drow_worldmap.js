@@ -16,70 +16,94 @@ const WorldMap = ({ features }) => {
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
 
-  const [dbData, setDbData] = useState([]);
-  let checkMinMax = [];
-
-  const width = 630;
-  const height = 250;
-  const centerPos = [0, 0];
-  const scale = 75;
-
-  const projection = d3
-    .geoMercator()
-    .center(centerPos)
-    .translate([width / 2, height - 60])
-    .scale(scale);
-  const path = d3.geoPath().projection(projection);
-
-  let weightAvgData = [
-    { countryid: "AU", WeightAvarage: 0 },
-    { countryid: "CA", WeightAvarage: 0 },
-    { countryid: "DE", WeightAvarage: 0 },
-    { countryid: "FR", WeightAvarage: 0 },
-    { countryid: "JP", WeightAvarage: 0 },
-    { countryid: "NL", WeightAvarage: 0 },
-    { countryid: "UK", WeightAvarage: 0 },
-    { countryid: "US", WeightAvarage: 0 },
+  const term = [
+    { start: "2017-01", end: "2017-03" },
+    { start: "2017-04", end: "2017-06" },
+    { start: "2017-07", end: "2017-09" },
+    { start: "2017-10", end: "2017-12" },
+    { start: "2018-01", end: "2018-03" },
+    { start: "2018-04", end: "2018-06" },
+    { start: "2018-07", end: "2018-09" },
+    { start: "2018-10", end: "2018-12" },
+    { start: "2019-01", end: "2019-03" },
+    { start: "2019-04", end: "2019-06" },
+    { start: "2019-07", end: "2019-09" },
+    { start: "2019-10", end: "2019-12" },
+    { start: "2020-01", end: "2020-03" },
+    { start: "2020-04", end: "2020-06" },
+    { start: "2020-07", end: "2020-09" },
+    { start: "2020-10", end: "2020-12" },
   ];
 
-  const calcWeightedAverage = (country) => {
+  const countries = ["AU", "CA", "DE", "FR", "JP", "NL", "UK", "US"];
+  const [worldMapData, setWorldMapData] = useState([]);
+  const [Max,setMax] = useState(-Infinity);
+  const [Min,setMin] = useState(Infinity);
+  
+  useEffect(() => {
+    let Max = -Infinity;
+    let Min = Infinity;
+    (async () => {
+      /**TODO:改善 */
+      const data = await Promise.all(
+        countries.map(async (cId) => {
+          const countryData = { countryName: cId };
+          const timeData = await Promise.all(
+            term.map(async (t) => {
+              const data = await fetchData(t.start, t.end, feature, cId);
+              const weightAve = makeData(data, cId);
+              if(Max < weightAve && weightAve != null){
+                Max = weightAve;
+              }
+              if(Min > weightAve && weightAve != null){
+                Min = weightAve;
+              }
+              return { start: t.start, end: t.end, value: weightAve };
+            })
+          );
+          countryData["timeData"] = timeData;
+          return countryData;
+        })
+      );
+      setWorldMapData(data);
+      setMax(Max);
+      setMin(Min);
+    })();
+  }, [feature]);
+
+  function makeData(data) {
     let weightFeatureTotal = 0;
     let streamTotal = 0;
-
-    dbData.map((d, i) => {
-      if (d.countryid == country) {
+    let weightAve = null;
+    if (data.length) {
+      data.map((d) => {
         streamTotal += d.stream;
         weightFeatureTotal += d.stream * d[feature];
-      }
-    });
-    return weightFeatureTotal / streamTotal;
-  };
+      });
+      weightAve = weightFeatureTotal / streamTotal;
+    }
+    return weightAve;
+  }
+
   const colorjudge = (item) => {
     let color = "white";
-    checkMinMax = checkMinMax.filter((value) => !isNaN(value));
-    weightAvgData.map((data) => {
-      if (!isNaN(data.WeightAvarage)) {
-        if (item.properties.ISO_A2 === data.countryid) {
-          color = d3.interpolateTurbo(opacityjudge(item));
-        }
-      }
-    });
-    return color;
-  };
+    worldMapData.map((data) => {
+      if(data.countryName === item.properties.ISO_A2){
+        data.timeData.map((t) => {
+          if(t.start === startMonth && t.value != null){
+            color = d3.interpolateTurbo(opacityjudge(t.value));
+          }
+        })
+      }   
+    })
+    return color; 
+  }
+    
   const opacityjudge = (item) => {
     let opacity = 0;
     let opacityMax = 1;
     let opacityMin = 0.1;
-    const checkMax = Math.max(...checkMinMax);
-    const checkMin = Math.min(...checkMinMax);
-    weightAvgData.map((data) => {
-      if (item.properties.ISO_A2 === data.countryid) {
-        opacity =
-          ((opacityMax - opacityMin) * (data.WeightAvarage - checkMin)) /
-            (checkMax - checkMin) +
-          opacityMin;
-      }
-    });
+    opacity = ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) + opacityMin;
     return opacity;
   };
 
@@ -97,18 +121,17 @@ const WorldMap = ({ features }) => {
     [1, 300],
   ];
 
-  useEffect(() => {
-    (async () => {
-      console.log(country);
-      const data = await fetchData(startMonth, endMonth, feature, "ALL");
-      setDbData(data);
-    })();
-  }, [startMonth, endMonth, feature, country]);
+  const width = 630;
+  const height = 250;
+  const centerPos = [0, 0];
+  const scale = 75;
 
-  weightAvgData.map((item, i) => {
-    item.WeightAvarage = calcWeightedAverage(item.countryid);
-    checkMinMax[i] = item.WeightAvarage;
-  });
+  const projection = d3
+    .geoMercator()
+    .center(centerPos)
+    .translate([width / 2, height - 60])
+    .scale(scale);
+  const path = d3.geoPath().projection(projection);
 
   return (
     <div>
