@@ -15,8 +15,10 @@ const App = () => {
       <Header />
       <div className="columns is-gapless">
         <div className="column">
-          <WorldMap />
-          <HeatMap />
+          <div className="card">
+            <WorldMap />
+            <HeatMap />
+          </div>
         </div>
         <div className="column">
           <Detail />
