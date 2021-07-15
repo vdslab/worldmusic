@@ -72,8 +72,9 @@ function RaderChart({ data }) {
             legend: false,
             value: value,
           });
-          const xp = posX + rs[_r] * 1.1 * Math.cos(((360 / len) * i - 90) * c);
-          const yp = posY + rs[_r] * 1.1 * Math.sin(((360 / len) * i - 90) * c);
+          const xp = posX + rs[_r] * 1.2 * Math.cos(((360 / len) * i - 90) * c);
+          const yp =
+            posY + rs[_r] * 1.15 * Math.sin(((360 / len) * i - 90) * c);
           perimetersPoint.push({ x: xp, y: yp, name: key, legend: true });
         }
       }
@@ -114,6 +115,22 @@ function RaderChart({ data }) {
               </g>
             );
           })}
+          {tick.map((t, i) => {
+            return (
+              <g key={i}>
+                <text
+                  x={t.x}
+                  y={t.y}
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                  fontSize="5"
+                  style={{ userSelect: "none" }}
+                >
+                  {t.value}
+                </text>
+              </g>
+            );
+          })}
           {perimetersPoint.map((p, i) => {
             return (
               <g key={i}>
@@ -143,22 +160,7 @@ function RaderChart({ data }) {
               </g>
             );
           })}
-          {tick.map((t, i) => {
-            return (
-              <g key={i}>
-                <text
-                  x={t.x}
-                  y={t.y}
-                  textAnchor="middle"
-                  dominantBaseline="central"
-                  fontSize="5"
-                  style={{ userSelect: "none" }}
-                >
-                  {t.value}
-                </text>
-              </g>
-            );
-          })}
+
           <path
             fill="#FF55BB"
             fillOpacity="0.5"
