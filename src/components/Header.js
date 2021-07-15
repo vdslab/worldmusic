@@ -5,7 +5,7 @@ const Header = () => {
     <section className="hero is-fluid is-danger is-small">
       <div className="hero-body">
         <div className="container has-text-centered s-divider">
-          <h1 className="title">About music aroud the world.</h1>
+          <h1 className="title">About music around the world.</h1>
         </div>
       </div>
     </section>

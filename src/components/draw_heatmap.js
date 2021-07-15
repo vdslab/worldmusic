@@ -166,7 +166,6 @@ function HeatMapChart() {
 
     // console.log(checkMax, checkMin, start);
 
-
     opacity =
       ((opacityMax - opacityMin) * (item - checkMin)) / (checkMax - checkMin) +
       opacityMin;
@@ -188,7 +187,6 @@ function HeatMapChart() {
   /**TODO:引数渡していい感じにサイズとか調整できるようにする */
   const len = 15;
 
-  /**TODO:軸つける */
   return (
     <div style={{ width: "300px" }}>
       <div>
