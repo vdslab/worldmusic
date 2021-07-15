@@ -1,6 +1,7 @@
 import React from "react";
 import {useState, useEffect} from "react";
 import request from "request";
+import { fetchData } from "../api";
 
 export default function App (){
     const spotify = {
@@ -20,26 +21,26 @@ export default function App (){
     };
 
     //good4u
-    const data = {
-      acousticness: 0.335,
-      analysis_url: "https://api.spotify.com/v1/audio-analysis/4ZtFanR9U6ndgddUvNcjcG",
-      danceability: 0.563,
-      duration_ms: 178147,
-      energy: 0.664,
-      id: "4ZtFanR9U6ndgddUvNcjcG",
-      instrumentalness: 0,
-      key: 9,
-      liveness: 0.0849,
-      loudness: -5.044,
-      mode: 1,
-      speechiness: 0.154,
-      tempo: 166.928,
-      time_signature: 4,
-      track_href: "https://api.spotify.com/v1/tracks/4ZtFanR9U6ndgddUvNcjcG",
-      type: "audio_features",
-      uri: "spotify:track:4ZtFanR9U6ndgddUvNcjcG",
-      valence: 0.688,
-    }
+    // const data = {
+    //   acousticness: 0.335,
+    //   analysis_url: "https://api.spotify.com/v1/audio-analysis/4ZtFanR9U6ndgddUvNcjcG",
+    //   danceability: 0.563,
+    //   duration_ms: 178147,
+    //   energy: 0.664,
+    //   id: "4ZtFanR9U6ndgddUvNcjcG",
+    //   instrumentalness: 0,
+    //   key: 9,
+    //   liveness: 0.0849,
+    //   loudness: -5.044,
+    //   mode: 1,
+    //   speechiness: 0.154,
+    //   tempo: 166.928,
+    //   time_signature: 4,
+    //   track_href: "https://api.spotify.com/v1/tracks/4ZtFanR9U6ndgddUvNcjcG",
+    //   type: "audio_features",
+    //   uri: "spotify:track:4ZtFanR9U6ndgddUvNcjcG",
+    //   valence: 0.688,
+    // }
 
     //夜にかける
     const data2 = {
@@ -84,6 +85,18 @@ export default function App (){
       "time_signature": 4
     }
 
+  // const musicId = "4ZtFanR9U6ndgddUvNcjcG";
+  // const musivId2 = "6MCjmGYlw6mQVWRFVgBRvB";
+  // const musicId3 =  "6EzZn96uOc9JsVGNRpx06n";
+  // const [data, setData] = useState([]);
+  // useEffect(() => {
+  //   (async () => {
+  //     /**TODO:リクエストの送り方 */
+  //     const data = await fetchData("", "", "", "ALL", musicId);
+  //     setData(data);
+  //   })();
+  // }, [musicId]);
+
     const [similarSongs,setSimilarSongs] = useState([]);
     const country = "US";
     const music = data2;
@@ -105,7 +118,7 @@ export default function App (){
             }
         });
     },[data2.id]);
-    console.log(similarSongs)
+    
     return (
     <div> 
         <p>類似曲</p>  
@@ -121,7 +134,7 @@ export default function App (){
                       </a>
                       {item.artists.map((item2,j) => {
                         return(
-                          <g key={j} transform={`translate(70,30})`}>
+                          <g key={j} transform={`translate(70,30)`}>
                           <a href={item2.external_urls.spotify}>
                             <text x="70" y="40"  fontSize="10" >
                               {item2.name}

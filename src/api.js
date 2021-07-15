@@ -10,13 +10,13 @@ function buildParams(args) {
 
 async function sendRequest(path, args) {
   const query = buildParams(args);
-  console.log(`/.netlify/functions${path}?${query}`);
+  //console.log(`/.netlify/functions${path}?${query}`);
   const request = await fetch(`/.netlify/functions${path}?${query}`);
   return await request.json();
 }
 
 export function fetchData(startMonth, endMonth, feature, country, musicId) {
-  console.log(startMonth, endMonth);
+  //console.log(startMonth, endMonth);
   //console.log(1);
   return sendRequest("/getData", {
     startMonth: startMonth,
