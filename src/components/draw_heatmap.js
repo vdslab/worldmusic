@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import * as d3 from "d3";
 import { fetchData } from "../api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changeCountry,
+  changeEndMonth,
+  changeStartMonth,
+} from "../stores/details";
 
 function VerticalAxis({ len, countries, name, h }) {
   return (
@@ -88,20 +93,31 @@ function Legend({ h, w }) {
 
 function HeatMapChart() {
   /**startMonthとendMonth,countryは世界地図と連携づけるのに持っておく。今は未使用 */
+  /**dispatch change country*/
+  const dispatch = useDispatch();
+
   const startMonth = useSelector((state) => state.detail.startMonth);
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
 
   const term = [
-    { start: "2017-01", end: "2017-06" },
-    { start: "2017-07", end: "2017-12" },
-    { start: "2018-01", end: "2018-06" },
-    { start: "2018-07", end: "2018-12" },
-    { start: "2019-01", end: "2019-06" },
-    { start: "2019-07", end: "2019-12" },
-    { start: "2020-01", end: "2020-06" },
-    { start: "2020-07", end: "2020-12" },
+    { start: "2017-01", end: "2017-03" },
+    { start: "2017-04", end: "2017-06" },
+    { start: "2017-07", end: "2017-09" },
+    { start: "2017-10", end: "2017-12" },
+    { start: "2018-01", end: "2018-03" },
+    { start: "2018-04", end: "2018-06" },
+    { start: "2018-07", end: "2018-09" },
+    { start: "2018-10", end: "2018-12" },
+    { start: "2019-01", end: "2019-03" },
+    { start: "2019-04", end: "2019-06" },
+    { start: "2019-07", end: "2019-09" },
+    { start: "2019-10", end: "2019-12" },
+    { start: "2020-01", end: "2020-03" },
+    { start: "2020-04", end: "2020-06" },
+    { start: "2020-07", end: "2020-09" },
+    { start: "2020-10", end: "2020-12" },
   ];
 
   const countries = ["AU", "CA", "DE", "FR", "JP", "NL", "UK", "US"];
@@ -164,13 +180,18 @@ function HeatMapChart() {
     const checkMax = Math.max(...termData);
     const checkMin = Math.min(...termData);
 
-    // console.log(checkMax, checkMin, start);
-
     opacity =
       ((opacityMax - opacityMin) * (item - checkMin)) / (checkMax - checkMin) +
       opacityMin;
     return opacity;
   };
+
+  function changeInfo(start, end, countryCd) {
+    console.log(start, end, countryCd);
+    dispatch(changeCountry(countryCd));
+    dispatch(changeStartMonth(start));
+    dispatch(changeEndMonth(end));
+  }
 
   const margin = {
     left: 50,
@@ -178,7 +199,7 @@ function HeatMapChart() {
     top: 45,
     bottom: 10,
   };
-  const contentWidth = 130;
+  const contentWidth = 250;
   const contentHeight = 130;
 
   const svgWidth = margin.left + margin.right + contentWidth;
@@ -188,7 +209,7 @@ function HeatMapChart() {
   const len = 15;
 
   return (
-    <div style={{ width: "300px" }}>
+    <div style={{ width: "450px" }}>
       <div>
         <svg
           viewBox={`${-margin.left} ${-margin.top} ${svgWidth} ${svgHeight}`}
@@ -213,19 +234,11 @@ function HeatMapChart() {
             height={len * countries.length}
             width={len * term.length}
           />
-          <text
-            x={(len * countries.length) / 2}
-            y={(len * term.length) / 2}
-            textAnchor="middle"
-            dominantBaseline="central"
-            fontSize="12"
-          >
-            loading...
-          </text>
 
           {/*<Legend h={contentWidth} w={contentWidth} />*/}
 
           {heatMapData.map((country, i) => {
+            //console.log(country);
             return country.timeData.map((item, j) => {
               return (
                 <rect
@@ -235,6 +248,9 @@ function HeatMapChart() {
                   height={len}
                   fill={colorjudge(item.value, item.start)}
                   key={i * country.timeData.length + j}
+                  onClick={() => {
+                    changeInfo(item.start, item.end, country.countryName);
+                  }}
                 />
               );
             });
