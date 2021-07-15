@@ -19,8 +19,10 @@ const WorldMap = () => {
   //let start = textYear[0][0];
   //let end = textYear[0][1];
   return (
-    <div className="my-section">
+    <div className="card-content">
+      <div className="content">
       <DrowWorldMap />
+      </div>
     </div>
   );
 };
