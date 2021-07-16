@@ -19,6 +19,7 @@ const Swarmplt = ({ width, height }) => {
 
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height;
+  const checkcoutry = ["AU", "CA", "DE", "FR", "JP", "NL", "GB", "US"];
 
   const ref = useRef();
   const svg = d3.select(ref.current);
@@ -32,81 +33,98 @@ const Swarmplt = ({ width, height }) => {
 
   useEffect(() => {
     (async () => {
-      console.log(1);
       const data = await fetchData(startMonth, endMonth, feature, country);
       setDbData(data);
     })();
-    console.log(dbData);
+
     d3.select(ref.current)
       .attr("width", width)
       .attr("height", height)
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
-  }, []);
+  }, [startMonth, endMonth, feature, country]);
 
+  console.log(country, startMonth, endMonth, feature);
   useEffect(() => {
     draw();
   }, [startMonth, endMonth, feature, country]);
 
   const draw = () => {
-    const swarmplt = svg.select("g");
-    const xScale = scaleLinear()
-      .domain(extent(dbData.map((d) => +d.acousticness)))
-      .range([525, 10]);
+    console.log(startMonth, endMonth,dbData);
+    checkcoutry.map((item, i) => {
+      // //描画する国である＆空配列でない場合に描画?
+      if (country === item && dbData.length != 0) {
+        console.log("2 "+country, startMonth, endMonth, dbData.length);
+        console.log(dbData);
+        const swarmplt = svg.select("g");
+        const xScale = scaleLinear()
+          .domain(extent(dbData.map((d) => +d[feature])))
+          .range([525, 10]);
 
-    let streamDomain = extent(dbData.map((d) => d.stream));
-    streamDomain = streamDomain.map((d) => Math.sqrt(d));
-    let size = scaleLinear().domain(streamDomain).range([1, 7]);
-    let simulation = forceSimulation(dbData)
-      .force(
-        "x",
-        forceX((d) => {
-          return xScale(d.acousticness);
-        }).strength(5)
-      )
-      .force(
-        "y",
-        forceY((d) => {
-          return 125;
-        }).strength(0.2)
-      )
-      .force(
-        "collide",
-        forceCollide((d) => {
-          return size(Math.sqrt(d.stream));
-        })
-      )
-      .alphaDecay(0)
-      .alpha(0.3)
-      .on("tick", () =>
+        let streamDomain = extent(dbData.map((d) => d.stream));
+        streamDomain = streamDomain.map((d) => Math.sqrt(d));
+        let size = scaleLinear().domain(streamDomain).range([1, 7]);
+        let simulation = forceSimulation(dbData)
+          .force(
+            "x",
+            forceX((d) => {
+              return xScale(d[feature]);
+            }).strength(5)
+          )
+          .force(
+            "y",
+            forceY((d) => {
+              return 125;
+            }).strength(0.2)
+          )
+          .force(
+            "collide",
+            forceCollide((d) => {
+              return size(Math.sqrt(d.stream));
+            })
+          )
+          .alphaDecay(0)
+          .alpha(0.3)
+          .on("tick", () =>
+            swarmplt
+              .selectAll("circle")
+              .data(dbData)
+              .join("circle")
+              .style("fill", (d) => d3.interpolateTurbo(d[feature]))
+              .attr("stroke", "black")
+              .on("mouseover", (d) => {
+                console.log("in");
+                console.log(d.target);
+                //select(d.target).atter("stroke","red")
+              }) 
+              .on("mouseout", function(d){
+                console.log("out");
+                // select(d.target).atter("stroke","black")
+              })
+              .attr("stroke-width", "0.1")
+              .attr("opacity", 0.7)
+              .attr("cx", (d) => d.x)
+              .attr("cy", (d) => d.y)
+              .attr("r", (d) => size(Math.sqrt(d.stream)))
+          );
+        let init_decay = setTimeout(function () {
+          simulation.alphaDecay(0.05);
+        }, 5000);
+        const xAxis = d3.axisBottom().scale(xScale);
+
         swarmplt
-          .selectAll("circle")
-          .data(dbData)
-          .join("circle")
-          .style("fill", "red")
-          .attr("stroke", "black")
-          .attr("stroke-width","0.1")
-          .attr("opacity", 0.7)
-          .attr("cx", (d) => d.x)
-          .attr("cy", (d) => d.y)
-          .attr("r", (d) => size(Math.sqrt(d.stream)))
-      );
-    let init_decay = setTimeout(function () {
-      console.log("start alpha decay");
-      simulation.alphaDecay(0.05);
-    }, 5000);
-
-    const xAxis = d3.axisBottom().scale(xScale);
-
-    swarmplt
-      .selectAll(".x.axis")
-      .data([null])
-      .join("g")
-      .classed("x axis", true)
-      .attr("transform", `translate(0,${innerHeight})`)
-      .transition()
-      .duration(duration)
-      .call(xAxis);
+          .selectAll(".x.axis")
+          .data([null])
+          .join("g")
+          .classed("x axis", true)
+          .attr("transform", `translate(0,${innerHeight})`)
+          .transition()
+          .duration(duration)
+          .call(xAxis);
+      } else {
+        return;
+      }
+    });
   };
 
   return (
