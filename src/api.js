@@ -15,10 +15,17 @@ async function sendRequest(path, args) {
   return await request.json();
 }
 
-export function fetchData(startMonth, endMonth, feature, country, musicId) {
-  //console.log(startMonth, endMonth);
-  //console.log(1);
+export function fetchData(startMonth, endMonth, feature, country) {
   return sendRequest("/getData", {
+    startMonth: startMonth,
+    endMonth: endMonth,
+    feature: feature,
+    country: country,
+  });
+}
+
+export function fetchSongData(startMonth, endMonth, feature, country, musicId) {
+  return sendRequest("/getSongData", {
     startMonth: startMonth,
     endMonth: endMonth,
     feature: feature,

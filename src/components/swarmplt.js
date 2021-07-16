@@ -50,11 +50,11 @@ const Swarmplt = ({ width, height }) => {
   }, [startMonth, endMonth, feature, country]);
 
   const draw = () => {
-    console.log(startMonth, endMonth,dbData);
+    console.log(startMonth, endMonth, dbData);
     checkcoutry.map((item, i) => {
       // //描画する国である＆空配列でない場合に描画?
       if (country === item && dbData.length != 0) {
-        console.log("2 "+country, startMonth, endMonth, dbData.length);
+        console.log("2 " + country, startMonth, endMonth, dbData.length);
         console.log(dbData);
         const swarmplt = svg.select("g");
         const xScale = scaleLinear()
@@ -93,14 +93,9 @@ const Swarmplt = ({ width, height }) => {
               .style("fill", (d) => d3.interpolateTurbo(d[feature]))
               .attr("stroke", "black")
               .on("mouseover", (d) => {
-                console.log("in");
                 console.log(d.target);
-                //select(d.target).atter("stroke","red")
-              }) 
-              .on("mouseout", function(d){
-                console.log("out");
-                // select(d.target).atter("stroke","black")
               })
+              .on("mouseout", function (d) {})
               .attr("stroke-width", "0.1")
               .attr("opacity", 0.7)
               .attr("cx", (d) => d.x)

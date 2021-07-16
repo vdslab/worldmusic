@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { fetchData } from "../api";
+import { fetchSongData } from "../api";
 import RaderChart from "./draw_raderchart";
 
 const TextDetail = ({ data }) => {
@@ -22,7 +22,7 @@ const Song = () => {
   useEffect(() => {
     (async () => {
       /**TODO:リクエストの送り方 */
-      const data = await fetchData("", "", "", "ALL", musicId);
+      const data = await fetchSongData("", "", "", "ALL", musicId);
       setData(data);
     })();
   }, [musicId]);
