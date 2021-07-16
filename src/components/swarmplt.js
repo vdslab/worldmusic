@@ -36,7 +36,7 @@ const Swarmplt = ({ width, height }) => {
       const data = await fetchData(startMonth, endMonth, feature, country);
       setDbData(data);
     })();
-
+    console.log(1);
     d3.select(ref.current)
       .attr("width", width)
       .attr("height", height)
