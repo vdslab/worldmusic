@@ -35,23 +35,20 @@ const Swarmplt = ({ width, height }) => {
     (async () => {
       const data = await fetchData(startMonth, endMonth, feature, country);
       setDbData(data);
-      console.log(data);
-      // const data = await fetch("/.netlify/functions/getTest");
-      // console.log(data.json());
     })();
     // console.log(1);
-    // d3.select(ref.current)
-    //   .attr("width", width)
-    //   .attr("height", height)
-    //   .append("g")
-    //   .attr("transform", `translate(${margin.left}, ${margin.top})`);
-  }, []);
-  // }, [startMonth, endMonth, feature, country]);
+    d3.select(ref.current)
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+    // }, []);
+  }, [startMonth, endMonth, feature, country]);
 
-  // console.log(country, startMonth, endMonth, feature);
-  // useEffect(() => {
-  //   draw();
-  // }, [startMonth, endMonth, feature, country]);
+  console.log(country, startMonth, endMonth, feature);
+  useEffect(() => {
+    draw();
+  }, [startMonth, endMonth, feature, country]);
 
   const draw = () => {
     console.log(startMonth, endMonth, dbData);
@@ -128,8 +125,8 @@ const Swarmplt = ({ width, height }) => {
 
   return (
     <div>
-      {/* <svg width="650" height="250" viewBox="0 0 650 250" ref={ref} /> */}
-      <p>111</p>
+      <svg width="650" height="250" viewBox="0 0 650 250" ref={ref} />
+      {/* <p>111</p> */}
     </div>
   );
 };
