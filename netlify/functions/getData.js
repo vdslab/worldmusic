@@ -29,7 +29,7 @@ exports.handler = async function (event) {
       db,
       `SELECT Music.Musicid , Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.countryid='${country}' AND Ranking.startday BETWEEN '${startMonth}-01' AND '${endMonth}-31'`
     );
-    return { statusCode: 200, body: JSON.stringify(dbpath) };
+    return { statusCode: 200, body: JSON.stringify(result) };
   } catch (e) {
     return { statusCode: 500, body: "error" };
   }
