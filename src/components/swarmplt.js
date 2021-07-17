@@ -34,7 +34,7 @@ const Swarmplt = ({ width, height }) => {
   useEffect(() => {
     (async () => {
       const data = await fetchData(startMonth, endMonth, feature, country);
-      // setDbData(data);
+      setDbData(data);
       console.log(data);
       // const data = await fetch("/.netlify/functions/getTest");
       // console.log(data.json());
