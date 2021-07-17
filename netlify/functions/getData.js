@@ -27,7 +27,8 @@ exports.handler = async function (event) {
 
     const result = await selectRows(
       db,
-      `SELECT Music.Musicid , Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.countryid='${country}' AND Ranking.startday BETWEEN '${startMonth}-01' AND '${endMonth}-31'`
+      // `SELECT Music.Musicid , Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.countryid='${country}' AND Ranking.startday BETWEEN '${startMonth}-01' AND '${endMonth}-31'`
+      `SELECT Music.Musicid , Music.acousticness , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.countryid='AU' AND Ranking.startday BETWEEN '2017-01-01' AND '2017-03-31'`
     );
     return { statusCode: 200, body: JSON.stringify(result) };
   } catch (e) {
