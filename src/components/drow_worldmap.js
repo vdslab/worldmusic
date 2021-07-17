@@ -35,9 +35,9 @@ const WorldMap = ({ features }) => {
 
   const countries = ["AU", "CA", "DE", "FR", "JP", "NL", "GB", "US"];
   const [worldMapData, setWorldMapData] = useState([]);
-  const [Max,setMax] = useState(-Infinity);
-  const [Min,setMin] = useState(Infinity);
-  
+  const [Max, setMax] = useState(-Infinity);
+  const [Min, setMin] = useState(Infinity);
+
   useEffect(() => {
     let Max = -Infinity;
     let Min = Infinity;
@@ -48,12 +48,13 @@ const WorldMap = ({ features }) => {
           const countryData = { countryName: cId };
           const timeData = await Promise.all(
             term.map(async (t) => {
-              const data = await fetchData(t.start, t.end, feature, cId);
+              // const data = await fetchData(t.start, t.end, feature, cId);
+              const data = [];
               const weightAve = makeData(data, cId);
-              if(Max < weightAve && weightAve != null){
+              if (Max < weightAve && weightAve != null) {
                 Max = weightAve;
               }
-              if(Min > weightAve && weightAve != null){
+              if (Min > weightAve && weightAve != null) {
                 Min = weightAve;
               }
               return { start: t.start, end: t.end, value: weightAve };
@@ -86,22 +87,23 @@ const WorldMap = ({ features }) => {
   const colorjudge = (item) => {
     let color = "white";
     worldMapData.map((data) => {
-      if(data.countryName === item.properties.ISO_A2){
+      if (data.countryName === item.properties.ISO_A2) {
         data.timeData.map((t) => {
-          if(t.start === startMonth && t.value != null){
+          if (t.start === startMonth && t.value != null) {
             color = d3.interpolateTurbo(opacityjudge(t.value));
           }
-        })
-      }   
-    })
-    return color; 
-  }
-    
+        });
+      }
+    });
+    return color;
+  };
+
   const opacityjudge = (item) => {
     let opacity = 0;
     let opacityMax = 1;
     let opacityMin = 0.1;
-    opacity = ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) + opacityMin;
+    opacity =
+      ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) + opacityMin;
     return opacity;
   };
 
@@ -119,32 +121,32 @@ const WorldMap = ({ features }) => {
 
   return (
     <div>
-        <svg viewBox="-30 -30 770 310">
-          <g>
-            {features.map((item, i) => (
-              <path
-                d={path(item)}
-                fill={colorjudge(item)}
-                stroke="black"
-                strokeWidth="1"
-                strokeOpacity="0.5"
-                countryname={item}
-                onMouseOver={(e) => {
-                  select(e.target).attr("stroke", "red");
-                }}
-                onMouseOut={(e) => {
-                  select(e.target).attr("stroke", "black");
-                }}
-                onClick={() => {
-                  console.log(item.properties.ISO_A2);
-                  const c = item.properties.ISO_A2;
-                  dispatch(changeCountry(c));
-                }}
-                key={i}
-              />
-            ))}
-          </g>
-        </svg>
+      <svg viewBox="-30 -30 770 310">
+        <g>
+          {features.map((item, i) => (
+            <path
+              d={path(item)}
+              fill={colorjudge(item)}
+              stroke="black"
+              strokeWidth="1"
+              strokeOpacity="0.5"
+              countryname={item}
+              onMouseOver={(e) => {
+                select(e.target).attr("stroke", "red");
+              }}
+              onMouseOut={(e) => {
+                select(e.target).attr("stroke", "black");
+              }}
+              onClick={() => {
+                console.log(item.properties.ISO_A2);
+                const c = item.properties.ISO_A2;
+                dispatch(changeCountry(c));
+              }}
+              key={i}
+            />
+          ))}
+        </g>
+      </svg>
     </div>
   );
 };

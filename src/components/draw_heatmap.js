@@ -121,8 +121,8 @@ function HeatMapChart() {
 
   const countries = ["AU", "CA", "DE", "FR", "JP", "NL", "GB", "US"];
   const [heatMapData, setHeatMapData] = useState([]);
-  const [Max,setMax] = useState(-Infinity);
-  const [Min,setMin] = useState(Infinity);
+  const [Max, setMax] = useState(-Infinity);
+  const [Min, setMin] = useState(Infinity);
 
   useEffect(() => {
     let Max = -Infinity;
@@ -134,12 +134,13 @@ function HeatMapChart() {
           const countryData = { countryName: cId };
           const timeData = await Promise.all(
             term.map(async (t) => {
-              const data = await fetchData(t.start, t.end, feature, cId);
+              const data = [];
+              // const data = await fetchData(t.start, t.end, feature, cId);
               const weightAve = makeData(data, cId);
-              if(Max < weightAve && weightAve != null){
+              if (Max < weightAve && weightAve != null) {
                 Max = weightAve;
               }
-              if(Min > weightAve && weightAve != null){
+              if (Min > weightAve && weightAve != null) {
                 Min = weightAve;
               }
               return { start: t.start, end: t.end, value: weightAve };
@@ -154,8 +155,8 @@ function HeatMapChart() {
       setMin(Min);
     })();
   }, [feature]);
-  
-  console.log(Min,Max)
+
+  console.log(Min, Max);
   function makeData(data) {
     let weightFeatureTotal = 0;
     let streamTotal = 0;
@@ -187,10 +188,9 @@ function HeatMapChart() {
         return country.timeData.filter((item) => item.start === start)[0].value;
       })
       .filter((t) => t);
-      
+
     opacity =
-      ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) +
-      opacityMin;
+      ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) + opacityMin;
     return opacity;
   };
 
