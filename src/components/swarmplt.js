@@ -33,10 +33,11 @@ const Swarmplt = ({ width, height }) => {
 
   useEffect(() => {
     (async () => {
-      // const data = await fetchData(startMonth, endMonth, feature, country);
-      // setDbData(data);
-      const data = await fetch("/.netlify/functions/getTest");
-      console.log(data.json());
+      const data = await fetchData(startMonth, endMonth, feature, country);
+      setDbData(data);
+      console.log(data);
+      // const data = await fetch("/.netlify/functions/getTest");
+      // console.log(data.json());
     })();
     // console.log(1);
     // d3.select(ref.current)
