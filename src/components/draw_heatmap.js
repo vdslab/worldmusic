@@ -156,7 +156,6 @@ function HeatMapChart() {
     })();
   }, [feature]);
 
-  console.log(Min, Max);
   function makeData(data) {
     let weightFeatureTotal = 0;
     let streamTotal = 0;
@@ -195,7 +194,7 @@ function HeatMapChart() {
   };
 
   function changeInfo(start, end, countryCd) {
-    console.log(start, end, countryCd);
+    //console.log(start, end, countryCd);
     dispatch(changeCountry(countryCd));
     dispatch(changeStartMonth(start));
     dispatch(changeEndMonth(end));
