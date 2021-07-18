@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { forceSimulation, forceX, forceY, forceCollide } from "d3-force";
 import { scaleLinear } from "d3-scale";
-import { select } from "d3-selection";
 import { extent } from "d3-array";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../api";
-import { axisBottom } from "d3";
 import * as d3 from "d3";
 
 const Swarmplt = ({ width, height }) => {
@@ -13,7 +11,7 @@ const Swarmplt = ({ width, height }) => {
   const margin = {
     top: 10,
     bottom: 500,
-    left: 50,
+    left: 40,
     right: 40,
   };
 
@@ -24,39 +22,62 @@ const Swarmplt = ({ width, height }) => {
   const ref = useRef();
   const svg = d3.select(ref.current);
 
+  const dispatch = useDispatch();
   const [dbData, setDbData] = useState([]);
-
   const startMonth = useSelector((state) => state.detail.startMonth);
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
+  const musicid = useSelector((state) => state.detail.musicid);
+  const [Max, setMax] = useState(-Infinity);
+  const [Min, setMin] = useState(Infinity);
 
   useEffect(() => {
+    let Max = -Infinity;
+    let Min = Infinity;
     (async () => {
-      const data = await fetchData(startMonth, endMonth, feature, country);
+      //console.log(musicid);
+      const data = await fetchData(startMonth, endMonth, feature, country, musicid);
       setDbData(data);
+      data.map((item,i) => {
+        if( Max < item[feature] ){
+          Max = item[feature];
+        }
+        if( item[feature] < Min ){
+          Min = item[feature];
+        }
+        item[feature] = checkColor(item[feature]);
+      })
+      setMax(Max);
+      setMin(Min);
     })();
-    // console.log(1);
     d3.select(ref.current)
       .attr("width", width)
       .attr("height", height)
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
-    // }, []);
-  }, [startMonth, endMonth, feature, country]);
+  }, [startMonth, endMonth, feature, country, musicid]);
 
-  console.log(country, startMonth, endMonth, feature);
   useEffect(() => {
     draw();
-  }, [startMonth, endMonth, feature, country]);
+  }, [startMonth, endMonth, feature, country, musicid]);
 
+  const checkColor = (item) =>{
+    let opacity = 0;
+    let opacityMax = 1;
+    let opacityMin = 0.1;
+    opacity =
+      ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) + opacityMin;
+    return opacity;
+  }
+
+  console.log(Min, Max);
+  console.log(margin.left-margin.right/2);
+  console.log(margin.top-margin.bottom/2);
   const draw = () => {
-    console.log(startMonth, endMonth, dbData);
     checkcoutry.map((item, i) => {
       // //描画する国である＆空配列でない場合に描画?
       if (country === item && dbData.length != 0) {
-        console.log("2 " + country, startMonth, endMonth, dbData.length);
-        console.log(dbData);
         const swarmplt = svg.select("g");
         const xScale = scaleLinear()
           .domain(extent(dbData.map((d) => +d[feature])))
@@ -93,30 +114,40 @@ const Swarmplt = ({ width, height }) => {
               .join("circle")
               .style("fill", (d) => d3.interpolateTurbo(d[feature]))
               .attr("stroke", "black")
-              .on("mouseover", (d) => {
-                console.log(d.target);
+              .on("mouseover", (d,i) => {
+                console.log("in")
+                d3.select(this).attr("stroke","red")
               })
-              .on("mouseout", function (d) {})
+              .on("mouseout", (d,i) => {
+                d3.select(i.this).attr("stroke","black")
+              })
+              .on("click", (d,i) => {
+                //console.log("hit");
+                //console.log(i);
+                //console.log(i.musicid, i[feature]);
+                //dispatch(chageMusicId(i.musicid));
+              })
               .attr("stroke-width", "0.1")
               .attr("opacity", 0.7)
               .attr("cx", (d) => d.x)
               .attr("cy", (d) => d.y)
               .attr("r", (d) => size(Math.sqrt(d.stream)))
+              // .attr("transform", `rotate(180 ${margin.left-margin.right/2}, ${margin.top-margin.bottom/2})`)
           );
         let init_decay = setTimeout(function () {
           simulation.alphaDecay(0.05);
         }, 5000);
-        const xAxis = d3.axisBottom().scale(xScale);
 
-        swarmplt
-          .selectAll(".x.axis")
-          .data([null])
-          .join("g")
-          .classed("x axis", true)
-          .attr("transform", `translate(0,${innerHeight})`)
-          .transition()
-          .duration(duration)
-          .call(xAxis);
+        // const xAxis = d3.axisBottom().scale(xScale);
+        // swarmplt
+        //   .selectAll(".x.axis")
+        //   .data([null])
+        //   .join("g")
+        //   .classed("x axis", true)
+        //   .attr("transform", `translate(0,${innerHeight})`)
+        //   .transition()
+        //   .duration(duration)
+        //   .call(xAxis);
       } else {
         return;
       }
@@ -126,7 +157,6 @@ const Swarmplt = ({ width, height }) => {
   return (
     <div>
       <svg width="650" height="250" viewBox="0 0 650 250" ref={ref} />
-      {/* <p>111</p> */}
     </div>
   );
 };
