@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../api";
 import * as d3 from "d3";
 import {
-  chageMusicId,
+  changeMusicId,
 } from "../stores/details";
 
 const Swarmplt = ({ width, height }) => {
@@ -71,7 +71,7 @@ const Swarmplt = ({ width, height }) => {
 
   useEffect(() => {
     draw();
-  }, [startMonth, endMonth, feature, country, musicid]);
+  }, [startMonth, endMonth, feature, country]);
 
   const checkColor = (item) => {
     let opacity = 0;
@@ -81,6 +81,8 @@ const Swarmplt = ({ width, height }) => {
       ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) + opacityMin;
     return opacity;
   };
+
+  console.log("musicId: "+musicid);
 
   const draw = () => {
     checkcoutry.map((item, i) => {
@@ -131,9 +133,7 @@ const Swarmplt = ({ width, height }) => {
                   //d3.select(i.this).attr("stroke","black") //←反応なし
                 })
                 .on("click", (d, i) => {
-                  console.log(i);
-                  console.log(i.musicid);
-                  //dispatch(chageMusicId(i.musicid));
+                  dispatch(changeMusicId(i.musicid));
                 })
                 .attr("stroke-width", "0.1")
                 .attr("opacity", 0.7)

@@ -35,7 +35,7 @@ const slice = createSlice({
       state.country = action.payload;
     },
 
-    chageMusicId: (state, action) => {
+    changeMusicId: (state, action) => {
       state.musicid = action.payload;
     },
   },
