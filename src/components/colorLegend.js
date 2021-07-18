@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 const colorLegend = () => {
   const dispatch = useDispatch();
   const feature = useSelector((state) => state.detail.feature);
-  const aboutColorGradations = [
+  let w = 250;
+  let aboutColorGradations = [
     [0, 0],
     [0.1, 25],
     [0.2, 50],
@@ -18,12 +19,37 @@ const colorLegend = () => {
     [0.9, 225],
     [1, 250],
   ];
-  //loudnessは−8〜−3、tempoは113〜125
-  //   const aboutColorGradations2 = [
-  //   ]
+  if(feature === "loudness"){ //loudnessは−8〜−3
+    aboutColorGradations = [
+      [-8,0],
+      [-7,50],
+      [-6,100],
+      [-5,150],
+      [-4,200],
+      [-3,250]
+    ]
+  }
+  if(feature === "tempo"){ //tempoは113〜125
+    w = 240;
+    aboutColorGradations = [
+      [113,0],
+      [114,20],
+      [115,40],
+      [116,60],
+      [117,80],
+      [118,100],
+      [119,120],
+      [120,140],
+      [121,160],
+      [122,180],
+      [123,200],
+      [124,220],
+      [125,240]
+    ]
+  }
   return (
     <div>
-      <svg width="255" height="50">
+      <svg width={w+20} height="50">
         <g>
           <defs>
             <linearGradient id="gradient">
@@ -50,7 +76,7 @@ const colorLegend = () => {
               <stop offset="100%" stop-color={d3.interpolateTurbo(1)} />
             </linearGradient>
           </defs>
-          <rect x="0" y="10" width="250" height="20" fill="url('#gradient')" />
+          <rect x="0" y="10" width={w} height="20" fill="url('#gradient')" />
           {aboutColorGradations.map((item, i) => {
             return (
               <line x1={item[1]} y1="30" x2={item[1]} y2="40" stroke="black" />
