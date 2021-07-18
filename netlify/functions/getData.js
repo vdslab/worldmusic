@@ -18,6 +18,13 @@ exports.handler = async function (event) {
   const endMonth = event.queryStringParameters.endMonth || null;
   const feature = event.queryStringParameters.feature || null;
   const country = event.queryStringParameters.country || null;
+  //console.log(startMonth, endMonth, feature, country);
+
+  // const startMonth = "2017-01";
+  // const endMonth = "2017-03";
+  // const feature = "acousticness";
+  // const country = "AU";
+  // console.log(startMonth, endMonth, feature, country);
 
   /**TODO:応急処置, 後でちゃんとした書き方先輩に聞く */
 

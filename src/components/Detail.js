@@ -6,9 +6,7 @@ const Detail = () => {
     <div className="my-section">
       <div className="card">
         <div className="card-content">
-          <div className="content">
-            <Swarmplt />
-          </div>
+          <div className="content">{/*}  <Swarmplt />*/}</div>
         </div>
       </div>
     </div>

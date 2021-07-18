@@ -7,6 +7,7 @@ import {
   changeEndMonth,
   changeStartMonth,
 } from "../stores/details";
+import "./draw_heatmap.css";
 
 function VerticalAxis({ len, countries, name, h }) {
   return (
@@ -124,6 +125,7 @@ function HeatMapChart() {
   const [Max, setMax] = useState(-Infinity);
   const [Min, setMin] = useState(Infinity);
   const [clicked, setClicked] = useState(-1);
+  const [pos, setPos] = useState(null);
 
   useEffect(() => {
     let Max = -Infinity;
@@ -157,7 +159,6 @@ function HeatMapChart() {
     })();
   }, [feature]);
 
-  console.log(Min, Max);
   function makeData(data) {
     let weightFeatureTotal = 0;
     let streamTotal = 0;
@@ -243,38 +244,54 @@ function HeatMapChart() {
           />
 
           {/*<Legend h={contentWidth} w={contentWidth} />*/}
-
-          {heatMapData.map((country, i) => {
-            return country.timeData.map((item, j) => {
-              return (
-                <g key={i * country.timeData.length + j}>
-                  <rect
-                    className="cell"
-                    x={len * j}
-                    y={len * i}
-                    width={len}
-                    height={len}
-                    fill={colorjudge(item.value, item.start)}
-                    onClick={() => {
-                      changeInfo(item.start, item.end, country.countryName);
-                      setClicked(i * country.timeData.length + j);
-                    }}
-                  />
-                  <rect
-                    x={len * j}
-                    y={len * i}
-                    width={len - 0.5}
-                    height={len - 0.5}
-                    fill="none"
-                    stroke="black"
-                    opacity={
-                      clicked === i * country.timeData.length + j ? 1 : 0
-                    }
-                  />
-                </g>
-              );
-            });
-          })}
+          <g>
+            {heatMapData.map((country, i) => {
+              return country.timeData.map((item, j) => {
+                return (
+                  <g key={i * country.timeData.length + j}>
+                    <rect
+                      className="cell"
+                      x={len * j}
+                      y={len * i}
+                      width={len}
+                      height={len}
+                      fill={colorjudge(item.value, item.start)}
+                      onClick={() => {
+                        changeInfo(item.start, item.end, country.countryName);
+                        setClicked(i * country.timeData.length + j);
+                      }}
+                      onMouseEnter={() => {
+                        setPos({
+                          col: i,
+                          row: j,
+                          value: item.value?.toFixed(2) || " - ",
+                        });
+                        console.log(pos);
+                      }}
+                    />
+                    <rect
+                      x={len * j}
+                      y={len * i}
+                      width={len - 0.5}
+                      height={len - 0.5}
+                      fill="none"
+                      stroke="black"
+                      opacity={
+                        clicked === i * country.timeData.length + j ? 1 : 0
+                      }
+                    />
+                    {pos !== null ? (
+                      <text x={len * pos.row} y={len * pos.col}>
+                        {pos.value}
+                      </text>
+                    ) : (
+                      []
+                    )}
+                  </g>
+                );
+              });
+            })}
+          </g>
         </svg>
       </div>
     </div>
