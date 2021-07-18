@@ -123,6 +123,7 @@ function HeatMapChart() {
   const [heatMapData, setHeatMapData] = useState([]);
   const [Max, setMax] = useState(-Infinity);
   const [Min, setMin] = useState(Infinity);
+  const [clicked, setClicked] = useState(-1);
 
   useEffect(() => {
     let Max = -Infinity;
@@ -244,20 +245,33 @@ function HeatMapChart() {
           {/*<Legend h={contentWidth} w={contentWidth} />*/}
 
           {heatMapData.map((country, i) => {
-            //console.log(country);
             return country.timeData.map((item, j) => {
               return (
-                <rect
-                  x={len * j}
-                  y={len * i}
-                  width={len}
-                  height={len}
-                  fill={colorjudge(item.value, item.start)}
-                  key={i * country.timeData.length + j}
-                  onClick={() => {
-                    changeInfo(item.start, item.end, country.countryName);
-                  }}
-                />
+                <g key={i * country.timeData.length + j}>
+                  <rect
+                    className="cell"
+                    x={len * j}
+                    y={len * i}
+                    width={len}
+                    height={len}
+                    fill={colorjudge(item.value, item.start)}
+                    onClick={() => {
+                      changeInfo(item.start, item.end, country.countryName);
+                      setClicked(i * country.timeData.length + j);
+                    }}
+                  />
+                  <rect
+                    x={len * j}
+                    y={len * i}
+                    width={len - 0.5}
+                    height={len - 0.5}
+                    fill="none"
+                    stroke="black"
+                    opacity={
+                      clicked === i * country.timeData.length + j ? 1 : 0
+                    }
+                  />
+                </g>
               );
             });
           })}
