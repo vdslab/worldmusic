@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { forceSimulation, forceX, forceY, forceCollide } from "d3-force";
 import { scaleLinear } from "d3-scale";
-import { select } from "d3-selection";
 import { extent } from "d3-array";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { fetchData } from "../api";
-import { axisBottom } from "d3";
 import * as d3 from "d3";
 
 const Swarmplt = ({ width, height }) => {
@@ -30,19 +28,19 @@ const Swarmplt = ({ width, height }) => {
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
+  const musicid = useSelector((state) => state.detail.musicid);
 
   useEffect(() => {
     (async () => {
+      console.log(musicid);
       const data = await fetchData(startMonth, endMonth, feature, country);
       setDbData(data);
     })();
-    // console.log(1);
     d3.select(ref.current)
       .attr("width", width)
       .attr("height", height)
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
-    // }, []);
   }, [startMonth, endMonth, feature, country]);
 
   console.log(country, startMonth, endMonth, feature);
