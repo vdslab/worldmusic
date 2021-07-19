@@ -1,5 +1,5 @@
 import React from "react";
-import Swarmplt from "./swarmplt";
+import Swarmplt from "./draw_swarmplt";
 
 const Detail = () => {
   return (
