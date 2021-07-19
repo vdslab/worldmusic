@@ -5,9 +5,7 @@ import { extent } from "d3-array";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../api";
 import * as d3 from "d3";
-import {
-  changeMusicId,
-} from "../stores/details";
+import { changeMusicId } from "../stores/details";
 
 const Swarmplt = ({ width, height }) => {
   const duration = 500;
@@ -48,6 +46,7 @@ const Swarmplt = ({ width, height }) => {
         musicid
       );
       setDbData(data);
+      console.log(dbData);
       data.map((item, i) => {
         //console.log("before: "+item[feature]); //←正規化前の値
         if (Max < item[feature]) {
@@ -70,7 +69,7 @@ const Swarmplt = ({ width, height }) => {
   }, [startMonth, endMonth, feature, country, musicid]);
 
   useEffect(() => {
-    draw();
+    // draw();
   }, [startMonth, endMonth, feature, country]);
 
   const checkColor = (item) => {
@@ -82,7 +81,7 @@ const Swarmplt = ({ width, height }) => {
     return opacity;
   };
 
-  console.log("musicId: "+musicid);
+  // console.log("musicId: " + musicid);
 
   const draw = () => {
     checkcoutry.map((item, i) => {
@@ -140,7 +139,7 @@ const Swarmplt = ({ width, height }) => {
                 .attr("cx", (d) => d.x)
                 .attr("cy", (d) => d.y)
                 .attr("r", (d) => size(Math.sqrt(d.stream)))
-                //.attr("transform", `rotate(180 ${650/2}, ${250/2})`) //←綺麗に180度回転できていない
+            //.attr("transform", `rotate(180 ${650/2}, ${250/2})`) //←綺麗に180度回転できていない
           );
         let init_decay = setTimeout(function () {
           simulation.alphaDecay(0.05);

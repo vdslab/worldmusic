@@ -25,7 +25,7 @@ const selectFeature = () => {
         }}
       >
         {elements.map((element, i) => {
-          return <option>{element}</option>;
+          return <option key={i}>{element}</option>;
         })}
       </select>
     </div>

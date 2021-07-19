@@ -28,13 +28,13 @@ const App = () => {
               </div>
               <div className="card-content">
                 <div className="content">
-                  <footer class="card-footer">
-                    <p class="card-footer-item">
+                  <footer className="card-footer">
+                    <p className="card-footer-item">
                       <span>
                         <SelectFeature />
                       </span>
                     </p>
-                    <p class="card-footer-item">
+                    <p className="card-footer-item">
                       <span>
                         <ColorLegend />
                       </span>
