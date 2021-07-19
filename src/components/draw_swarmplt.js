@@ -81,8 +81,6 @@ const Swarmplt = ({ width, height }) => {
     return opacity;
   };
 
-  // console.log("musicId: " + musicid);
-
   const draw = () => {
     checkcoutry.map((item, i) => {
       // //描画する国である＆空配列でない場合に描画?

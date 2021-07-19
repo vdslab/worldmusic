@@ -48,8 +48,8 @@ const WorldMap = ({ features }) => {
           const countryData = { countryName: cId };
           const timeData = await Promise.all(
             term.map(async (t) => {
-              // const data = await fetchData(t.start, t.end, feature, cId);
-              const data = [];
+              const data = await fetchData(t.start, t.end, feature, cId);
+              // const data = [];
               const weightAve = makeData(data, cId);
               if (Max < weightAve && weightAve != null) {
                 Max = weightAve;
