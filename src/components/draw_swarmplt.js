@@ -69,7 +69,7 @@ const Swarmplt = ({ width, height }) => {
   }, [startMonth, endMonth, feature, country, musicid]);
 
   useEffect(() => {
-    draw();
+    //draw();
   }, [startMonth, endMonth, feature, country]);
 
   const checkColor = (item) => {
