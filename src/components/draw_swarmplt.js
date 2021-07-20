@@ -45,6 +45,7 @@ const Swarmplt = ({ width, height }) => {
         country,
         musicid
       );
+      console.log(data);
       data.map((item, i) => {
         if (a < item[feature]) {
           a = item[feature];
