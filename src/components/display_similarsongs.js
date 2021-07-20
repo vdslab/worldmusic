@@ -3,9 +3,8 @@ import { useState, useEffect } from "react";
 import request from "request";
 import { fetchSongData } from "../api";
 
-const display_similarsongs = () =>{
-
-   const spotify = {
+const display_similarsongs = () => {
+  const spotify = {
     ClientId: "e76d6e9c4afc46d899278c03df0d3e05",
     ClientSecret: "170ea15052fe4d619d5251b4c7031b76",
   };
@@ -24,41 +23,42 @@ const display_similarsongs = () =>{
     },
     json: true,
   };
-  
+
   // const musicId = "4ZtFanR9U6ndgddUvNcjcG";
   const musicId2 = "3HVWdVOQ0ZA45FuZGSfvns";
   // const musicId3 =  "6EzZn96uOc9JsVGNRpx06n";
-  // const [musicData, setMusicData] = useState([]);
-   const [similarSongs, setSimilarSongs] = useState([]);
-   const country = "US";
+  const [musicData, setMusicData] = useState([]);
+  const [similarSongs, setSimilarSongs] = useState([]);
+  const country = "US";
 
-  // useEffect(() => {
-  //   (async () => {
-  //     /**TODO:リクエストの送り方 */
-  //     const data = await fetchSongData("", "", "", "ALL", musicId2);
-  //     setMusicData(data);
-  //   })();
-  // }, [musicId2]);
-  
+  useEffect(() => {
+    (async () => {
+      /**TODO:リクエストの送り方 */
+      const data = await fetchSongData("", "", "", "ALL", musicId2);
+      setMusicData(data);
+    })();
+  }, [musicId2]);
+
   // console.log(musicData[0][])
 
-  const musicData = [
-    {
-      acousticness: 0.0912,
-danceability: 0.798,
-energy: 0.675,
-instrumentalness: 0,
-liveness: 0.0894,
-loudness: -5.041,
-mode: 1,
-musicid: "3HVWdVOQ0ZA45FuZGSfvns"
-,name: "I Don't Care (with Justin Bieber)"
-,speechiness: 0.0442
-,tempo: 101.956
-,time_signature: 4
-,valence: 0.842
-    }
-  ]
+  // const musicData = [
+  //   {
+  //     acousticness: 0.0912,
+  //     danceability: 0.798,
+  //     energy: 0.675,
+  //     instrumentalness: 0,
+  //     liveness: 0.0894,
+  //     loudness: -5.041,
+  //     mode: 1,
+  //     musicid: "3HVWdVOQ0ZA45FuZGSfvns",
+  //     name: "I Don't Care (with Justin Bieber)",
+  //     speechiness: 0.0442,
+  //     tempo: 101.956,
+  //     time_signature: 4,
+  //     valence: 0.842,
+  //   },
+  // ];
+  console.log(musicData[0]);
   useEffect(() => {
     request.post(authOptions, function (error, response, body) {
       if (!error && response.statusCode === 200) {
@@ -78,35 +78,35 @@ musicid: "3HVWdVOQ0ZA45FuZGSfvns"
     });
   }, [musicId2]);
 
- console.log(similarSongs)
+  console.log(similarSongs);
   return (
     <div>
       <p>類似曲</p>
-       {similarSongs.map((item, i) => {
-          return (
-            <g key={i} transfrom={`translate(70,${20 * (i + 1)})`}>
-              <image href={item.album.images[0].url} width="50" height="50" />
-              <a href={item.external_urls.spotify}>
-                <text x="70" y="20" fontSize="10">
-                  {item.name}
-                </text>
-              </a>
-              {item.artists.map((item2, j) => {
-                return (
-                  <g key={j} transform={`translate(70,30)`}>
-                    <a href={item2.external_urls.spotify}>
-                      <text x="70" y="40" fontSize="10">
-                        {item2.name}
-                      </text>
-                    </a>
-                  </g>
-                );
-              })}
-            </g>
-          );
-        })}
+      {similarSongs.map((item, i) => {
+        return (
+          <g key={i} transfrom={`translate(70,${20 * (i + 1)})`}>
+            <image href={item.album.images[0].url} width="50" height="50" />
+            <a href={item.external_urls.spotify}>
+              <text x="70" y="20" fontSize="10">
+                {item.name}
+              </text>
+            </a>
+            {item.artists.map((item2, j) => {
+              return (
+                <g key={j} transform={`translate(70,30)`}>
+                  <a href={item2.external_urls.spotify}>
+                    <text x="70" y="40" fontSize="10">
+                      {item2.name}
+                    </text>
+                  </a>
+                </g>
+              );
+            })}
+          </g>
+        );
+      })}
     </div>
   );
-}
+};
 
 export default display_similarsongs;

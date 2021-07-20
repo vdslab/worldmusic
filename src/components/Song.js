@@ -23,10 +23,10 @@ const Song = () => {
     (async () => {
       /**TODO:リクエストの送り方 */
       const data = await fetchSongData("", "", "", "ALL", musicId);
-      setData(data);
+      setData(data[0].acousticness);
     })();
   }, [musicId]);
-console.log(data)
+  console.log(data);
   return (
     <div className="my-section">
       <div className="card" style={{ height: "24.25vh" }}>
