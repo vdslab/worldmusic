@@ -2,11 +2,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 import request from "request";
 import { fetchSongData } from "../api";
+import { useSelector } from "react-redux";
 
-const display_similarsongs = () => {
+function display_similarsongs() {
   const spotify = {
-    ClientId: "e76d6e9c4afc46d899278c03df0d3e05",
-    ClientSecret: "170ea15052fe4d619d5251b4c7031b76",
+    ClientId: process.env.REACT_APP_CLIENTID,
+    ClientSecret: process.env.REACT_APP_CLIENTSECRET,
   };
 
   let authOptions = {
@@ -24,59 +25,30 @@ const display_similarsongs = () => {
     json: true,
   };
 
-  // const musicId = "4ZtFanR9U6ndgddUvNcjcG";
-  const musicId2 = "3HVWdVOQ0ZA45FuZGSfvns";
-  // const musicId3 =  "6EzZn96uOc9JsVGNRpx06n";
-  const [musicData, setMusicData] = useState([]);
+  const country = useSelector((state) => state.detail.country);
+  const musicId = useSelector((state) => state.detail.musicid);
   const [similarSongs, setSimilarSongs] = useState([]);
-  const country = "US";
-
   useEffect(() => {
     (async () => {
-      /**TODO:リクエストの送り方 */
-      const data = await fetchSongData("", "", "", "ALL", musicId2);
-      setMusicData(data);
+      const data = await fetchSongData("", "", "", "ALL", musicId);
+      request.post(authOptions, function (error, response, body) {
+        if (!error && response.statusCode === 200 && data.length > 0) {
+          // use the access token to access the Spotify Web API
+          var token = body.access_token;
+          var options = {
+            url: `https://api.spotify.com/v1/recommendations?limit=1&market=${country}&seed_tracks=${data[0].musicid}&target_acousticness=${data[0].acousticness}&target_danceability=${data[0].danceability}&target_energy=${data[0].energy}&target_instrumentalness=${data[0].instrumentalness}&target_liveness=${data[0].liveness}&target_loudness=${data[0].loudness}&target_mode=${data[0].mode}&target_speechiness=${data[0].speechiness}&target_tempo=${data[0].tempo}&target_time_signature=${data[0].time_signature}&target_valence=${data[0].valence}`,
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+            json: true,
+          };
+          request.get(options, function (error, response, body) {
+            setSimilarSongs(body.tracks);
+          });
+        }
+      });
     })();
-  }, [musicId2]);
-
-  // console.log(musicData[0][])
-
-  // const musicData = [
-  //   {
-  //     acousticness: 0.0912,
-  //     danceability: 0.798,
-  //     energy: 0.675,
-  //     instrumentalness: 0,
-  //     liveness: 0.0894,
-  //     loudness: -5.041,
-  //     mode: 1,
-  //     musicid: "3HVWdVOQ0ZA45FuZGSfvns",
-  //     name: "I Don't Care (with Justin Bieber)",
-  //     speechiness: 0.0442,
-  //     tempo: 101.956,
-  //     time_signature: 4,
-  //     valence: 0.842,
-  //   },
-  // ];
-  console.log(musicData[0]);
-  useEffect(() => {
-    request.post(authOptions, function (error, response, body) {
-      if (!error && response.statusCode === 200) {
-        // use the access token to access the Spotify Web API
-        var token = body.access_token;
-        var options = {
-          url: `https://api.spotify.com/v1/recommendations?limit=1&market=${country}&seed_tracks=${musicData[0].musicid}&target_acousticness=${musicData[0].acousticness}&target_danceability=${musicData[0].danceability}&target_energy=${musicData[0].energy}&target_instrumentalness=${musicData[0].instrumentalness}&target_liveness=${musicData[0].liveness}&target_loudness=${musicData[0].loudness}&target_mode=${musicData[0].mode}&target_speechiness=${musicData[0].speechiness}&target_tempo=${musicData[0].tempo}&target_time_signature=${musicData[0].time_signature}&target_valence=${musicData[0].valence}`,
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-          json: true,
-        };
-        request.get(options, function (error, response, body) {
-          setSimilarSongs(body.tracks);
-        });
-      }
-    });
-  }, [musicId2]);
+  }, [musicId]);
 
   console.log(similarSongs);
   return (
@@ -107,6 +79,6 @@ const display_similarsongs = () => {
       })}
     </div>
   );
-};
+}
 
 export default display_similarsongs;
