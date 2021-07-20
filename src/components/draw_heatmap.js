@@ -129,41 +129,35 @@ function HeatMapChart() {
   const [pos, setPos] = useState(null);
 
   useEffect(() => {
-    // let a = -Infinity;
-    // let b = Infinity;
-    // (async () => {
-    //   /**TODO:改善 */
-    //   const data = await Promise.all(
-    //     countries.map(async (cId) => {
-    //       const countryData = { countryName: cId };
-    //       const timeData = await Promise.all(
-    //         term.map(async (t) => {
-    //           const data = [];
-    //           // const data = await fetchData(t.start, t.end, feature, cId);
-    //           const weightAve = makeData(data, cId);
-    //           if (a < weightAve && weightAve != null) {
-    //             a = weightAve;
-    //           }
-    //           if (b > weightAve && weightAve != null) {
-    //             b = weightAve;
-    //           }
-    //           return { start: t.start, end: t.end, value: weightAve };
-    //         })
-    //       );
-    //       countryData["timeData"] = timeData;
-    //       return countryData;
-    //     })
-    //   );
-    //   setHeatMapData(data);
-    //   setMax(a);
-    //   setMin(b);
-    // })();
-    [...Array(32)].map((_, i) => {
-      (async () => {
-        const data = await fetchData(startMonth, endMonth, feature, country);
-        console.log(data);
-      })();
-    });
+    let a = -Infinity;
+    let b = Infinity;
+    (async () => {
+      /**TODO:改善 */
+      const data = await Promise.all(
+        countries.map(async (cId) => {
+          const countryData = { countryName: cId };
+          const timeData = await Promise.all(
+            term.map(async (t) => {
+              // const data = [];
+              const data = await fetchData(t.start, t.end, feature, cId);
+              const weightAve = makeData(data, cId);
+              if (a < weightAve && weightAve != null) {
+                a = weightAve;
+              }
+              if (b > weightAve && weightAve != null) {
+                b = weightAve;
+              }
+              return { start: t.start, end: t.end, value: weightAve };
+            })
+          );
+          countryData["timeData"] = timeData;
+          return countryData;
+        })
+      );
+      setHeatMapData(data);
+      setMax(a);
+      setMin(b);
+    })();
   }, [feature]);
 
   function makeData(data) {
