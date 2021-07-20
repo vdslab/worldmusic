@@ -37,28 +37,7 @@ const Swarmplt = ({ width, height }) => {
   useEffect(() => {
     let a = -Infinity;
     let b = Infinity;
-    // (async () => {
-    //   const data = await fetchData(
-    //     startMonth,
-    //     endMonth,
-    //     feature,
-    //     country,
-    //     musicid
-    //   );
-    //   console.log(data);
-    //   data.map((item, i) => {
-    //     if (a < item[feature]) {
-    //       a = item[feature];
-    //     }
-    //     if (item[feature] < b) {
-    //       b = item[feature];
-    //     }
-    //     item[feature] = checkColor(item[feature]);
-    //   });
-    //   setDbData(data);
-    //   setMax(a);
-    //   setMin(b);
-    // })();
+
     [...Array(32)].map((_, i) => {
       (async () => {
         const data = await fetchData(
@@ -68,22 +47,9 @@ const Swarmplt = ({ width, height }) => {
           country,
           musicid
         );
-        console.log(data);
-        // data.map((item, i) => {
-        //   if (a < item[feature]) {
-        //     a = item[feature];
-        //   }
-        //   if (item[feature] < b) {
-        //     b = item[feature];
-        //   }
-        //   item[feature] = checkColor(item[feature]);
-        // });
-        // setDbData(data);
-        // setMax(a);
-        // setMin(b);
+        // console.log(data);
       })();
     });
-
     d3.select(ref.current)
       .attr("width", width)
       .attr("height", height)

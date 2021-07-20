@@ -8,7 +8,7 @@ import {
   changeStartMonth,
 } from "../stores/details";
 //import "./draw_heatmap.css";
-import '../tooltip.css';
+import "../tooltip.css";
 
 function VerticalAxis({ len, countries, name, h }) {
   return (
@@ -129,35 +129,41 @@ function HeatMapChart() {
   const [pos, setPos] = useState(null);
 
   useEffect(() => {
-    let a = -Infinity;
-    let b = Infinity;
-    (async () => {
-      /**TODO:改善 */
-      const data = await Promise.all(
-        countries.map(async (cId) => {
-          const countryData = { countryName: cId };
-          const timeData = await Promise.all(
-            term.map(async (t) => {
-              // const data = [];
-              const data = await fetchData(t.start, t.end, feature, cId);
-              const weightAve = makeData(data, cId);
-              if (a < weightAve && weightAve != null) {
-                a = weightAve;
-              }
-              if (b > weightAve && weightAve != null) {
-                b = weightAve;
-              }
-              return { start: t.start, end: t.end, value: weightAve };
-            })
-          );
-          countryData["timeData"] = timeData;
-          return countryData;
-        })
-      );
-      setHeatMapData(data);
-      setMax(a);
-      setMin(b);
-    })();
+    // let a = -Infinity;
+    // let b = Infinity;
+    // (async () => {
+    //   /**TODO:改善 */
+    //   const data = await Promise.all(
+    //     countries.map(async (cId) => {
+    //       const countryData = { countryName: cId };
+    //       const timeData = await Promise.all(
+    //         term.map(async (t) => {
+    //           const data = [];
+    //           // const data = await fetchData(t.start, t.end, feature, cId);
+    //           const weightAve = makeData(data, cId);
+    //           if (a < weightAve && weightAve != null) {
+    //             a = weightAve;
+    //           }
+    //           if (b > weightAve && weightAve != null) {
+    //             b = weightAve;
+    //           }
+    //           return { start: t.start, end: t.end, value: weightAve };
+    //         })
+    //       );
+    //       countryData["timeData"] = timeData;
+    //       return countryData;
+    //     })
+    //   );
+    //   setHeatMapData(data);
+    //   setMax(a);
+    //   setMin(b);
+    // })();
+    [...Array(32)].map((_, i) => {
+      (async () => {
+        const data = await fetchData(startMonth, endMonth, feature, country);
+        console.log(data);
+      })();
+    });
   }, [feature]);
 
   function makeData(data) {
@@ -217,9 +223,7 @@ function HeatMapChart() {
   /**TODO:引数渡していい感じにサイズとか調整できるようにする */
   const len = 15;
 
-  const tooltipStyle = d3.select("body")
-                      .append("div")	
-                      .attr("class", "tooltip");		
+  const tooltipStyle = d3.select("body").append("div").attr("class", "tooltip");
 
   return (
     <div style={{ width: "450px" }}>
@@ -249,10 +253,10 @@ function HeatMapChart() {
           />
 
           <g
-          onMouseLeave={() => {
-            setPos(null);
-            tooltipStyle.style("visibility","hidden");
-          }}
+            onMouseLeave={() => {
+              setPos(null);
+              tooltipStyle.style("visibility", "hidden");
+            }}
           >
             {heatMapData.map((country, i) => {
               return country.timeData.map((item, j) => {
@@ -266,7 +270,7 @@ function HeatMapChart() {
                       height={len}
                       fill={colorjudge(item.value, item.start)}
                       onClick={() => {
-                        tooltipStyle.style("visibility","hidden");
+                        tooltipStyle.style("visibility", "hidden");
                         changeInfo(item.start, item.end, country.countryName);
                         setClicked(i * country.timeData.length + j);
                       }}
@@ -278,13 +282,16 @@ function HeatMapChart() {
                         });
                       }}
                       onMouseMove={(e) => {
-                        tooltipStyle.style("visibility","visible")
-                        .style("top", (e.pageY - 20) + "px")
-                        .style("left", (e.pageX + 20) + "px");
-                        pos !== null ? (tooltipStyle.html(feature + ":" + pos.value)):([])
+                        tooltipStyle
+                          .style("visibility", "visible")
+                          .style("top", e.pageY - 20 + "px")
+                          .style("left", e.pageX + 20 + "px");
+                        pos !== null
+                          ? tooltipStyle.html(feature + ":" + pos.value)
+                          : [];
                       }}
                       onMouseLeave={(e) => {
-                        tooltipStyle.style("visibility","hidden");
+                        tooltipStyle.style("visibility", "hidden");
                       }}
                     />
                     <rect
@@ -295,7 +302,7 @@ function HeatMapChart() {
                       fill="none"
                       stroke="black"
                       opacity={
-                        clicked=== i * country.timeData.length + j ? 1 : 0
+                        clicked === i * country.timeData.length + j ? 1 : 0
                       }
                     />
                   </g>

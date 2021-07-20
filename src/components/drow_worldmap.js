@@ -5,7 +5,7 @@ import * as topojson from "topojson";
 import { fetchData } from "../api";
 import { changeCountry, changeFeature } from "../stores/details";
 import { useDispatch, useSelector } from "react-redux";
-import '../tooltip.css';
+import "../tooltip.css";
 
 const WorldMap = ({ features }) => {
   const dispatch = useDispatch();
@@ -49,8 +49,8 @@ const WorldMap = ({ features }) => {
           const countryData = { countryName: cId };
           const timeData = await Promise.all(
             term.map(async (t) => {
-              const data = await fetchData(t.start, t.end, feature, cId);
-              // const data = [];
+              // const data = await fetchData(t.start, t.end, feature, cId);
+              const data = [];
               const weightAve = makeData(data, cId);
               if (a < weightAve && weightAve != null) {
                 a = weightAve;
@@ -119,18 +119,16 @@ const WorldMap = ({ features }) => {
     .translate([width / 2, height - 60])
     .scale(scale);
   const path = d3.geoPath().projection(projection);
- 
-  let tooltipStyle = d3.select("body")
-                      .append("div")	
-                      .attr("class", "tooltip");		
-                      
-  const [featureValue,setFeatureValue] = useState(null);
-  
+
+  let tooltipStyle = d3.select("body").append("div").attr("class", "tooltip");
+
+  const [featureValue, setFeatureValue] = useState(null);
+
   return (
     <div>
       <svg viewBox="-30 -30 770 310">
         <g>
-          {features.map((item, i) => (      
+          {features.map((item, i) => (
             <path
               d={path(item)}
               fill={colorjudge(item)}
@@ -139,23 +137,29 @@ const WorldMap = ({ features }) => {
               strokeOpacity="0.5"
               countryname={item}
               onMouseMove={(e) => {
-                tooltipStyle.style("visibility","visible");
-                tooltipStyle.style("top", (e.pageY - 20) + "px")
-                .style("left", (e.pageX + 20) + "px")
-                .html( item.properties.NAME_JA + "<br>" + feature + ":" + featureValue);
+                tooltipStyle.style("visibility", "visible");
+                tooltipStyle
+                  .style("top", e.pageY - 20 + "px")
+                  .style("left", e.pageX + 20 + "px")
+                  .html(
+                    item.properties.NAME_JA +
+                      "<br>" +
+                      feature +
+                      ":" +
+                      featureValue
+                  );
               }}
               onMouseLeave={() => {
-                tooltipStyle.style("visibility","hidden");
+                tooltipStyle.style("visibility", "hidden");
               }}
               onClick={() => {
-                tooltipStyle.style("visibility","hidden");
+                tooltipStyle.style("visibility", "hidden");
                 console.log(item.properties.ISO_A2);
                 const c = item.properties.ISO_A2;
                 dispatch(changeCountry(c));
               }}
               key={i}
             />
-            
           ))}
         </g>
       </svg>
