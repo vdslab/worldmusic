@@ -129,8 +129,8 @@ function HeatMapChart() {
   const [pos, setPos] = useState(null);
 
   useEffect(() => {
-    let Max = -Infinity;
-    let Min = Infinity;
+    let a = -Infinity;
+    let b = Infinity;
     (async () => {
       /**TODO:改善 */
       const data = await Promise.all(
@@ -141,11 +141,11 @@ function HeatMapChart() {
               // const data = [];
               const data = await fetchData(t.start, t.end, feature, cId);
               const weightAve = makeData(data, cId);
-              if (Max < weightAve && weightAve != null) {
-                Max = weightAve;
+              if (a < weightAve && weightAve != null) {
+                a = weightAve;
               }
-              if (Min > weightAve && weightAve != null) {
-                Min = weightAve;
+              if (b > weightAve && weightAve != null) {
+                b = weightAve;
               }
               return { start: t.start, end: t.end, value: weightAve };
             })
@@ -155,8 +155,8 @@ function HeatMapChart() {
         })
       );
       setHeatMapData(data);
-      setMax(Max);
-      setMin(Min);
+      setMax(a);
+      setMin(b);
     })();
   }, [feature]);
 
