@@ -1,2 +1,2 @@
 [functions]
-included_files = ["netlify/functions/example.db"]
+included_files = ["netlify/functions/database.db"]

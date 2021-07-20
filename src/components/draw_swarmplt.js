@@ -66,7 +66,7 @@ const Swarmplt = ({ width, height }) => {
   }, [startMonth, endMonth, feature, country]);
 
   useEffect(() => {
-    draw();
+    // draw();
   }, [dbData]);
 
   const checkColor = (item) => {
