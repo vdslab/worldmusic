@@ -6,10 +6,9 @@ import { useSelector } from "react-redux";
 
 export default function App() {
   const spotify = {
-    ClientId: process.env.CLIENTID,
-    ClientSecret: process.env.CLIENTSECRET,
+    ClientId: process.env.REACT_APP_CLIENTID,
+    ClientSecret: process.env.REACT_APP_CLIENTSECRET,
   };
-  console.log(process.env);
 
   let authOptions = {
     url: "https://accounts.spotify.com/api/token",
@@ -32,9 +31,8 @@ export default function App() {
   useEffect(() => {
     (async () => {
       const data = await fetchSongData("", "", "", "ALL", musicId);
-
       request.post(authOptions, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
+        if (!error && response.statusCode === 200 && data.length > 0) {
           // use the access token to access the Spotify Web API
           var token = body.access_token;
           var options = {
@@ -56,7 +54,7 @@ export default function App() {
     <div>
       <p>類似曲</p>
       <svg viewBox="0 0 200 50">
-        {similarSongs.map((item, i) => {
+        {similarSongs?.map((item, i) => {
           return (
             <g key={i} transfrom={`translate(70,${20 * (i + 1)})`}>
               <image href={item.album.images[0].url} width="50" height="50" />
