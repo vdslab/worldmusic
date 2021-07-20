@@ -244,7 +244,11 @@ function HeatMapChart() {
           />
 
           {/*<Legend h={contentWidth} w={contentWidth} />*/}
-          <g>
+          <g
+            onMouseLeave={() => {
+              setPos(null);
+            }}
+          >
             {heatMapData.map((country, i) => {
               return country.timeData.map((item, j) => {
                 return (
@@ -281,9 +285,11 @@ function HeatMapChart() {
                       }
                     />
                     {pos !== null ? (
-                      <text x={len * pos.row} y={len * pos.col}>
-                        {pos.value}
-                      </text>
+                      <g>
+                        <text x={len * pos.row} y={len * pos.col} fontSize={12}>
+                          {pos.value}
+                        </text>
+                      </g>
                     ) : (
                       []
                     )}
