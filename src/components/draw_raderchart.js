@@ -192,13 +192,13 @@ function RaderChart({ data }) {
         style={{
           position: "absolute",
           left: 0,
-          top: 120,
+          top: 130,
         }}
         onMouseLeave={outHandle}
       >
         <div className="card-content">
           <div className="content">
-            <p style={{ fontWeight: "15px" }}>{displayFeature}</p>
+            <p style={{ fontSize: "2vh" }}>{displayFeature}</p>
           </div>
         </div>
       </div>

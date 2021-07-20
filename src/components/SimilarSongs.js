@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import DisplaySimilarSongs  from "./display_similarsongs";
+import DisplaySimilarSongs from "./display_similarsongs";
 
 const SimilarSongs = () => {
   return (
     <div className="my-section">
-      <div className="card" style={{ height: "24.25vh" }}>
+      <div className="card" style={{ minHeight: "26.75vh" }}>
         <div className="card-content">
           <div className="content">
             <DisplaySimilarSongs />
