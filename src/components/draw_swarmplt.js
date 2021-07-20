@@ -85,7 +85,7 @@ const Swarmplt = ({ width, height }) => {
         const swarmplt = svg.select("g");
         const xScale = scaleLinear()
           .domain(extent(dbData.map((d) => +d[feature])))
-          .range([10,525]);
+          .range([10, 525]);
 
         let streamDomain = extent(dbData.map((d) => d.stream));
         streamDomain = streamDomain.map((d) => Math.sqrt(d));
@@ -118,7 +118,9 @@ const Swarmplt = ({ width, height }) => {
                 .selectAll("circle")
                 .data(dbData)
                 .join("circle")
-                .style("fill", (d) => d3.interpolatePuRd(checkColor(d[feature]))) //左側は重み付き平均の最大最小だけど、右側はトータルの最大最小だから、同じカラーレジェンドだと意味が変わる。→違うカラーを使う
+                .style("fill", (d) =>
+                  d3.interpolatePuRd(checkColor(d[feature]))
+                ) //左側は重み付き平均の最大最小だけど、右側はトータルの最大最小だから、同じカラーレジェンドだと意味が変わる。→違うカラーを使う
                 .attr("stroke", "black")
                 .on("mouseover", (d, i) => {
                   //d3.select(this).attr("stroke","red") //←反応なし
