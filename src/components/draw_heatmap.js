@@ -7,7 +7,6 @@ import {
   changeEndMonth,
   changeStartMonth,
 } from "../stores/details";
-import "./draw_heatmap.css";
 
 function VerticalAxis({ len, countries, name, h }) {
   return (
