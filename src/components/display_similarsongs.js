@@ -54,7 +54,7 @@ export default function App() {
     <div>
       <p>類似曲</p>
       <svg viewBox="0 0 200 50">
-        {similarSongs?.map((item, i) => {
+        {similarSongs.map((item, i) => {
           return (
             <g key={i} transfrom={`translate(70,${20 * (i + 1)})`}>
               <image href={item.album.images[0].url} width="50" height="50" />
