@@ -1,12 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import request from "request";
-import { fetchData } from "../api";
+import { fetchSongData } from "../api";
 
-export default function App() {
-  const spotify = {
+const display_similarsongs = () =>{
+
+   const spotify = {
     ClientId: "e76d6e9c4afc46d899278c03df0d3e05",
-    ClientSecret: "fe2860375c894b9bbf4d97d899b9fd3d",
+    ClientSecret: "170ea15052fe4d619d5251b4c7031b76",
   };
 
   let authOptions = {
@@ -23,94 +24,48 @@ export default function App() {
     },
     json: true,
   };
-
-  //good4u
-  // const data = {
-  //   acousticness: 0.335,
-  //   analysis_url: "https://api.spotify.com/v1/audio-analysis/4ZtFanR9U6ndgddUvNcjcG",
-  //   danceability: 0.563,
-  //   duration_ms: 178147,
-  //   energy: 0.664,
-  //   id: "4ZtFanR9U6ndgddUvNcjcG",
-  //   instrumentalness: 0,
-  //   key: 9,
-  //   liveness: 0.0849,
-  //   loudness: -5.044,
-  //   mode: 1,
-  //   speechiness: 0.154,
-  //   tempo: 166.928,
-  //   time_signature: 4,
-  //   track_href: "https://api.spotify.com/v1/tracks/4ZtFanR9U6ndgddUvNcjcG",
-  //   type: "audio_features",
-  //   uri: "spotify:track:4ZtFanR9U6ndgddUvNcjcG",
-  //   valence: 0.688,
-  // }
-
-  //夜にかける
-  const data2 = {
-    danceability: 0.663,
-    energy: 0.871,
-    key: 8,
-    loudness: -5.287,
-    mode: 1,
-    speechiness: 0.03,
-    acousticness: 0.00299,
-    instrumentalness: 0.0000018,
-    liveness: 0.337,
-    valence: 0.826,
-    tempo: 130.025,
-    type: "audio_features",
-    id: "6MCjmGYlw6mQVWRFVgBRvB",
-    uri: "spotify:track:6MCjmGYlw6mQVWRFVgBRvB",
-    duration_ms: 258840,
-    time_signature: 4,
-  };
-
-  //うっせえわ
-  const data3 = {
-    danceability: 0.525,
-    energy: 0.978,
-    key: 11,
-    loudness: -1.072,
-    mode: 0,
-    speechiness: 0.0815,
-    acousticness: 0.00485,
-    instrumentalness: 0,
-    liveness: 0.06,
-    valence: 0.577,
-    tempo: 178.069,
-    type: "audio_features",
-    id: "6EzZn96uOc9JsVGNRpx06n",
-    uri: "spotify:track:6EzZn96uOc9JsVGNRpx06n",
-    track_href: "https://api.spotify.com/v1/tracks/6EzZn96uOc9JsVGNRpx06n",
-    analysis_url:
-      "https://api.spotify.com/v1/audio-analysis/6EzZn96uOc9JsVGNRpx06n",
-    duration_ms: 204920,
-    time_signature: 4,
-  };
-
+  
   // const musicId = "4ZtFanR9U6ndgddUvNcjcG";
-  // const musivId2 = "6MCjmGYlw6mQVWRFVgBRvB";
+  const musicId2 = "3HVWdVOQ0ZA45FuZGSfvns";
   // const musicId3 =  "6EzZn96uOc9JsVGNRpx06n";
-  // const [data, setData] = useState([]);
+  // const [musicData, setMusicData] = useState([]);
+   const [similarSongs, setSimilarSongs] = useState([]);
+   const country = "US";
+
   // useEffect(() => {
   //   (async () => {
   //     /**TODO:リクエストの送り方 */
-  //     const data = await fetchData("", "", "", "ALL", musicId);
-  //     setData(data);
+  //     const data = await fetchSongData("", "", "", "ALL", musicId2);
+  //     setMusicData(data);
   //   })();
-  // }, [musicId]);
+  // }, [musicId2]);
+  
+  // console.log(musicData[0][])
 
-  const [similarSongs, setSimilarSongs] = useState([]);
-  const country = "US";
-  const music = data2;
+  const musicData = [
+    {
+      acousticness: 0.0912,
+danceability: 0.798,
+energy: 0.675,
+instrumentalness: 0,
+liveness: 0.0894,
+loudness: -5.041,
+mode: 1,
+musicid: "3HVWdVOQ0ZA45FuZGSfvns"
+,name: "I Don't Care (with Justin Bieber)"
+,speechiness: 0.0442
+,tempo: 101.956
+,time_signature: 4
+,valence: 0.842
+    }
+  ]
   useEffect(() => {
     request.post(authOptions, function (error, response, body) {
       if (!error && response.statusCode === 200) {
         // use the access token to access the Spotify Web API
         var token = body.access_token;
         var options = {
-          url: `https://api.spotify.com/v1/recommendations?limit=1&market=${country}&seed_tracks=${music.id}&target_acousticness=${music.acousticness}&target_danceability=${music.danceability}&target_duration_ms=${music.duration_ms}&target_energy=${music.energy}&target_instrumentalness=${music.instrumentalness}&target_key=${music.key}&target_liveness=${music.liveness}&target_loudness=${music.loudness}&target_mode=${music.mode}&target_speechiness=${music.speechiness}&target_tempo=${music.tempo}&target_time_signature=${music.time_signature}&target_valence=${music.valence}`,
+          url: `https://api.spotify.com/v1/recommendations?limit=1&market=${country}&seed_tracks=${musicData[0].musicid}&target_acousticness=${musicData[0].acousticness}&target_danceability=${musicData[0].danceability}&target_energy=${musicData[0].energy}&target_instrumentalness=${musicData[0].instrumentalness}&target_liveness=${musicData[0].liveness}&target_loudness=${musicData[0].loudness}&target_mode=${musicData[0].mode}&target_speechiness=${musicData[0].speechiness}&target_tempo=${musicData[0].tempo}&target_time_signature=${musicData[0].time_signature}&target_valence=${musicData[0].valence}`,
           headers: {
             Authorization: "Bearer " + token,
           },
@@ -121,15 +76,13 @@ export default function App() {
         });
       }
     });
-  }, [data2.id]);
+  }, [musicId2]);
 
-  console.log(similarSongs);
-
+ console.log(similarSongs)
   return (
     <div>
       <p>類似曲</p>
-      <svg viewBox="0 0 200 50">
-        {similarSongs.map((item, i) => {
+       {similarSongs.map((item, i) => {
           return (
             <g key={i} transfrom={`translate(70,${20 * (i + 1)})`}>
               <image href={item.album.images[0].url} width="50" height="50" />
@@ -152,7 +105,8 @@ export default function App() {
             </g>
           );
         })}
-      </svg>
     </div>
   );
 }
+
+export default display_similarsongs;

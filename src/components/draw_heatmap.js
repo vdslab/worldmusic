@@ -7,6 +7,8 @@ import {
   changeEndMonth,
   changeStartMonth,
 } from "../stores/details";
+//import "./draw_heatmap.css";
+import '../tooltip.css';
 
 function VerticalAxis({ len, countries, name, h }) {
   return (
@@ -214,6 +216,11 @@ function HeatMapChart() {
   const svgHeight = margin.top + margin.bottom + contentHeight;
   /**TODO:引数渡していい感じにサイズとか調整できるようにする */
   const len = 15;
+
+  const tooltipStyle = d3.select("body")
+                      .append("div")	
+                      .attr("class", "tooltip");		
+
   return (
     <div style={{ width: "450px" }}>
       <div>
@@ -242,9 +249,10 @@ function HeatMapChart() {
           />
 
           <g
-            onMouseLeave={() => {
-              setPos(null);
-            }}
+          onMouseLeave={() => {
+            setPos(null);
+            tooltipStyle.style("visibility","hidden");
+          }}
           >
             {heatMapData.map((country, i) => {
               return country.timeData.map((item, j) => {
@@ -258,6 +266,7 @@ function HeatMapChart() {
                       height={len}
                       fill={colorjudge(item.value, item.start)}
                       onClick={() => {
+                        tooltipStyle.style("visibility","hidden");
                         changeInfo(item.start, item.end, country.countryName);
                         setClicked(i * country.timeData.length + j);
                       }}
@@ -268,6 +277,15 @@ function HeatMapChart() {
                           value: item.value?.toFixed(2) || "",
                         });
                       }}
+                      onMouseMove={(e) => {
+                        tooltipStyle.style("visibility","visible")
+                        .style("top", (e.pageY - 20) + "px")
+                        .style("left", (e.pageX + 20) + "px");
+                        pos !== null ? (tooltipStyle.html(feature + ":" + pos.value)):([])
+                      }}
+                      onMouseLeave={(e) => {
+                        tooltipStyle.style("visibility","hidden");
+                      }}
                     />
                     <rect
                       x={len * j}
@@ -277,18 +295,9 @@ function HeatMapChart() {
                       fill="none"
                       stroke="black"
                       opacity={
-                        clicked === i * country.timeData.length + j ? 1 : 0
+                        clicked=== i * country.timeData.length + j ? 1 : 0
                       }
                     />
-                    {pos !== null ? (
-                      <g>
-                        <text x={len * pos.row} y={len * pos.col} fontSize={12}>
-                          {pos.value}
-                        </text>
-                      </g>
-                    ) : (
-                      []
-                    )}
                   </g>
                 );
               });

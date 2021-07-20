@@ -26,7 +26,7 @@ const Song = () => {
       setData(data);
     })();
   }, [musicId]);
-
+console.log(data)
   return (
     <div className="my-section">
       <div className="card" style={{ height: "24.25vh" }}>
