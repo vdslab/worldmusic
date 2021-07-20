@@ -5,13 +5,14 @@ import { extent } from "d3-array";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../api";
 import * as d3 from "d3";
+import { changeMusicId } from "../stores/details";
 
 const Swarmplt = ({ width, height }) => {
   const duration = 500;
   const margin = {
     top: 10,
     bottom: 500,
-    left: 40,
+    left: 50,
     right: 40,
   };
 
@@ -24,6 +25,7 @@ const Swarmplt = ({ width, height }) => {
 
   const dispatch = useDispatch();
   const [dbData, setDbData] = useState([]);
+
   const startMonth = useSelector((state) => state.detail.startMonth);
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
@@ -36,18 +38,26 @@ const Swarmplt = ({ width, height }) => {
     let Max = -Infinity;
     let Min = Infinity;
     (async () => {
-      //console.log(musicid);
-      const data = await fetchData(startMonth, endMonth, feature, country, musicid);
+      const data = await fetchData(
+        startMonth,
+        endMonth,
+        feature,
+        country,
+        musicid
+      );
       setDbData(data);
-      data.map((item,i) => {
-        if( Max < item[feature] ){
+      console.log(dbData);
+      data.map((item, i) => {
+        //console.log("before: "+item[feature]); //←正規化前の値
+        if (Max < item[feature]) {
           Max = item[feature];
         }
-        if( item[feature] < Min ){
+        if (item[feature] < Min) {
           Min = item[feature];
         }
         item[feature] = checkColor(item[feature]);
-      })
+        //console.log("after: "+item[feature]); //←正規化後の値
+      });
       setMax(Max);
       setMin(Min);
     })();
@@ -60,20 +70,17 @@ const Swarmplt = ({ width, height }) => {
 
   useEffect(() => {
     draw();
-  }, [startMonth, endMonth, feature, country, musicid]);
+  }, [startMonth, endMonth, feature, country]);
 
-  const checkColor = (item) =>{
+  const checkColor = (item) => {
     let opacity = 0;
     let opacityMax = 1;
     let opacityMin = 0.1;
     opacity =
       ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) + opacityMin;
     return opacity;
-  }
+  };
 
-  console.log(Min, Max);
-  console.log(margin.left-margin.right/2);
-  console.log(margin.top-margin.bottom/2);
   const draw = () => {
     checkcoutry.map((item, i) => {
       // //描画する国である＆空配列でない場合に描画?
@@ -107,47 +114,45 @@ const Swarmplt = ({ width, height }) => {
           )
           .alphaDecay(0)
           .alpha(0.3)
-          .on("tick", () =>
-            swarmplt
-              .selectAll("circle")
-              .data(dbData)
-              .join("circle")
-              .style("fill", (d) => d3.interpolateTurbo(d[feature]))
-              .attr("stroke", "black")
-              .on("mouseover", (d,i) => {
-                console.log("in")
-                d3.select(this).attr("stroke","red")
-              })
-              .on("mouseout", (d,i) => {
-                d3.select(i.this).attr("stroke","black")
-              })
-              .on("click", (d,i) => {
-                //console.log("hit");
-                //console.log(i);
-                //console.log(i.musicid, i[feature]);
-                //dispatch(chageMusicId(i.musicid));
-              })
-              .attr("stroke-width", "0.1")
-              .attr("opacity", 0.7)
-              .attr("cx", (d) => d.x)
-              .attr("cy", (d) => d.y)
-              .attr("r", (d) => size(Math.sqrt(d.stream)))
-              // .attr("transform", `rotate(180 ${margin.left-margin.right/2}, ${margin.top-margin.bottom/2})`)
+          .on(
+            "tick",
+            () =>
+              swarmplt
+                .selectAll("circle")
+                .data(dbData)
+                .join("circle")
+                .style("fill", (d) => d3.interpolatePuRd(d[feature])) //左側は重み付き平均の最大最小だけど、右側はトータルの最大最小だから、同じカラーレジェンドだと意味が変わる。→違うカラーを使う
+                .attr("stroke", "black")
+                .on("mouseover", (d, i) => {
+                  //d3.select(this).attr("stroke","red") //←反応なし
+                })
+                .on("mouseout", (d, i) => {
+                  //d3.select(i.this).attr("stroke","black") //←反応なし
+                })
+                .on("click", (d, i) => {
+                  dispatch(changeMusicId(i.musicid));
+                })
+                .attr("stroke-width", "0.1")
+                .attr("opacity", 0.7)
+                .attr("cx", (d) => d.x)
+                .attr("cy", (d) => d.y)
+                .attr("r", (d) => size(Math.sqrt(d.stream)))
+            //.attr("transform", `rotate(180 ${650/2}, ${250/2})`) //←綺麗に180度回転できていない
           );
         let init_decay = setTimeout(function () {
           simulation.alphaDecay(0.05);
         }, 5000);
 
-        // const xAxis = d3.axisBottom().scale(xScale);
-        // swarmplt
-        //   .selectAll(".x.axis")
-        //   .data([null])
-        //   .join("g")
-        //   .classed("x axis", true)
-        //   .attr("transform", `translate(0,${innerHeight})`)
-        //   .transition()
-        //   .duration(duration)
-        //   .call(xAxis);
+        const xAxis = d3.axisBottom().scale(xScale); //tickSize(200)で伸ばせる ticks(10)でメモリ数を制限できる
+        swarmplt
+          .selectAll(".x.axis")
+          .data([null])
+          .join("g")
+          .classed("x axis", true)
+          .attr("transform", `translate(0,${innerHeight})`)
+          .transition()
+          .duration(duration)
+          .call(xAxis);
       } else {
         return;
       }

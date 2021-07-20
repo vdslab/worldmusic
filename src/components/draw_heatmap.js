@@ -197,7 +197,6 @@ function HeatMapChart() {
   };
 
   function changeInfo(start, end, countryCd) {
-    console.log(start, end, countryCd);
     dispatch(changeCountry(countryCd));
     dispatch(changeStartMonth(start));
     dispatch(changeEndMonth(end));
@@ -243,7 +242,6 @@ function HeatMapChart() {
             width={len * term.length}
           />
 
-          {/*<Legend h={contentWidth} w={contentWidth} />*/}
           <g
             onMouseLeave={() => {
               setPos(null);
@@ -268,9 +266,8 @@ function HeatMapChart() {
                         setPos({
                           col: i,
                           row: j,
-                          value: item.value?.toFixed(2) || " - ",
+                          value: item.value?.toFixed(2) || "",
                         });
-                        console.log(pos);
                       }}
                     />
                     <rect
