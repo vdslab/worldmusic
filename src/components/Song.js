@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const TextDetail = ({ data }) => {
   return (
-    <div style={{ width: "40%" }}>
+    <div style={{ width: "40%", fontSize: "1.125vw" }}>
       <br />
       <p style={{ marginBottom: "0px" }}>テンポ：{Math.round(data[0].tempo)}</p>
       <p style={{ marginBottom: "0px" }}>拍子：{data[0].time_signature}　</p>
@@ -26,10 +26,10 @@ const Song = () => {
       setData(data);
     })();
   }, [musicId]);
-console.log(data)
+
   return (
     <div className="my-section">
-      <div className="card" style={{ height: "24.25vh" }}>
+      <div className="card" style={{ minHeight: "26.75vh" }}>
         <div
           className="card-content"
           style={{ paddingTop: "12px", paddingBottom: "12px" }}

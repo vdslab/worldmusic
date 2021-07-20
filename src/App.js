@@ -56,7 +56,7 @@ const App = () => {
             <div className="column">
               <Ranking />
             </div>
-            <div className="column">
+            <div className="column is-gapless">
               <Song />
               <SimilarSongs />
             </div>
