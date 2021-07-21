@@ -3,7 +3,7 @@ import { forceSimulation, forceX, forceY, forceCollide } from "d3-force";
 import { scaleLinear } from "d3-scale";
 import { extent } from "d3-array";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchData } from "../api";
+import { fetchData, fetchTest } from "../api";
 import * as d3 from "d3";
 import { changeMusicId } from "../stores/details";
 
@@ -37,19 +37,29 @@ const Swarmplt = ({ width, height }) => {
   useEffect(() => {
     let a = -Infinity;
     let b = Infinity;
+    (async () => {
+      const data = await fetchTest(
+        startMonth,
+        endMonth,
+        feature,
+        country,
+        musicid
+      );
+      console.log(data);
+    })();
 
-    [...Array(32)].map((_, i) => {
-      (async () => {
-        const data = await fetchData(
-          startMonth,
-          endMonth,
-          feature,
-          country,
-          musicid
-        );
-        console.log(data);
-      })();
-    });
+    // [...Array(32)].map((_, i) => {
+    //   (async () => {
+    //     const data = await fetchData(
+    //       startMonth,
+    //       endMonth,
+    //       feature,
+    //       country,
+    //       musicid
+    //     );
+    //     console.log(data);
+    //   })();
+    // });
     // data.map((item, i) => {
     //   if (a < item[feature]) {
     //     a = item[feature];
