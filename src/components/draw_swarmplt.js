@@ -37,16 +37,47 @@ const Swarmplt = ({ width, height }) => {
   useEffect(() => {
     let a = -Infinity;
     let b = Infinity;
-    (async () => {
-      const data = await fetchTest(
-        startMonth,
-        endMonth,
-        feature,
-        country,
-        musicid
+    // (async () => {
+    //   const data = await fetchTest(
+    //     startMonth,
+    //     endMonth,
+    //     feature,
+    //     country,
+    //     musicid
+    //   );
+      //console.log("data: "+data.length);
+      [...Array(32)].map((_, i) => {
+        (async () => {
+          const data = await fetchData(
+            startMonth,
+            endMonth,
+            feature,
+            country,
+            musicid
+          );
+          console.log(data);
+        //})();
+        console.log("data: "+data.length);
+      const dedupeData = data.filter((element, index, self) =>
+          self.findIndex(e => e.musicid === element.musicid) === index
       );
-      console.log(data);
+      console.log("dedupeData: "+dedupeData.length);
+      dedupeData.map((item, i) => {
+        if (a < item[feature]) {
+          a = item[feature];
+        }
+        if (item[feature] < b) {
+          b = item[feature];
+        }
+      });
+      console.log(dedupeData.length);
+      setDbData(dedupeData);
+      setMax(a);
+      setMin(b);
     })();
+
+  });
+  
 
     (async () => {
       const data = await fetchData(
@@ -69,13 +100,13 @@ const Swarmplt = ({ width, height }) => {
       setMax(a);
       setMin(b);
     })();
+
     d3.select(ref.current)
       .attr("width", width)
       .attr("height", height)
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
   }, [startMonth, endMonth, feature, country]);
-
   useEffect(() => {
     draw();
   }, [dbData]);
@@ -100,7 +131,7 @@ const Swarmplt = ({ width, height }) => {
 
         let streamDomain = extent(dbData.map((d) => d.stream));
         streamDomain = streamDomain.map((d) => Math.sqrt(d));
-        let size = scaleLinear().domain(streamDomain).range([1, 7]);
+        let size = scaleLinear().domain(streamDomain).range([3, 15]);
         let simulation = forceSimulation(dbData)
           .force(
             "x",

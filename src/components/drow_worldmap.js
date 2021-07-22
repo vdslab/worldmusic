@@ -6,6 +6,7 @@ import { fetchData } from "../api";
 import { changeCountry, changeFeature } from "../stores/details";
 import { useDispatch, useSelector } from "react-redux";
 import "../tooltip.css";
+import { createSerializableStateInvariantMiddleware } from "@reduxjs/toolkit";
 
 const WorldMap = ({ features }) => {
   const dispatch = useDispatch();
@@ -49,8 +50,8 @@ const WorldMap = ({ features }) => {
           const countryData = { countryName: cId };
           const timeData = await Promise.all(
             term.map(async (t) => {
-              // const data = await fetchData(t.start, t.end, feature, cId);
-              const data = [];
+              const data = await fetchData(t.start, t.end, feature, cId);
+              //const data = [];
               const weightAve = makeData(data, cId);
               if (a < weightAve && weightAve != null) {
                 a = weightAve;
@@ -121,9 +122,8 @@ const WorldMap = ({ features }) => {
   const path = d3.geoPath().projection(projection);
 
   let tooltipStyle = d3.select("body").append("div").attr("class", "tooltip");
-
-  const [featureValue, setFeatureValue] = useState(null);
-
+  
+  const featureValue = null;
   return (
     <div>
       <svg viewBox="-30 -30 770 310">
@@ -166,6 +166,10 @@ const WorldMap = ({ features }) => {
     </div>
   );
 };
+
+function FeatureValue (ccountry,worldMapData){
+
+}
 
 export const DrowWorldMap = () => {
   const [features, setFeatures] = useState([]);
