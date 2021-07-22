@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import * as d3 from "d3";
+import "../tooltip.css";
 
 function RaderChart({ data }) {
-  const [displayFeature, setDisplayFeature] = useState([]);
-
   const useData = [
     "acousticness",
     "danceability",
@@ -27,6 +27,7 @@ function RaderChart({ data }) {
   let score = "";
   const scorePoint = [];
   const c = Math.PI / 180;
+  const tooltipStyle = d3.select("body").append("div").attr("class", "tooltip");
 
   for (let _r = 0; _r < rs.length; _r++) {
     for (let i = 0; i <= len; i++) {
@@ -79,14 +80,6 @@ function RaderChart({ data }) {
         }
       }
     }
-  }
-
-  function overHandle(e) {
-    const name = e.target.id;
-    setDisplayFeature(name);
-  }
-  function outHandle() {
-    setDisplayFeature([]);
   }
 
   const margin = {
@@ -143,7 +136,6 @@ function RaderChart({ data }) {
                     id={p.name + " " + p.value}
                     stroke="lightgray"
                     strokeWidth="0.5"
-                    onMouseEnter={overHandle}
                   />
                 ) : (
                   <text
@@ -180,28 +172,22 @@ function RaderChart({ data }) {
                   fill="white"
                   stroke="#FF0099"
                   strokeWidth={0.5}
-                  onMouseEnter={overHandle}
+                  onMouseMove={(e) => {
+                    tooltipStyle.style("visibility", "visible");
+                    tooltipStyle
+                      .style("top", e.pageY - 65 + "px")
+                      .style("left", e.pageX - 40 + "px")
+                      .html(p.name + "<br>" + p.value);
+                  }}
+                  onMouseLeave={() => {
+                    tooltipStyle.style("visibility", "hidden");
+                  }}
                 />
               </g>
             );
           })}
         </g>
       </svg>
-
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 130,
-        }}
-        onMouseLeave={outHandle}
-      >
-        <div className="card-content">
-          <div className="content">
-            <p style={{ fontSize: "2vh" }}>{displayFeature}</p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
