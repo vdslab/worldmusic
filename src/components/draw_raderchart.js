@@ -4,9 +4,6 @@ import * as d3 from "d3";
 import "../tooltip.css";
 
 function RaderChart({ data }) {
-  const [displayFeature, setDisplayFeature] = useState([]);
-  const [watch, setWatch] = useState(false);
-
   const useData = [
     "acousticness",
     "danceability",
@@ -31,10 +28,6 @@ function RaderChart({ data }) {
   const scorePoint = [];
   const c = Math.PI / 180;
   const tooltipStyle = d3.select("body").append("div").attr("class", "tooltip");
-  const tooltipStyle2 = d3
-    .select("body")
-    .append("div")
-    .attr("class", "tooltip2");
 
   for (let _r = 0; _r < rs.length; _r++) {
     for (let i = 0; i <= len; i++) {
@@ -87,14 +80,6 @@ function RaderChart({ data }) {
         }
       }
     }
-  }
-
-  function overHandle(e) {
-    const name = e.target.id;
-    setDisplayFeature(name);
-  }
-  function outHandle() {
-    setDisplayFeature([]);
   }
 
   const margin = {
@@ -151,7 +136,6 @@ function RaderChart({ data }) {
                     id={p.name + " " + p.value}
                     stroke="lightgray"
                     strokeWidth="0.5"
-                    onMouseEnter={overHandle}
                   />
                 ) : (
                   <text
@@ -188,26 +172,15 @@ function RaderChart({ data }) {
                   fill="white"
                   stroke="#FF0099"
                   strokeWidth={0.5}
-                  // onMouseEnter={overHandle}
                   onMouseMove={(e) => {
-                    /* tooltipStyle.style("visibility", "visible");
-                    tooltipStyle2.style("visibility", "visible");
+                    tooltipStyle.style("visibility", "visible");
                     tooltipStyle
-                      //  .style("top", e.pageY - 20 + "px")
-                      //  .style("left", e.pageX + 20 + "px")
-                      .style("top", e.pageY + "px")
-                      .style("left", 50 + "px")
-                      .html(p.name + ":" + p.value);
-                    console.log(e);*/
-                    setWatch(true);
+                      .style("top", e.pageY - 65 + "px")
+                      .style("left", e.pageX - 40 + "px")
+                      .html(p.name + "<br>" + p.value);
                   }}
                   onMouseLeave={() => {
-                    /*tooltipStyle.style("visibility", "hidden");
-                    tooltipStyle2.style("visibility", "hidden");*/
-                    setWatch(false);
-                  }}
-                  onClick={() => {
-                    /*tooltipStyle.style("visibility", "hidden");*/
+                    tooltipStyle.style("visibility", "hidden");
                   }}
                 />
               </g>
@@ -215,27 +188,6 @@ function RaderChart({ data }) {
           })}
         </g>
       </svg>
-
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 130,
-        }}
-        onMouseLeave={outHandle}
-      >
-        <div className="card-content">
-          <div className="content">
-            {watch ? (
-              <div className="tooltip2">
-                <p style={{ fontSize: "2vh" }}>{displayFeature}</p>
-              </div>
-            ) : (
-              []
-            )}
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
