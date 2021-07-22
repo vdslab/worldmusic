@@ -75,8 +75,32 @@ const Swarmplt = ({ width, height }) => {
       setMax(a);
       setMin(b);
     })();
+
   });
   
+
+    (async () => {
+      const data = await fetchData(
+        startMonth,
+        endMonth,
+        feature,
+        country,
+        musicid
+      );
+      data.map((item, i) => {
+        if (a < item[feature]) {
+          a = item[feature];
+        }
+        if (item[feature] < b) {
+          b = item[feature];
+        }
+        item[feature] = checkColor(item[feature]);
+      });
+      setDbData(data);
+      setMax(a);
+      setMin(b);
+    })();
+
     d3.select(ref.current)
       .attr("width", width)
       .attr("height", height)
