@@ -7,6 +7,8 @@ const initialState = {
   feature: "acousticness",
   country: "JP",
   musicid: "a",
+  max: 0,
+  min: 0,
 };
 
 //storeと呼ばれるデータの格納場所をsliceという名前で分割して役割ごとにそれぞれの変数で管理する
@@ -38,6 +40,14 @@ const slice = createSlice({
     changeMusicId: (state, action) => {
       state.musicid = action.payload;
     },
+
+    changeMax: (state, action) => {
+      state.max = action.payload;
+    },
+
+    changeMin: (state, action) => {
+      state.min = action.payload;
+    },
   },
 });
 
@@ -48,4 +58,6 @@ export const {
   changeEndMonth,
   changeCountry,
   changeMusicId,
+  changeMax,
+  changeMin,
 } = slice.actions;

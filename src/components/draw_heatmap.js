@@ -6,6 +6,8 @@ import {
   changeCountry,
   changeEndMonth,
   changeStartMonth,
+  changeMax,
+  changeMin,
 } from "../stores/details";
 import "../tooltip.css";
 
@@ -101,6 +103,9 @@ function HeatMapChart() {
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
+  const max = useSelector((state) => state.detail.max);
+  const min = useSelector((state) => state.detail.min);
+
   const term = [
     { start: "2017-01", end: "2017-03" },
     { start: "2017-04", end: "2017-06" },
@@ -178,6 +183,8 @@ function HeatMapChart() {
       console.log(data, 1);
       setMax(a);
       setMin(b);
+      dispatch(changeMax(a));
+      dispatch(changeMin(b));
     })();
 
     //fetch数削減したやつ
