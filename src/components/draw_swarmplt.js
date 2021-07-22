@@ -65,7 +65,7 @@ const Swarmplt = ({ width, height }) => {
         setMin(b);
       })();
     });
-    
+
     d3.select(ref.current)
       .attr("width", width)
       .attr("height", height)
