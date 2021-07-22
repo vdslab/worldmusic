@@ -28,7 +28,7 @@ const TextDetail = ({ data, musicKey }) => {
       <p style={{ marginBottom: "0px" }}>テンポ：{Math.round(data[0].tempo)}</p>
       <p style={{ marginBottom: "0px" }}>拍子：{data[0].time_signature}　</p>
       {/**TODO:キーの情報なしで単調長調だけかぁって感じ*/}
-      <p>
+      <p style={{ fontSize: "1.0vw" }}>
         調：{keyDict[musicKey]}
         {data[0].mode == 0 ? "短調" : "長調"}
       </p>
@@ -123,9 +123,29 @@ const Song = () => {
             {data.length > 0 ? (
               <div>
                 <div>
-                  <a href={metaData?.external_urls.spotify}>
+                  <a
+                    href={metaData?.external_urls.spotify}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <b>{data[0]?.name}</b>
                   </a>
+                  <br />
+                  <div style={{ fontSize: "0.75rem" }}>
+                    アーティスト : &ensp;
+                    {metaData?.artists.map((item2, j) => {
+                      return (
+                        <a
+                          href={item2.external_urls.spotify}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {j !== 0 ? " / " : []}
+                          {item2.name}
+                        </a>
+                      );
+                    })}
+                  </div>
                 </div>
                 <div style={{ display: "flex" }}>
                   <TextDetail data={data} musicKey={key} />

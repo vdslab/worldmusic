@@ -15,8 +15,8 @@ function VerticalAxis({ len, countries, name, h }) {
   return (
     <g>
       <text
-        transform={`rotate(-90)
-                translate(${-h / 2} -30)
+        transform={`
+                translate(-30 ${h / 2})
                `}
         textAnchor="middle"
         dominantBaseline="central"
@@ -292,7 +292,7 @@ function HeatMapChart() {
   const tooltipStyle = d3.select("body").append("div").attr("class", "tooltip");
 
   return (
-    <div style={{ width: "450px" }}>
+    <div style={{ width: "450px", marginLeft: "auto", marginRight: "auto" }}>
       <div>
         <svg
           viewBox={`${-margin.left} ${-margin.top} ${svgWidth} ${svgHeight}`}
@@ -301,13 +301,13 @@ function HeatMapChart() {
           <VerticalAxis
             len={len}
             countries={countries}
-            name={"country"}
+            name={"国"}
             h={contentHeight}
           />
           <HorizontalAxis
             len={len}
             term={term}
-            name={"term"}
+            name={"期間"}
             w={contentWidth}
           />
           <rect
