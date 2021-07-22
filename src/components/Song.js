@@ -110,6 +110,8 @@ const Song = () => {
     })();
   }, [musicId]);
 
+  console.log(metaData);
+
   return (
     <div className="my-section">
       <div className="card" style={{ minHeight: "26.75vh" }}>
@@ -136,6 +138,7 @@ const Song = () => {
                     <RaderChart data={data} />
                   </div>
                 </div>
+                <audio controls src={metaData?.preview_url} />
               </div>
             ) : (
               <div>
