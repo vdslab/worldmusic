@@ -1,8 +1,11 @@
 import React from "react";
 import { useState } from "react";
+import * as d3 from "d3";
+import "../tooltip.css";
 
 function RaderChart({ data }) {
   const [displayFeature, setDisplayFeature] = useState([]);
+  const [watch, setWatch] = useState(false);
 
   const useData = [
     "acousticness",
@@ -27,6 +30,11 @@ function RaderChart({ data }) {
   let score = "";
   const scorePoint = [];
   const c = Math.PI / 180;
+  const tooltipStyle = d3.select("body").append("div").attr("class", "tooltip");
+  const tooltipStyle2 = d3
+    .select("body")
+    .append("div")
+    .attr("class", "tooltip2");
 
   for (let _r = 0; _r < rs.length; _r++) {
     for (let i = 0; i <= len; i++) {
@@ -180,7 +188,27 @@ function RaderChart({ data }) {
                   fill="white"
                   stroke="#FF0099"
                   strokeWidth={0.5}
-                  onMouseEnter={overHandle}
+                  // onMouseEnter={overHandle}
+                  onMouseMove={(e) => {
+                    /* tooltipStyle.style("visibility", "visible");
+                    tooltipStyle2.style("visibility", "visible");
+                    tooltipStyle
+                      //  .style("top", e.pageY - 20 + "px")
+                      //  .style("left", e.pageX + 20 + "px")
+                      .style("top", e.pageY + "px")
+                      .style("left", 50 + "px")
+                      .html(p.name + ":" + p.value);
+                    console.log(e);*/
+                    setWatch(true);
+                  }}
+                  onMouseLeave={() => {
+                    /*tooltipStyle.style("visibility", "hidden");
+                    tooltipStyle2.style("visibility", "hidden");*/
+                    setWatch(false);
+                  }}
+                  onClick={() => {
+                    /*tooltipStyle.style("visibility", "hidden");*/
+                  }}
                 />
               </g>
             );
@@ -198,7 +226,13 @@ function RaderChart({ data }) {
       >
         <div className="card-content">
           <div className="content">
-            <p style={{ fontSize: "2vh" }}>{displayFeature}</p>
+            {watch ? (
+              <div className="tooltip2">
+                <p style={{ fontSize: "2vh" }}>{displayFeature}</p>
+              </div>
+            ) : (
+              []
+            )}
           </div>
         </div>
       </div>

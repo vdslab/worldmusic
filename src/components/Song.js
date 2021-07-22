@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { fetchSongData } from "../api";
 import RaderChart from "./draw_raderchart";
+import { useSelector } from "react-redux";
 
 const TextDetail = ({ data }) => {
   return (
@@ -17,7 +18,7 @@ const TextDetail = ({ data }) => {
 
 const Song = () => {
   /**TODO：曲のIDを受け渡してもらう */
-  const musicId = "3HVWdVOQ0ZA45FuZGSfvns";
+  const musicId = useSelector((state) => state.detail.musicid);
   const [data, setData] = useState([]);
   useEffect(() => {
     (async () => {
@@ -52,7 +53,9 @@ const Song = () => {
                 </div>
               </div>
             ) : (
-              []
+              <div>
+                <p>曲詳細</p>
+              </div>
             )}
           </div>
         </div>

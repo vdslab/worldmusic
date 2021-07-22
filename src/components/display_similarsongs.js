@@ -28,6 +28,8 @@ function display_similarsongs() {
   const country = useSelector((state) => state.detail.country);
   const musicId = useSelector((state) => state.detail.musicid);
   const [similarSongs, setSimilarSongs] = useState([]);
+
+  console.log(musicId);
   useEffect(() => {
     (async () => {
       const data = await fetchSongData("", "", "", "ALL", musicId);
