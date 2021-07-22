@@ -83,7 +83,7 @@ function RaderChart({ data }) {
   }
 
   const margin = {
-    left: 20,
+    left: 35,
     right: 20,
     top: 10,
     bottom: 10,
@@ -136,6 +136,16 @@ function RaderChart({ data }) {
                     id={p.name + " " + p.value}
                     stroke="lightgray"
                     strokeWidth="0.5"
+                    onMouseMove={(e) => {
+                      tooltipStyle.style("visibility", "visible");
+                      tooltipStyle
+                        .style("top", e.pageY - 65 + "px")
+                        .style("left", e.pageX - 40 + "px")
+                        .html(p.name + "<br>" + p.value);
+                    }}
+                    onMouseLeave={() => {
+                      tooltipStyle.style("visibility", "hidden");
+                    }}
                   />
                 ) : (
                   <text
@@ -168,8 +178,9 @@ function RaderChart({ data }) {
                   id={p.name + " " + p.value}
                   cx={p.x}
                   cy={p.y}
-                  r={1.5}
+                  r={1.8}
                   fill="white"
+                  fillOpacity={0.6}
                   stroke="#FF0099"
                   strokeWidth={0.5}
                   onMouseMove={(e) => {
