@@ -124,7 +124,7 @@ function HeatMapChart() {
     { start: "2020-07", end: "2020-09" },
     { start: "2020-10", end: "2020-12" },
   ];
-  const cou = {
+  const featureStates = {
     AU: [],
     CA: [],
     DE: [],
@@ -142,94 +142,80 @@ function HeatMapChart() {
   const [Min, setMin] = useState(Infinity);
   const [clicked, setClicked] = useState(-1);
   const [pos, setPos] = useState(null);
+  let a = -Infinity;
+  let b = Infinity;
 
   useEffect(() => {
-    let a = -Infinity;
-    let b = Infinity;
-
     (async () => {
       /**TODO:改善 */
-      //元のやつ
       const data = await Promise.all(
-        //国
         countries.map(async (cId) => {
           const countryData = { countryName: cId };
           const timeData = await Promise.all(
-            //期間
             term.map(async (t) => {
-              // const data = [];
-              //その期間と国のデータを持ってくる
               const data = await fetchData(t.start, t.end, feature, cId);
-
-              //その期間と国の特徴量の平均を持ってくる
               const weightAve = makeData(data, cId);
-              //一区間ではなく全体、特徴量の平均の最大値最小値をとっている
               if (a < weightAve && weightAve != null) {
                 a = weightAve;
               }
               if (b > weightAve && weightAve != null) {
                 b = weightAve;
               }
-              //期間国の平均値
               return { start: t.start, end: t.end, value: weightAve };
             })
           );
-
           countryData["timeData"] = timeData;
           return countryData;
         })
       );
       setHeatMapData(data);
-      console.log(data, 1);
       setMax(a);
       setMin(b);
-      dispatch(changeMax(a));
-      dispatch(changeMin(b));
+      console.log(heatMapData, 1);
+      //featch数減らしたやつ
+      // term.map(async (t) => {
+      //   const c = {
+      //     AU: [],
+      //     CA: [],
+      //     DE: [],
+      //     FR: [],
+      //     JP: [],
+      //     NL: [],
+      //     GB: [],
+      //     US: [],
+      //     GL: [],
+      //   };
+      //   const dbData = await fetchTest(t.start, t.end, feature);
+      //   dbData.map((d) => {
+      //     let array = c[d.countryid];
+      //     array.push(d);
+      //     c[d.countryid] = array;
+      //   });
+
+      //   Object.keys(c).map((d) => {
+      //     let array = featureStates[d];
+      //     const weightAve = makeData(c[d]);
+      //     if (a < weightAve && weightAve != null) {
+      //       a = weightAve;
+      //       setMax(a);
+      //     }
+      //     if (b > weightAve && weightAve != null) {
+      //       b = weightAve;
+      //       setMin(b);
+      //     }
+      //     array.push({ start: t.start, end: t.end, value: weightAve });
+      //     featureStates[d] = array;
+      //   });
+      // });
+      // const data = countries.map((c) => {
+      //   return {
+      //     countryName: c,
+      //     timeData: featureStates[c],
+      //   };
+      // });
+      // setHeatMapData(data);
+      // console.log(heatMapData, 1);
     })();
-
-    //fetch数削減したやつ
-    // term.map(async (t) => {
-    //   const c = {
-    //     AU: [],
-    //     CA: [],
-    //     DE: [],
-    //     FR: [],
-    //     JP: [],
-    //     NL: [],
-    //     GB: [],
-    //     US: [],
-    //     GL: [],
-    //   };
-    //   const dbData = await fetchTest(t.start, t.end, feature);
-    //   dbData.map((d) => {
-    //     let array = c[d.countryid];
-    //     array.push(d);
-    //     c[d.countryid] = array;
-    //   });
-
-    //   Object.keys(c).map((d) => {
-    //     let array = cou[d];
-    //     const weightAve = makeData(c[d]);
-    //     if (a < weightAve && weightAve != null) {
-    //       a = weightAve;
-    //       setMax(a);
-    //     }
-    //     if (b > weightAve && weightAve != null) {
-    //       b = weightAve;
-    //       setMin(b);
-    //     }
-    //     array.push({ start: t.start, end: t.end, value: weightAve });
-    //     cou[d] = array;
-    //   });
-    // });
-    // const data = countries.map((c) => {
-    //   return {
-    //     countryName: c,
-    //     timeData: cou[c],
-    //   };
-    // });
-
-    // setHeatMapData(data);
   }, [feature]);
 
   function makeData(data) {
@@ -260,7 +246,8 @@ function HeatMapChart() {
     let opacityMin = 0.1;
     const termData = heatMapData
       .map((country) => {
-        return country.timeData.filter((item) => item.start === start)[0].value;
+        // console.log(country);
+        return country.timeData.filter((item) => item.start === start).value;
       })
       .filter((t) => t);
 
