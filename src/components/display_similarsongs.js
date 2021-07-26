@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import request from "request";
 import { fetchSongData } from "../api";
 import { useSelector } from "react-redux";
-
+import { style } from "d3";
+import "../style.css";
 function display_similarsongs() {
   const spotify = {
     ClientId: process.env.REACT_APP_CLIENTID,
@@ -27,7 +28,10 @@ function display_similarsongs() {
 
   const country = useSelector((state) => state.detail.country);
   const musicId = useSelector((state) => state.detail.musicid);
+  //const musicId = "4MzXwWMhyBbmu6hOcLVD49";
   const [similarSongs, setSimilarSongs] = useState([]);
+
+  console.log(musicId);
   useEffect(() => {
     (async () => {
       const data = await fetchSongData("", "", "", "ALL", musicId);
@@ -50,31 +54,33 @@ function display_similarsongs() {
     })();
   }, [musicId]);
 
-  console.log(similarSongs);
   return (
     <div>
       <p>類似曲</p>
       {similarSongs.map((item, i) => {
         return (
-          <g key={i} transfrom={`translate(70,${20 * (i + 1)})`}>
-            <image href={item.album.images[0].url} width="50" height="50" />
-            <a href={item.external_urls.spotify}>
-              <text x="70" y="20" fontSize="10">
+          <div style={{ width: "100%", fontSize: "40" }}>
+            <p>
+              <img src={item.album.images[0].url} width="130" height="130"　style={{float:"left",padding:"10px"}}/>
+                曲名
+                <br/>
+              <a href={item.external_urls.spotify}　target="_blank" rel="noopener noreferrer">
                 {item.name}
-              </text>
-            </a>
-            {item.artists.map((item2, j) => {
-              return (
-                <g key={j} transform={`translate(70,30)`}>
-                  <a href={item2.external_urls.spotify}>
-                    <text x="70" y="40" fontSize="10">
-                      {item2.name}
-                    </text>
-                  </a>
-                </g>
-              );
-            })}
-          </g>
+              </a>
+              <br/>
+              歌手
+              <br/>
+              <p>
+              {item.artists.map((item2, j) => {
+                return (
+                    <a href={item2.external_urls.spotify}　target="_blank" rel="noopener noreferrer">
+                      ・{item2.name} 
+                    </a>  
+                );
+              })}
+              </p>
+            </p>
+          </div>
         );
       })}
     </div>
