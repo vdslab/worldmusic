@@ -37,34 +37,32 @@ const Swarmplt = ({ width, height }) => {
   useEffect(() => {
     let a = -Infinity;
     let b = Infinity;
-    [...Array(32)].map((_, i) => {
-      (async () => {
-        const data = await fetchData(
-          startMonth,
-          endMonth,
-          feature,
-          country,
-          musicid
-        );
-        console.log("data: " + data.length);
-        const dedupeData = data.filter(
-          (element, index, self) =>
-            self.findIndex((e) => e.musicid === element.musicid) === index
-        );
-        console.log("dedupeData: " + dedupeData.length);
-        dedupeData.map((item, i) => {
-          if (a < item[feature]) {
-            a = item[feature];
-          }
-          if (item[feature] < b) {
-            b = item[feature];
-          }
-        });
-        setDbData(dedupeData);
-        setMax(a);
-        setMin(b);
-      })();
-    });
+    (async () => {
+      const data = await fetchData(
+        startMonth,
+        endMonth,
+        feature,
+        country,
+        musicid
+      );
+      console.log("data: " + data.length);
+      const dedupeData = data.filter(
+        (element, index, self) =>
+          self.findIndex((e) => e.musicid === element.musicid) === index
+      );
+      console.log("dedupeData: " + dedupeData.length);
+      dedupeData.map((item, i) => {
+        if (a < item[feature]) {
+          a = item[feature];
+        }
+        if (item[feature] < b) {
+          b = item[feature];
+        }
+      });
+      setDbData(dedupeData);
+      setMax(a);
+      setMin(b);
+    })();
 
     d3.select(ref.current)
       .attr("width", width)
