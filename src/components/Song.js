@@ -113,7 +113,7 @@ const Song = () => {
   console.log(metaData);
 
   return (
-    <div className="my-section">
+    <div className="">
       <div className="card" style={{ minHeight: "26.75vh" }}>
         <div
           className="card-content"
