@@ -171,6 +171,8 @@ function HeatMapChart() {
       setHeatMapData(data);
       setMax(a);
       setMin(b);
+      dispatch(changeMax(a));
+      dispatch(changeMin(b));
       console.log(heatMapData, 1);
       //featch数減らしたやつ
       // term.map(async (t) => {
