@@ -363,6 +363,7 @@ function HeatMapChart() {
       dispatch(changeMin(b));
       setHeatMapData(data);
     })();
+    console.log(heatMapData);
   }, [feature]);
 
   function makeData(data) {
