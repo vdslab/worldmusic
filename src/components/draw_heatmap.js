@@ -148,75 +148,77 @@ function HeatMapChart() {
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
-      const data = await Promise.all(
-        countries.map(async (cId) => {
-          const countryData = { countryName: cId };
-          const timeData = await Promise.all(
-            term.map(async (t) => {
-              const data = await fetchData(t.start, t.end, feature, cId);
-              const weightAve = makeData(data, cId);
-              if (a < weightAve && weightAve != null) {
-                a = weightAve;
-              }
-              if (b > weightAve && weightAve != null) {
-                b = weightAve;
-              }
-              return { start: t.start, end: t.end, value: weightAve };
-            })
-          );
-          countryData["timeData"] = timeData;
-          return countryData;
-        })
-      );
-      setHeatMapData(data);
-      setMax(a);
-      setMin(b);
-      dispatch(changeMax(a));
-      dispatch(changeMin(b));
-      console.log(heatMapData, 1);
-      //featch数減らしたやつ
-      // term.map(async (t) => {
-      //   const c = {
-      //     AU: [],
-      //     CA: [],
-      //     DE: [],
-      //     FR: [],
-      //     JP: [],
-      //     NL: [],
-      //     GB: [],
-      //     US: [],
-      //     GL: [],
-      //   };
-      //   const dbData = await fetchTest(t.start, t.end, feature);
-      //   dbData.map((d) => {
-      //     let array = c[d.countryid];
-      //     array.push(d);
-      //     c[d.countryid] = array;
-      //   });
-
-      //   Object.keys(c).map((d) => {
-      //     let array = featureStates[d];
-      //     const weightAve = makeData(c[d]);
-      //     if (a < weightAve && weightAve != null) {
-      //       a = weightAve;
-      //       setMax(a);
-      //     }
-      //     if (b > weightAve && weightAve != null) {
-      //       b = weightAve;
-      //       setMin(b);
-      //     }
-      //     array.push({ start: t.start, end: t.end, value: weightAve });
-      //     featureStates[d] = array;
-      //   });
-      // });
-      // const data = countries.map((c) => {
-      //   return {
-      //     countryName: c,
-      //     timeData: featureStates[c],
-      //   };
-      // });
+      // const data = await Promise.all(
+      //   countries.map(async (cId) => {
+      //     const countryData = { countryName: cId };
+      //     const timeData = await Promise.all(
+      //       term.map(async (t) => {
+      //         const data = await fetchData(t.start, t.end, feature, cId);
+      //         const weightAve = makeData(data, cId);
+      //         if (a < weightAve && weightAve != null) {
+      //           a = weightAve;
+      //         }
+      //         if (b > weightAve && weightAve != null) {
+      //           b = weightAve;
+      //         }
+      //         return { start: t.start, end: t.end, value: weightAve };
+      //       })
+      //     );
+      //     countryData["timeData"] = timeData;
+      //     return countryData;
+      //   })
+      // );
       // setHeatMapData(data);
+      // setMax(a);
+      // setMin(b);
+      // dispatch(changeMax(a));
+      // dispatch(changeMin(b));
       // console.log(heatMapData, 1);
+      //featch数減らしたやつ
+      term.map(async (t) => {
+        const c = {
+          AU: [],
+          CA: [],
+          DE: [],
+          FR: [],
+          JP: [],
+          NL: [],
+          GB: [],
+          US: [],
+          GL: [],
+        };
+        const dbData = await fetchTest(t.start, t.end, feature);
+        dbData.map((d) => {
+          let array = c[d.countryid];
+          array.push(d);
+          c[d.countryid] = array;
+        });
+
+        Object.keys(c).map((d) => {
+          let array = featureStates[d];
+          const weightAve = makeData(c[d]);
+          if (a < weightAve && weightAve != null) {
+            a = weightAve;
+            setMax(a);
+          }
+          if (b > weightAve && weightAve != null) {
+            b = weightAve;
+            setMin(b);
+          }
+          array.push({ start: t.start, end: t.end, value: weightAve });
+          featureStates[d] = array;
+        });
+      });
+      const data = countries.map((c) => {
+        return {
+          countryName: c,
+          timeData: featureStates[c],
+        };
+      });
+      setHeatMapData(data);
+      dispatch(changeMax(Max));
+      dispatch(changeMin(Min));
+      console.log(heatMapData, 1);
     })();
   }, [feature]);
 

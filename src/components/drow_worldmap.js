@@ -57,72 +57,72 @@ const WorldMap = ({ features }) => {
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
-      const data = await Promise.all(
-        countries.map(async (cId) => {
-          const countryData = { countryName: cId };
-          const timeData = await Promise.all(
-            term.map(async (t) => {
-              const data = await fetchData(t.start, t.end, feature, cId);
-              const weightAve = makeData(data, cId);
-              if (a < weightAve && weightAve != null) {
-                a = weightAve;
-              }
-              if (b > weightAve && weightAve != null) {
-                b = weightAve;
-              }
-              return { start: t.start, end: t.end, value: weightAve };
-            })
-          );
-          countryData["timeData"] = timeData;
-          return countryData;
-        })
-      );
-      setWorldMapData(data);
-      setMax(a);
-      setMin(b);
-      //fetch数減らしたやつ
-      // term.map(async (t) => {
-      //   const c = {
-      //     AU: [],
-      //     CA: [],
-      //     DE: [],
-      //     FR: [],
-      //     JP: [],
-      //     NL: [],
-      //     GB: [],
-      //     US: [],
-      //     GL: [],
-      //   };
-      //   const dbData = await fetchTest(t.start, t.end, feature);
-      //   dbData.map((d) => {
-      //     let array = c[d.countryid];
-      //     array.push(d);
-      //     c[d.countryid] = array;
-      //   });
-
-      //   Object.keys(c).map((d) => {
-      //     let array = featureStates[d];
-      //     const weightAve = makeData(c[d]);
-      //     if (a < weightAve && weightAve != null) {
-      //       a = weightAve;
-      //       setMax(a);
-      //     }
-      //     if (b > weightAve && weightAve != null) {
-      //       b = weightAve;
-      //       setMin(b);
-      //     }
-      //     array.push({ start: t.start, end: t.end, value: weightAve });
-      //     featureStates[d] = array;
-      //   });
-      // });
-      // const data = countries.map((c) => {
-      //   return {
-      //     countryName: c,
-      //     timeData: featureStates[c],
-      //   };
-      // });
+      // const data = await Promise.all(
+      //   countries.map(async (cId) => {
+      //     const countryData = { countryName: cId };
+      //     const timeData = await Promise.all(
+      //       term.map(async (t) => {
+      //         const data = await fetchData(t.start, t.end, feature, cId);
+      //         const weightAve = makeData(data, cId);
+      //         if (a < weightAve && weightAve != null) {
+      //           a = weightAve;
+      //         }
+      //         if (b > weightAve && weightAve != null) {
+      //           b = weightAve;
+      //         }
+      //         return { start: t.start, end: t.end, value: weightAve };
+      //       })
+      //     );
+      //     countryData["timeData"] = timeData;
+      //     return countryData;
+      //   })
+      // );
       // setWorldMapData(data);
-      // console.log(worldMapData, 1);
+      // setMax(a);
+      // setMin(b);
+      //fetch数減らしたやつ
+      term.map(async (t) => {
+        const c = {
+          AU: [],
+          CA: [],
+          DE: [],
+          FR: [],
+          JP: [],
+          NL: [],
+          GB: [],
+          US: [],
+          GL: [],
+        };
+        const dbData = await fetchTest(t.start, t.end, feature);
+        dbData.map((d) => {
+          let array = c[d.countryid];
+          array.push(d);
+          c[d.countryid] = array;
+        });
+
+        Object.keys(c).map((d) => {
+          let array = featureStates[d];
+          const weightAve = makeData(c[d]);
+          if (a < weightAve && weightAve != null) {
+            a = weightAve;
+            setMax(a);
+          }
+          if (b > weightAve && weightAve != null) {
+            b = weightAve;
+            setMin(b);
+          }
+          array.push({ start: t.start, end: t.end, value: weightAve });
+          featureStates[d] = array;
+        });
+      });
+      const data = countries.map((c) => {
+        return {
+          countryName: c,
+          timeData: featureStates[c],
+        };
+      });
+      setWorldMapData(data);
+      console.log(worldMapData, 1);
     })();
   }, [feature]);
 
@@ -176,7 +176,7 @@ const WorldMap = ({ features }) => {
   const path = d3.geoPath().projection(projection);
 
   let tooltipStyle = d3.select("body").append("div").attr("class", "tooltip");
-  
+
   const featureValue = null;
   return (
     <div>
@@ -221,9 +221,7 @@ const WorldMap = ({ features }) => {
   );
 };
 
-function FeatureValue (ccountry,worldMapData){
-
-}
+function FeatureValue(ccountry, worldMapData) {}
 
 export const DrowWorldMap = () => {
   const [features, setFeatures] = useState([]);
