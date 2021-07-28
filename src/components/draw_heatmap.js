@@ -175,44 +175,41 @@ function HeatMapChart() {
       // dispatch(changeMin(b));
       // console.log(heatMapData, 1);
       //featch数減らしたやつ
-      const dbData = await fetchTest(term[0].start, term[0].end, feature);
-      console.log(dbData);
-      // term.map(async (t) => {
-      //   const c = {
-      //     AU: [],
-      //     CA: [],
-      //     DE: [],
-      //     FR: [],
-      //     JP: [],
-      //     NL: [],
-      //     GB: [],
-      //     US: [],
-      //     GL: [],
-      //   };
-      //   const dbData = await fetchTest(t.start, t.end, feature);
-      //   console.log(dbData);
-      // dbData.map((d) => {
-      //   let array = c[d.countryid];
-      //   array.push(d);
-      //   c[d.countryid] = array;
-      // });
-      // console.log(dbData);
+      term.map(async (t) => {
+        const c = {
+          AU: [],
+          CA: [],
+          DE: [],
+          FR: [],
+          JP: [],
+          NL: [],
+          GB: [],
+          US: [],
+          GL: [],
+        };
+        const dbData = await fetchTest(t.start, t.end, feature);
+        // dbData.map((d) => {
+        //   let array = c[d.countryid];
+        //   array.push(d);
+        //   c[d.countryid] = array;
+        // });
+        console.log(dbData);
 
-      // Object.keys(c).map((d) => {
-      //   let array = featureStates[d];
-      //   const weightAve = makeData(c[d]);
-      //   if (a < weightAve && weightAve != null) {
-      //     a = weightAve;
-      //     setMax(a);
-      //   }
-      //   if (b > weightAve && weightAve != null) {
-      //     b = weightAve;
-      //     setMin(b);
-      //   }
-      //   array.push({ start: t.start, end: t.end, value: weightAve });
-      //   featureStates[d] = array;
-      // });
-      // });
+        // Object.keys(c).map((d) => {
+        //   let array = featureStates[d];
+        //   const weightAve = makeData(c[d]);
+        //   if (a < weightAve && weightAve != null) {
+        //     a = weightAve;
+        //     setMax(a);
+        //   }
+        //   if (b > weightAve && weightAve != null) {
+        //     b = weightAve;
+        //     setMin(b);
+        //   }
+        //   array.push({ start: t.start, end: t.end, value: weightAve });
+        //   featureStates[d] = array;
+        // });
+      });
       const data = [];
       // const data = countries.map((c) => {
       //   return {
