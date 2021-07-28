@@ -1,3 +1,9 @@
 .my-section {
   padding: 0.5rem 0.25rem 0.25rem 0.5rem;
 }
+
+.ranking-scroll {
+  
+  height: 350px;
+  overflow: scroll;
+}
