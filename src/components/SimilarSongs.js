@@ -3,12 +3,10 @@ import DisplaySimilarSongs from "./display_similarsongs";
 
 const SimilarSongs = () => {
   return (
-    <div className="">
-      <div className="card" style={{ minHeight: "26.75vh" }}>
-        <div className="card-content">
-          <div className="content">
-            <DisplaySimilarSongs />
-          </div>
+    <div className="card" style={{ height: "100%" }}>
+      <div className="card-content">
+        <div className="content">
+          <DisplaySimilarSongs />
         </div>
       </div>
     </div>
