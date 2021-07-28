@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import request from "request";
 
 const TextDetail = ({ data, musicKey }) => {
-  console.log(musicKey);
   const keyDict = {
     0: "ハ",
     1: "嬰ハ/変二",
@@ -110,62 +109,58 @@ const Song = () => {
     })();
   }, [musicId]);
 
-  console.log(metaData);
-
   return (
-    <div className="my-section">
-      <div className="card" style={{ minHeight: "26.75vh" }}>
-        <div
-          className="card-content"
-          style={{ paddingTop: "12px", paddingBottom: "12px" }}
-        >
-          <div className="content">
-            {data.length > 0 ? (
+    <div className="card" style={{ height: "100%" }}>
+      <div
+        className="card-content"
+        /* style={{ paddingTop: "12px", paddingBottom: "12px" }}*/
+      >
+        <div className="content">
+          {data.length > 0 ? (
+            <div>
               <div>
-                <div>
-                  <a
-                    href={metaData?.external_urls.spotify}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <b>{data[0]?.name}</b>
-                  </a>
-                  <br />
-                  <div style={{ fontSize: "0.75rem" }}>
-                    アーティスト : &ensp;
-                    {metaData?.artists.map((item2, j) => {
-                      return (
-                        <a
-                          href={item2.external_urls.spotify}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {j !== 0 ? " / " : []}
-                          {item2.name}
-                        </a>
-                      );
-                    })}
-                  </div>
+                <a
+                  href={metaData?.external_urls.spotify}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <b>{data[0]?.name}</b>
+                </a>
+                <br />
+                <div style={{ fontSize: "0.75rem" }}>
+                  アーティスト : &ensp;
+                  {metaData?.artists.map((item2, j) => {
+                    return (
+                      <a
+                        href={item2.external_urls.spotify}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {j !== 0 ? " / " : []}
+                        {item2.name}
+                      </a>
+                    );
+                  })}
                 </div>
-                <div style={{ display: "flex" }}>
-                  <TextDetail data={data} musicKey={key} />
-                  <div
-                    style={{
-                      width: "150px",
-                      paddingTop: "5px",
-                    }}
-                  >
-                    <RaderChart data={data} />
-                  </div>
+              </div>
+              <div style={{ display: "flex" }}>
+                <TextDetail data={data} musicKey={key} />
+                <div
+                  style={{
+                    width: "150px",
+                    paddingTop: "5px",
+                  }}
+                >
+                  <RaderChart data={data} />
                 </div>
-                <audio controls src={metaData?.preview_url} />
               </div>
-            ) : (
-              <div>
-                <p>曲詳細</p>
-              </div>
-            )}
-          </div>
+              <audio controls src={metaData?.preview_url} />
+            </div>
+          ) : (
+            <div>
+              <p>曲詳細</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

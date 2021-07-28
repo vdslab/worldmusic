@@ -29,12 +29,10 @@ const Ranking = () => {
   }, []);
 
   return (
-    <div className="my-section">
-      <div className="card" style={{ minHeight: "55vh" }}>
-        <div className="card-content">
-          <div className="content">ランキング</div>
-          <p>aaa</p>
-        </div>
+    <div className="card" style={{ height: "100%" }}>
+      <div className="card-content">
+        <div className="content">ランキング</div>
+        <p>aaa</p>
       </div>
     </div>
   );

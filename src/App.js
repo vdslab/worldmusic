@@ -7,8 +7,8 @@ import Detail from "./components/Detail";
 import "./style.css";
 import HeatMap from "./components/HeatMap";
 import WorldMap from "./components/WorldMap";
-import React, { useState } from "react"; 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"; 
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import * as d3 from "d3";
 import { select } from "d3-selection";
 import SelectFeature from "./components/selectFeature";
@@ -18,10 +18,10 @@ import AboutData from "./components/aboutData";
 
 const Visualization = () => {
   return (
-    <div className="columns is-gapless">
-      <div className="column">
-        <div className="my-section">
-          <div className="card">
+    <div className="tile is-ancestor">
+      <div className="tile is-parent">
+        <div className="tile is-child">
+          <div className="card" style={{ height: "100%" }}>
             <div className="card-content">
               <div className="content">
                 <WorldMap />
@@ -51,15 +51,27 @@ const Visualization = () => {
           </div>
         </div>
       </div>
-      <div className="column">
-        <Detail />
-        <div className="columns is-gapless">
-          <div className="column">
+      <div className="tile is-vertical">
+        <div className="tile is-parent" style={{ maxHeight: "275px" }}>
+          <div className="tile is-child">
+            <Detail />
+          </div>
+        </div>
+
+        <div className="tile is-parent">
+          <div className="tile is-child">
             <Ranking />
           </div>
-          <div className="column is-gapless">
-            <Song />
-            <SimilarSongs />
+          <div
+            className="tile is-parent is-vertical"
+            style={{ paddingBottom: "0px", paddingTop: "0px" }}
+          >
+            <div className="tile is-child">
+              <Song />
+            </div>
+            <div className="tile is-child">
+              <SimilarSongs />
+            </div>
           </div>
         </div>
       </div>
