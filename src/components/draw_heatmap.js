@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
 import * as d3 from "d3";
-import { fetchData } from "../api";
+import { fetchData, fetchTest } from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeCountry,
   changeEndMonth,
   changeStartMonth,
+  changeMax,
+  changeMin,
 } from "../stores/details";
-//import "./draw_heatmap.css";
-import '../tooltip.css';
+import "../tooltip.css";
 
 function VerticalAxis({ len, countries, name, h }) {
   return (
     <g>
       <text
-        transform={`rotate(-90)
-                translate(${-h / 2} -30)
+        transform={`
+                translate(-30 ${h / 2})
                `}
         textAnchor="middle"
         dominantBaseline="central"
@@ -102,6 +103,9 @@ function HeatMapChart() {
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
+  const max = useSelector((state) => state.detail.max);
+  const min = useSelector((state) => state.detail.min);
+
   const term = [
     { start: "2017-01", end: "2017-03" },
     { start: "2017-04", end: "2017-06" },
@@ -120,6 +124,17 @@ function HeatMapChart() {
     { start: "2020-07", end: "2020-09" },
     { start: "2020-10", end: "2020-12" },
   ];
+  const featureStates = {
+    AU: [],
+    CA: [],
+    DE: [],
+    FR: [],
+    JP: [],
+    NL: [],
+    GB: [],
+    US: [],
+    GL: [],
+  };
 
   const countries = ["AU", "CA", "DE", "FR", "JP", "NL", "GB", "US"];
   const [heatMapData, setHeatMapData] = useState([]);
@@ -127,36 +142,85 @@ function HeatMapChart() {
   const [Min, setMin] = useState(Infinity);
   const [clicked, setClicked] = useState(-1);
   const [pos, setPos] = useState(null);
+  let a = -Infinity;
+  let b = Infinity;
 
   useEffect(() => {
-    let a = -Infinity;
-    let b = Infinity;
     (async () => {
       /**TODO:改善 */
-      const data = await Promise.all(
-        countries.map(async (cId) => {
-          const countryData = { countryName: cId };
-          const timeData = await Promise.all(
-            term.map(async (t) => {
-              // const data = [];
-              const data = await fetchData(t.start, t.end, feature, cId);
-              const weightAve = makeData(data, cId);
-              if (a < weightAve && weightAve != null) {
-                a = weightAve;
-              }
-              if (b > weightAve && weightAve != null) {
-                b = weightAve;
-              }
-              return { start: t.start, end: t.end, value: weightAve };
-            })
-          );
-          countryData["timeData"] = timeData;
-          return countryData;
-        })
-      );
+      // const data = await Promise.all(
+      //   countries.map(async (cId) => {
+      //     const countryData = { countryName: cId };
+      //     const timeData = await Promise.all(
+      //       term.map(async (t) => {
+      //         const data = await fetchData(t.start, t.end, feature, cId);
+      //         const weightAve = makeData(data, cId);
+      //         if (a < weightAve && weightAve != null) {
+      //           a = weightAve;
+      //         }
+      //         if (b > weightAve && weightAve != null) {
+      //           b = weightAve;
+      //         }
+      //         return { start: t.start, end: t.end, value: weightAve };
+      //       })
+      //     );
+      //     countryData["timeData"] = timeData;
+      //     return countryData;
+      //   })
+      // );
+      // setHeatMapData(data);
+      // setMax(a);
+      // setMin(b);
+      // dispatch(changeMax(a));
+      // dispatch(changeMin(b));
+      // console.log(heatMapData, 1);
+      //featch数減らしたやつ
+      term.map(async (t) => {
+        const c = {
+          AU: [],
+          CA: [],
+          DE: [],
+          FR: [],
+          JP: [],
+          NL: [],
+          GB: [],
+          US: [],
+          GL: [],
+        };
+        const dbData = await fetchTest(t.start, t.end, feature);
+        // dbData.map((d) => {
+        //   let array = c[d.countryid];
+        //   array.push(d);
+        //   c[d.countryid] = array;
+        // });
+        console.log(dbData);
+
+        // Object.keys(c).map((d) => {
+        //   let array = featureStates[d];
+        //   const weightAve = makeData(c[d]);
+        //   if (a < weightAve && weightAve != null) {
+        //     a = weightAve;
+        //     setMax(a);
+        //   }
+        //   if (b > weightAve && weightAve != null) {
+        //     b = weightAve;
+        //     setMin(b);
+        //   }
+        //   array.push({ start: t.start, end: t.end, value: weightAve });
+        //   featureStates[d] = array;
+        // });
+      });
+      const data = [];
+      // const data = countries.map((c) => {
+      //   return {
+      //     countryName: c,
+      //     timeData: featureStates[c],
+      //   };
+      // });
       setHeatMapData(data);
-      setMax(a);
-      setMin(b);
+      // dispatch(changeMax(Max));
+      // dispatch(changeMin(Min));
+      // console.log(heatMapData, 1);
     })();
   }, [feature]);
 
@@ -188,7 +252,8 @@ function HeatMapChart() {
     let opacityMin = 0.1;
     const termData = heatMapData
       .map((country) => {
-        return country.timeData.filter((item) => item.start === start)[0].value;
+        // console.log(country);
+        return country.timeData.filter((item) => item.start === start).value;
       })
       .filter((t) => t);
 
@@ -217,12 +282,10 @@ function HeatMapChart() {
   /**TODO:引数渡していい感じにサイズとか調整できるようにする */
   const len = 15;
 
-  const tooltipStyle = d3.select("body")
-                      .append("div")	
-                      .attr("class", "tooltip");		
+  const tooltipStyle = d3.select("body").append("div").attr("class", "tooltip");
 
   return (
-    <div style={{ width: "450px" }}>
+    <div style={{ width: "450px", marginLeft: "auto", marginRight: "auto" }}>
       <div>
         <svg
           viewBox={`${-margin.left} ${-margin.top} ${svgWidth} ${svgHeight}`}
@@ -231,13 +294,13 @@ function HeatMapChart() {
           <VerticalAxis
             len={len}
             countries={countries}
-            name={"country"}
+            name={"国"}
             h={contentHeight}
           />
           <HorizontalAxis
             len={len}
             term={term}
-            name={"term"}
+            name={"期間"}
             w={contentWidth}
           />
           <rect
@@ -249,10 +312,10 @@ function HeatMapChart() {
           />
 
           <g
-          onMouseLeave={() => {
-            setPos(null);
-            tooltipStyle.style("visibility","hidden");
-          }}
+            onMouseLeave={() => {
+              setPos(null);
+              tooltipStyle.style("visibility", "hidden");
+            }}
           >
             {heatMapData.map((country, i) => {
               return country.timeData.map((item, j) => {
@@ -266,7 +329,7 @@ function HeatMapChart() {
                       height={len}
                       fill={colorjudge(item.value, item.start)}
                       onClick={() => {
-                        tooltipStyle.style("visibility","hidden");
+                        tooltipStyle.style("visibility", "hidden");
                         changeInfo(item.start, item.end, country.countryName);
                         setClicked(i * country.timeData.length + j);
                       }}
@@ -278,13 +341,16 @@ function HeatMapChart() {
                         });
                       }}
                       onMouseMove={(e) => {
-                        tooltipStyle.style("visibility","visible")
-                        .style("top", (e.pageY - 20) + "px")
-                        .style("left", (e.pageX + 20) + "px");
-                        pos !== null ? (tooltipStyle.html(feature + ":" + pos.value)):([])
+                        tooltipStyle
+                          .style("visibility", "visible")
+                          .style("top", e.pageY - 20 + "px")
+                          .style("left", e.pageX + 20 + "px");
+                        pos !== null
+                          ? tooltipStyle.html(feature + ":" + pos.value)
+                          : [];
                       }}
                       onMouseLeave={(e) => {
-                        tooltipStyle.style("visibility","hidden");
+                        tooltipStyle.style("visibility", "hidden");
                       }}
                     />
                     <rect
@@ -295,7 +361,7 @@ function HeatMapChart() {
                       fill="none"
                       stroke="black"
                       opacity={
-                        clicked=== i * country.timeData.length + j ? 1 : 0
+                        clicked === i * country.timeData.length + j ? 1 : 0
                       }
                     />
                   </g>

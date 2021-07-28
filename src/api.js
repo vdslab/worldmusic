@@ -32,3 +32,12 @@ export function fetchSongData(startMonth, endMonth, feature, country, musicId) {
     musicId: musicId,
   });
 }
+
+export function fetchTest(startMonth, endMonth, feature, country) {
+  return sendRequest("/getTest", {
+    startMonth: startMonth,
+    endMonth: endMonth,
+    feature: feature,
+    country: country,
+  });
+}

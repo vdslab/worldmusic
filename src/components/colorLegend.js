@@ -1,54 +1,36 @@
 import React from "react";
 import * as d3 from "d3";
+
 import { useDispatch, useSelector } from "react-redux";
 
 const colorLegend = () => {
-  const dispatch = useDispatch();
   const feature = useSelector((state) => state.detail.feature);
-  let w = 250;
-  let aboutColorGradations = [
-    [0, 0],
-    [0.1, 25],
-    [0.2, 50],
-    [0.3, 75],
-    [0.4, 100],
-    [0.5, 125],
-    [0.6, 150],
-    [0.7, 175],
-    [0.8, 200],
-    [0.9, 225],
-    [1, 250],
-  ];
+  const max = useSelector((state) => state.detail.max);
+  const min = useSelector((state) => state.detail.min);
+  const w = 250;
+  let n = 2;
+
   if (feature === "loudness") {
-    //loudnessは−8〜−3
-    aboutColorGradations = [
-      [-8, 0],
-      [-7, 50],
-      [-6, 100],
-      [-5, 150],
-      [-4, 200],
-      [-3, 250],
-    ];
+    n = 1;
+  } else if (feature === "tempo") {
+    n = 0;
   }
-  if (feature === "tempo") {
-    //tempoは113〜125
-    w = 240;
-    aboutColorGradations = [
-      [113, 0],
-      [114, 20],
-      [115, 40],
-      [116, 60],
-      [117, 80],
-      [118, 100],
-      [119, 120],
-      [120, 140],
-      [121, 160],
-      [122, 180],
-      [123, 200],
-      [124, 220],
-      [125, 240],
-    ];
+
+  const aboutColorGradations = [
+    [Math.floor(min * Math.pow(10, n)) / Math.pow(10, n), 0],
+  ];
+
+  for (let i = 1; i <= 10; i++) {
+    const p = (max - min) / 10;
+    let value = min + p * i;
+    if (i === 10) {
+      value = Math.ceil(max * Math.pow(10, n)) / Math.pow(10, n);
+    } else {
+      value = Math.round(value * Math.pow(10, n)) / Math.pow(10, n);
+    }
+    aboutColorGradations.push([value, 0 + (w / 10) * i]);
   }
+
   return (
     <div>
       <svg width={w + 20} height="50">
