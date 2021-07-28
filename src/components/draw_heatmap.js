@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import * as d3 from "d3";
-import { fetchData, fetchTest } from "../api";
+import { fetchData, fetchHeatmapData, fetchTest } from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeCountry,
@@ -103,8 +103,6 @@ function HeatMapChart() {
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
-  const max = useSelector((state) => state.detail.max);
-  const min = useSelector((state) => state.detail.min);
 
   const term = [
     { start: "2017-01", end: "2017-03" },
@@ -124,16 +122,12 @@ function HeatMapChart() {
     { start: "2020-07", end: "2020-09" },
     { start: "2020-10", end: "2020-12" },
   ];
-  const featureStates = {
-    AU: [],
-    CA: [],
-    DE: [],
-    FR: [],
-    JP: [],
-    NL: [],
-    GB: [],
-    US: [],
-    GL: [],
+
+  const fillZero = (value) => {
+    if (value.length == 1) {
+      value = "0" + value;
+    }
+    return value;
   };
 
   const countries = ["AU", "CA", "DE", "FR", "JP", "NL", "GB", "US"];
@@ -175,52 +169,199 @@ function HeatMapChart() {
       // dispatch(changeMin(b));
       // console.log(heatMapData, 1);
       //featch数減らしたやつ
-      term.map(async (t) => {
-        const c = {
-          AU: [],
-          CA: [],
-          DE: [],
-          FR: [],
-          JP: [],
-          NL: [],
-          GB: [],
-          US: [],
-          GL: [],
-        };
-        const dbData = await fetchTest(t.start, t.end, feature);
-        // dbData.map((d) => {
-        //   let array = c[d.countryid];
-        //   array.push(d);
-        //   c[d.countryid] = array;
-        // });
-        console.log(dbData);
+      const dbData = await fetchHeatmapData(feature);
 
-        // Object.keys(c).map((d) => {
-        //   let array = featureStates[d];
-        //   const weightAve = makeData(c[d]);
-        //   if (a < weightAve && weightAve != null) {
-        //     a = weightAve;
-        //     setMax(a);
-        //   }
-        //   if (b > weightAve && weightAve != null) {
-        //     b = weightAve;
-        //     setMin(b);
-        //   }
-        //   array.push({ start: t.start, end: t.end, value: weightAve });
-        //   featureStates[d] = array;
-        // });
+      const c = {
+        AU: {
+          "2017-01": [],
+          "2017-04": [],
+          "2017-07": [],
+          "2017-10": [],
+          "2018-01": [],
+          "2018-04": [],
+          "2018-07": [],
+          "2018-10": [],
+          "2019-01": [],
+          "2019-04": [],
+          "2019-07": [],
+          "2019-10": [],
+          "2020-01": [],
+          "2020-04": [],
+          "2020-07": [],
+          "2020-10": [],
+        },
+        CA: {
+          "2017-01": [],
+          "2017-04": [],
+          "2017-07": [],
+          "2017-10": [],
+          "2018-01": [],
+          "2018-04": [],
+          "2018-07": [],
+          "2018-10": [],
+          "2019-01": [],
+          "2019-04": [],
+          "2019-07": [],
+          "2019-10": [],
+          "2020-01": [],
+          "2020-04": [],
+          "2020-07": [],
+          "2020-10": [],
+        },
+        DE: {
+          "2017-01": [],
+          "2017-04": [],
+          "2017-07": [],
+          "2017-10": [],
+          "2018-01": [],
+          "2018-04": [],
+          "2018-07": [],
+          "2018-10": [],
+          "2019-01": [],
+          "2019-04": [],
+          "2019-07": [],
+          "2019-10": [],
+          "2020-01": [],
+          "2020-04": [],
+          "2020-07": [],
+          "2020-10": [],
+        },
+        FR: {
+          "2017-01": [],
+          "2017-04": [],
+          "2017-07": [],
+          "2017-10": [],
+          "2018-01": [],
+          "2018-04": [],
+          "2018-07": [],
+          "2018-10": [],
+          "2019-01": [],
+          "2019-04": [],
+          "2019-07": [],
+          "2019-10": [],
+          "2020-01": [],
+          "2020-04": [],
+          "2020-07": [],
+          "2020-10": [],
+        },
+        JP: {
+          "2017-01": [],
+          "2017-04": [],
+          "2017-07": [],
+          "2017-10": [],
+          "2018-01": [],
+          "2018-04": [],
+          "2018-07": [],
+          "2018-10": [],
+          "2019-01": [],
+          "2019-04": [],
+          "2019-07": [],
+          "2019-10": [],
+          "2020-01": [],
+          "2020-04": [],
+          "2020-07": [],
+          "2020-10": [],
+        },
+        NL: {
+          "2017-01": [],
+          "2017-04": [],
+          "2017-07": [],
+          "2017-10": [],
+          "2018-01": [],
+          "2018-04": [],
+          "2018-07": [],
+          "2018-10": [],
+          "2019-01": [],
+          "2019-04": [],
+          "2019-07": [],
+          "2019-10": [],
+          "2020-01": [],
+          "2020-04": [],
+          "2020-07": [],
+          "2020-10": [],
+        },
+        GB: {
+          "2017-01": [],
+          "2017-04": [],
+          "2017-07": [],
+          "2017-10": [],
+          "2018-01": [],
+          "2018-04": [],
+          "2018-07": [],
+          "2018-10": [],
+          "2019-01": [],
+          "2019-04": [],
+          "2019-07": [],
+          "2019-10": [],
+          "2020-01": [],
+          "2020-04": [],
+          "2020-07": [],
+          "2020-10": [],
+        },
+        US: {
+          "2017-01": [],
+          "2017-04": [],
+          "2017-07": [],
+          "2017-10": [],
+          "2018-01": [],
+          "2018-04": [],
+          "2018-07": [],
+          "2018-10": [],
+          "2019-01": [],
+          "2019-04": [],
+          "2019-07": [],
+          "2019-10": [],
+          "2020-01": [],
+          "2020-04": [],
+          "2020-07": [],
+          "2020-10": [],
+        },
+      };
+      dbData.map((d) => {
+        const year = d.startday.slice(0, 4);
+        let month = Number(d.startday.slice(5, 7));
+        if (month >= 1 && month <= 3) {
+          month = "01";
+        } else if (month >= 4 && month <= 6) {
+          month = "04";
+        } else if (month >= 7 && month <= 9) {
+          month = "07";
+        } else {
+          month = "10";
+        }
+        const term = year + "-" + month;
+        if (year != "2016" && year != "2021" && d.countryid != "GL") {
+          const array = c[d.countryid][term];
+          array.push(d);
+          c[d.countryid][term] = array;
+        }
       });
-      const data = [];
-      // const data = countries.map((c) => {
-      //   return {
-      //     countryName: c,
-      //     timeData: featureStates[c],
-      //   };
-      // });
+      const data = Object.keys(c).map((countryid) => {
+        return {
+          countryName: countryid,
+          timeData: Object.keys(c[countryid]).map((term) => {
+            const year = term.slice(0, 4);
+            const month = Number(term.slice(5, 7));
+            const weightAve = makeData(c[countryid][term]);
+            if (Max < weightAve && weightAve != null) {
+              a = weightAve;
+              setMax(weightAve);
+            }
+            if (b > weightAve && weightAve != null) {
+              b = weightAve;
+              setMin(b);
+            }
+            return {
+              start: term,
+              end: year + "-" + fillZero(String(month + 2)),
+              value: weightAve,
+            };
+          }),
+        };
+      });
+      dispatch(changeMax(a));
+      dispatch(changeMin(b));
       setHeatMapData(data);
-      // dispatch(changeMax(Max));
-      // dispatch(changeMin(Min));
-      // console.log(heatMapData, 1);
     })();
   }, [feature]);
 
@@ -252,7 +393,6 @@ function HeatMapChart() {
     let opacityMin = 0.1;
     const termData = heatMapData
       .map((country) => {
-        // console.log(country);
         return country.timeData.filter((item) => item.start === start).value;
       })
       .filter((t) => t);
