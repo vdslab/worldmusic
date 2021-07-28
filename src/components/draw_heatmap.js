@@ -188,37 +188,39 @@ function HeatMapChart() {
           GL: [],
         };
         const dbData = await fetchTest(t.start, t.end, feature);
-        dbData.map((d) => {
-          let array = c[d.countryid];
-          array.push(d);
-          c[d.countryid] = array;
-        });
+        // dbData.map((d) => {
+        //   let array = c[d.countryid];
+        //   array.push(d);
+        //   c[d.countryid] = array;
+        // });
+        console.log(dbData);
 
-        Object.keys(c).map((d) => {
-          let array = featureStates[d];
-          const weightAve = makeData(c[d]);
-          if (a < weightAve && weightAve != null) {
-            a = weightAve;
-            setMax(a);
-          }
-          if (b > weightAve && weightAve != null) {
-            b = weightAve;
-            setMin(b);
-          }
-          array.push({ start: t.start, end: t.end, value: weightAve });
-          featureStates[d] = array;
-        });
+        // Object.keys(c).map((d) => {
+        //   let array = featureStates[d];
+        //   const weightAve = makeData(c[d]);
+        //   if (a < weightAve && weightAve != null) {
+        //     a = weightAve;
+        //     setMax(a);
+        //   }
+        //   if (b > weightAve && weightAve != null) {
+        //     b = weightAve;
+        //     setMin(b);
+        //   }
+        //   array.push({ start: t.start, end: t.end, value: weightAve });
+        //   featureStates[d] = array;
+        // });
       });
-      const data = countries.map((c) => {
-        return {
-          countryName: c,
-          timeData: featureStates[c],
-        };
-      });
+      const data = [];
+      // const data = countries.map((c) => {
+      //   return {
+      //     countryName: c,
+      //     timeData: featureStates[c],
+      //   };
+      // });
       setHeatMapData(data);
-      dispatch(changeMax(Max));
-      dispatch(changeMin(Min));
-      console.log(heatMapData, 1);
+      // dispatch(changeMax(Max));
+      // dispatch(changeMin(Min));
+      // console.log(heatMapData, 1);
     })();
   }, [feature]);
 
