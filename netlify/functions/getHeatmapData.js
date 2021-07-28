@@ -27,7 +27,7 @@ exports.handler = async function (event) {
 
     const result = await selectRows(
       db,
-      `SELECT Music.Musicid , Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.startday`
+      `SELECT Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid `
     );
     return { statusCode: 200, body: JSON.stringify(result) };
   } catch (e) {
