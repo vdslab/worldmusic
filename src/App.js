@@ -7,8 +7,8 @@ import Detail from "./components/Detail";
 import "./style.css";
 import HeatMap from "./components/HeatMap";
 import WorldMap from "./components/WorldMap";
-import React, { useState } from "react"; 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"; 
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import * as d3 from "d3";
 import { select } from "d3-selection";
 import SelectFeature from "./components/selectFeature";
@@ -18,46 +18,47 @@ import AboutData from "./components/aboutData";
 
 const Visualization = () => {
   return (
-    <div className="columns is-gapless">
-      <div className="column">
-        <div className="my-section">
-          <div className="card">
-            <div className="card-content">
-              <div className="content">
-                <WorldMap />
-              </div>
+    <div className="tile" id={"sample"} style={{ gap: "8px" }}>
+      <div className="test">
+        <div className="card" style={{ height: "100%" }}>
+          <div className="card-content">
+            <div className="content">
+              <WorldMap />
             </div>
-            <div className="card-content">
-              <div className="content">
-                <footer className="card-footer">
-                  <p className="card-footer-item">
-                    <span>
-                      <SelectFeature />
-                    </span>
-                  </p>
-                  <p className="card-footer-item">
-                    <span>
-                      <ColorLegend />
-                    </span>
-                  </p>
-                </footer>
-              </div>
+          </div>
+          <div className="card-content">
+            <div className="content">
+              <footer className="card-footer">
+                <p className="card-footer-item">
+                  <span>
+                    <SelectFeature />
+                  </span>
+                </p>
+                <p className="card-footer-item">
+                  <span>
+                    <ColorLegend />
+                  </span>
+                </p>
+              </footer>
             </div>
-            <div className="card-content">
-              <div className="content">
-                <HeatMap />
-              </div>
+          </div>
+          <div className="card-content">
+            <div className="content">
+              <HeatMap />
             </div>
           </div>
         </div>
       </div>
-      <div className="column">
+      <div
+        className="tile is-vertical grid"
+        style={{ width: "100%", gap: "8px" }}
+      >
         <Detail />
-        <div className="columns is-gapless">
-          <div className="column">
+        <div className="tile grid" style={{ gap: "8px" }}>
+          <div className="ranking">
             <Ranking />
           </div>
-          <div className="column is-gapless">
+          <div className="tile is-vertical grid" style={{ gap: "8px" }}>
             <Song />
             <SimilarSongs />
           </div>

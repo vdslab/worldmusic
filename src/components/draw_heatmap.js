@@ -428,7 +428,8 @@ function HeatMapChart() {
   const tooltipStyle = d3.select("body").append("div").attr("class", "tooltip");
 
   return (
-    <div style={{ width: "450px", marginLeft: "auto", marginRight: "auto" }}>
+    <div /*style={{ width: "450px", marginLeft: "auto", marginRight: "auto" }}*/
+    >
       <div>
         <svg
           viewBox={`${-margin.left} ${-margin.top} ${svgWidth} ${svgHeight}`}

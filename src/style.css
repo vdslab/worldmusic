@@ -1,9 +1,28 @@
 .my-section {
   padding: 0.5rem 0.25rem 0.25rem 0.5rem;
 }
+.test {
+  width: 100%;
+  max-width: 50vw;
+}
+.ranking {
+  width: 50%;
+}
+
+@media (max-width: 768px) {
+  .test {
+    width: 100%;
+    max-width: 100vw;
+  }
+  .ranking {
+    width: 100%;
+  }
+  .tile .grid {
+    display: grid;
+  }
+}
 
 .ranking-scroll {
-  
   height: 350px;
   overflow: scroll;
 }
