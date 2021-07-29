@@ -9,6 +9,10 @@
   width: 50%;
 }
 
+.songs {
+  width: calc(50% - 8px);
+}
+
 @media (max-width: 768px) {
   .test {
     width: 100%;
@@ -19,6 +23,9 @@
   }
   .tile .grid {
     display: grid;
+  }
+  .songs {
+    width: 100%;
   }
 }
 
