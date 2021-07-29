@@ -90,12 +90,12 @@ const App = () => {
       <div className="content">
         <section className="section">
           {/* <div className="has-text-centered"> */}
-            <Link to="/" style={{ textDecoration: "none" }}>
+            <Link to="/">
               <button className="button is-outlined has-text-centered">
                 <p className="subtitle is-5">ビジュアライゼーション</p>
               </button>
             </Link>
-            <Link to="/aboutFeatureAndData" style={{ textDecoration: "none" }}>
+            <Link to="/aboutFeatureAndData">
               <button className="button is-outlined has-text-centered">
                 <p className="subtitle is-5">用語説明・データについて</p>
               </button>

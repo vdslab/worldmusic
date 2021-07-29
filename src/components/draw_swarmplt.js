@@ -50,7 +50,7 @@ const Swarmplt = ({ width, height }) => {
         (element, index, self) =>
           self.findIndex((e) => e.musicid === element.musicid) === index
       );
-      console.log("dedupeData: " + dedupeData.length);
+      //同じmusicidのものは最初の一つ目のみで絞ったやつ（処理が思いから一時的）
       dedupeData.map((item, i) => {
         if (a < item[feature]) {
           a = item[feature];
@@ -60,6 +60,15 @@ const Swarmplt = ({ width, height }) => {
         }
       });
       setDbData(dedupeData);
+      // data.map((item, i) => {
+      //   if (a < item[feature]) {
+      //     a = item[feature];
+      //   }
+      //   if (item[feature] < b) {
+      //     b = item[feature];
+      //   }
+      // });
+      // setDbData(data);
       setMax(a);
       setMin(b);
     })();
@@ -165,7 +174,7 @@ const Swarmplt = ({ width, height }) => {
 
   return (
     <div>
-      <svg width="650" height="250" viewBox="0 0 650 270" ref={ref} />
+      <svg width="650" height="250" viewBox="0 0 650 285" ref={ref} />
     </div>
   );
 };
