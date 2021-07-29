@@ -282,8 +282,8 @@ const WorldMap = ({ features }) => {
       //     }),
       //   };
       // });
-      //const data = [];
-      //setWorldMapData(data);
+      // const data = [];
+      // setWorldMapData(data);
     })();
   }, [feature]);
 

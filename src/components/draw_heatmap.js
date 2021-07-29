@@ -365,7 +365,7 @@ function HeatMapChart() {
       //const data = [];
       //setHeatMapData(data);
     })();
-    console.log(heatMapData);
+    // console.log(heatMapData);
   }, [feature]);
 
   function makeData(data) {
