@@ -428,93 +428,92 @@ function HeatMapChart() {
   const tooltipStyle = d3.select("body").append("div").attr("class", "tooltip");
 
   return (
-    <div /*style={{ width: "450px", marginLeft: "auto", marginRight: "auto" }}*/
+    <div
+      style={{
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
     >
-      <div>
-        <svg
-          viewBox={`${-margin.left} ${-margin.top} ${svgWidth} ${svgHeight}`}
-          style={{ border: "solid 0px" }}
-        >
-          <VerticalAxis
-            len={len}
-            countries={countries}
-            name={"国"}
-            h={contentHeight}
-          />
-          <HorizontalAxis
-            len={len}
-            term={term}
-            name={"期間"}
-            w={contentWidth}
-          />
-          <rect
-            x="0"
-            y="0"
-            fill="lightgray"
-            height={len * countries.length}
-            width={len * term.length}
-          />
+      <svg
+        viewBox={`${-margin.left} ${-margin.top} ${svgWidth} ${svgHeight}`}
+        style={{ border: "solid 0px" }}
+      >
+        <VerticalAxis
+          len={len}
+          countries={countries}
+          name={"国"}
+          h={contentHeight}
+        />
+        <HorizontalAxis len={len} term={term} name={"期間"} w={contentWidth} />
+        <rect
+          x="0"
+          y="0"
+          fill="lightgray"
+          height={len * countries.length}
+          width={len * term.length}
+        />
 
-          <g
-            onMouseLeave={() => {
-              setPos(null);
-              tooltipStyle.style("visibility", "hidden");
-            }}
-          >
-            {heatMapData.map((country, i) => {
-              return country.timeData.map((item, j) => {
-                return (
-                  <g key={i * country.timeData.length + j}>
-                    <rect
-                      className="cell"
-                      x={len * j}
-                      y={len * i}
-                      width={len}
-                      height={len}
-                      fill={colorjudge(item.value, item.start)}
-                      onClick={() => {
-                        tooltipStyle.style("visibility", "hidden");
-                        changeInfo(item.start, item.end, country.countryName);
-                        setClicked(i * country.timeData.length + j);
-                      }}
-                      onMouseEnter={() => {
-                        setPos({
-                          col: i,
-                          row: j,
-                          value: item.value?.toFixed(2) || "",
-                        });
-                      }}
-                      onMouseMove={(e) => {
-                        tooltipStyle
-                          .style("visibility", "visible")
-                          .style("top", e.pageY - 20 + "px")
-                          .style("left", e.pageX + 20 + "px");
-                        pos !== null
-                          ? tooltipStyle.html(feature + ":" + pos.value)
-                          : [];
-                      }}
-                      onMouseLeave={(e) => {
-                        tooltipStyle.style("visibility", "hidden");
-                      }}
-                    />
-                    <rect
-                      x={len * j}
-                      y={len * i}
-                      width={len - 0.5}
-                      height={len - 0.5}
-                      fill="none"
-                      stroke="black"
-                      opacity={
-                        clicked === i * country.timeData.length + j ? 1 : 0
-                      }
-                    />
-                  </g>
-                );
-              });
-            })}
-          </g>
-        </svg>
-      </div>
+        <g
+          onMouseLeave={() => {
+            setPos(null);
+            tooltipStyle.style("visibility", "hidden");
+          }}
+        >
+          {heatMapData.map((country, i) => {
+            return country.timeData.map((item, j) => {
+              return (
+                <g key={i * country.timeData.length + j}>
+                  <rect
+                    className="cell"
+                    x={len * j}
+                    y={len * i}
+                    width={len}
+                    height={len}
+                    fill={colorjudge(item.value, item.start)}
+                    onClick={() => {
+                      tooltipStyle.style("visibility", "hidden");
+                      changeInfo(item.start, item.end, country.countryName);
+                      setClicked(i * country.timeData.length + j);
+                    }}
+                    onMouseEnter={() => {
+                      setPos({
+                        col: i,
+                        row: j,
+                        value: item.value?.toFixed(2) || "",
+                      });
+                    }}
+                    onMouseMove={(e) => {
+                      tooltipStyle
+                        .style("visibility", "visible")
+                        .style("top", e.pageY - 20 + "px")
+                        .style("left", e.pageX + 20 + "px");
+                      pos !== null
+                        ? tooltipStyle.html(feature + ":" + pos.value)
+                        : [];
+                    }}
+                    onMouseLeave={(e) => {
+                      tooltipStyle.style("visibility", "hidden");
+                    }}
+                  />
+                  <rect
+                    x={len * j}
+                    y={len * i}
+                    width={len - 0.5}
+                    height={len - 0.5}
+                    fill="none"
+                    stroke="black"
+                    opacity={
+                      clicked === i * country.timeData.length + j ? 1 : 0
+                    }
+                  />
+                </g>
+              );
+            });
+          })}
+        </g>
+      </svg>
     </div>
   );
 }

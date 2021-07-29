@@ -42,8 +42,8 @@ const Visualization = () => {
               </footer>
             </div>
           </div>
-          <div className="card-content">
-            <div className="content">
+          <div className="card-content" style={{ maxHeight: "55%" }}>
+            <div className="content" style={{ height: "100%" }}>
               <HeatMap />
             </div>
           </div>
@@ -51,7 +51,7 @@ const Visualization = () => {
       </div>
       <div
         className="tile is-vertical grid"
-        style={{ width: "100%", gap: "8px" }}
+        style={{ width: "50%", gap: "8px" }}
       >
         <Detail />
         <div className="tile grid" style={{ gap: "8px" }}>
