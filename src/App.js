@@ -49,10 +49,7 @@ const Visualization = () => {
           </div>
         </div>
       </div>
-      <div
-        className="tile is-vertical grid"
-        style={{ width: "50%", gap: "8px" }}
-      >
+      <div className="tile is-vertical grid half" style={{ gap: "8px" }}>
         <Detail />
         <div className="tile grid" style={{ gap: "8px" }}>
           <div className="ranking">

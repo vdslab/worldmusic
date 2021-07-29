@@ -12,6 +12,9 @@
 .songs {
   width: calc(50% - 8px);
 }
+.half {
+  width: 50%;
+}
 
 @media (max-width: 768px) {
   .test {
@@ -25,6 +28,9 @@
     display: grid;
   }
   .songs {
+    width: 100%;
+  }
+  .half {
     width: 100%;
   }
 }
