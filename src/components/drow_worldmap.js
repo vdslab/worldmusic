@@ -64,35 +64,35 @@ const WorldMap = ({ features }) => {
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
-      // const data = await Promise.all(
-      //   countries.map(async (cId) => {
-      //     const countryData = { countryName: cId };
-      //     const timeData = await Promise.all(
-      //       term.map(async (t) => {
-      //         const data = await fetchData(t.start, t.end, feature, cId);
-      //         const weightAve = makeData(data, cId);
-      //         if (a < weightAve && weightAve != null) {
-      //           a = weightAve;
-      //         }
-      //         if (b > weightAve && weightAve != null) {
-      //           b = weightAve;
-      //         }
-      //         return { start: t.start, end: t.end, value: weightAve };
-      //       })
-      //     );
-      //     countryData["timeData"] = timeData;
-      //     return countryData;
-      //   })
-      // );
-      // setHeatMapData(data);
-      // setMax(a);
-      // setMin(b);
-      // dispatch(changeMax(a));
-      // dispatch(changeMin(b));
-      // console.log(heatMapData, 1);
+      const data = await Promise.all(
+        countries.map(async (cId) => {
+          const countryData = { countryName: cId };
+          const timeData = await Promise.all(
+            term.map(async (t) => {
+              const data = await fetchData(t.start, t.end, feature, cId);
+              const weightAve = makeData(data, cId);
+              if (a < weightAve && weightAve != null) {
+                a = weightAve;
+              }
+              if (b > weightAve && weightAve != null) {
+                b = weightAve;
+              }
+              return { start: t.start, end: t.end, value: weightAve };
+            })
+          );
+          countryData["timeData"] = timeData;
+          return countryData;
+        })
+      );
+      setWorldMapData(data);
+      setMax(a);
+      setMin(b);
+      //dispatch(changeMax(a));
+      //dispatch(changeMin(b));
+      //console.log(heatMapData, 1);
       //featch数減らしたやつ
-      const dbData = await fetchHeatmapData(feature);
-      console.log(dbData);
+      //const dbData = await fetchHeatmapData(feature);
+      //console.log(dbData);
 
       // const c = {
       //   AU: {
@@ -282,8 +282,8 @@ const WorldMap = ({ features }) => {
       //     }),
       //   };
       // });
-      const data = [];
-      setWorldMapData(data);
+      //const data = [];
+      //setWorldMapData(data);
     })();
   }, [feature]);
 
