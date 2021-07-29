@@ -55,7 +55,7 @@ const Visualization = () => {
       >
         <Detail />
         <div className="tile grid" style={{ gap: "8px" }}>
-          <div className="">
+          <div className="ranking">
             <Ranking />
           </div>
           <div className="tile is-vertical grid" style={{ gap: "8px" }}>
