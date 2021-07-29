@@ -127,7 +127,7 @@ const Song = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <b>{data[0]?.name}</b>
+                  <b style={{ fontSize: "1.25rem" }}>{data[0]?.name}</b>
                 </a>
                 <br />
                 <div style={{ fontSize: "0.75rem" }}>
@@ -161,7 +161,7 @@ const Song = () => {
             </div>
           ) : (
             <div>
-              <p>曲詳細</p>
+              <p style={{ fontSize: "1.25rem" }}>曲詳細</p>
             </div>
           )}
         </div>

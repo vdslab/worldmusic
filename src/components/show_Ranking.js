@@ -6,8 +6,11 @@ import { useState, useEffect } from "react";
 import { fetchData } from "../api";
 import { fetchSongData } from "../api";
 import selectPeriod from "./selectPeriod";
+import { changeMusicId } from "../stores/details";
 
-function ShowRanking(){
+function ShowRanking() {
+  const dispatch = useDispatch();
+
   const spotify = {
     ClientId: process.env.REACT_APP_CLIENTID,
     ClientSecret: process.env.REACT_APP_CLIENTSECRET,
@@ -36,50 +39,51 @@ function ShowRanking(){
   const name = useSelector((state) => state.detail.name);
 
   const [dbData, setDbData] = useState([]);
- 
 
   useEffect(() => {
-      (async () => {
-        const data = await fetchData(
-          startMonth,
-          endMonth,
-          feature,
-          country,
-          musicid,
-          name
-        );
-        setDbData(data);
-      })();
-    }, [startMonth, endMonth, feature, country, musicid, name]);
+    (async () => {
+      const data = await fetchData(
+        startMonth,
+        endMonth,
+        feature,
+        country,
+        musicid,
+        name
+      );
+      setDbData(data);
+    })();
+  }, [startMonth, endMonth, feature, country, musicid, name]);
 
-    // TODO 曲の重複削除→削除したデータの特徴量をソートして出力
-    // idで重複削除、idをクリックしたらidを取得できるようにする
+  // TODO 曲の重複削除→削除したデータの特徴量をソートして出力
+  // idで重複削除、idをクリックしたらidを取得できるようにする
 
-    const filters = dbData.filter((element, index, self) =>
-                      self.findIndex(e =>
-                          e.name === element.name) === index
-    );
-    console.log(filters);
+  const filters = dbData.filter(
+    (element, index, self) =>
+      self.findIndex((e) => e.name === element.name) === index
+  );
+  console.log(filters);
 
-    // filters.sort();
+  // filters.sort();
 
-    // TODO IDをnameに
+  // TODO IDをnameに
 
-    return (
-      <body>
-        <div className="container">
-            {filters.map((item, i) => {
-              return (
-                
-                <React.Fragment key={i}>{i+1}.<a href="">{item.name}</a><br /></React.Fragment>
-                
-                
-              );
-            })}
-        </div>
-      </body>
-        
-    );
+  return (
+    <body>
+      <div className="container">
+        {filters.map((item, i) => {
+          console.log(item);
+          return (
+            <div onClick={() => dispatch(changeMusicId(item.musicid))}>
+              {i + 1}.
+              <span style={{ color: "#3273dc", cursor: "pointer" }}>
+                {item.name}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </body>
+  );
 }
 
 export default ShowRanking;

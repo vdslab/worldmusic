@@ -165,7 +165,7 @@ const Swarmplt = ({ width, height }) => {
 
   return (
     <div>
-      <svg width="650" height="250" viewBox="0 0 650 250" ref={ref} />
+      <svg width="650" height="250" viewBox="0 0 650 270" ref={ref} />
     </div>
   );
 };

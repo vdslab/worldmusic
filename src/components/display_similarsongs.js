@@ -56,28 +56,41 @@ function display_similarsongs() {
 
   return (
     <div>
-      <p>類似曲</p>
+      <p style={{ fontSize: "1.25rem" }}>類似曲</p>
       {similarSongs.map((item, i) => {
         return (
           <div style={{ width: "100%", fontSize: "40" }}>
             <p>
-              <img src={item.album.images[0].url} width="130" height="130"　style={{float:"left",padding:"10px"}}/>
-                曲名
-                <br/>
-              <a href={item.external_urls.spotify}　target="_blank" rel="noopener noreferrer">
+              <img
+                src={item.album.images[0].url}
+                width="130"
+                height="130"
+                style={{ float: "left", padding: "10px" }}
+              />
+              曲名
+              <br />
+              <a
+                href={item.external_urls.spotify}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {item.name}
               </a>
-              <br/>
+              <br />
               歌手
-              <br/>
+              <br />
               <p>
-              {item.artists.map((item2, j) => {
-                return (
-                    <a href={item2.external_urls.spotify}　target="_blank" rel="noopener noreferrer">
-                      ・{item2.name} 
-                    </a>  
-                );
-              })}
+                {item.artists.map((item2, j) => {
+                  return (
+                    <a
+                      href={item2.external_urls.spotify}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      ・{item2.name}
+                    </a>
+                  );
+                })}
               </p>
             </p>
           </div>

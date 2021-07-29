@@ -23,6 +23,6 @@
 }
 
 .ranking-scroll {
-  height: 350px;
+  max-height: 450px;
   overflow: scroll;
 }

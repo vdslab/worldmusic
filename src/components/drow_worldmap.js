@@ -87,10 +87,12 @@ const WorldMap = ({ features }) => {
       setWorldMapData(data);
       setMax(a);
       setMin(b);
-      console.log(worldMapData, 1);
+      //dispatch(changeMax(a));
+      //dispatch(changeMin(b));
+      //console.log(heatMapData, 1);
       //featch数減らしたやつ
-      // const dbData = await fetchHeatmapData(feature);
-      // console.log(dbData);
+      //const dbData = await fetchHeatmapData(feature);
+      //console.log(dbData);
 
       // const c = {
       //   AU: {
