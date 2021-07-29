@@ -17,14 +17,7 @@ exports.handler = async function (event) {
   const startMonth = event.queryStringParameters.startMonth || null;
   const endMonth = event.queryStringParameters.endMonth || null;
   const feature = event.queryStringParameters.feature || null;
-  const country = event.queryStringParameters.country || null;
-  //console.log(startMonth, endMonth, feature, country);
-
-  // const startMonth = "2017-01";
-  // const endMonth = "2017-03";
-  // const feature = "acousticness";
-  // const country = "AU";
-  // console.log(startMonth, endMonth, feature, country);
+  //   const country = event.queryStringParameters.country || null;
 
   /**TODO:応急処置, 後でちゃんとした書き方先輩に聞く */
 
@@ -34,7 +27,7 @@ exports.handler = async function (event) {
 
     const result = await selectRows(
       db,
-      `SELECT Music.Musicid , Music.name , Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.countryid='${country}' AND Ranking.startday BETWEEN '${startMonth}-01' AND '${endMonth}-31'`
+      `SELECT Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid `
     );
     return { statusCode: 200, body: JSON.stringify(result) };
   } catch (e) {

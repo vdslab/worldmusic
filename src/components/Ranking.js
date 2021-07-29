@@ -5,6 +5,7 @@ import { changeYear } from "../stores/details";
 import { useState, useEffect } from "react";
 import { fetchData } from "../api";
 import selectPeriod from "./selectPeriod";
+import ShowRanking from "./show_Ranking";
 
 // import { changeFeature, changeYear } from "../stores/Count";
 
@@ -32,7 +33,10 @@ const Ranking = () => {
     <div className="card" style={{ height: "100%" }}>
       <div className="card-content">
         <div className="content">ランキング</div>
-        <p>aaa</p>
+        <div className="ranking-scroll">
+          <ShowRanking />
+          {/* <p>aaa</p> */}
+        </div>
       </div>
     </div>
   );

@@ -21,3 +21,8 @@
     display: grid;
   }
 }
+
+.ranking-scroll {
+  height: 350px;
+  overflow: scroll;
+}
