@@ -13,8 +13,7 @@ import * as d3 from "d3";
 import { select } from "d3-selection";
 import SelectFeature from "./components/selectFeature";
 import ColorLegend from "./components/colorLegend";
-import AboutFeature from "./components/aboutFeature";
-import AboutData from "./components/aboutData";
+import AboutFeatureAndData from "./components/aboutFeatureAndData";
 
 const Visualization = () => {
   return (
@@ -68,30 +67,14 @@ const Visualization = () => {
   );
 };
 
-const Feature = () => {
+const FeatureAndData = () => {
   return (
-    <div class="tile is-ancestor">
-      <div class="tile is-parent ">
-        <article class="tile is-child notification">
-          <div class="content">
-            <div class="content">
-              <AboutFeature />
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-  );
-};
-
-const Data = () => {
-  return (
-    <div class="tile is-ancestor">
-      <div class="tile is-parent ">
-        <article class="tile is-child notification">
-          <div class="content">
-            <div class="content">
-              <AboutData />
+    <div className="tile is-ancestor">
+      <div className="tile is-parent ">
+        <article className="tile is-child notification">
+          <div className="content">
+            <div className="content">
+              <AboutFeatureAndData />
             </div>
           </div>
         </article>
@@ -106,33 +89,25 @@ const App = () => {
       <Header />
       <div className="content">
         <section className="section">
-          <div className="has-text-centered">
+          {/* <div className="has-text-centered"> */}
             <Link to="/" style={{ textDecoration: "none" }}>
               <button className="button is-outlined has-text-centered">
                 <p className="subtitle is-5">ビジュアライゼーション</p>
               </button>
             </Link>
-            <Link to="/aboutFeature" style={{ textDecoration: "none" }}>
+            <Link to="/aboutFeatureAndData" style={{ textDecoration: "none" }}>
               <button className="button is-outlined has-text-centered">
-                <p className="subtitle is-5">用語説明</p>
+                <p className="subtitle is-5">用語説明・データについて</p>
               </button>
             </Link>
-            <Link to="/aboutData" style={{ textDecoration: "none" }}>
-              <button className="button is-outlined has-text-centered">
-                <p className="subtitle is-5">データについて</p>
-              </button>
-            </Link>
-          </div>
+          {/* </div> */}
           <br />
           <div className="content">
             <Route path="/" exact>
               <Visualization />
             </Route>
-            <Route path="/aboutFeature" exact>
-              <Feature />
-            </Route>
-            <Route path="/aboutData" exact>
-              <Data />
+            <Route path="/aboutFeatureAndData" exact>
+              <FeatureAndData />
             </Route>
           </div>
         </section>
