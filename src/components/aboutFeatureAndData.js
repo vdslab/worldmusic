@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
-const aboutFeature = () => {
+const aboutFeatureAndData = () => {
   return (
     <div>
+      <h1 className="title">＜用語説明について＞</h1>
       （以下の用語説明は<a href="https://developer.spotify.com/documentation/web-api/reference/#objects-index" target="_blank" rel="noopener noreferrer">こちら</a>より直訳したものである。）
       <h2 className="subtitle is-5">acousticnessとは？</h2>
       <p>
@@ -22,14 +23,13 @@ const aboutFeature = () => {
       </p>
       <h2 className="title is-5">livenessとは？</h2>
       <p>
-        活性（イキイキしているさま）レコードのなかに聴衆の存在がどれくらいあるのかを検出する。値が高いほど、そのトラックがライブで演奏された可能性が高い。
+        レコードのなかに聴衆の存在がどれくらいあるのかを検出する。値が高いほど、そのトラックがライブで演奏された可能性が高い。
         値が0.8
         を超す場合は、そのトラックがライブ（生演奏）である可能性が高いことを示す。
       </p>
       <h2 className="title is-5">loudnessとは？</h2>
       <p>
-        音の強さ・大きさ、トラックの全体の音の強さ・大きさを示すデシベル数
-        （dB）。loudnessの値はトラック全体の平均値であり、相関するトラック（同じような感じのトラック）の音の強さ・大きさを比較するときに役立つ。主に物理的な強さ（大きさ）に心理的な相関をもたらす音の品質を指している。値は一般的には-60 から 0 db までの範囲で示される。
+        音の強さ・大きさ、トラックの全体の音の強さ・大きさを示すデシベル数（dB）。値はトラック全体の平均値であり、相関するトラック（同じような感じのトラック）の音の強さ・大きさを比較するときに役立つ。主に物理的な強さ（大きさ）に心理的な相関をもたらす音の品質を指している。値は一般的には-60 から 0 db までの範囲で示される。
       </p>
       <h2 className="title is-5">modeとは？</h2>
       <p>
@@ -56,11 +56,19 @@ const aboutFeature = () => {
       <p>
         0.0から1.0までの値を用いてそのトラックの音楽的なポジティブさ（陽気さ）を示す。高いほどトラックはよりポジティブに聞こえ（例：幸せ、陽気、陶酔）、低いほどよりネガティブに聞こえる（例：悲しい、落ち込んだ、怒っている）。
       </p>
+      <h1 className="title">＜データについて＞</h1>
+      <p>
+        <a href="https://spotifycharts.com/regional" target="_blank" rel="noopener noreferrer">Spotify Chart</a>
+        にて世界各国のDailyやWeeklyのTop200やViral50のランキングデータがCSV形式でダウンロードできる。
+        今回はそこから今回対象とした国のみのデータを集め、
+        <a href="https://developer.spotify.com/documentation/web-api/" target="_blank" rel="noopener noreferrer" >Spotify API</a>
+        を使用して可視化した（対象国：アメリカ、日本、イギリス、ドイツ、フランス、カナダ、オーストラリア、オランダ）。
+      </p>
     </div>
   );
 };
 
-export default aboutFeature;
+export default aboutFeatureAndData;
 
 //ドロップダウンの場合↓
 // const Explanation = (feature) => {
