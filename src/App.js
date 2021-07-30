@@ -17,49 +17,58 @@ import AboutFeatureAndData from "./components/aboutFeatureAndData";
 
 const Visualization = () => {
   return (
-    <div className="tile" id={"sample"} style={{ gap: "8px" }}>
-      <div className="test">
-        <div className="card" style={{ height: "100%" }}>
-          <div className="card-content">
-            <div className="content">
-              <WorldMap />
+    <div class="tile is-ancestor">
+      <div class="tile is-parent is-6">
+        <article class="tile is-child is-12">
+          <div className="card" style={{ height: "100%" }}>
+            <div className="card-content">
+              <div className="content">
+                <WorldMap />
+              </div>
+            </div>
+            <div className="card-content">
+              <div className="content">
+                <footer className="card-footer">
+                  <p className="card-footer-item">
+                    <span>
+                      <SelectFeature />
+                    </span>
+                  </p>
+                  <p className="card-footer-item">
+                    <span>
+                      <ColorLegend />
+                    </span>
+                  </p>
+                </footer>
+              </div>
+            </div>
+            <div className="card-content" style={{ maxHeight: "55%" }}>
+              <div className="content" style={{ height: "100%" }}>
+                <HeatMap />
+              </div>
             </div>
           </div>
-          <div className="card-content">
-            <div className="content">
-              <footer className="card-footer">
-                <p className="card-footer-item">
-                  <span>
-                    <SelectFeature />
-                  </span>
-                </p>
-                <p className="card-footer-item">
-                  <span>
-                    <ColorLegend />
-                  </span>
-                </p>
-              </footer>
-            </div>
-          </div>
-          <div className="card-content" style={{ maxHeight: "55%" }}>
-            <div className="content" style={{ height: "100%" }}>
-              <HeatMap />
-            </div>
-          </div>
-        </div>
+        </article>
       </div>
-      <div
-        className="tile is-vertical grid"
-        style={{ width: "50%", gap: "8px" }}
-      >
-        <Detail />
-        <div className="tile grid" style={{ gap: "8px" }}>
-          <div className="ranking">
-            <Ranking />
+      <div class="tile is-vertical is-6">
+        <div class="tile is-parent">
+          <article class="tile is-child">
+            <Detail />
+          </article>
+        </div>
+        <div class="tile">
+          <div class="tile is-parent is-6">
+            <article class="tile is-child is-12">
+              <Ranking />
+            </article>
           </div>
-          <div className="tile is-vertical grid songs" style={{ gap: "8px" }}>
-            <Song />
-            <SimilarSongs />
+          <div class="tile is-parent is-vertical is-6">
+            <article class="tile is-child">
+              <Song />
+            </article>
+            <article class="tile is-child">
+              <SimilarSongs />
+            </article>
           </div>
         </div>
       </div>
@@ -90,16 +99,16 @@ const App = () => {
       <div className="content">
         <section className="section">
           {/* <div className="has-text-centered"> */}
-            <Link to="/">
-              <button className="button is-outlined has-text-centered">
-                <p className="subtitle is-5">ビジュアライゼーション</p>
-              </button>
-            </Link>
-            <Link to="/aboutFeatureAndData">
-              <button className="button is-outlined has-text-centered">
-                <p className="subtitle is-5">用語説明・データについて</p>
-              </button>
-            </Link>
+          <Link to="/">
+            <button className="button is-outlined has-text-centered">
+              <p className="subtitle is-5">ビジュアライゼーション</p>
+            </button>
+          </Link>
+          <Link to="/aboutFeatureAndData">
+            <button className="button is-outlined has-text-centered">
+              <p className="subtitle is-5">用語説明・データについて</p>
+            </button>
+          </Link>
           {/* </div> */}
           <br />
           <div className="content">
