@@ -42,7 +42,7 @@ const Visualization = () => {
                 </footer>
               </div>
             </div>
-            <div className="card-content" style={{ maxHeight: "55%" }}>
+            <div className="card-content" style={{ height: "55%" }}>
               <div className="content" style={{ height: "100%" }}>
                 <HeatMap />
               </div>
@@ -98,7 +98,6 @@ const App = () => {
       <Header />
       <div className="content">
         <section className="section">
-          {/* <div className="has-text-centered"> */}
           <Link to="/">
             <button className="button is-outlined has-text-centered">
               <p className="subtitle is-5">ビジュアライゼーション</p>
@@ -109,7 +108,6 @@ const App = () => {
               <p className="subtitle is-5">用語説明・データについて</p>
             </button>
           </Link>
-          {/* </div> */}
           <br />
           <div className="content">
             <Route path="/" exact>
