@@ -16,11 +16,7 @@ const WorldMap = () => {
   const endMonth = useSelector((state) => state.detail.endMonth);
   //let start = textYear[0][0];
   //let end = textYear[0][1];
-  return (
-    <div>
-      <DrowWorldMap />
-    </div>
-  );
+  return <DrowWorldMap />;
 };
 
 export default WorldMap;
