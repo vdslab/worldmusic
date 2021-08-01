@@ -17,6 +17,7 @@ exports.handler = async function (event) {
   const startMonth = event.queryStringParameters.startMonth || null;
   const endMonth = event.queryStringParameters.endMonth || null;
   const feature = event.queryStringParameters.feature || null;
+  const country = event.queryStringParameters.country || null;
   //   const country = event.queryStringParameters.country || null;
 
   /**TODO:応急処置, 後でちゃんとした書き方先輩に聞く */
