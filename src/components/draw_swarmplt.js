@@ -45,30 +45,32 @@ const Swarmplt = ({ width, height }) => {
         country,
         musicid
       );
-      console.log("data: " + data.length);
-      const dedupeData = data.filter(
-        (element, index, self) =>
-          self.findIndex((e) => e.musicid === element.musicid) === index
+      // ＜円の表示をstreamの合計で取る＞
+      // ①musicidが重複なしかつstreamの値が０な配列（dedupeMusicid）を作る
+      // ②dedupeMusicidとdataをfor文で見て、同じmusicidならstream値を足していく＋最大値・最小値も求める
+      // ①
+      let dedupeMusicid = JSON.parse(JSON.stringify(data)).filter(
+        (item, i, self) =>
+          self.findIndex((i) => i.musicid === item.musicid) === i
       );
-      //同じmusicidのものは最初の一つ目のみで絞ったやつ（処理が思いから一時的）
-      dedupeData.map((item, i) => {
-        if (a < item[feature]) {
-          a = item[feature];
+      for (let i = 0; i < dedupeMusicid.length; i++) {
+        dedupeMusicid[i].stream = 0;
+      }
+      // ②
+      for (let i = 0; i < dedupeMusicid.length; i++) {
+        for (let l = 0; l < data.length; l++) {
+          if (dedupeMusicid[i].musicid === data[l].musicid) {
+            dedupeMusicid[i].stream += data[l].stream;
+          }
         }
-        if (item[feature] < b) {
-          b = item[feature];
+        if (a < dedupeMusicid[i][feature]) {
+          a = dedupeMusicid[i][feature];
         }
-      });
-      setDbData(dedupeData);
-      // data.map((item, i) => {
-      //   if (a < item[feature]) {
-      //     a = item[feature];
-      //   }
-      //   if (item[feature] < b) {
-      //     b = item[feature];
-      //   }
-      // });
-      // setDbData(data);
+        if (dedupeMusicid[i][feature] < b) {
+          b = dedupeMusicid[i][feature];
+        }
+      }
+      setDbData(dedupeMusicid);
       setMax(a);
       setMin(b);
     })();
@@ -79,6 +81,7 @@ const Swarmplt = ({ width, height }) => {
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
   }, [startMonth, endMonth, feature, country]);
+
   useEffect(() => {
     draw();
   }, [dbData]);
@@ -94,7 +97,7 @@ const Swarmplt = ({ width, height }) => {
 
   const draw = () => {
     checkcoutry.map((item, i) => {
-      // //描画する国である＆空配列でない場合に描画?
+      // //描画する国である＆空配列でない場合に描画
       if (country === item && dbData.length != 0) {
         const swarmplt = svg.select("g");
         const xScale = scaleLinear()
@@ -103,7 +106,7 @@ const Swarmplt = ({ width, height }) => {
 
         let streamDomain = extent(dbData.map((d) => d.stream));
         streamDomain = streamDomain.map((d) => Math.sqrt(d));
-        let size = scaleLinear().domain(streamDomain).range([3, 15]);
+        let size = scaleLinear().domain(streamDomain).range([2, 13]);
         let simulation = forceSimulation(dbData)
           .force(
             "x",
@@ -125,36 +128,27 @@ const Swarmplt = ({ width, height }) => {
           )
           .alphaDecay(0)
           .alpha(0.3)
-          .on(
-            "tick",
-            () =>
-              swarmplt
-                .selectAll("circle")
-                .data(dbData)
-                .join("circle")
-                .style("fill", (d) =>
-                  d3.interpolatePuRd(checkColor(d[feature]))
-                ) //左側は重み付き平均の最大最小だけど、右側はトータルの最大最小だから、同じカラーレジェンドだと意味が変わる。→違うカラーを使う
-                .attr("stroke", "black")
-                .on("mouseover", (d, i) => {
-                  //d3.select(this).attr("stroke","red") //←反応なし
-                })
-                .on("mouseout", (d, i) => {
-                  //d3.select(i.this).attr("stroke","black") //←反応なし
-                })
-                .on("click", (d, i) => {
-                  dispatch(changeMusicId(i.musicid));
-                })
-                .attr("stroke-width", "0.1")
-                .attr("opacity", 0.7)
-                .attr("cx", (d) => d.x)
-                .attr("cy", (d) => d.y)
-                .attr("r", (d) => size(Math.sqrt(d.stream)))
-            //.attr("transform", `rotate(180 ${650/2}, ${250/2})`) //←綺麗に180度回転できていない
+          .on("tick", () =>
+            swarmplt
+              .selectAll("circle")
+              .data(dbData)
+              .join("circle")
+              .style("fill", (d) => d3.interpolatePuRd(checkColor(d[feature]))) //左側は重み付き平均の最大最小だけど、右側はトータルの最大最小だから、同じカラーレジェンドだと意味が変わる。→違うカラーを使う
+              .attr("stroke", "black")
+              .on("mouseover", (d, i) => {})
+              .on("mouseout", (d, i) => {})
+              .on("click", (d, i) => {
+                dispatch(changeMusicId(i.musicid));
+              })
+              .attr("stroke-width", "0.1")
+              .attr("opacity", 0.7)
+              .attr("cx", (d) => d.x)
+              .attr("cy", (d) => d.y)
+              .attr("r", (d) => size(Math.sqrt(d.stream)))
           );
         let init_decay = setTimeout(function () {
-          simulation.alphaDecay(0.05);
-        }, 5000);
+          simulation.alphaDecay(0.1);
+        }, 1000);
 
         const xAxis = d3.axisBottom().scale(xScale); //tickSize(200)で伸ばせる ticks(10)でメモリ数を制限できる
         swarmplt
