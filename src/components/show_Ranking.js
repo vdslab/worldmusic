@@ -71,7 +71,9 @@ function ShowRanking() {
     <body>
       <div className="container">
         {filters.map((item, i) => {
-          console.log(item);
+          {
+            /* console.log(item); */
+          }
           return (
             <div onClick={() => dispatch(changeMusicId(item.musicid))}>
               {i + 1}.
