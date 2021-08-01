@@ -13,7 +13,7 @@ const Swarmplt = ({ width, height }) => {
     top: 10,
     bottom: 500,
     left: 50,
-    right: 40,
+    right: 50,
   };
 
   const innerWidth = width - margin.left - margin.right;
@@ -167,8 +167,8 @@ const Swarmplt = ({ width, height }) => {
   };
 
   return (
-    <div>
-      <svg width="650" height="250" viewBox="0 0 650 285" ref={ref} />
+    <div className="swarmplt-scroll">
+      <svg width="650" height="250" viewBox="0 -20 650 320" ref={ref} />
     </div>
   );
 };

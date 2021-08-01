@@ -33,3 +33,8 @@
   max-height: 450px;
   overflow: scroll;
 }
+
+.swarmplt-scroll {
+  max-height: 255px;
+  overflow: scroll;
+}
