@@ -64,14 +64,14 @@ const WorldMap = ({ features }) => {
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
-      ["AU", "CA"].map(async (cid) => {
-        const data = await fetchHeatmapData("acousticness", cid);
-        console.log(data);
-      });
-      // const data = await fetchHeatmapData("acousticness", "AU");
-      // console.log(data);
-      // const data2 = await fetchHeatmapData("acousticness", "CA");
-      // console.log(data2);
+      // ["AU", "CA"].map(async (cid) => {
+      //   const data = await fetchHeatmapData("acousticness", cid);
+      //   console.log(data);
+      // });
+      const data = await fetchHeatmapData("acousticness", "AU");
+      console.log(data);
+      const data2 = await fetchHeatmapData("acousticness", "CA");
+      console.log(data2);
       //fetchするときのデータ量の問題？　1つだけfetchするときは問題なく持ってこれるけど複数のときは502
       //データ量が多くてタイムアウト？ データベースはデータ持ってこれてる、functionsにも持ってこれてるからfetchするときの問題
       //fetch自体も2回にしても問題なくできてるからデータ量？
