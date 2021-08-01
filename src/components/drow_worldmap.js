@@ -64,12 +64,14 @@ const WorldMap = ({ features }) => {
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
-      const data = await Promise.all(
-        countries.map(async (cid) => {
-          const data = await fetchHeatmapData("acousticness", cid);
-          console.log(data);
-        })
-      );
+      const data = await fetchHeatmapData("acousticness", "AU");
+      console.log(data);
+      // const data = await Promise.all(
+      //   countries.map(async (cid) => {
+      //     const data = await fetchHeatmapData("acousticness", cid);
+      //     console.log(data);
+      //   })
+      // );
       // const d = await fetchHeatmapData("acousticness");
 
       // const data = await Promise.all(
