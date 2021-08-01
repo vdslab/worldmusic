@@ -64,7 +64,7 @@ const WorldMap = ({ features }) => {
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
-      ["AU", "CA"].map((cid) => {
+      ["AU", "CA"].map(async (cid) => {
         const data = await fetchHeatmapData("acousticness", cid);
         console.log(data);
       });
@@ -105,9 +105,9 @@ const WorldMap = ({ features }) => {
       //     return countryData;
       //   })
       // );
-      setWorldMapData(data);
-      setMax(a);
-      setMin(b);
+      // setWorldMapData(data);
+      // setMax(a);
+      // setMin(b);
       //dispatch(changeMax(a));
       //dispatch(changeMin(b));
       //console.log(heatMapData, 1);
