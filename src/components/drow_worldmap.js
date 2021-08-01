@@ -68,13 +68,14 @@ const WorldMap = ({ features }) => {
       //   const data = await fetchHeatmapData("acousticness", cid);
       //   console.log(data);
       // });
-      const data = await fetchHeatmapData("acousticness", "AU");
-      console.log(data);
-      const data2 = await fetchHeatmapData("acousticness", "CA");
-      console.log(data2);
+      // const data = await fetchHeatmapData("acousticness", "AU");
+      // console.log(data);
+      // const data2 = await fetchHeatmapData("acousticness", "CA");
+      // console.log(data2);
       //fetchするときのデータ量の問題？　1つだけfetchするときは問題なく持ってこれるけど複数のときは502
       //データ量が多くてタイムアウト？ データベースはデータ持ってこれてる、functionsにも持ってこれてるからfetchするときの問題
       //fetch自体も2回にしても問題なくできてるからデータ量？
+      //mapだとできなくてただの羅列だと大丈夫？なぜ？
       // const data = await Promise.all(
       //   countries.map(async (cid) => {
       //     const data = await fetchHeatmapData("acousticness", cid);
@@ -83,34 +84,33 @@ const WorldMap = ({ features }) => {
       // );
       // const d = await fetchHeatmapData("acousticness");
 
-      // const data = await Promise.all(
-
-      //   countries.map(async (cId) => {
-      //     const countryData = { countryName: cId };
-      //     const timeData = await Promise.all(
-      //       term.map(async (t) => {
-      //         const data = [];
-      //         // const data = await fetchData(t.start, t.end, feature, cId);
-      //         const weightAve = makeData(data, cId);
-      //         if (a < weightAve && weightAve != null) {
-      //           a = weightAve;
-      //         }
-      //         if (b > weightAve && weightAve != null) {
-      //           b = weightAve;
-      //         }
-      //         return { start: t.start, end: t.end, value: weightAve };
-      //       })
-      //     );
-      //     countryData["timeData"] = timeData;
-      //     return countryData;
-      //   })
-      // );
-      // setWorldMapData(data);
-      // setMax(a);
-      // setMin(b);
-      //dispatch(changeMax(a));
-      //dispatch(changeMin(b));
-      //console.log(heatMapData, 1);
+      const data = await Promise.all(
+        countries.map(async (cId) => {
+          const countryData = { countryName: cId };
+          const timeData = await Promise.all(
+            term.map(async (t) => {
+              // const data = [];
+              const data = await fetchData(t.start, t.end, feature, cId);
+              const weightAve = makeData(data, cId);
+              if (a < weightAve && weightAve != null) {
+                a = weightAve;
+              }
+              if (b > weightAve && weightAve != null) {
+                b = weightAve;
+              }
+              return { start: t.start, end: t.end, value: weightAve };
+            })
+          );
+          countryData["timeData"] = timeData;
+          return countryData;
+        })
+      );
+      setWorldMapData(data);
+      setMax(a);
+      setMin(b);
+      // dispatch(changeMax(a));
+      // dispatch(changeMin(b));
+      // console.log(heatMapData, 1);
       //featch数減らしたやつ
       //const dbData = await fetchHeatmapData(feature);
       //console.log(dbData);
