@@ -64,7 +64,7 @@ const WorldMap = ({ features }) => {
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
-      const d = await fetchHeatmapData(acousticness);
+      const d = await fetchHeatmapData("acousticness");
       console.log(d);
       // const data = await Promise.all(
 
