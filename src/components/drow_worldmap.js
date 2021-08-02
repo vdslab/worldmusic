@@ -79,22 +79,23 @@ const WorldMap = ({ features }) => {
       //   const data = await fetchHeatmapData("acousticness", cid);
       //   console.log(data);
       // });
-      const data = await fetchHeatmapData(feature, "AU");
-      console.log(data);
-      const data2 = await fetchHeatmapData(feature, "CA");
-      console.log(data2);
-      const data3 = await fetchHeatmapData(feature, "DE");
-      console.log(data3);
-      const data4 = await fetchHeatmapData(feature, "FR");
-      console.log(data4);
-      const data5 = await fetchHeatmapData(feature, "JP");
-      console.log(data5);
-      const data6 = await fetchHeatmapData(feature, "NL");
-      console.log(data6);
-      const data7 = await fetchHeatmapData(feature, "GB");
-      console.log(data7);
-      const data8 = await fetchHeatmapData(feature, "US");
-      console.log(data8);
+      const AUdata = await fetchHeatmapData(feature, "AU");
+      console.log(AUdata);
+      const CAdata = await fetchHeatmapData(feature, "CA");
+      console.log(CAdata);
+      const DEdata = await fetchHeatmapData(feature, "DE");
+      console.log(DEdata);
+      const FRdata = await fetchHeatmapData(feature, "FR");
+      console.log(FRdata);
+      const JPdata = await fetchHeatmapData(feature, "JP");
+      console.log(JPdata);
+      const NLdata = await fetchHeatmapData(feature, "NL");
+      console.log(NLdata);
+      const GBdata = await fetchHeatmapData(feature, "GB");
+      console.log(GBdata);
+      const USdata = await fetchHeatmapData(feature, "US");
+      console.log(USdata);
+      const data = [];
       //fetchするときのデータ量の問題？　1つだけfetchするときは問題なく持ってこれるけど複数のときは502
       //データ量が多くてタイムアウト？ データベースはデータ持ってこれてる、functionsにも持ってこれてるからfetchするときの問題
       //fetch自体も2回にしても問題なくできてるからデータ量？
