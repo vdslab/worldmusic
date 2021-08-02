@@ -79,14 +79,14 @@ const WorldMap = ({ features }) => {
       //   const data = await fetchHeatmapData("acousticness", cid);
       //   console.log(data);
       // });
-      const a = await Promise.all(
+      const datas = await Promise.all(
         countries.map(async (cid) => {
           let d = await fetchHeatmapData(feature, cid);
           return d;
         })
       );
 
-      console.log(a);
+      console.log(datas);
 
       // const AUdata = await fetchHeatmapData(feature, "AU");
       // console.log(AUdata);
