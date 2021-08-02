@@ -61,27 +61,40 @@ const WorldMap = ({ features }) => {
   let a = -Infinity;
   let b = Infinity;
 
+  const getData = () => {
+    const data = Promise.all(
+      countries.map(async (cid) => {
+        const d = await fetchHeatmapData(feature, cid);
+        return d;
+      })
+    );
+    return data;
+  };
+
   useEffect(() => {
     (async () => {
       const array = ["AU", "CA"];
       /**TODO:改善 */
 
-      const au = await fetchHeatmapData(feature, "AU");
-      const ca = await fetchHeatmapData(feature, "CA");
-      const de = await fetchHeatmapData(feature, "DE");
-      const fr = await fetchHeatmapData(feature, "FR");
-      const jp = await fetchHeatmapData(feature, "JP");
-      const nl = await fetchHeatmapData(feature, "NL");
-      const gb = await fetchHeatmapData(feature, "GB");
-      const us = await fetchHeatmapData(feature, "US");
+      // const au = await fetchHeatmapData(feature, "AU");
+      // const ca = await fetchHeatmapData(feature, "CA");
+      // const de = await fetchHeatmapData(feature, "DE");
+      // const fr = await fetchHeatmapData(feature, "FR");
+      // const jp = await fetchHeatmapData(feature, "JP");
+      // const nl = await fetchHeatmapData(feature, "NL");
+      // const gb = await fetchHeatmapData(feature, "GB");
+      // const us = await fetchHeatmapData(feature, "US");
 
-      const datas = await Promise.all(
-        countries.map(async (cid) => {
-          let d = await fetchHeatmapData(feature, cid);
-          return d;
-        })
-      );
+      // const datas = await Promise.all(
+      //   countries.map(async (cid) => {
+      //     let d = await fetchHeatmapData(feature, cid);
+      //     return d;
+      //   })
+      // );
 
+      const datas = getData().then((data) => {
+        console.log(data);
+      });
       console.log(datas);
 
       const data = [];
