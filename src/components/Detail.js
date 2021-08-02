@@ -3,12 +3,10 @@ import Swarmplt from "./draw_swarmplt";
 
 const Detail = () => {
   return (
-    <div className="">
-      <div className="card" /*style={{ height: "39.25vh" }}*/>
-        <div className="card-content">
-          <div className="content">
-            <Swarmplt />
-          </div>
+    <div className="card" style={{ height: "100%" }}>
+      <div className="card-content p-2">
+        <div className="content">
+          <Swarmplt />
         </div>
       </div>
     </div>
