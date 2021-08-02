@@ -66,19 +66,15 @@ const WorldMap = ({ features }) => {
       const array = ["AU", "CA"];
       /**TODO:改善 */
 
-      // const data = await Promise.all(
-      //   array.map(async (cid) => {
-      //     console.log(cid);
-      //     const d = fetchHeatmapData(feature, cid);
-      //     return d;
-      //   })
-      // );
+      const au = await fetchHeatmapData(feature, "AU");
+      const ca = await fetchHeatmapData(feature, "CA");
+      const de = await fetchHeatmapData(feature, "DE");
+      const fr = await fetchHeatmapData(feature, "FR");
+      const jp = await fetchHeatmapData(feature, "JP");
+      const nl = await fetchHeatmapData(feature, "NL");
+      const gb = await fetchHeatmapData(feature, "GB");
+      const us = await fetchHeatmapData(feature, "US");
 
-      // console.log(data);
-      // ["AU", "CA"].map(async (cid) => {
-      //   const data = await fetchHeatmapData("acousticness", cid);
-      //   console.log(data);
-      // });
       const datas = await Promise.all(
         countries.map(async (cid) => {
           let d = await fetchHeatmapData(feature, cid);
@@ -88,22 +84,6 @@ const WorldMap = ({ features }) => {
 
       console.log(datas);
 
-      // const AUdata = await fetchHeatmapData(feature, "AU");
-      // console.log(AUdata);
-      // const CAdata = await fetchHeatmapData(feature, "CA");
-      // console.log(CAdata);
-      // const DEdata = await fetchHeatmapData(feature, "DE");
-      // console.log(DEdata);
-      // const FRdata = await fetchHeatmapData(feature, "FR");
-      // console.log(FRdata);
-      // const JPdata = await fetchHeatmapData(feature, "JP");
-      // console.log(JPdata);
-      // const NLdata = await fetchHeatmapData(feature, "NL");
-      // console.log(NLdata);
-      // const GBdata = await fetchHeatmapData(feature, "GB");
-      // console.log(GBdata);
-      // const USdata = await fetchHeatmapData(feature, "US");
-      // console.log(USdata);
       const data = [];
       //fetchするときのデータ量の問題？　1つだけfetchするときは問題なく持ってこれるけど複数のときは502
       //データ量が多くてタイムアウト？ データベースはデータ持ってこれてる、functionsにも持ってこれてるからfetchするときの問題
