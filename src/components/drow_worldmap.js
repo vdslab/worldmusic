@@ -61,35 +61,82 @@ const WorldMap = ({ features }) => {
   let a = -Infinity;
   let b = Infinity;
 
+  const getData = () => {
+    const data = Promise.all(
+      countries.map(async (cid) => {
+        const d = await fetchHeatmapData(feature, cid);
+        return d;
+      })
+    );
+    return data;
+  };
+
   useEffect(() => {
     (async () => {
+      const array = ["AU", "CA"];
       /**TODO:改善 */
-      const data = await Promise.all(
-        countries.map(async (cId) => {
-          const countryData = { countryName: cId };
-          const timeData = await Promise.all(
-            term.map(async (t) => {
-              const data = await fetchData(t.start, t.end, feature, cId);
-              const weightAve = makeData(data, cId);
-              if (a < weightAve && weightAve != null) {
-                a = weightAve;
-              }
-              if (b > weightAve && weightAve != null) {
-                b = weightAve;
-              }
-              return { start: t.start, end: t.end, value: weightAve };
-            })
-          );
-          countryData["timeData"] = timeData;
-          return countryData;
-        })
-      );
+
+      // const au = await fetchHeatmapData(feature, "AU");
+      // const ca = await fetchHeatmapData(feature, "CA");
+      // const de = await fetchHeatmapData(feature, "DE");
+      // const fr = await fetchHeatmapData(feature, "FR");
+      // const jp = await fetchHeatmapData(feature, "JP");
+      // const nl = await fetchHeatmapData(feature, "NL");
+      // const gb = await fetchHeatmapData(feature, "GB");
+      // const us = await fetchHeatmapData(feature, "US");
+
+      // const datas = await Promise.all(
+      //   countries.map(async (cid) => {
+      //     let d = await fetchHeatmapData(feature, cid);
+      //     return d;
+      //   })
+      // );
+
+      const datas = getData().then((data) => {
+        console.log(data);
+      });
+      console.log(datas);
+
+      const data = [];
+      //fetchするときのデータ量の問題？　1つだけfetchするときは問題なく持ってこれるけど複数のときは502
+      //データ量が多くてタイムアウト？ データベースはデータ持ってこれてる、functionsにも持ってこれてるからfetchするときの問題
+      //fetch自体も2回にしても問題なくできてるからデータ量？
+      //mapだとできなくてただの羅列だと大丈夫？なぜ？
+      // const data = await Promise.all(
+      //   countries.map(async (cid) => {
+      //     const data = await fetchHeatmapData("acousticness", cid);
+      //     console.log(data);
+      //   })
+      // );
+      // const d = await fetchHeatmapData("acousticness");
+
+      // const data = await Promise.all(
+      //   countries.map(async (cId) => {
+      //     const countryData = { countryName: cId };
+      //     const timeData = await Promise.all(
+      //       term.map(async (t) => {
+      //         // const data = [];
+      //         const data = await fetchData(t.start, t.end, feature, cId);
+      //         const weightAve = makeData(data, cId);
+      //         if (a < weightAve && weightAve != null) {
+      //           a = weightAve;
+      //         }
+      //         if (b > weightAve && weightAve != null) {
+      //           b = weightAve;
+      //         }
+      //         return { start: t.start, end: t.end, value: weightAve };
+      //       })
+      //     );
+      //     countryData["timeData"] = timeData;
+      //     return countryData;
+      //   })
+      // );
       setWorldMapData(data);
       setMax(a);
       setMin(b);
-      //dispatch(changeMax(a));
-      //dispatch(changeMin(b));
-      //console.log(heatMapData, 1);
+      // dispatch(changeMax(a));
+      // dispatch(changeMin(b));
+      // console.log(heatMapData, 1);
       //featch数減らしたやつ
       //const dbData = await fetchHeatmapData(feature);
       //console.log(dbData);
