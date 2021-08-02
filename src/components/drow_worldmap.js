@@ -63,7 +63,17 @@ const WorldMap = ({ features }) => {
 
   useEffect(() => {
     (async () => {
+      const array = ["AU", "CA"];
       /**TODO:改善 */
+
+      const data = await Promise.all(
+        array.map(async (cid) => {
+          const d = fetchHeatmapData(feature, cid);
+          return d;
+        })
+      );
+
+      console.log(data);
       // ["AU", "CA"].map(async (cid) => {
       //   const data = await fetchHeatmapData("acousticness", cid);
       //   console.log(data);
@@ -84,27 +94,27 @@ const WorldMap = ({ features }) => {
       // );
       // const d = await fetchHeatmapData("acousticness");
 
-      const data = await Promise.all(
-        countries.map(async (cId) => {
-          const countryData = { countryName: cId };
-          const timeData = await Promise.all(
-            term.map(async (t) => {
-              // const data = [];
-              const data = await fetchData(t.start, t.end, feature, cId);
-              const weightAve = makeData(data, cId);
-              if (a < weightAve && weightAve != null) {
-                a = weightAve;
-              }
-              if (b > weightAve && weightAve != null) {
-                b = weightAve;
-              }
-              return { start: t.start, end: t.end, value: weightAve };
-            })
-          );
-          countryData["timeData"] = timeData;
-          return countryData;
-        })
-      );
+      // const data = await Promise.all(
+      //   countries.map(async (cId) => {
+      //     const countryData = { countryName: cId };
+      //     const timeData = await Promise.all(
+      //       term.map(async (t) => {
+      //         // const data = [];
+      //         const data = await fetchData(t.start, t.end, feature, cId);
+      //         const weightAve = makeData(data, cId);
+      //         if (a < weightAve && weightAve != null) {
+      //           a = weightAve;
+      //         }
+      //         if (b > weightAve && weightAve != null) {
+      //           b = weightAve;
+      //         }
+      //         return { start: t.start, end: t.end, value: weightAve };
+      //       })
+      //     );
+      //     countryData["timeData"] = timeData;
+      //     return countryData;
+      //   })
+      // );
       setWorldMapData(data);
       setMax(a);
       setMin(b);
