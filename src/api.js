@@ -42,9 +42,8 @@ export function fetchTest(startMonth, endMonth, feature, country) {
   });
 }
 
-export function fetchHeatmapData(feature, country) {
+export function fetchHeatmapData(feature) {
   return sendRequest("/getHeatmapData", {
     feature: feature,
-    country: country,
   });
 }
