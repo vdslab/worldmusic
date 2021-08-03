@@ -3,7 +3,7 @@ import * as d3 from "d3";
 import { select } from "d3-selection";
 import * as topojson from "topojson";
 import { fetchData, fetchHeatmapData } from "../api";
-import { changeCountry, changeFeature } from "../stores/details";
+import { changeCountry, changeFeature, setDbData } from "../stores/details";
 import { useDispatch, useSelector } from "react-redux";
 import "../tooltip.css";
 import { createSerializableStateInvariantMiddleware } from "@reduxjs/toolkit";
@@ -85,29 +85,10 @@ const WorldMap = ({ features }) => {
       const dbData = d;
 
       console.log(dbData);
-
-      // const datas = await Promise.all(
-      //   countries.map(async (cid) => {
-      //     let d = await fetchHeatmapData(feature, cid);
-      //     return d;
-      //   })
-      // );
-
-      // const datas = getData().then((data) => {
-      //   console.log(data);
-      // });
-      // console.log(datas);
       //fetchするときのデータ量の問題？　1つだけfetchするときは問題なく持ってこれるけど複数のときは502
       //データ量が多くてタイムアウト？ データベースはデータ持ってこれてる、functionsにも持ってこれてるからfetchするときの問題
       //fetch自体も2回にしても問題なくできてるからデータ量？
       //mapだとできなくてただの羅列だと大丈夫？なぜ？
-      // const data = await Promise.all(
-      //   countries.map(async (cid) => {
-      //     const data = await fetchHeatmapData("acousticness", cid);
-      //     console.log(data);
-      //   })
-      // );
-      // const d = await fetchHeatmapData("acousticness");
 
       // const data = await Promise.all(
       //   countries.map(async (cId) => {
@@ -328,6 +309,7 @@ const WorldMap = ({ features }) => {
           }),
         };
       });
+      setDbData(data);
       setWorldMapData(data);
     })();
     console.log(worldMapData);
