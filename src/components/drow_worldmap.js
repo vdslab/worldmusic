@@ -65,32 +65,36 @@ const WorldMap = ({ features }) => {
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
-      const au = await fetchHeatmapData(feature, "AU");
-      console.log(au, "AU");
-      const ca = await fetchHeatmapData(feature, "CA");
-      console.log(ca, "CA");
-      const de = await fetchHeatmapData(feature, "DE");
-      console.log(de, "DE");
-      const fr = await fetchHeatmapData(feature, "FR");
-      console.log(fr, "FR");
-      const jp = await fetchHeatmapData(feature, "JP");
-      console.log(jp, "JP");
-      const nl = await fetchHeatmapData(feature, "NL");
-      console.log(nl, "NL");
-      const gb = await fetchHeatmapData(feature, "GB");
-      console.log(gb, "GB");
-      const us = await fetchHeatmapData(feature, "US");
-      console.log(us, "US");
+      // const au = await fetchHeatmapData(feature, "AU");
+      // console.log(au, "AU");
+      // const ca = await fetchHeatmapData(feature, "CA");
+      // console.log(ca, "CA");
+      // const de = await fetchHeatmapData(feature, "DE");
+      // console.log(de, "DE");
+      // const fr = await fetchHeatmapData(feature, "FR");
+      // console.log(fr, "FR");
+      // const jp = await fetchHeatmapData(feature, "JP");
+      // console.log(jp, "JP");
+      // const nl = await fetchHeatmapData(feature, "NL");
+      // console.log(nl, "NL");
+      // const gb = await fetchHeatmapData(feature, "GB");
+      // console.log(gb, "GB");
+      // const us = await fetchHeatmapData(feature, "US");
+      // console.log(us, "US");
 
-      let d = [];
+      // let d = [];
 
-      [au, ca, de, fr, jp, nl, gb, us].map((cdata) => {
-        cdata.map((cstatus) => {
-          d.push(cstatus);
-        });
+      // [au, ca, de, fr, jp, nl, gb, us].map((cdata) => {
+      //   cdata.map((cstatus) => {
+      //     d.push(cstatus);
+      //   });
+      // });
+
+      // const dbData = d;
+      const data = countries.map(async (cid) => {
+        const d = await fetchHeatmapData(feature, cid);
+        console.log(d, cid);
       });
-
-      const dbData = d;
       //fetchするときのデータ量の問題？　1つだけfetchするときは問題なく持ってこれるけど複数のときは502
       //データ量が多くてタイムアウト？ データベースはデータ持ってこれてる、functionsにも持ってこれてるからfetchするときの問題
       //fetch自体も2回にしても問題なくできてるからデータ量？
@@ -101,7 +105,6 @@ const WorldMap = ({ features }) => {
       //     const countryData = { countryName: cId };
       //     const timeData = await Promise.all(
       //       term.map(async (t) => {
-      //         // const data = [];
       //         const data = await fetchData(t.start, t.end, feature, cId);
       //         const weightAve = makeData(data, cId);
       //         if (a < weightAve && weightAve != null) {
@@ -120,209 +123,198 @@ const WorldMap = ({ features }) => {
       // setWorldMapData(data);
       // setMax(a);
       // setMin(b);
-      // dispatch(changeMax(a));
-      // dispatch(changeMin(b));
-      // console.log(heatMapData, 1);
       //featch数減らしたやつ
-      const c = {
-        AU: {
-          "2017-01": [],
-          "2017-04": [],
-          "2017-07": [],
-          "2017-10": [],
-          "2018-01": [],
-          "2018-04": [],
-          "2018-07": [],
-          "2018-10": [],
-          "2019-01": [],
-          "2019-04": [],
-          "2019-07": [],
-          "2019-10": [],
-          "2020-01": [],
-          "2020-04": [],
-          "2020-07": [],
-          "2020-10": [],
-        },
-        CA: {
-          "2017-01": [],
-          "2017-04": [],
-          "2017-07": [],
-          "2017-10": [],
-          "2018-01": [],
-          "2018-04": [],
-          "2018-07": [],
-          "2018-10": [],
-          "2019-01": [],
-          "2019-04": [],
-          "2019-07": [],
-          "2019-10": [],
-          "2020-01": [],
-          "2020-04": [],
-          "2020-07": [],
-          "2020-10": [],
-        },
-        DE: {
-          "2017-01": [],
-          "2017-04": [],
-          "2017-07": [],
-          "2017-10": [],
-          "2018-01": [],
-          "2018-04": [],
-          "2018-07": [],
-          "2018-10": [],
-          "2019-01": [],
-          "2019-04": [],
-          "2019-07": [],
-          "2019-10": [],
-          "2020-01": [],
-          "2020-04": [],
-          "2020-07": [],
-          "2020-10": [],
-        },
-        FR: {
-          "2017-01": [],
-          "2017-04": [],
-          "2017-07": [],
-          "2017-10": [],
-          "2018-01": [],
-          "2018-04": [],
-          "2018-07": [],
-          "2018-10": [],
-          "2019-01": [],
-          "2019-04": [],
-          "2019-07": [],
-          "2019-10": [],
-          "2020-01": [],
-          "2020-04": [],
-          "2020-07": [],
-          "2020-10": [],
-        },
-        JP: {
-          "2017-01": [],
-          "2017-04": [],
-          "2017-07": [],
-          "2017-10": [],
-          "2018-01": [],
-          "2018-04": [],
-          "2018-07": [],
-          "2018-10": [],
-          "2019-01": [],
-          "2019-04": [],
-          "2019-07": [],
-          "2019-10": [],
-          "2020-01": [],
-          "2020-04": [],
-          "2020-07": [],
-          "2020-10": [],
-        },
-        NL: {
-          "2017-01": [],
-          "2017-04": [],
-          "2017-07": [],
-          "2017-10": [],
-          "2018-01": [],
-          "2018-04": [],
-          "2018-07": [],
-          "2018-10": [],
-          "2019-01": [],
-          "2019-04": [],
-          "2019-07": [],
-          "2019-10": [],
-          "2020-01": [],
-          "2020-04": [],
-          "2020-07": [],
-          "2020-10": [],
-        },
-        GB: {
-          "2017-01": [],
-          "2017-04": [],
-          "2017-07": [],
-          "2017-10": [],
-          "2018-01": [],
-          "2018-04": [],
-          "2018-07": [],
-          "2018-10": [],
-          "2019-01": [],
-          "2019-04": [],
-          "2019-07": [],
-          "2019-10": [],
-          "2020-01": [],
-          "2020-04": [],
-          "2020-07": [],
-          "2020-10": [],
-        },
-        US: {
-          "2017-01": [],
-          "2017-04": [],
-          "2017-07": [],
-          "2017-10": [],
-          "2018-01": [],
-          "2018-04": [],
-          "2018-07": [],
-          "2018-10": [],
-          "2019-01": [],
-          "2019-04": [],
-          "2019-07": [],
-          "2019-10": [],
-          "2020-01": [],
-          "2020-04": [],
-          "2020-07": [],
-          "2020-10": [],
-        },
-      };
-      dbData.map((d) => {
-        const year = d.startday.slice(0, 4);
-        let month = Number(d.startday.slice(5, 7));
-        if (month >= 1 && month <= 3) {
-          month = "01";
-        } else if (month >= 4 && month <= 6) {
-          month = "04";
-        } else if (month >= 7 && month <= 9) {
-          month = "07";
-        } else {
-          month = "10";
-        }
-        const term = year + "-" + month;
-        if (year != "2016" && year != "2021" && d.countryid != "GL") {
-          const array = c[d.countryid][term];
-          array.push(d);
-          c[d.countryid][term] = array;
-        }
-      });
-      const data = Object.keys(c).map((countryid) => {
-        return {
-          countryName: countryid,
-          timeData: Object.keys(c[countryid]).map((term) => {
-            const year = term.slice(0, 4);
-            const month = Number(term.slice(5, 7));
-            const weightAve = makeData(c[countryid][term]);
-            if (Max < weightAve && weightAve != null) {
-              a = weightAve;
-              setMax(weightAve);
-            }
-            if (b > weightAve && weightAve != null) {
-              b = weightAve;
-              setMin(b);
-            }
-            return {
-              start: term,
-              end: year + "-" + fillZero(String(month + 2)),
-              value: weightAve,
-            };
-          }),
-        };
-      });
-
-      console.log(data);
-      setWorldMapData(data);
-      // console.log(dbData);
+      // const c = {
+      //   AU: {
+      //     "2017-01": [],
+      //     "2017-04": [],
+      //     "2017-07": [],
+      //     "2017-10": [],
+      //     "2018-01": [],
+      //     "2018-04": [],
+      //     "2018-07": [],
+      //     "2018-10": [],
+      //     "2019-01": [],
+      //     "2019-04": [],
+      //     "2019-07": [],
+      //     "2019-10": [],
+      //     "2020-01": [],
+      //     "2020-04": [],
+      //     "2020-07": [],
+      //     "2020-10": [],
+      //   },
+      //   CA: {
+      //     "2017-01": [],
+      //     "2017-04": [],
+      //     "2017-07": [],
+      //     "2017-10": [],
+      //     "2018-01": [],
+      //     "2018-04": [],
+      //     "2018-07": [],
+      //     "2018-10": [],
+      //     "2019-01": [],
+      //     "2019-04": [],
+      //     "2019-07": [],
+      //     "2019-10": [],
+      //     "2020-01": [],
+      //     "2020-04": [],
+      //     "2020-07": [],
+      //     "2020-10": [],
+      //   },
+      //   DE: {
+      //     "2017-01": [],
+      //     "2017-04": [],
+      //     "2017-07": [],
+      //     "2017-10": [],
+      //     "2018-01": [],
+      //     "2018-04": [],
+      //     "2018-07": [],
+      //     "2018-10": [],
+      //     "2019-01": [],
+      //     "2019-04": [],
+      //     "2019-07": [],
+      //     "2019-10": [],
+      //     "2020-01": [],
+      //     "2020-04": [],
+      //     "2020-07": [],
+      //     "2020-10": [],
+      //   },
+      //   FR: {
+      //     "2017-01": [],
+      //     "2017-04": [],
+      //     "2017-07": [],
+      //     "2017-10": [],
+      //     "2018-01": [],
+      //     "2018-04": [],
+      //     "2018-07": [],
+      //     "2018-10": [],
+      //     "2019-01": [],
+      //     "2019-04": [],
+      //     "2019-07": [],
+      //     "2019-10": [],
+      //     "2020-01": [],
+      //     "2020-04": [],
+      //     "2020-07": [],
+      //     "2020-10": [],
+      //   },
+      //   JP: {
+      //     "2017-01": [],
+      //     "2017-04": [],
+      //     "2017-07": [],
+      //     "2017-10": [],
+      //     "2018-01": [],
+      //     "2018-04": [],
+      //     "2018-07": [],
+      //     "2018-10": [],
+      //     "2019-01": [],
+      //     "2019-04": [],
+      //     "2019-07": [],
+      //     "2019-10": [],
+      //     "2020-01": [],
+      //     "2020-04": [],
+      //     "2020-07": [],
+      //     "2020-10": [],
+      //   },
+      //   NL: {
+      //     "2017-01": [],
+      //     "2017-04": [],
+      //     "2017-07": [],
+      //     "2017-10": [],
+      //     "2018-01": [],
+      //     "2018-04": [],
+      //     "2018-07": [],
+      //     "2018-10": [],
+      //     "2019-01": [],
+      //     "2019-04": [],
+      //     "2019-07": [],
+      //     "2019-10": [],
+      //     "2020-01": [],
+      //     "2020-04": [],
+      //     "2020-07": [],
+      //     "2020-10": [],
+      //   },
+      //   GB: {
+      //     "2017-01": [],
+      //     "2017-04": [],
+      //     "2017-07": [],
+      //     "2017-10": [],
+      //     "2018-01": [],
+      //     "2018-04": [],
+      //     "2018-07": [],
+      //     "2018-10": [],
+      //     "2019-01": [],
+      //     "2019-04": [],
+      //     "2019-07": [],
+      //     "2019-10": [],
+      //     "2020-01": [],
+      //     "2020-04": [],
+      //     "2020-07": [],
+      //     "2020-10": [],
+      //   },
+      //   US: {
+      //     "2017-01": [],
+      //     "2017-04": [],
+      //     "2017-07": [],
+      //     "2017-10": [],
+      //     "2018-01": [],
+      //     "2018-04": [],
+      //     "2018-07": [],
+      //     "2018-10": [],
+      //     "2019-01": [],
+      //     "2019-04": [],
+      //     "2019-07": [],
+      //     "2019-10": [],
+      //     "2020-01": [],
+      //     "2020-04": [],
+      //     "2020-07": [],
+      //     "2020-10": [],
+      //   },
+      // };
+      // dbData.map((d) => {
+      //   const year = d.startday.slice(0, 4);
+      //   let month = Number(d.startday.slice(5, 7));
+      //   if (month >= 1 && month <= 3) {
+      //     month = "01";
+      //   } else if (month >= 4 && month <= 6) {
+      //     month = "04";
+      //   } else if (month >= 7 && month <= 9) {
+      //     month = "07";
+      //   } else {
+      //     month = "10";
+      //   }
+      //   const term = year + "-" + month;
+      //   if (year != "2016" && year != "2021" && d.countryid != "GL") {
+      //     const array = c[d.countryid][term];
+      //     array.push(d);
+      //     c[d.countryid][term] = array;
+      //   }
+      // });
+      // const data = Object.keys(c).map((countryid) => {
+      //   return {
+      //     countryName: countryid,
+      //     timeData: Object.keys(c[countryid]).map((term) => {
+      //       const year = term.slice(0, 4);
+      //       const month = Number(term.slice(5, 7));
+      //       const weightAve = makeData(c[countryid][term]);
+      //       if (Max < weightAve && weightAve != null) {
+      //         a = weightAve;
+      //         setMax(weightAve);
+      //       }
+      //       if (b > weightAve && weightAve != null) {
+      //         b = weightAve;
+      //         setMin(b);
+      //       }
+      //       return {
+      //         start: term,
+      //         end: year + "-" + fillZero(String(month + 2)),
+      //         value: weightAve,
+      //       };
+      //     }),
+      //   };
+      // });
+      // setWorldMapData(data);
     })();
-    // console.log(worldMapData);
   }, [feature]);
-
-  useEffect(() => {
-    console.log(1);
-  }, [datas]);
 
   function makeData(data) {
     let weightFeatureTotal = 0;

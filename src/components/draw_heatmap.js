@@ -144,21 +144,21 @@ function HeatMapChart() {
     (async () => {
       /**TODO:改善 */
       const au = await fetchHeatmapData(feature, "AU");
-      console.log(au, "AU");
+      // console.log(au, "AU");
       const ca = await fetchHeatmapData(feature, "CA");
-      console.log(ca, "CA");
+      // console.log(ca, "CA");
       const de = await fetchHeatmapData(feature, "DE");
-      console.log(de, "DE");
+      // console.log(de, "DE");
       const fr = await fetchHeatmapData(feature, "FR");
-      console.log(fr, "FR");
+      // console.log(fr, "FR");
       const jp = await fetchHeatmapData(feature, "JP");
-      console.log(jp, "JP");
+      // console.log(jp, "JP");
       const nl = await fetchHeatmapData(feature, "NL");
-      console.log(nl, "NL");
+      // console.log(nl, "NL");
       const gb = await fetchHeatmapData(feature, "GB");
-      console.log(gb, "GB");
+      // console.log(gb, "GB");
       const us = await fetchHeatmapData(feature, "US");
-      console.log(us, "US");
+      // console.log(us, "US");
 
       let d = [];
 
