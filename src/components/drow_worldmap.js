@@ -58,38 +58,11 @@ const WorldMap = ({ features }) => {
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
-      // const au = await fetchHeatmapData(feature, "AU");
-      // console.log(au, "AU");
-      // const ca = await fetchHeatmapData(feature, "CA");
-      // console.log(ca, "CA");
-      // const de = await fetchHeatmapData(feature, "DE");
-      // console.log(de, "DE");
-      // const fr = await fetchHeatmapData(feature, "FR");
-      // console.log(fr, "FR");
-      // const jp = await fetchHeatmapData(feature, "JP");
-      // console.log(jp, "JP");
-      // const nl = await fetchHeatmapData(feature, "NL");
-      // console.log(nl, "NL");
-      // const gb = await fetchHeatmapData(feature, "GB");
-      // console.log(gb, "GB");
-      // const us = await fetchHeatmapData(feature, "US");
-      // console.log(us, "US");
-
-      // let d = [];
-
-      // [au, ca, de, fr, jp, nl, gb, us].map((cdata) => {
-      //   cdata.map((cstatus) => {
-      //     d.push(cstatus);
-      //   });
-      // });
-
-      // const dbData = d;
       const data = await fetchHeatmapData(feature);
       setMin(data.min);
       setMax(data.max);
       setWorldMapData(data.dbData);
       console.log(data);
-      // setWorldMapData(data);
       //fetchするときのデータ量の問題？　1つだけfetchするときは問題なく持ってこれるけど複数のときは502
       //データ量が多くてタイムアウト？ データベースはデータ持ってこれてる、functionsにも持ってこれてるからfetchするときの問題
       //fetch自体も2回にしても問題なくできてるからデータ量？

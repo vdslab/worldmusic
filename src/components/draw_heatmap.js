@@ -124,13 +124,6 @@ function HeatMapChart() {
     { start: "2020-10", end: "2020-12" },
   ];
 
-  const fillZero = (value) => {
-    if (value.length == 1) {
-      value = "0" + value;
-    }
-    return value;
-  };
-
   const countries = ["AU", "CA", "DE", "FR", "JP", "NL", "GB", "US"];
   const [heatMapData, setHeatMapData] = useState([]);
   const [Max, setMax] = useState(-Infinity);
@@ -148,29 +141,7 @@ function HeatMapChart() {
       setMax(data.max);
       setHeatMapData(data.dbData);
       console.log(data);
-      // const au = await fetchHeatmapData(feature, "AU");
-      // console.log(au, "AU");
-      // const ca = await fetchHeatmapData(feature, "CA");
-      // console.log(ca, "CA");
-      // const de = await fetchHeatmapData(feature, "DE");
-      // console.log(de, "DE");
-      // const fr = await fetchHeatmapData(feature, "FR");
-      // console.log(fr, "FR");
-      // const jp = await fetchHeatmapData(feature, "JP");
-      // console.log(jp, "JP");
-      // const nl = await fetchHeatmapData(feature, "NL");
-      // console.log(nl, "NL");
-      // const gb = await fetchHeatmapData(feature, "GB");
-      // console.log(gb, "GB");
-      // const us = await fetchHeatmapData(feature, "US");
-      // console.log(us, "US");
-      // let d = [];
-      // [au, ca, de, fr, jp, nl, gb, us].map((cdata) => {
-      //   cdata.map((cstatus) => {
-      //     d.push(cstatus);
-      //   });
-      // });
-      // const dbData = d;
+
       // const data = await Promise.all(
       //   countries.map(async (cId) => {
       //     const countryData = { countryName: cId };
@@ -391,7 +362,6 @@ function HeatMapChart() {
       //   });
       //   dispatch(changeMax(a));
       //   dispatch(changeMin(b));
-      //   // const data = [];
       //   setHeatMapData(data);
     })();
     // console.log(heatMapData);
