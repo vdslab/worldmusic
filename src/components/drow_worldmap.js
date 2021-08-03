@@ -76,8 +76,8 @@ const WorldMap = ({ features }) => {
       const array = ["AU", "CA"];
       /**TODO:改善 */
 
-      const dbData = await fetchHeatmapData(feature);
-      console.log(dbData);
+      // const dbData = await fetchHeatmapData(feature);
+      // console.log(dbData);
       const au = await fetchHeatmapData(feature, "AU");
       const ca = await fetchHeatmapData(feature, "CA");
       const de = await fetchHeatmapData(feature, "DE");
