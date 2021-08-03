@@ -93,7 +93,7 @@ const WorldMap = ({ features }) => {
       // const dbData = d;
       const data = await fetchHeatmapData(feature, "AU");
       setWorldMapData(data);
-      console.log(d);
+      console.log(data);
       //fetchするときのデータ量の問題？　1つだけfetchするときは問題なく持ってこれるけど複数のときは502
       //データ量が多くてタイムアウト？ データベースはデータ持ってこれてる、functionsにも持ってこれてるからfetchするときの問題
       //fetch自体も2回にしても問題なくできてるからデータ量？
