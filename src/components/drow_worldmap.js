@@ -49,12 +49,12 @@ const WorldMap = ({ features }) => {
     GL: [],
   };
 
-  const fillZero = (value) => {
-    if (value.length == 1) {
-      value = "0" + value;
-    }
-    return value;
-  };
+  // const fillZero = (value) => {
+  //   if (value.length == 1) {
+  //     value = "0" + value;
+  //   }
+  //   return value;
+  // };
 
   const countries = ["AU", "CA", "DE", "FR", "JP", "NL", "GB", "US"];
   const [worldMapData, setWorldMapData] = useState([]);
@@ -92,9 +92,9 @@ const WorldMap = ({ features }) => {
       // });
 
       // const dbData = d;
-      const d = await fetchHeatmapData(feature, "AU");
-      console.log(d);
-      // console.log(d, cid);
+      const data = await fetchHeatmapData(feature, "AU");
+      setWorldMapData(data);
+      console.log(data);
       //fetchするときのデータ量の問題？　1つだけfetchするときは問題なく持ってこれるけど複数のときは502
       //データ量が多くてタイムアウト？ データベースはデータ持ってこれてる、functionsにも持ってこれてるからfetchするときの問題
       //fetch自体も2回にしても問題なくできてるからデータ量？
@@ -316,19 +316,19 @@ const WorldMap = ({ features }) => {
     })();
   }, [feature]);
 
-  function makeData(data) {
-    let weightFeatureTotal = 0;
-    let streamTotal = 0;
-    let weightAve = null;
-    if (data.length) {
-      data.map((d) => {
-        streamTotal += d.stream;
-        weightFeatureTotal += d.stream * d[feature];
-      });
-      weightAve = weightFeatureTotal / streamTotal;
-    }
-    return weightAve;
-  }
+  // function makeData(data) {
+  //   let weightFeatureTotal = 0;
+  //   let streamTotal = 0;
+  //   let weightAve = null;
+  //   if (data.length) {
+  //     data.map((d) => {
+  //       streamTotal += d.stream;
+  //       weightFeatureTotal += d.stream * d[feature];
+  //     });
+  //     weightAve = weightFeatureTotal / streamTotal;
+  //   }
+  //   return weightAve;
+  // }
 
   const colorjudge = (item) => {
     let color = "white";
