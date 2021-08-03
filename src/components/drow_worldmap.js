@@ -15,6 +15,7 @@ const WorldMap = ({ features }) => {
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
+  const datas = useSelector((state) => state.detail.dbData);
 
   const term = [
     { start: "2017-01", end: "2017-03" },
@@ -65,13 +66,21 @@ const WorldMap = ({ features }) => {
     (async () => {
       /**TODO:改善 */
       const au = await fetchHeatmapData(feature, "AU");
+      console.log(au, "AU");
       const ca = await fetchHeatmapData(feature, "CA");
+      console.log(ca, "CA");
       const de = await fetchHeatmapData(feature, "DE");
+      console.log(de, "DE");
       const fr = await fetchHeatmapData(feature, "FR");
+      console.log(fr, "FR");
       const jp = await fetchHeatmapData(feature, "JP");
+      console.log(jp, "JP");
       const nl = await fetchHeatmapData(feature, "NL");
+      console.log(nl, "NL");
       const gb = await fetchHeatmapData(feature, "GB");
+      console.log(gb, "GB");
       const us = await fetchHeatmapData(feature, "US");
+      console.log(us, "US");
 
       let d = [];
 
@@ -82,8 +91,6 @@ const WorldMap = ({ features }) => {
       });
 
       const dbData = d;
-
-      console.log(dbData);
       //fetchするときのデータ量の問題？　1つだけfetchするときは問題なく持ってこれるけど複数のときは502
       //データ量が多くてタイムアウト？ データベースはデータ持ってこれてる、functionsにも持ってこれてるからfetchするときの問題
       //fetch自体も2回にしても問題なくできてるからデータ量？
@@ -117,9 +124,6 @@ const WorldMap = ({ features }) => {
       // dispatch(changeMin(b));
       // console.log(heatMapData, 1);
       //featch数減らしたやつ
-      // const dbData = await fetchHeatmapData(feature);
-      // console.log(dbData);
-
       const c = {
         AU: {
           "2017-01": [],
@@ -308,11 +312,17 @@ const WorldMap = ({ features }) => {
           }),
         };
       });
-      setDbData(data);
+
+      console.log(data);
       setWorldMapData(data);
+      // console.log(dbData);
     })();
-    console.log(worldMapData);
+    // console.log(worldMapData);
   }, [feature]);
+
+  useEffect(() => {
+    console.log(1);
+  }, [datas]);
 
   function makeData(data) {
     let weightFeatureTotal = 0;
