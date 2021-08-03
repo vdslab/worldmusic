@@ -94,6 +94,21 @@ function Legend({ h, w }) {
   );
 }
 
+function Tooltip({clientX,clientY,show,feature,value}) {
+  return (
+    <div>
+      {show && (
+      <div
+        id="tooltip"
+        style={{ top: `${clientY}px`, left: `${clientX}px` }}
+      >
+        {feature}:{value}
+      </div>
+    )}
+    </div>
+  );
+}
+
 function HeatMapChart() {
   /**startMonthとendMonth,countryは世界地図と連携づけるのに持っておく。今は未使用 */
   /**dispatch change country*/
@@ -426,7 +441,21 @@ function HeatMapChart() {
   /**TODO:引数渡していい感じにサイズとか調整できるようにする */
   const len = 15;
 
-  const tooltipStyle = d3.select("body").append("div").attr("class", "tooltip");
+  const [show, setShow] = useState(false);
+  const [clientX, setClientX] = useState(0);
+  const [clientY, setClientY] = useState(0);
+
+  function onHover(e){
+    const clientX = e.pageX;
+    const clientY = e.pageY-200;
+    setShow(true);
+    setClientX(clientX);
+    setClientY(clientY);
+  };
+
+  function onOut(){
+    setShow(false);   
+  }
 
   return (
     <div
@@ -474,29 +503,14 @@ function HeatMapChart() {
                     height={len}
                     fill={colorjudge(item.value, item.start)}
                     onClick={() => {
-                      tooltipStyle.style("visibility", "hidden");
                       changeInfo(item.start, item.end, country.countryName);
                       setClicked(i * country.timeData.length + j);
                     }}
                     onMouseEnter={() => {
-                      setPos({
-                        col: i,
-                        row: j,
-                        value: item.value?.toFixed(2) || "",
-                      });
+                      setPos(item.value?.toFixed(2) || "");
                     }}
-                    onMouseMove={(e) => {
-                      tooltipStyle
-                        .style("visibility", "visible")
-                        .style("top", e.pageY - 20 + "px")
-                        .style("left", e.pageX + 20 + "px");
-                      pos !== null
-                        ? tooltipStyle.html(feature + ":" + pos.value)
-                        : [];
-                    }}
-                    onMouseLeave={(e) => {
-                      tooltipStyle.style("visibility", "hidden");
-                    }}
+                    onMouseMove={(e) => onHover(e)}
+                    onMouseLeave={(e) => onOut()}
                   />
                   <rect
                     x={len * j}
@@ -515,6 +529,7 @@ function HeatMapChart() {
           })}
         </g>
       </svg>
+      <Tooltip clientX={clientX} clientY={clientY} show={show} feature={feature} value={pos}/>
     </div>
   );
 }

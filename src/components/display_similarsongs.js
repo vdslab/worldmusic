@@ -86,8 +86,9 @@ function display_similarsongs() {
                       href={item2.external_urls.spotify}
                       target="_blank"
                       rel="noopener noreferrer"
-                    >
-                      ・{item2.name}
+                    > 
+                    {j !== 0 ? " / " : []}
+                    {item2.name}
                     </a>
                   );
                 })}

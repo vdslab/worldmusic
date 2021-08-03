@@ -383,9 +383,38 @@ const WorldMap = ({ features }) => {
     .scale(scale);
   const path = d3.geoPath().projection(projection);
 
-  let tooltipStyle = d3.select("body").append("div").attr("class", "tooltip");
+  const [featureValue,setFeatureValue] = useState(null);
+  function onChange (onCountry) {
+    //const data = worldMapData.filter((item) => {onCountry === item.countryName})
+    worldMapData.map((data) => {
+      if (data.countryName === onCountry) {
+        data.timeData.map((t) => {
+          if (t.start === startMonth && t.value != null) {
+            setFeatureValue(t.value.toFixed(2))
+          }
+        });
+      }
+    });
+  }
 
-  const featureValue = null;
+  const [show, setShow] = useState(false);
+  const [clientX, setClientX] = useState(0);
+  const [clientY, setClientY] = useState(0);
+  const [onCountry,setOnCountry] = useState(null);
+  function onHover(e,country){
+    const clientX = e.pageX;
+    const clientY = e.pageY-200;
+    setShow(true);
+    setClientX(clientX);
+    setClientY(clientY);
+    setOnCountry(country);
+  };
+
+  function onOut(){
+    setShow(false);
+    setFeatureValue(null);
+  }
+
   return (
     <div>
       <svg viewBox="-30 -30 770 310">
@@ -398,24 +427,10 @@ const WorldMap = ({ features }) => {
               strokeWidth="1"
               strokeOpacity="0.5"
               countryname={item}
-              onMouseMove={(e) => {
-                tooltipStyle.style("visibility", "visible");
-                tooltipStyle
-                  .style("top", e.pageY - 20 + "px")
-                  .style("left", e.pageX + 20 + "px")
-                  .html(
-                    item.properties.NAME_JA +
-                      "<br>" +
-                      feature +
-                      ":" +
-                      featureValue
-                  );
-              }}
-              onMouseLeave={() => {
-                tooltipStyle.style("visibility", "hidden");
-              }}
+              onMouseOver={() => onChange(item.properties.ISO_A2)}
+              onMouseMove={(e) =>onHover(e,item.properties.NAME_JA)}
+              onMouseOut={() => onOut()}
               onClick={() => {
-                tooltipStyle.style("visibility", "hidden");
                 console.log(item.properties.ISO_A2);
                 const c = item.properties.ISO_A2;
                 dispatch(changeCountry(c));
@@ -425,11 +440,28 @@ const WorldMap = ({ features }) => {
           ))}
         </g>
       </svg>
+      <Tooltip clientX={clientX} clientY={clientY} show={show} country={onCountry} feature={feature} value={featureValue}/>
     </div>
   );
 };
 
-function FeatureValue(ccountry, worldMapData) {}
+function Tooltip({clientX,clientY,show,country,feature,value}) {
+  return (
+    <div>
+      {show && (
+      <div
+        id="tooltip"
+        style={{ top: `${clientY}px`, left: `${clientX}px` }}
+      >
+        {country}
+        <br/>
+        {feature}:{value}
+      </div>
+    )}
+    </div>
+  );
+}
+
 
 export const DrowWorldMap = () => {
   const [features, setFeatures] = useState([]);
