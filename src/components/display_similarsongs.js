@@ -54,19 +54,21 @@ function display_similarsongs() {
     })();
   }, [musicId]);
 
+  console.log(similarSongs);
+
   return (
     <div>
-      <p style={{ fontSize: "1.25rem" }}>類似曲</p>
+      <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>類似曲</p>
       {similarSongs.map((item, i) => {
         return (
           <div style={{ width: "100%", fontSize: "40" }}>
+            <img
+              src={item.album.images[0].url}
+              width="120"
+              height="120"
+              style={{ float: "left", paddingRight: "10px" }}
+            />
             <p>
-              <img
-                src={item.album.images[0].url}
-                width="130"
-                height="130"
-                style={{ float: "left", padding: "10px" }}
-              />
               曲名
               <br />
               <a
@@ -86,9 +88,9 @@ function display_similarsongs() {
                       href={item2.external_urls.spotify}
                       target="_blank"
                       rel="noopener noreferrer"
-                    > 
-                    {j !== 0 ? " / " : []}
-                    {item2.name}
+                    >
+                      {j !== 0 ? " / " : []}
+                      {item2.name}
                     </a>
                   );
                 })}
