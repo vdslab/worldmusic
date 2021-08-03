@@ -117,8 +117,6 @@ function HeatMapChart() {
   const startMonth = useSelector((state) => state.detail.startMonth);
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
-  const dbData = useSelector((state) => state.detail.dbData);
-  const country = useSelector((state) => state.detail.country);
 
   const term = [
     { start: "2017-01", end: "2017-03" },
@@ -145,258 +143,19 @@ function HeatMapChart() {
   const [Min, setMin] = useState(Infinity);
   const [clicked, setClicked] = useState(-1);
   const [pos, setPos] = useState(null);
-  let a = -Infinity;
-  let b = Infinity;
 
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
-      const data = await fetchHeatmapData(feature);
+      const data = await fetchData(feature);
       setMin(data.min);
       setMax(data.max);
       setHeatMapData(data.dbData);
       dispatch(changeMax(data.max));
       dispatch(changeMin(data.min));
       console.log(data);
-
-      // const data = await Promise.all(
-      //   countries.map(async (cId) => {
-      //     const countryData = { countryName: cId };
-      //     const timeData = await Promise.all(
-      //       term.map(async (t) => {
-      //         const data = await fetchData(t.start, t.end, feature, cId);
-      // const data = [];
-      //         const weightAve = makeData(data, cId);
-      //         if (a < weightAve && weightAve != null) {
-      //           a = weightAve;
-      //         }
-      //         if (b > weightAve && weightAve != null) {
-      //           b = weightAve;
-      //         }
-      //         return { start: t.start, end: t.end, value: weightAve };
-      //       })
-      //     );
-      //     countryData["timeData"] = timeData;
-      //     return countryData;
-      //   })
-      // );
-      // setHeatMapData(data);
-      // setMax(a);
-      // setMin(b);
-      // dispatch(changeMax(a));
-      // dispatch(changeMin(b));
-      // console.log(heatMapData, 1);
-      //featch数減らしたやつ;
-      //const dbData = await fetchHeatmapData(feature);
-      //console.log(dbData);
-      //   const c = {
-      //     AU: {
-      //       "2017-01": [],
-      //       "2017-04": [],
-      //       "2017-07": [],
-      //       "2017-10": [],
-      //       "2018-01": [],
-      //       "2018-04": [],
-      //       "2018-07": [],
-      //       "2018-10": [],
-      //       "2019-01": [],
-      //       "2019-04": [],
-      //       "2019-07": [],
-      //       "2019-10": [],
-      //       "2020-01": [],
-      //       "2020-04": [],
-      //       "2020-07": [],
-      //       "2020-10": [],
-      //     },
-      //     CA: {
-      //       "2017-01": [],
-      //       "2017-04": [],
-      //       "2017-07": [],
-      //       "2017-10": [],
-      //       "2018-01": [],
-      //       "2018-04": [],
-      //       "2018-07": [],
-      //       "2018-10": [],
-      //       "2019-01": [],
-      //       "2019-04": [],
-      //       "2019-07": [],
-      //       "2019-10": [],
-      //       "2020-01": [],
-      //       "2020-04": [],
-      //       "2020-07": [],
-      //       "2020-10": [],
-      //     },
-      //     DE: {
-      //       "2017-01": [],
-      //       "2017-04": [],
-      //       "2017-07": [],
-      //       "2017-10": [],
-      //       "2018-01": [],
-      //       "2018-04": [],
-      //       "2018-07": [],
-      //       "2018-10": [],
-      //       "2019-01": [],
-      //       "2019-04": [],
-      //       "2019-07": [],
-      //       "2019-10": [],
-      //       "2020-01": [],
-      //       "2020-04": [],
-      //       "2020-07": [],
-      //       "2020-10": [],
-      //     },
-      //     FR: {
-      //       "2017-01": [],
-      //       "2017-04": [],
-      //       "2017-07": [],
-      //       "2017-10": [],
-      //       "2018-01": [],
-      //       "2018-04": [],
-      //       "2018-07": [],
-      //       "2018-10": [],
-      //       "2019-01": [],
-      //       "2019-04": [],
-      //       "2019-07": [],
-      //       "2019-10": [],
-      //       "2020-01": [],
-      //       "2020-04": [],
-      //       "2020-07": [],
-      //       "2020-10": [],
-      //     },
-      //     JP: {
-      //       "2017-01": [],
-      //       "2017-04": [],
-      //       "2017-07": [],
-      //       "2017-10": [],
-      //       "2018-01": [],
-      //       "2018-04": [],
-      //       "2018-07": [],
-      //       "2018-10": [],
-      //       "2019-01": [],
-      //       "2019-04": [],
-      //       "2019-07": [],
-      //       "2019-10": [],
-      //       "2020-01": [],
-      //       "2020-04": [],
-      //       "2020-07": [],
-      //       "2020-10": [],
-      //     },
-      //     NL: {
-      //       "2017-01": [],
-      //       "2017-04": [],
-      //       "2017-07": [],
-      //       "2017-10": [],
-      //       "2018-01": [],
-      //       "2018-04": [],
-      //       "2018-07": [],
-      //       "2018-10": [],
-      //       "2019-01": [],
-      //       "2019-04": [],
-      //       "2019-07": [],
-      //       "2019-10": [],
-      //       "2020-01": [],
-      //       "2020-04": [],
-      //       "2020-07": [],
-      //       "2020-10": [],
-      //     },
-      //     GB: {
-      //       "2017-01": [],
-      //       "2017-04": [],
-      //       "2017-07": [],
-      //       "2017-10": [],
-      //       "2018-01": [],
-      //       "2018-04": [],
-      //       "2018-07": [],
-      //       "2018-10": [],
-      //       "2019-01": [],
-      //       "2019-04": [],
-      //       "2019-07": [],
-      //       "2019-10": [],
-      //       "2020-01": [],
-      //       "2020-04": [],
-      //       "2020-07": [],
-      //       "2020-10": [],
-      //     },
-      //     US: {
-      //       "2017-01": [],
-      //       "2017-04": [],
-      //       "2017-07": [],
-      //       "2017-10": [],
-      //       "2018-01": [],
-      //       "2018-04": [],
-      //       "2018-07": [],
-      //       "2018-10": [],
-      //       "2019-01": [],
-      //       "2019-04": [],
-      //       "2019-07": [],
-      //       "2019-10": [],
-      //       "2020-01": [],
-      //       "2020-04": [],
-      //       "2020-07": [],
-      //       "2020-10": [],
-      //     },
-      //   };
-      //   dbData.map((d) => {
-      //     const year = d.startday.slice(0, 4);
-      //     let month = Number(d.startday.slice(5, 7));
-      //     if (month >= 1 && month <= 3) {
-      //       month = "01";
-      //     } else if (month >= 4 && month <= 6) {
-      //       month = "04";
-      //     } else if (month >= 7 && month <= 9) {
-      //       month = "07";
-      //     } else {
-      //       month = "10";
-      //     }
-      //     const term = year + "-" + month;
-      //     if (year != "2016" && year != "2021" && d.countryid != "GL") {
-      //       const array = c[d.countryid][term];
-      //       array.push(d);
-      //       c[d.countryid][term] = array;
-      //     }
-      //   });
-      //   const data = Object.keys(c).map((countryid) => {
-      //     return {
-      //       countryName: countryid,
-      //       timeData: Object.keys(c[countryid]).map((term) => {
-      //         const year = term.slice(0, 4);
-      //         const month = Number(term.slice(5, 7));
-      //         const weightAve = makeData(c[countryid][term]);
-      //         if (Max < weightAve && weightAve != null) {
-      //           a = weightAve;
-      //           setMax(weightAve);
-      //         }
-      //         if (b > weightAve && weightAve != null) {
-      //           b = weightAve;
-      //           setMin(b);
-      //         }
-      //         return {
-      //           start: term,
-      //           end: year + "-" + fillZero(String(month + 2)),
-      //           value: weightAve,
-      //         };
-      //       }),
-      //     };
-      //   });
-      //   dispatch(changeMax(a));
-      //   dispatch(changeMin(b));
-      //   setHeatMapData(data);
     })();
-    // console.log(heatMapData);
   }, [feature]);
-
-  function makeData(data) {
-    let weightFeatureTotal = 0;
-    let streamTotal = 0;
-    let weightAve = null;
-    if (data.length) {
-      data.map((d) => {
-        streamTotal += d.stream;
-        weightFeatureTotal += d.stream * d[feature];
-      });
-      weightAve = weightFeatureTotal / streamTotal;
-    }
-    return weightAve;
-  }
 
   const colorjudge = (item, start) => {
     let color = "lightgray";

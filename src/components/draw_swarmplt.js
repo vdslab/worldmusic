@@ -3,7 +3,7 @@ import { forceSimulation, forceX, forceY, forceCollide } from "d3-force";
 import { scaleLinear } from "d3-scale";
 import { extent } from "d3-array";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchData, fetchTest } from "../api";
+import { fetchSwarmplt, fetchTest } from "../api";
 import * as d3 from "d3";
 import { changeMusicId } from "../stores/details";
 import "../tooltip.css";
@@ -39,7 +39,7 @@ const Swarmplt = ({ width, height }) => {
     let a = -Infinity;
     let b = Infinity;
     (async () => {
-      const data = await fetchData(
+      const data = await fetchSwarmplt(
         startMonth,
         endMonth,
         feature,

@@ -14,8 +14,8 @@ async function sendRequest(path, args) {
   return await request.json();
 }
 
-export function fetchData(startMonth, endMonth, feature, country) {
-  return sendRequest("/getData", {
+export function fetchSwarmplt(startMonth, endMonth, feature, country) {
+  return sendRequest("/getSwarmplt", {
     startMonth: startMonth,
     endMonth: endMonth,
     feature: feature,
@@ -42,8 +42,8 @@ export function fetchTest(startMonth, endMonth, feature, country) {
   });
 }
 
-export function fetchHeatmapData(feature) {
-  return sendRequest("/getHeatmapData", {
+export function fetchData(feature) {
+  return sendRequest("/getData", {
     feature: feature,
   });
 }

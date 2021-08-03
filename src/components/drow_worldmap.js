@@ -3,7 +3,7 @@ import * as d3 from "d3";
 import { select } from "d3-selection";
 import * as topojson from "topojson";
 import { fetchData, fetchHeatmapData } from "../api";
-import { changeCountry, changeFeature, setDbData } from "../stores/details";
+import { changeCountry, changeFeature } from "../stores/details";
 import { useDispatch, useSelector } from "react-redux";
 import "../tooltip.css";
 import { createSerializableStateInvariantMiddleware } from "@reduxjs/toolkit";
@@ -13,43 +13,8 @@ const WorldMap = ({ features }) => {
   const dispatch = useDispatch();
 
   const startMonth = useSelector((state) => state.detail.startMonth);
-  const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
-  const country = useSelector((state) => state.detail.country);
-  const datas = useSelector((state) => state.detail.dbData);
 
-  const term = [
-    { start: "2017-01", end: "2017-03" },
-    { start: "2017-04", end: "2017-06" },
-    { start: "2017-07", end: "2017-09" },
-    { start: "2017-10", end: "2017-12" },
-    { start: "2018-01", end: "2018-03" },
-    { start: "2018-04", end: "2018-06" },
-    { start: "2018-07", end: "2018-09" },
-    { start: "2018-10", end: "2018-12" },
-    { start: "2019-01", end: "2019-03" },
-    { start: "2019-04", end: "2019-06" },
-    { start: "2019-07", end: "2019-09" },
-    { start: "2019-10", end: "2019-12" },
-    { start: "2020-01", end: "2020-03" },
-    { start: "2020-04", end: "2020-06" },
-    { start: "2020-07", end: "2020-09" },
-    { start: "2020-10", end: "2020-12" },
-  ];
-
-  const featureStates = {
-    AU: [],
-    CA: [],
-    DE: [],
-    FR: [],
-    JP: [],
-    NL: [],
-    GB: [],
-    US: [],
-    GL: [],
-  };
-
-  const countries = ["AU", "CA", "DE", "FR", "JP", "NL", "GB", "US"];
   const [worldMapData, setWorldMapData] = useState([]);
   const [Max, setMax] = useState(-Infinity);
   const [Min, setMin] = useState(Infinity);
@@ -59,31 +24,13 @@ const WorldMap = ({ features }) => {
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
-      const data = await fetchHeatmapData(feature);
+      const data = await fetchData(feature);
       setMin(data.min);
       setMax(data.max);
       setWorldMapData(data.dbData);
       console.log(data);
-      //fetchするときのデータ量の問題？　1つだけfetchするときは問題なく持ってこれるけど複数のときは502
-      //データ量が多くてタイムアウト？ データベースはデータ持ってこれてる、functionsにも持ってこれてるからfetchするときの問題
-      //fetch自体も2回にしても問題なくできてるからデータ量？
-      //mapだとできなくてただの羅列だと大丈夫？なぜ？
     })();
   }, [feature]);
-
-  // function makeData(data) {
-  //   let weightFeatureTotal = 0;
-  //   let streamTotal = 0;
-  //   let weightAve = null;
-  //   if (data.length) {
-  //     data.map((d) => {
-  //       streamTotal += d.stream;
-  //       weightFeatureTotal += d.stream * d[feature];
-  //     });
-  //     weightAve = weightFeatureTotal / streamTotal;
-  //   }
-  //   return weightAve;
-  // }
 
   const colorjudge = (item) => {
     let color = "white";
