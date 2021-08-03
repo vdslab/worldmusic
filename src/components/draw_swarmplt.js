@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchData, fetchTest } from "../api";
 import * as d3 from "d3";
 import { changeMusicId } from "../stores/details";
+import "../tooltip.css";
 
 const Swarmplt = ({ width, height }) => {
   const duration = 500;
@@ -96,6 +97,7 @@ const Swarmplt = ({ width, height }) => {
   };
 
   const draw = () => {
+    var tooltip = d3.select("body").append("div").attr("class", "tooltip-swarm");
     checkcoutry.map((item, i) => {
       // //描画する国である＆空配列でない場合に描画
       if (country === item && dbData.length != 0) {
@@ -135,8 +137,19 @@ const Swarmplt = ({ width, height }) => {
               .join("circle")
               .style("fill", (d) => d3.interpolatePuRd(checkColor(d[feature]))) //左側は重み付き平均の最大最小だけど、右側はトータルの最大最小だから、同じカラーレジェンドだと意味が変わる。→違うカラーを使う
               .attr("stroke", "black")
-              .on("mouseover", (d, i) => {})
-              .on("mouseout", (d, i) => {})
+              .on("mouseover", function(d,i) {
+                tooltip
+                  .style("visibility", "visible")
+                  .html("曲名 : " + i.name);
+              })
+              .on("mousemove", function(d) {
+                tooltip
+                  .style("top", (d.pageY - 20) + "px")
+                  .style("left", (d.pageX + 10) + "px");
+              })
+              .on("mouseout", function(d) {
+                tooltip.style("visibility", "hidden");
+              })
               .on("click", (d, i) => {
                 dispatch(changeMusicId(i.musicid));
               })
