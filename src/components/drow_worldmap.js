@@ -62,29 +62,35 @@ const WorldMap = ({ features }) => {
   let a = -Infinity;
   let b = Infinity;
 
-  const getData = () => {
-    const data = Promise.all(
-      countries.map(async (cid) => {
-        const d = await fetchHeatmapData(feature, cid);
-        return d;
-      })
-    );
-    return data;
-  };
+  // const getData = () => {
+  //   const data = Promise.all(
+  //     countries.map(async (cid) => {
+  //       const d = await fetchHeatmapData(feature, cid);
+  //       return d;
+  //     })
+  //   );
+  //   return data;
+  // };
 
   useEffect(() => {
     (async () => {
       const array = ["AU", "CA"];
       /**TODO:改善 */
 
-      // const au = await fetchHeatmapData(feature, "AU");
-      // const ca = await fetchHeatmapData(feature, "CA");
-      // const de = await fetchHeatmapData(feature, "DE");
-      // const fr = await fetchHeatmapData(feature, "FR");
-      // const jp = await fetchHeatmapData(feature, "JP");
-      // const nl = await fetchHeatmapData(feature, "NL");
-      // const gb = await fetchHeatmapData(feature, "GB");
-      // const us = await fetchHeatmapData(feature, "US");
+      const dbData = await fetchHeatmapData(feature);
+      console.log(dbData);
+      const au = await fetchHeatmapData(feature, "AU");
+      const ca = await fetchHeatmapData(feature, "CA");
+      const de = await fetchHeatmapData(feature, "DE");
+      const fr = await fetchHeatmapData(feature, "FR");
+      const jp = await fetchHeatmapData(feature, "JP");
+      const nl = await fetchHeatmapData(feature, "NL");
+      const gb = await fetchHeatmapData(feature, "GB");
+      const us = await fetchHeatmapData(feature, "US");
+
+      const datas = [au, ca, de, fr, jp, nl, gb, us];
+
+      console.log(datas);
 
       // const datas = await Promise.all(
       //   countries.map(async (cid) => {
@@ -93,10 +99,10 @@ const WorldMap = ({ features }) => {
       //   })
       // );
 
-      const datas = getData().then((data) => {
-        console.log(data);
-      });
-      console.log(datas);
+      // const datas = getData().then((data) => {
+      //   console.log(data);
+      // });
+      // console.log(datas);
 
       const data = [];
       //fetchするときのデータ量の問題？　1つだけfetchするときは問題なく持ってこれるけど複数のときは502
@@ -139,8 +145,8 @@ const WorldMap = ({ features }) => {
       // dispatch(changeMin(b));
       // console.log(heatMapData, 1);
       //featch数減らしたやつ
-      //const dbData = await fetchHeatmapData(feature);
-      //console.log(dbData);
+      // const dbData = await fetchHeatmapData(feature);
+      // console.log(dbData);
 
       // const c = {
       //   AU: {
