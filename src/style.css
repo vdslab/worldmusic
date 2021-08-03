@@ -13,6 +13,14 @@
   width: calc(50% - 8px);
 }
 
+.heightMax {
+  height: 100%;
+}
+.colorLegend {
+  width: -webkit-fill-available;
+  max-width: 300px;
+}
+
 @media (max-width: 768px) {
   .test {
     width: 100%;

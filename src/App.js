@@ -21,31 +21,30 @@ const Visualization = () => {
       <div class="tile is-parent is-6">
         <article class="tile is-child is-12">
           <div className="card" style={{ height: "100%" }}>
-            <div className="card-content p-1">
-              <div className="content">
+            <div className="card-content p-1" style={{ height: "35%" }}>
+              <div className="content heightMax">
                 <WorldMap />
               </div>
             </div>
-            <div className="card-content">
-              <div className="content">
-                <footer
-                  className="card-content p-1"
-                  style={{ display: "flex" }}
-                >
-                  <p className="card-footer-item">
-                    <span>
-                      <SelectFeature />
-                    </span>
-                  </p>
-                  <p className="card-footer-item">
-                    <span>
-                      <ColorLegend />
-                    </span>
-                  </p>
-                </footer>
+            <div
+              className="p-2"
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              <div className="card-content p-2 m-1">
+                <div className="content">
+                  <SelectFeature />
+                </div>
+              </div>
+              <div
+                className="card-content p-1 colorLegend"
+                style={{ height: "10%" }}
+              >
+                <div className="content" style={{ height: "100%" }}>
+                  <ColorLegend />
+                </div>
               </div>
             </div>
-            <div className="card-content p-1" style={{ height: "55%" }}>
+            <div className="card-content p-1" style={{ height: "45%" }}>
               <div className="content" style={{ height: "100%" }}>
                 <HeatMap />
               </div>

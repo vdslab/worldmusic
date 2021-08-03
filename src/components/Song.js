@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import request from "request";
 
 const TextDetail = ({ data, musicKey }) => {
-  console.log(musicKey);
   const keyDict = {
     0: "ハ",
     1: "嬰ハ/変二",
@@ -23,12 +22,12 @@ const TextDetail = ({ data, musicKey }) => {
   };
 
   return (
-    <div style={{ width: "40%", fontSize: "1.125vw" }}>
+    <div style={{ width: "40%", fontSize: "0.85rem" }}>
       <br />
       <p style={{ marginBottom: "0px" }}>テンポ：{Math.round(data[0].tempo)}</p>
       <p style={{ marginBottom: "0px" }}>拍子：{data[0].time_signature}　</p>
       {/**TODO:キーの情報なしで単調長調だけかぁって感じ*/}
-      <p style={{ fontSize: "1.0vw" }}>
+      <p>
         調：{keyDict[musicKey]}
         {data[0].mode == 0 ? "短調" : "長調"}
       </p>
@@ -130,7 +129,7 @@ const Song = () => {
                   <b style={{ fontSize: "1.25rem" }}>{data[0]?.name}</b>
                 </a>
                 <br />
-                <div style={{ fontSize: "0.75rem" }}>
+                <div style={{ fontSize: "0.85rem" }}>
                   アーティスト : &ensp;
                   {metaData?.artists.map((item2, j) => {
                     return (
@@ -157,7 +156,11 @@ const Song = () => {
                   <RaderChart data={data} />
                 </div>
               </div>
-              <audio controls src={metaData?.preview_url} />
+              <audio
+                controls
+                src={metaData?.preview_url}
+                style={{ width: "100%" }}
+              />
             </div>
           ) : (
             <div>
