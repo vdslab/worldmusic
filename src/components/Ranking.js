@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { changeYear } from "../stores/details";
 import { useState, useEffect } from "react";
-import { fetchData } from "../api";
+import { fetchData, fetchSwarmplt } from "../api";
 import selectPeriod from "./selectPeriod";
 import ShowRanking from "./show_Ranking";
 
@@ -21,13 +21,13 @@ const Ranking = () => {
   const array = ["q", "b", "c", "d", "e", "f"];
 
   // console.log(startMonth, endMonth, feature, country);
-  useEffect(() => {
-    // (async () => {
-    //   const data = await fetchData(startMonth, endMonth, feature, country);
-    //   setDbData(data);
-    // })();
-    // const simulation = f;
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const data = await fetchSwarmplt(startMonth, endMonth, feature, country);
+  //     setDbData(data);
+  //   })();
+  //   const simulation = f;
+  // }, []);
 
   return (
     <div className="card" style={{ height: "100%" }}>
