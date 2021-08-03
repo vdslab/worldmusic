@@ -140,6 +140,8 @@ function HeatMapChart() {
       setMin(data.min);
       setMax(data.max);
       setHeatMapData(data.dbData);
+      dispatch(changeMax(data.max));
+      dispatch(changeMin(data.min));
       console.log(data);
 
       // const data = await Promise.all(
