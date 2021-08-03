@@ -143,6 +143,11 @@ function HeatMapChart() {
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
+      const data = await fetchHeatmapData(feature);
+      setMin(data.min);
+      setMax(data.max);
+      setHeatMapData(data.dbData);
+      console.log(data);
       // const au = await fetchHeatmapData(feature, "AU");
       // console.log(au, "AU");
       // const ca = await fetchHeatmapData(feature, "CA");

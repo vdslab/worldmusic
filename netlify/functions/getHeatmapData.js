@@ -14,10 +14,7 @@ function selectRows(db, sql) {
 }
 
 exports.handler = async function (event) {
-  const startMonth = event.queryStringParameters.startMonth || null;
-  const endMonth = event.queryStringParameters.endMonth || null;
   const feature = event.queryStringParameters.feature || null;
-  const country = event.queryStringParameters.country || null;
 
   /**TODO:応急処置, 後でちゃんとした書き方先輩に聞く */
 
@@ -244,7 +241,9 @@ exports.handler = async function (event) {
       };
     });
 
-    return { statusCode: 200, body: JSON.stringify(data) };
+    const status = { dbData: data, min: min, max: max };
+
+    return { statusCode: 200, body: JSON.stringify(status) };
   } catch (e) {
     return { statusCode: 500, body: e.message };
   }
