@@ -157,14 +157,23 @@ function HeatMapChart() {
 
   useEffect(() => {
     (async () => {
+      /**TODO:改善 */
       const au = await fetchHeatmapData(feature, "AU");
+      console.log(au, "AU");
       const ca = await fetchHeatmapData(feature, "CA");
+      console.log(ca, "CA");
       const de = await fetchHeatmapData(feature, "DE");
+      console.log(de, "DE");
       const fr = await fetchHeatmapData(feature, "FR");
+      console.log(fr, "FR");
       const jp = await fetchHeatmapData(feature, "JP");
+      console.log(jp, "JP");
       const nl = await fetchHeatmapData(feature, "NL");
+      console.log(nl, "NL");
       const gb = await fetchHeatmapData(feature, "GB");
+      console.log(gb, "GB");
       const us = await fetchHeatmapData(feature, "US");
+      console.log(us, "US");
 
       let d = [];
 
@@ -175,8 +184,6 @@ function HeatMapChart() {
       });
 
       const dbData = d;
-      console.log(dbData);
-      /**TODO:改善 */
       // const data = await Promise.all(
       //   countries.map(async (cId) => {
       //     const countryData = { countryName: cId };
@@ -207,7 +214,6 @@ function HeatMapChart() {
       //featch数減らしたやつ;
       //const dbData = await fetchHeatmapData(feature);
       //console.log(dbData);
-
       const c = {
         AU: {
           "2017-01": [],
@@ -402,7 +408,7 @@ function HeatMapChart() {
       setHeatMapData(data);
     })();
     // console.log(heatMapData);
-  }, [feature, dbData]);
+  }, [feature]);
 
   function makeData(data) {
     let weightFeatureTotal = 0;
