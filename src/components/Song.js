@@ -109,7 +109,7 @@ const Song = () => {
     })();
   }, [musicId]);
 
-  console.log(metaData);
+  // console.log(metaData);
 
   return (
     <div className="card" style={{ height: "100%" }}>

@@ -37,6 +37,7 @@ function ShowRanking() {
   const country = useSelector((state) => state.detail.country);
   const musicid = useSelector((state) => state.detail.musicid);
   const name = useSelector((state) => state.detail.name);
+  const sorted = useSelector((state) => state.detail.sorted);
 
   const [dbData, setDbData] = useState([]);
 
@@ -62,39 +63,43 @@ function ShowRanking() {
       self.findIndex((e) => e.name === element.name) === index
   );
 
-  filters.sort((a, b) => {
-    return a[feature] - b[feature];
-  });
+  if (sorted === "昇順") {
+    filters.sort((a, b) => {
+      return a[feature] - b[feature];
+    });
+  } else {
+    filters.sort((b, a) => {
+      return a[feature] - b[feature];
+    });
+  }
 
-  console.log(filters);
+  console.log(sorted);
 
   return (
     <body>
       <div className="container">
         <table className="table">
-          <thead>
+          {/* <thead>
             <tr>
               <th>Pos MusicName</th>
             </tr>
-          </thead>
+          </thead> */}
           <tbody>
-            
-          {filters.map((item, i) => {
-            {
-              /* console.log(item); */
-            }
-            return (
-              <div onClick={() => dispatch(changeMusicId(item.musicid))}>
-                <tr>
-                  <th>{i + 1}</th>
-                  <span style={{ color: "#3273dc", cursor: "pointer" }}>
-                    <td>{item.name}</td>
-                  </span>
-                </tr>
-              </div>
-            );
-          })}
-          
+            {filters.map((item, i) => {
+              {
+                /* console.log(item); */
+              }
+              return (
+                <div onClick={() => dispatch(changeMusicId(item.musicid))}>
+                  <tr>
+                    <th>{i + 1}</th>
+                    <span style={{ color: "#3273dc", cursor: "pointer" }}>
+                      <td>{item.name}</td>
+                    </span>
+                  </tr>
+                </div>
+              );
+            })}
           </tbody>
         </table>
       </div>

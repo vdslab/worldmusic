@@ -9,6 +9,7 @@ const initialState = {
   musicid: "a",
   max: 0,
   min: 0,
+  sorted: "昇順",
 };
 
 //storeと呼ばれるデータの格納場所をsliceという名前で分割して役割ごとにそれぞれの変数で管理する
@@ -48,6 +49,10 @@ const slice = createSlice({
     changeMin: (state, action) => {
       state.min = action.payload;
     },
+
+    changeSorted: (state, action) => {
+      state.sorted = action.payload;
+    },
   },
 });
 
@@ -60,4 +65,5 @@ export const {
   changeMusicId,
   changeMax,
   changeMin,
+  changeSorted,
 } = slice.actions;
