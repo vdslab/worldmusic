@@ -21,13 +21,14 @@ const Ranking = () => {
   const array = ["q", "b", "c", "d", "e", "f"];
 
   // console.log(startMonth, endMonth, feature, country);
-  // useEffect(() => {
-  //   (async () => {
-  //     const data = await fetchSwarmplt(startMonth, endMonth, feature, country);
-  //     setDbData(data);
-  //   })();
-  //   const simulation = f;
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      const data = await fetchSwarmplt(startMonth, endMonth, feature, country);
+      console.log(data);
+      setDbData(data);
+    })();
+    // const simulation = f;
+  }, []);
 
   return (
     <div className="card" style={{ height: "100%" }}>

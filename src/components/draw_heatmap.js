@@ -94,17 +94,14 @@ function Legend({ h, w }) {
   );
 }
 
-function Tooltip({clientX,clientY,show,feature,value}) {
+function Tooltip({ clientX, clientY, show, feature, value }) {
   return (
     <div>
       {show && (
-      <div
-        id="tooltip"
-        style={{ top: `${clientY}px`, left: `${clientX}px` }}
-      >
-        {feature}:{value}
-      </div>
-    )}
+        <div id="tooltip" style={{ top: `${clientY}px`, left: `${clientX}px` }}>
+          {feature}:{value}
+        </div>
+      )}
     </div>
   );
 }
@@ -204,16 +201,16 @@ function HeatMapChart() {
   const [clientX, setClientX] = useState(0);
   const [clientY, setClientY] = useState(0);
 
-  function onHover(e){
+  function onHover(e) {
     const clientX = e.pageX;
-    const clientY = e.pageY-200;
+    const clientY = e.pageY - 200;
     setShow(true);
     setClientX(clientX);
     setClientY(clientY);
-  };
+  }
 
-  function onOut(){
-    setShow(false);   
+  function onOut() {
+    setShow(false);
   }
 
   return (
@@ -247,7 +244,7 @@ function HeatMapChart() {
         <g
           onMouseLeave={() => {
             setPos(null);
-            tooltipStyle.style("visibility", "hidden");
+            // tooltipStyle.style("visibility", "hidden");
           }}
         >
           {heatMapData.map((country, i) => {
@@ -288,7 +285,13 @@ function HeatMapChart() {
           })}
         </g>
       </svg>
-      <Tooltip clientX={clientX} clientY={clientY} show={show} feature={feature} value={pos}/>
+      <Tooltip
+        clientX={clientX}
+        clientY={clientY}
+        show={show}
+        feature={feature}
+        value={pos}
+      />
     </div>
   );
 }
