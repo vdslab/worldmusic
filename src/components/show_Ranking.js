@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { changeYear } from "../stores/details";
 import { useState, useEffect } from "react";
-import { fetchData } from "../api";
+import { fetchSwarmplt } from "../api";
 import { fetchSongData } from "../api";
 import selectPeriod from "./selectPeriod";
 import { changeMusicId } from "../stores/details";
@@ -42,7 +42,7 @@ function ShowRanking() {
 
   useEffect(() => {
     (async () => {
-      const data = await fetchData(
+      const data = await fetchSwarmplt(
         startMonth,
         endMonth,
         feature,
@@ -61,28 +61,42 @@ function ShowRanking() {
     (element, index, self) =>
       self.findIndex((e) => e.name === element.name) === index
   );
+
+  filters.sort((a, b) => {
+    return a[feature] - b[feature];
+  });
+
   console.log(filters);
-
-  // filters.sort();
-
-  // TODO IDをnameに
 
   return (
     <body>
       <div className="container">
-        {filters.map((item, i) => {
-          {
-            /* console.log(item); */
-          }
-          return (
-            <div onClick={() => dispatch(changeMusicId(item.musicid))}>
-              {i + 1}.
-              <span style={{ color: "#3273dc", cursor: "pointer" }}>
-                {item.name}
-              </span>
-            </div>
-          );
-        })}
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Pos MusicName</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          {filters.map((item, i) => {
+            {
+              /* console.log(item); */
+            }
+            return (
+              <div onClick={() => dispatch(changeMusicId(item.musicid))}>
+                <tr>
+                  <th>{i + 1}</th>
+                  <span style={{ color: "#3273dc", cursor: "pointer" }}>
+                    <td>{item.name}</td>
+                  </span>
+                </tr>
+              </div>
+            );
+          })}
+          
+          </tbody>
+        </table>
       </div>
     </body>
   );

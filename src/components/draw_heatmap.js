@@ -244,7 +244,7 @@ function HeatMapChart() {
         <g
           onMouseLeave={() => {
             setPos(null);
-            // tooltipStyle.style("visibility", "hidden");
+            // .style("visibility", "hidden");
           }}
         >
           {heatMapData.map((country, i) => {
