@@ -3,7 +3,7 @@ import * as d3 from "d3";
 import { select } from "d3-selection";
 import * as topojson from "topojson";
 import { fetchData, fetchHeatmapData } from "../api";
-import { changeCountry, changeFeature } from "../stores/details";
+import { changeCountry, changeFeature, changeDisplay} from "../stores/details";
 import { useDispatch, useSelector } from "react-redux";
 import "../tooltip.css";
 import { createSerializableStateInvariantMiddleware } from "@reduxjs/toolkit";
@@ -11,9 +11,9 @@ import "../../src/style.css";
 
 const WorldMap = ({ features }) => {
   const dispatch = useDispatch();
-
   const startMonth = useSelector((state) => state.detail.startMonth);
   const feature = useSelector((state) => state.detail.feature);
+  const display = useSelector((state) => state.detail.display);
 
   const [worldMapData, setWorldMapData] = useState([]);
   const [Max, setMax] = useState(-Infinity);
@@ -28,7 +28,7 @@ const WorldMap = ({ features }) => {
       setMin(data.min);
       setMax(data.max);
       setWorldMapData(data.dbData);
-      console.log(data);
+      //console.log(data);
     })();
   }, [feature]);
 
@@ -115,9 +115,10 @@ const WorldMap = ({ features }) => {
               onMouseMove={(e) => onHover(e, item.properties.NAME_JA)}
               onMouseOut={() => onOut()}
               onClick={() => {
-                console.log(item.properties.ISO_A2);
+                //console.log(item.properties.ISO_A2);
                 const c = item.properties.ISO_A2;
                 dispatch(changeCountry(c));
+                dispatch(changeDisplay("Yes"));
               }}
               key={i}
             />

@@ -24,7 +24,7 @@ const Ranking = () => {
   useEffect(() => {
     (async () => {
       const data = await fetchSwarmplt(startMonth, endMonth, feature, country);
-      console.log(data);
+      //console.log(data);
       setDbData(data);
     })();
   }, []);

@@ -73,7 +73,7 @@ function ShowRanking() {
     });
   }
 
-  console.log(sorted);
+  //console.log(sorted);
 
   return (
     <body>

@@ -10,6 +10,7 @@ const initialState = {
   max: 0,
   min: 0,
   sorted: "昇順",
+  display: "No",
 };
 
 //storeと呼ばれるデータの格納場所をsliceという名前で分割して役割ごとにそれぞれの変数で管理する
@@ -53,6 +54,10 @@ const slice = createSlice({
     changeSorted: (state, action) => {
       state.sorted = action.payload;
     },
+
+    changeDisplay: (state, action) => {
+      state.display = action.payload;
+    },
   },
 });
 
@@ -66,4 +71,5 @@ export const {
   changeMax,
   changeMin,
   changeSorted,
+  changeDisplay,
 } = slice.actions;
