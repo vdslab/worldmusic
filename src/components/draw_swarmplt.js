@@ -32,6 +32,7 @@ const Swarmplt = ({ width, height }) => {
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
   const musicid = useSelector((state) => state.detail.musicid);
+  const display = useSelector((state) => state.detail.display); //最初を非表示にする用。世界地図orヒートマップで押すと表示にする。
   const [Max, setMax] = useState(-Infinity);
   const [Min, setMin] = useState(Infinity);
 
@@ -97,7 +98,10 @@ const Swarmplt = ({ width, height }) => {
   };
 
   const draw = () => {
-    var tooltip = d3.select("body").append("div").attr("class", "tooltip-swarm");
+    var tooltip = d3
+      .select("body")
+      .append("div")
+      .attr("class", "tooltip-swarm");
     checkcoutry.map((item, i) => {
       // //描画する国である＆空配列でない場合に描画
       if (country === item && dbData.length != 0) {
@@ -137,17 +141,15 @@ const Swarmplt = ({ width, height }) => {
               .join("circle")
               .style("fill", (d) => d3.interpolatePuRd(checkColor(d[feature]))) //左側は重み付き平均の最大最小だけど、右側はトータルの最大最小だから、同じカラーレジェンドだと意味が変わる。→違うカラーを使う
               .attr("stroke", "black")
-              .on("mouseover", function(d,i) {
-                tooltip
-                  .style("visibility", "visible")
-                  .html("曲名 : " + i.name);
+              .on("mouseover", function (d, i) {
+                tooltip.style("visibility", "visible").html("曲名 : " + i.name);
               })
-              .on("mousemove", function(d) {
+              .on("mousemove", function (d) {
                 tooltip
-                  .style("top", (d.pageY - 20) + "px")
-                  .style("left", (d.pageX + 10) + "px");
+                  .style("top", d.pageY - 20 + "px")
+                  .style("left", d.pageX + 10 + "px");
               })
-              .on("mouseout", function(d) {
+              .on("mouseout", function (d) {
                 tooltip.style("visibility", "hidden");
               })
               .on("click", (d, i) => {
@@ -179,11 +181,23 @@ const Swarmplt = ({ width, height }) => {
     });
   };
 
-  return (
-    <div className="swarmplt-scroll">
-      <svg width="650" height="250" viewBox="0 -20 650 320" ref={ref} />
-    </div>
-  );
+  if (display === "No") {
+    return (
+      <div className="card-content">
+        <div className="content">
+          <p style={{ fontSize: "1.25rem" }}>
+            国・期限・特徴を選んでください。
+          </p>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="swarmplt-scroll">
+        <svg width="650" height="250" viewBox="0 -20 650 320" ref={ref} />
+      </div>
+    );
+  }
 };
 
 export default Swarmplt;

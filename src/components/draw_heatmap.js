@@ -8,6 +8,7 @@ import {
   changeStartMonth,
   changeMax,
   changeMin,
+  changeDisplay,
 } from "../stores/details";
 import "../tooltip.css";
 
@@ -114,6 +115,7 @@ function HeatMapChart() {
   const startMonth = useSelector((state) => state.detail.startMonth);
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
+  const display = useSelector((state) => state.detail.display);
 
   const term = [
     { start: "2017-01", end: "2017-03" },
@@ -150,7 +152,7 @@ function HeatMapChart() {
       setHeatMapData(data.dbData);
       dispatch(changeMax(data.max));
       dispatch(changeMin(data.min));
-      console.log(data);
+      //console.log(data);
     })();
   }, [feature]);
 
@@ -259,6 +261,7 @@ function HeatMapChart() {
                     height={len}
                     fill={colorjudge(item.value, item.start)}
                     onClick={() => {
+                      dispatch(changeDisplay("Yes"));
                       changeInfo(item.start, item.end, country.countryName);
                       setClicked(i * country.timeData.length + j);
                     }}

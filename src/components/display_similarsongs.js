@@ -31,7 +31,7 @@ function display_similarsongs() {
   //const musicId = "4MzXwWMhyBbmu6hOcLVD49";
   const [similarSongs, setSimilarSongs] = useState([]);
 
-  console.log(musicId);
+  //console.log(musicId);
   useEffect(() => {
     (async () => {
       const data = await fetchSongData("", "", "", "ALL", musicId);
@@ -54,7 +54,7 @@ function display_similarsongs() {
     })();
   }, [musicId]);
 
-  console.log(similarSongs);
+  //console.log(similarSongs);
 
   return (
     <div>
