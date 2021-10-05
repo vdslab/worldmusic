@@ -47,3 +47,9 @@ export function fetchData(feature) {
     feature: feature,
   });
 }
+
+export function fetchTop3(feature) {
+  return sendRequest("/getRanking", {
+    feature: feature,
+  });
+}

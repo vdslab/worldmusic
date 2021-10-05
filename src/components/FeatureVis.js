@@ -1,4 +1,27 @@
+import React, { useState, useEffect, useRef } from "react";
+import { forceSimulation, forceX, forceY, forceCollide } from "d3-force";
+import { scaleLinear } from "d3-scale";
+import { extent } from "d3-array";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSwarmplt, fetchTest } from "../api";
+import * as d3 from "d3";
+
 const FeatureVis = () => {
+  const dispatch = useDispatch();
+  const startMonth = useSelector((state) => state.detail.startMonth);
+  const endMonth = useSelector((state) => state.detail.endMonth);
+  const feature = useSelector((state) => state.detail.feature);
+  const country = useSelector((state) => state.detail.country);
+  const sorted = useSelector((state) => state.detail.sorted);
+  const [dbData, setDbData] = useState([]);
+  const [da, setDa] = useState([]);
+  useEffect(() => {
+    (async () => {
+      /**TODO:改善 */
+      const data = await fetchTest(startMonth, endMonth, feature, country);
+      console.log(data);
+    })();
+  }, []);
   return (
     <div class="tile is-ancestor">
       <div class="tile is-parent">
