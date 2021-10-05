@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import FeatureVis from "./FeatureVis";
 import WorldMap from "./WorldMap";
 import SelectFeature from "./selectFeature";
 import ColorLegend from "./colorLegend";
@@ -12,60 +13,63 @@ import AboutFeatureAndData from "./aboutFeatureAndData";
 
 const Visualization = () => {
   return (
-    <div class="tile is-ancestor">
-      <div class="tile is-parent is-6">
-        <article class="tile is-child is-12">
-          <div className="card" style={{ height: "100%" }}>
-            <div className="card-content p-1" style={{ height: "35%" }}>
-              <div className="content heightMax">
-                <WorldMap />
-              </div>
-            </div>
-            <div
-              className="p-2"
-              style={{ display: "flex", justifyContent: "center" }}
-            >
-              <div className="card-content p-2 m-1">
-                <div className="content">
-                  <SelectFeature />
+    <div>
+      <FeatureVis />
+      <div class="tile is-ancestor">
+        <div class="tile is-parent is-6">
+          <article class="tile is-child is-12">
+            <div className="card" style={{ height: "100%" }}>
+              <div className="card-content p-1" style={{ height: "35%" }}>
+                <div className="content heightMax">
+                  <WorldMap />
                 </div>
               </div>
               <div
-                className="card-content p-1 colorLegend"
-                style={{ height: "10%" }}
+                className="p-2"
+                style={{ display: "flex", justifyContent: "center" }}
               >
+                <div className="card-content p-2 m-1">
+                  <div className="content">
+                    <SelectFeature />
+                  </div>
+                </div>
+                <div
+                  className="card-content p-1 colorLegend"
+                  style={{ height: "10%" }}
+                >
+                  <div className="content" style={{ height: "100%" }}>
+                    <ColorLegend />
+                  </div>
+                </div>
+              </div>
+              <div className="card-content p-1" style={{ height: "45%" }}>
                 <div className="content" style={{ height: "100%" }}>
-                  <ColorLegend />
+                  <HeatMap />
                 </div>
               </div>
             </div>
-            <div className="card-content p-1" style={{ height: "45%" }}>
-              <div className="content" style={{ height: "100%" }}>
-                <HeatMap />
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
-      <div class="tile is-vertical is-6">
-        <div class="tile is-parent">
-          <article class="tile is-child">
-            <Detail />
           </article>
         </div>
-        <div class="tile">
-          <div class="tile is-parent is-6">
-            <article class="tile is-child is-12">
-              <Ranking />
+        <div class="tile is-vertical is-6">
+          <div class="tile is-parent">
+            <article class="tile is-child">
+              <Detail />
             </article>
           </div>
-          <div class="tile is-parent is-vertical is-6">
-            <article class="tile is-child">
-              <Song />
-            </article>
-            <article class="tile is-child">
-              <SimilarSongs />
-            </article>
+          <div class="tile">
+            <div class="tile is-parent is-6">
+              <article class="tile is-child is-12">
+                <Ranking />
+              </article>
+            </div>
+            <div class="tile is-parent is-vertical is-6">
+              <article class="tile is-child">
+                <Song />
+              </article>
+              <article class="tile is-child">
+                <SimilarSongs />
+              </article>
+            </div>
           </div>
         </div>
       </div>
