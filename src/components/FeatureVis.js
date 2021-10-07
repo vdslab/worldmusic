@@ -3,7 +3,7 @@ import { forceSimulation, forceX, forceY, forceCollide } from "d3-force";
 import { scaleLinear } from "d3-scale";
 import { extent } from "d3-array";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSwarmplt, fetchTest } from "../api";
+import { fetchCountries, fetchTest } from "../api";
 import * as d3 from "d3";
 
 import { fetchSongData } from "../api";
@@ -189,30 +189,44 @@ const FeatureVis = () => {
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
   const sorted = useSelector((state) => state.detail.sorted);
-  const [dbData, setDbData] = useState([]);
-  const [da, setDa] = useState([]);
+  // let rankingData = [];
+  const [rankingData, setRankingData] = useState([
+    { musicid: "" },
+    { musicid: "" },
+    { musicid: "" },
+  ]);
+
+  const [countries, setCountries] = useState([]);
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
       const data = await fetchTest(startMonth, endMonth, feature, country);
+      setRankingData(data);
       console.log(data);
     })();
+    // (async () => {
+    //   /**TODO:改善 */
+    //   console.log(1);
+    //   const c = await fetchCountries(rankingData[0].musicid);
+    //   console.log(c);
+    // })();
   }, []);
+  // console.log(rankingData[2].musicid);
   return (
     <div class="tile is-ancestor">
       <div class="tile is-parent">
         <article class="tile is-child box">
-          <Song id={"2XW4DbS6NddZxRPm5rMCeY"} />
+          <Song id={rankingData[0].musicid} />
         </article>
       </div>
       <div class="tile is-parent">
         <article class="tile is-child box">
-          <Song id={"2UVbBKQOdFAekPTRsnkzcf"} />
+          <Song id={rankingData[1].musicid} />
         </article>
       </div>
       <div class="tile is-parent">
         <article class="tile is-child box">
-          <Song id={"2xmrfQpmS2iJExTlklLoAL"} />
+          <Song id={rankingData[2].musicid} />
         </article>
       </div>
     </div>

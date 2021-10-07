@@ -48,8 +48,8 @@ export function fetchData(feature) {
   });
 }
 
-export function fetchTop3(feature) {
+export function fetchCountries(musicid) {
   return sendRequest("/getRanking", {
-    feature: feature,
+    musicid: musicid,
   });
 }

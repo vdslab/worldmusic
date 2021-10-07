@@ -14,20 +14,16 @@ function selectRows(db, sql) {
 }
 
 exports.handler = async function (event) {
-  const startMonth = event.queryStringParameters.startMonth || null;
-  const endMonth = event.queryStringParameters.endMonth || null;
-  const feature = event.queryStringParameters.feature || null;
-  const country = event.queryStringParameters.country || null;
+  const musicid = event.queryStringParameters.musicid || null;
 
   /**TODO:応急処置, 後でちゃんとした書き方先輩に聞く */
 
   try {
     const dbpath = "./netlify/functions/database.db";
     const db = new sqlite3.Database(dbpath);
-    console.log(1);
     const result = await selectRows(
       db,
-      `SELECT * FROM Ranking WHERE Ranking.musicid = (SELECT Ranking.musicid FROM Ranking WHERE Ranking.countryid='GL' AND Ranking.startday = '2020-12-25' AND Ranking.position = 1) AND Ranking.startday = '2020-12-25' `
+      `SELECT * FROM Ranking WHERE Ranking.startday = '2020-12-25' Ranking.musicid ='${musicid}'`
     );
     return { statusCode: 200, body: JSON.stringify(result) };
   } catch (e) {
