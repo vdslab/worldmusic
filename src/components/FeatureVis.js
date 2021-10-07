@@ -26,15 +26,14 @@ const TextDetail = ({ data, musicKey }) => {
     11: "ロ",
   };
   return (
-    <div style={{ width: "40%", fontSize: "0.85rem" }}>
-      <br />
-      <p style={{ marginBottom: "0px" }}>テンポ：{Math.round(data[0].tempo)}</p>
-      <p style={{ marginBottom: "0px" }}>拍子：{data[0].time_signature}　</p>
-      {/**TODO:キーの情報なしで単調長調だけかぁって感じ*/}
-      <p>
+    <div className="has-text-centered" style={{ width: "100%", fontSize: "0.9rem" }}>
+      <p style={{ marginBottom: "0px" }}>
+        テンポ：{Math.round(data[0].tempo)}　
+        拍子：{data[0].time_signature}　
         調：{keyDict[musicKey]}
         {data[0].mode == 0 ? "短調" : "長調"}
       </p>
+      <br />
     </div>
   );
 };
@@ -147,17 +146,18 @@ const Song = (props) => {
                     );
                   })}
                 </div>
+                <br />
               </div>
-              <div style={{ display: "flex" }}>
-                <TextDetail data={data} musicKey={key} />
+              {/*<div style={{ display: "flex" }}>*/}
+              {/*<TextDetail data={data} musicKey={key} />*/}
                 <div
                   style={{
-                    width: "190px",
+                    //width: "300px",
                     paddingTop: "1px",
                   }}
                 >
                   <RaderChart data={data} />
-                </div>
+                  <TextDetail data={data} musicKey={key} />
               </div>
               <audio
                 controls
@@ -176,7 +176,7 @@ const Song = (props) => {
         className="card-content"
         style={{ paddingTop: "12px", paddingBottom: "12px" }}
       >
-        <div className="content">ここに国の表示</div>
+        <div className="content">ここに国の表示(Max10?)</div>
       </div>
     </div>
   );
