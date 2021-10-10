@@ -33,12 +33,9 @@ export function fetchSongData(startMonth, endMonth, feature, country, musicId) {
   });
 }
 
-export function fetchTest(startMonth, endMonth, feature, country) {
+export function fetchTest(musicId) {
   return sendRequest("/getTest", {
-    startMonth: startMonth,
-    endMonth: endMonth,
-    feature: feature,
-    country: country,
+    musicId: musicId,
   });
 }
 
@@ -52,4 +49,8 @@ export function fetchCountries(musicid) {
   return sendRequest("/getRanking", {
     musicid: musicid,
   });
+}
+
+export function fetchTop3(){
+  return sendRequest("/getTop3", {});
 }

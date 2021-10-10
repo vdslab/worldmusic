@@ -3,7 +3,7 @@ import { forceSimulation, forceX, forceY, forceCollide } from "d3-force";
 import { scaleLinear } from "d3-scale";
 import { extent } from "d3-array";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCountries, fetchTest } from "../api";
+import { fetchCountries, fetchTest , fetchTop3} from "../api";
 import * as d3 from "d3";
 
 import { fetchSongData } from "../api";
@@ -40,6 +40,20 @@ const TextDetail = ({ data, musicKey }) => {
 
 const Song = (props) => {
   const musicId = props.id;
+  //console.log(musicId,props.listnumber) ←各top3のmusicidが取れてた。
+
+  //ここで渡されたtop3の配信されている国を取得して表示する。
+  const [countries, setCountries] = useState([]);
+    useEffect(() => {
+      (async () => {
+        const data = await fetchTest(musicId);  //←できていない！！！
+        setCountries(data);
+        //console.log(countries,props.listnumber);
+      })();
+    }, []);
+  const testcountries = ["AU","CA","DE","FR","JP","NL","GB","US","BE","BG"]; //←データの取得がまだできていないので、代わりの文字表示するためのテストデータ
+  //
+
   const [metaData, setMetaData] = useState(null);
   const [data, setData] = useState([]);
   const [key, setKey] = useState(null);
@@ -74,7 +88,7 @@ const Song = (props) => {
   useEffect(() => {
     (async () => {
       const data = await fetchSongData("", "", "", "ALL", musicId);
-      console.log(data);
+      //console.log(data);
       setData(data);
       request.post(authOptions, function (error, response, body) {
         if (!error && response.statusCode === 200 && data.length > 0) {
@@ -167,7 +181,7 @@ const Song = (props) => {
             </div>
           ) : (
             <div>
-              <p style={{ fontSize: "1.25rem" }}>データがありません。</p>
+              <p style={{ fontSize: "1.25rem" }}>データが取得できませんでした。</p>
             </div>
           )}
         </div>
@@ -176,57 +190,46 @@ const Song = (props) => {
         className="card-content"
         style={{ paddingTop: "12px", paddingBottom: "12px" }}
       >
-        <div className="content">ここに国の表示(Max10?)</div>
+        {data.length > 0 ? (
+          <div className="content">
+            同じ期間にランクインされた国： <br />
+            {testcountries[0]}, {testcountries[1]}, {testcountries[2]}, {testcountries[3]}, {testcountries[4]}, {testcountries[5]}, {testcountries[6]}, {testcountries[7]}, {testcountries[8]}, {testcountries[9]}
+          </div>
+        ) : (
+          <div className="content"></div>
+        )}
       </div>
     </div>
   );
 };
 
 const FeatureVis = () => {
-  const dispatch = useDispatch();
-  const startMonth = useSelector((state) => state.detail.startMonth);
-  const endMonth = useSelector((state) => state.detail.endMonth);
-  const feature = useSelector((state) => state.detail.feature);
-  const country = useSelector((state) => state.detail.country);
-  const sorted = useSelector((state) => state.detail.sorted);
-  // let rankingData = [];
-  const [rankingData, setRankingData] = useState([
-    { musicid: "" },
-    { musicid: "" },
-    { musicid: "" },
-  ]);
-
-  const [countries, setCountries] = useState([]);
+  // ここで最新のグローバルtop3を取得してSongに渡す（ここで最新の最新のグローバルtop3を取得＋それが配信されている国を取得してSongに渡す場合、共通関数使えないから×）。
+  const [top3, setTop3] = useState([{},{},{}]);   
   useEffect(() => {
-    (async () => {
-      /**TODO:改善 */
-      const data = await fetchTest(startMonth, endMonth, feature, country);
-      setRankingData(data);
-      console.log(data);
-    })();
-    // (async () => {
-    //   /**TODO:改善 */
-    //   console.log(1);
-    //   const c = await fetchCountries(rankingData[0].musicid);
-    //   console.log(c);
-    // })();
-  }, []);
-  // console.log(rankingData[2].musicid);
+      (async () => {
+        const data = await fetchTop3();
+        //console.log(data);
+        setTop3(data);
+      })();
+    }, []);
+  //console.log("top3: "+top3[0].musicid+" , "+top3[1].musicid+" , "+top3[2].musicid)
+
   return (
     <div class="tile is-ancestor">
       <div class="tile is-parent">
         <article class="tile is-child box">
-          <Song id={rankingData[0].musicid} />
+          <Song id={top3[0].musicid} listnumber={0}/>
         </article>
       </div>
       <div class="tile is-parent">
         <article class="tile is-child box">
-          <Song id={rankingData[1].musicid} />
+          <Song id={top3[1].musicid} listnumber={1}/>
         </article>
       </div>
       <div class="tile is-parent">
         <article class="tile is-child box">
-          <Song id={rankingData[2].musicid} />
+          <Song id={top3[2].musicid} listnumber={2}/>
         </article>
       </div>
     </div>
