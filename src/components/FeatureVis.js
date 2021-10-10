@@ -48,10 +48,9 @@ const Song = (props) => {
       (async () => {
         const data = await fetchTest(musicId);  //←できていない！！！
         setCountries(data);
-        //console.log(countries,props.listnumber);
+        console.log(countries,props.listnumber);
       })();
     }, []);
-  const testcountries = ["AU","CA","DE","FR","JP","NL","GB","US","BE","BG"]; //←データの取得がまだできていないので、代わりの文字表示するためのテストデータ
   //
 
   const [metaData, setMetaData] = useState(null);
@@ -193,7 +192,14 @@ const Song = (props) => {
         {data.length > 0 ? (
           <div className="content">
             同じ期間にランクインされた国： <br />
-            {testcountries[0]}, {testcountries[1]}, {testcountries[2]}, {testcountries[3]}, {testcountries[4]}, {testcountries[5]}, {testcountries[6]}, {testcountries[7]}, {testcountries[8]}, {testcountries[9]}
+            {countries.map((e,i) => {
+              return (
+                <text>
+                {i !== 0 ? " , " : []}
+                {e.countryid}
+                </text>
+              );
+            })}
           </div>
         ) : (
           <div className="content"></div>
