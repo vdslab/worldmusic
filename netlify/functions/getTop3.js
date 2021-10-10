@@ -13,18 +13,15 @@ function selectRows(db, sql) {
   });
 }
 
-exports.handler = async function (event) {
-  const testmusicid = "3tjFYV6RSFtuktYl3ZtYcq";
-  const musicid = '"'+event.musicId+'"';
-
+exports.handler = async function () {
   try {
-    const dbpath = "./netlify/functions/database.db";
+    const dbpath = "./netlify/functions/testdatabase.db"; //ここのファイル名変更忘れるの注意
     const db = new sqlite3.Database(dbpath);
     console.log(1);
 
     const result = await selectRows(
       db,
-      `SELECT * FROM Ranking WHERE Ranking.musicid = '`+testmusicid+`' AND Ranking.startday = '2020-12-25'`
+      `SELECT * FROM Ranking WHERE Ranking.countryid = 'GL' AND Ranking.position <= 3 AND Ranking.startday = (SELECT MAX(startday) FROM Ranking)`
     );
     return { statusCode: 200, body: JSON.stringify(result) };
   } catch (e) {
