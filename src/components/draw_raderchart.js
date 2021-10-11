@@ -94,6 +94,8 @@ function RaderChart({ data }) {
   const svgWidth = margin.left + margin.right + contentWidth;
   const svgHeight = margin.top + margin.bottom + contentHeight;
 
+  const [overed, setOvered] = useState("No"); //マウスオーバしたときに文字色を変えるための変数
+
   return (
     <div>
       <svg
@@ -155,8 +157,22 @@ function RaderChart({ data }) {
                     dominantBaseline="central"
                     fontSize="5"
                     style={{ userSelect: "none" }}
+                    //fill={overed === "Yes" ? "#3273dc" : "#363636"}
+                    onClick={() => {
+                      console.log(p.name);
+                    }}
+                    // onMouseOver={() => {
+                    //   setOvered("Yes");
+                    //   console.log(p.name + "(over)");
+                    // }}
+                    // onMouseLeave={() => {
+                    //   setOvered("No");
+                    // }
+                    // }
                   >
+                  <a>
                     {p.name}
+                  </a>
                   </text>
                 )}
               </g>
