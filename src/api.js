@@ -45,9 +45,9 @@ export function fetchData(feature) {
   });
 }
 
-export function fetchCountries(musicid) {
+export function fetchCountries(musicId) {
   return sendRequest("/getRanking", {
-    musicid: musicid,
+    musicId: musicId,
   });
 }
 

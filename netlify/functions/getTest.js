@@ -14,20 +14,19 @@ function selectRows(db, sql) {
 }
 
 exports.handler = async function (event) {
-  const testmusicid = "3tjFYV6RSFtuktYl3ZtYcq";
-  const musicid = '"'+event.musicId+'"';
-
+  const musicid = event.queryStringParameters.musicId || null;
   try {
     const dbpath = "./netlify/functions/database.db";
     const db = new sqlite3.Database(dbpath);
     console.log(1);
-
     const result = await selectRows(
       db,
-      `SELECT * FROM Ranking WHERE Ranking.musicid = '`+testmusicid+`' AND Ranking.startday = '2020-12-25'`
+      `SELECT * FROM Ranking WHERE Ranking.musicid = '${musicid}' AND Ranking.startday = '2020-12-25'`
     );
     return { statusCode: 200, body: JSON.stringify(result) };
   } catch (e) {
     return { statusCode: 500, body: e.message };
   }
 };
+
+//データが作れたら、日にちをRanking.startday = (SELECT MAX(startday) FROM Ranking)に変更すること。
