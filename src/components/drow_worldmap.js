@@ -125,14 +125,14 @@ const WorldMap = ({ features }) => {
           ))}
         </g>
       </svg>
-      <Tooltip
+      {/* <Tooltip
         clientX={clientX}
         clientY={clientY}
         show={show}
         country={onCountry}
         feature={feature}
         value={featureValue}
-      />
+      /> */}
     </div>
   );
 };

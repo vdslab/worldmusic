@@ -41,16 +41,16 @@ const TextDetail = ({ data, musicKey }) => {
 };
 
 const Song = (props) => {
-  const musicId = props.id; //console.log(musicId,props.listnumber) //←各top3のmusicidが取れてた。
+  const musicId = props.id;
   //ここで渡されたtop3の配信されている国を取得して表示する。
   const [countries, setCountries] = useState([]);
   useEffect(() => {
     (async () => {
       const data = await fetchTest(musicId);
       setCountries(data);
-      console.log(countries, props.listnumber); //一回目ではデータが取得できず、何かコメントを追加すると反応する・・・
+      console.log(countries, props.listnumber);
     })();
-  }, []);
+  }, [musicId]); //変化するものを配列に入れておくこと。
 
   const [metaData, setMetaData] = useState(null);
   const [data, setData] = useState([]);
