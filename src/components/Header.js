@@ -10,6 +10,7 @@ import Song from "./Song";
 import Ranking from "./Ranking";
 import Detail from "./Detail";
 import AboutFeatureAndData from "./aboutFeatureAndData";
+import JudgeVis from "./JudgeVis";
 
 const Visualization = () => {
   return (
@@ -17,13 +18,11 @@ const Visualization = () => {
       <FeatureVis />
       <div class="tile is-ancestor">
         <div class="tile is-parent is-vertical">
-          <article class="tile is-child"> 
+          <article class="tile is-child">
             <div className="card">
               <div className="card-content p-1">
                 <div className="content">
-                  <div
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
+                  <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className="card-content m-1">
                       <div className="content">
                         <SelectFeature />
@@ -45,10 +44,15 @@ const Visualization = () => {
           </article>
           <article class="tile is-child">
             <div className="card" style={{ height: "100%" }}>
-              <div className="card-content p-1">
+              {/* <div className="card-content p-1">
                 <div className="content heightMax">
                   <WorldMap />
                 </div>
+              </div> */}
+              <div class="tile is-parent">
+              <article class="tile is-child">
+                <JudgeVis />
+              </article>
               </div>
             </div>
           </article>

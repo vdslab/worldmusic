@@ -186,7 +186,7 @@ const Swarmplt = ({ width, height }) => {
       <div className="card-content">
         <div className="content">
           <p style={{ fontSize: "1.25rem" }}>
-            国・期限・特徴を選んでください。
+            国・期限・特徴を選んでください。（今はスワームプロットを非表示にしている）
           </p>
         </div>
       </div>
