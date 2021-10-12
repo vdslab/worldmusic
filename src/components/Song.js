@@ -113,10 +113,11 @@ const Song = () => {
 
   return (
     <div className="card" style={{ height: "100%" }}>
-      <div
+      {/* <div
         className="card-content"
         style={{ paddingTop: "12px", paddingBottom: "12px" }}
-      >
+      > */}
+      <div className="card-content">
         <div className="content">
           {data.length > 0 ? (
             <div>
