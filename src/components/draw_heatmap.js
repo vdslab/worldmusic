@@ -192,7 +192,7 @@ function HeatMapChart() {
     bottom: 10,
   };
   const contentWidth = 250;
-  const contentHeight = 130;
+  const contentHeight = 120;
 
   const svgWidth = margin.left + margin.right + contentWidth;
   const svgHeight = margin.top + margin.bottom + contentHeight;
@@ -288,13 +288,13 @@ function HeatMapChart() {
           })}
         </g>
       </svg>
-      <Tooltip
+      {/* <Tooltip
         clientX={clientX}
         clientY={clientY}
         show={show}
         feature={feature}
         value={pos}
-      />
+      /> */}
     </div>
   );
 }

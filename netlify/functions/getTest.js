@@ -29,4 +29,4 @@ exports.handler = async function (event) {
   }
 };
 
-//データが作れたら、日にちをRanking.startday = (SELECT MAX(startday) FROM Ranking)に変更すること。
+// データが作れたら、日にちをRanking.startday = (SELECT MAX(startday) FROM Ranking)に変更すること。
