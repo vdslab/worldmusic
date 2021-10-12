@@ -100,7 +100,15 @@ const WorldMap = ({ features }) => {
   }
 
   return (
-    <div className="heightMax" style={{ display: "flex" }}>
+    <div
+      style={{
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+    {/* <div className="heightMax" style={{ display: "flex" }}> */}
       <svg viewBox="-30 -30 770 310">
         <g>
           {features.map((item, i) => (
@@ -118,7 +126,7 @@ const WorldMap = ({ features }) => {
                 //console.log(item.properties.ISO_A2);
                 const c = item.properties.ISO_A2;
                 dispatch(changeCountry(c));
-                dispatch(changeDisplay("Yes"));
+                //dispatch(changeDisplay("Yes"));
               }}
               key={i}
             />

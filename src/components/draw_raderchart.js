@@ -94,7 +94,7 @@ function RaderChart({ data }) {
   const svgWidth = margin.left + margin.right + contentWidth;
   const svgHeight = margin.top + margin.bottom + contentHeight;
 
-  const [overed, setOvered] = useState("No"); //マウスオーバしたときに文字色を変えるための変数
+  //const [overed, setOvered] = useState("No"); //マウスオーバしたときに文字色を変えるための変数
 
   return (
     <div>
@@ -161,11 +161,11 @@ function RaderChart({ data }) {
                     onClick={() => {
                       console.log(p.name);
                     }}
-                    // onMouseOver={() => {
+                    // onMouseOver={(i) => {
                     //   setOvered("Yes");
                     //   console.log(p.name + "(over)");
                     // }}
-                    // onMouseLeave={() => {
+                    // onMouseLeave={(i) => {
                     //   setOvered("No");
                     // }
                     // }

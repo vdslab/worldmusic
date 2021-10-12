@@ -55,6 +55,12 @@ function VerticalAxis({ len, countries, name, h }) {
 function HorizontalAxis({ len, term, name, w }) {
   const dispatch = useDispatch();
   const judgeVis = useSelector((state) => state.detail.judgeVis);
+
+  function changeInfo(start, end) {
+    dispatch(changeStartMonth(start));
+    dispatch(changeEndMonth(end));
+  }
+
   return (
     <g>
       <text
@@ -76,7 +82,8 @@ function HorizontalAxis({ len, term, name, w }) {
               fontSize="8"
               style={{ userSelect: "none" }}
               onClick={() => {
-                console.log(t.start);
+                console.log(t.start+" "+t.end);
+                changeInfo(t.start, t.end);
                 dispatch(changeJudgeVis(1)); //世界地図
               }}
             >
@@ -278,7 +285,7 @@ function HeatMapChart() {
                       //dispatch(changeDisplay("Yes"));
                       changeInfo(item.start, item.end, country.countryName);
                       setClicked(i * country.timeData.length + j);
-                      console.log(country.countryName+" "+item.start);
+                      console.log(country.countryName+" "+item.start+" "+item.end);
                       dispatch(changeJudgeVis(3)); //棒グラフ
                     }}
                     onMouseEnter={() => {
