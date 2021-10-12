@@ -48,7 +48,7 @@ const Song = (props) => {
     (async () => {
       const data = await fetchTest(musicId);
       setCountries(data);
-      console.log(countries, props.listnumber);
+      //console.log(countries, props.listnumber);
     })();
   }, [musicId]); //変化するものを配列に入れておくこと。
 

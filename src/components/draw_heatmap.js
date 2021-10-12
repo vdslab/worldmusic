@@ -9,10 +9,13 @@ import {
   changeMax,
   changeMin,
   changeDisplay,
+  changeJudgeVis,
 } from "../stores/details";
 import "../tooltip.css";
 
 function VerticalAxis({ len, countries, name, h }) {
+  const dispatch = useDispatch();
+  const judgeVis = useSelector((state) => state.detail.judgeVis);
   return (
     <g>
       <text
@@ -35,6 +38,10 @@ function VerticalAxis({ len, countries, name, h }) {
               dominantBaseline="central"
               fontSize="8"
               style={{ userSelect: "none" }}
+              onClick={() => {
+                console.log(country);
+                dispatch(changeJudgeVis(2)); //ヒートマップ
+              }}
             >
               {country}
             </text>
@@ -46,6 +53,8 @@ function VerticalAxis({ len, countries, name, h }) {
 }
 
 function HorizontalAxis({ len, term, name, w }) {
+  const dispatch = useDispatch();
+  const judgeVis = useSelector((state) => state.detail.judgeVis);
   return (
     <g>
       <text
@@ -66,6 +75,10 @@ function HorizontalAxis({ len, term, name, w }) {
               dominantBaseline="central"
               fontSize="8"
               style={{ userSelect: "none" }}
+              onClick={() => {
+                console.log(t.start);
+                dispatch(changeJudgeVis(1)); //世界地図
+              }}
             >
               {t.start}
             </text>
@@ -116,6 +129,7 @@ function HeatMapChart() {
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
   const display = useSelector((state) => state.detail.display);
+  const judgeVis = useSelector((state) => state.detail.judgeVis);
 
   const term = [
     { start: "2017-01", end: "2017-03" },
@@ -261,9 +275,11 @@ function HeatMapChart() {
                     height={len}
                     fill={colorjudge(item.value, item.start)}
                     onClick={() => {
-                      dispatch(changeDisplay("Yes"));
+                      //dispatch(changeDisplay("Yes"));
                       changeInfo(item.start, item.end, country.countryName);
                       setClicked(i * country.timeData.length + j);
+                      console.log(country.countryName+" "+item.start);
+                      dispatch(changeJudgeVis(3)); //棒グラフ
                     }}
                     onMouseEnter={() => {
                       setPos(item.value?.toFixed(2) || "");

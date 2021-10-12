@@ -11,6 +11,7 @@ const initialState = {
   min: 0,
   sorted: "昇順",
   display: "No",
+  judgeVis: 0,
 };
 
 //storeと呼ばれるデータの格納場所をsliceという名前で分割して役割ごとにそれぞれの変数で管理する
@@ -58,6 +59,10 @@ const slice = createSlice({
     changeDisplay: (state, action) => {
       state.display = action.payload;
     },
+
+    changeJudgeVis: (state, action) => {
+      state.judgeVis = action.payload;
+    },
   },
 });
 
@@ -72,4 +77,5 @@ export const {
   changeMin,
   changeSorted,
   changeDisplay,
+  changeJudgeVis,
 } = slice.actions;
