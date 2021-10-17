@@ -32,7 +32,7 @@ const Visualization = () => {
                       className="card-content p-2 colorLegend"
                       style={{ height: "10%" }}
                     >
-                      <div className="content" style={{ height: "100%" }}>
+                      <div className="content" style={{ height: "100%"}}>
                         <ColorLegend />
                       </div>
                     </div>
@@ -44,11 +44,6 @@ const Visualization = () => {
           </article>
           <article class="tile is-child">
             <div className="card" style={{ height: "100%" }}>
-              {/* <div className="card-content p-1">
-                <div className="content heightMax">
-                  <WorldMap />
-                </div>
-              </div> */}
               <div class="tile is-parent">
               <article class="tile is-child">
                 <JudgeVis />

@@ -3,7 +3,7 @@ import * as d3 from "d3";
 import { select } from "d3-selection";
 import * as topojson from "topojson";
 import { fetchData, fetchHeatmapData } from "../api";
-import { changeCountry, changeFeature, changeDisplay} from "../stores/details";
+import { changeCountry, changeFeature, changeDisplay, changeChoosedCountry} from "../stores/details";
 import { useDispatch, useSelector } from "react-redux";
 import "../tooltip.css";
 import { createSerializableStateInvariantMiddleware } from "@reduxjs/toolkit";
@@ -125,6 +125,7 @@ const WorldMap = ({ features }) => {
               onClick={() => {
                 //console.log(item.properties.ISO_A2);
                 const c = item.properties.ISO_A2;
+                dispatch(changeChoosedCountry("Yes"));
                 dispatch(changeCountry(c));
                 //dispatch(changeDisplay("Yes"));
               }}

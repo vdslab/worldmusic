@@ -32,7 +32,7 @@ const colorLegend = () => {
   }
 
   return (
-    <svg viewBox="0 0 265 60" /*width={w + 20} height="50"*/>
+    <svg viewBox="0 0 265 60" width={w + 20} height="55">
       <defs>
         <linearGradient id="gradient">
           <stop offset="0%" stopColor={d3.interpolateTurbo(0)} />
