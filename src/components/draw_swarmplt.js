@@ -181,23 +181,28 @@ const Swarmplt = ({ width, height }) => {
     });
   };
 
-  if (display === "No") {
-    return (
-      <div className="card-content">
-        <div className="content">
-          <p style={{ fontSize: "1.25rem" }}>
-            国・期限・特徴を選んでください。（今はスワームプロットを非表示にしている）
-          </p>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="swarmplt-scroll">
-        <svg width="650" height="250" viewBox="0 -20 650 320" ref={ref} />
-      </div>
-    );
-  }
+  // if (display === "No") {
+  //   return (
+  //     <div className="card-content">
+  //       <div className="content">
+  //         <p style={{ fontSize: "1.25rem" }}>
+  //           国・期限・特徴を選んでください。
+  //         </p>
+  //       </div>
+  //     </div>
+  //   );
+  // } else {
+  //   return (
+  //     <div className="swarmplt-scroll">
+  //       <svg width="650" height="250" viewBox="0 -20 650 320" ref={ref} />
+  //     </div>
+  //   );
+  // }
+  return (
+    <div className="swarmplt-scroll">
+      <svg width="650" height="250" viewBox="0 -20 650 320" ref={ref} />
+    </div>
+  );
 };
 
 export default Swarmplt;

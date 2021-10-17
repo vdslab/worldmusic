@@ -10,6 +10,8 @@ import {
   changeMin,
   changeDisplay,
   changeJudgeVis,
+  changeFeature,
+  changeChoosedPeriod,
 } from "../stores/details";
 import "../tooltip.css";
 
@@ -84,6 +86,7 @@ function HorizontalAxis({ len, term, name, w }) {
               onClick={() => {
                 console.log(t.start+" "+t.end);
                 changeInfo(t.start, t.end);
+                dispatch(changeChoosedPeriod("Yes"));
                 dispatch(changeJudgeVis(1)); //世界地図
               }}
             >
@@ -283,7 +286,7 @@ function HeatMapChart() {
                     fill={colorjudge(item.value, item.start)}
                     onClick={() => {
                       //dispatch(changeDisplay("Yes"));
-                      changeInfo(item.start, item.end, country.countryName);
+                      //changeInfo(item.start, item.end, country.countryName); //Vis２のヒートマップに必要。
                       setClicked(i * country.timeData.length + j);
                       console.log(country.countryName+" "+item.start+" "+item.end);
                       dispatch(changeJudgeVis(3)); //棒グラフ

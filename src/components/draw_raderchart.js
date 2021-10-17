@@ -2,8 +2,20 @@ import React from "react";
 import { useState } from "react";
 import * as d3 from "d3";
 import "../tooltip.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changeChoosedCountry,
+  changeChoosedFeature,
+  changeChoosedPeriod,
+  changeFeature,
+} from "../stores/details";
 
 function RaderChart({ data }) {
+  const dispatch = useDispatch();
+  const choosedCountry = useSelector((state) => state.detail.choosedCountry);
+  const choosedFeature = useSelector((state) => state.detail.choosedFeature);
+  const choosedPeriod = useSelector((state) => state.detail.choosedPeriod);
+
   const useData = [
     "acousticness",
     "danceability",
@@ -159,7 +171,8 @@ function RaderChart({ data }) {
                     style={{ userSelect: "none" }}
                     //fill={overed === "Yes" ? "#3273dc" : "#363636"}
                     onClick={() => {
-                      console.log(p.name);
+                      dispatch(changeFeature(p.name));
+                      dispatch(changeChoosedFeature("Yes"));
                     }}
                     // onMouseOver={(i) => {
                     //   setOvered("Yes");

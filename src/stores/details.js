@@ -12,6 +12,9 @@ const initialState = {
   sorted: "昇順",
   display: "No",
   judgeVis: 0,
+  choosedCountry: "No",
+  choosedFeature: "No",
+  choosedPeriod:  "No",
 };
 
 //storeと呼ばれるデータの格納場所をsliceという名前で分割して役割ごとにそれぞれの変数で管理する
@@ -63,6 +66,18 @@ const slice = createSlice({
     changeJudgeVis: (state, action) => {
       state.judgeVis = action.payload;
     },
+
+    changeChoosedCountry: (state, action) => {
+      state.choosedCountry = action.payload;
+    },
+
+    changeChoosedFeature: (state, action) => {
+      state.choosedFeature = action.payload;
+    },
+
+    changeChoosedPeriod: (state, action) => {
+      state.choosedPeriod = action.payload;
+    },
   },
 });
 
@@ -78,4 +93,7 @@ export const {
   changeSorted,
   changeDisplay,
   changeJudgeVis,
+  changeChoosedCountry,
+  changeChoosedFeature,
+  changeChoosedPeriod,
 } = slice.actions;

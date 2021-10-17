@@ -24,7 +24,7 @@ const JudgeVis = () => {
       <div className="card-content">
         <div className="content">
           <p style={{ fontSize: "1.25rem" }}>
-            ヒートマップより国と期間、もしくは国と期間のセルを選んでください。
+            ヒートマップより国か期間、もしくは国と期間のセルを選んでください。
           </p>
         </div>
       </div>

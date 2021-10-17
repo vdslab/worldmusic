@@ -3,6 +3,12 @@ import { forceSimulation, forceX, forceY, forceCollide } from "d3-force";
 import { scaleLinear } from "d3-scale";
 import { extent } from "d3-array";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  changeCountry,
+  changeChoosedCountry,
+  changeChoosedFeature,
+  changeChoosedPeriod,
+} from "../stores/details";
 import { fetchCountries, fetchTest, fetchTop3 } from "../api";
 import * as d3 from "d3";
 
@@ -41,6 +47,12 @@ const TextDetail = ({ data, musicKey }) => {
 };
 
 const Song = (props) => {
+  const dispatch = useDispatch();
+  const country = useSelector((state) => state.detail.country);
+  const choosedCountry = useSelector((state) => state.detail.choosedCountry);
+  const choosedFeature = useSelector((state) => state.detail.choosedFeature);
+  const choosedPeriod = useSelector((state) => state.detail.choosedPeriod);
+
   const musicId = props.id;
   //ここで渡されたtop3の配信されている国を取得して表示する。
   const [countries, setCountries] = useState([]);
@@ -195,7 +207,8 @@ const Song = (props) => {
                   <button
                     className="button"
                     onClick={() => {
-                      console.log(element.countryid);
+                      dispatch(changeCountry(element.countryid));
+                      dispatch(changeChoosedCountry("Yes"));
                     }}
                   >
                     {element.countryid}
