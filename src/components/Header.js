@@ -5,6 +5,7 @@ import WorldMap from "./WorldMap";
 import SelectFeature from "./selectFeature";
 import ColorLegend from "./colorLegend";
 import HeatMap from "./HeatMap";
+import HeatMap1 from "./HeatMap1";
 import SimilarSongs from "./SimilarSongs";
 import Song from "./Song";
 import Ranking from "./Ranking";
@@ -20,7 +21,7 @@ const Visualization = () => {
         <div class="tile is-parent is-vertical">
           <article class="tile is-child">
             <div className="card">
-              <div className="card-content p-1">
+              {/* <div className="card-content p-1">
                 <div className="content">
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <div className="card-content m-1">
@@ -39,7 +40,8 @@ const Visualization = () => {
                   </div>
                   <HeatMap />
                 </div>
-              </div>
+              </div> */}
+              <HeatMap1 />
             </div>
           </article>
           <article class="tile is-child">

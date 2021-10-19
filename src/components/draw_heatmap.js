@@ -12,12 +12,20 @@ import {
   changeJudgeVis,
   changeFeature,
   changeChoosedPeriod,
+  changeChoosedCountry,
+  changeChoosedFeature,
 } from "../stores/details";
 import "../tooltip.css";
 
-function VerticalAxis({ len, countries, name, h }) {
+function VerticalAxis({ len, countries, name, h, judgenumber }) {
   const dispatch = useDispatch();
   const judgeVis = useSelector((state) => state.detail.judgeVis);
+
+  function changeInfo(country) {
+    dispatch(changeChoosedCountry("Yes"));
+    dispatch(changeCountry(country));
+  }
+
   return (
     <g>
       <text
@@ -42,7 +50,12 @@ function VerticalAxis({ len, countries, name, h }) {
               style={{ userSelect: "none" }}
               onClick={() => {
                 console.log(country);
-                dispatch(changeJudgeVis(2)); //ヒートマップ
+                {
+                  judgenumber === 1
+                    ? dispatch(changeJudgeVis(2))
+                    : changeInfo(country);
+                }
+                //dispatch(changeJudgeVis(2)); //ヒートマップ
               }}
             >
               {country}
@@ -54,7 +67,7 @@ function VerticalAxis({ len, countries, name, h }) {
   );
 }
 
-function HorizontalAxis({ len, term, name, w }) {
+function HorizontalAxis({ len, term, name, w, judgenumber }) {
   const dispatch = useDispatch();
   const judgeVis = useSelector((state) => state.detail.judgeVis);
 
@@ -84,10 +97,15 @@ function HorizontalAxis({ len, term, name, w }) {
               fontSize="8"
               style={{ userSelect: "none" }}
               onClick={() => {
-                console.log(t.start+" "+t.end);
+                console.log(t.start + " " + t.end);
                 changeInfo(t.start, t.end);
                 dispatch(changeChoosedPeriod("Yes"));
-                dispatch(changeJudgeVis(1)); //世界地図
+                {
+                  judgenumber === 1
+                    ? dispatch(changeJudgeVis(1))
+                    : console.log("国別のヒートマップではセルのみ押せる。");
+                }
+                //dispatch(changeJudgeVis(1)); //世界地図
               }}
             >
               {t.start}
@@ -130,7 +148,8 @@ function Tooltip({ clientX, clientY, show, feature, value }) {
   );
 }
 
-function HeatMapChart() {
+function HeatMapChart(props) {
+  const judgenumber = props.judgeNumber;
   /**startMonthとendMonth,countryは世界地図と連携づけるのに持っておく。今は未使用 */
   /**dispatch change country*/
   const dispatch = useDispatch();
@@ -203,10 +222,12 @@ function HeatMapChart() {
     return opacity;
   };
 
-  function changeInfo(start, end, countryCd) {
-    dispatch(changeCountry(countryCd));
+  function changeInfo(start, end, countryId) {
+    dispatch(changeCountry(countryId));
     dispatch(changeStartMonth(start));
     dispatch(changeEndMonth(end));
+    dispatch(changeChoosedCountry("Yes"));
+    dispatch(changeChoosedPeriod("Yes"));
   }
 
   const margin = {
@@ -257,8 +278,15 @@ function HeatMapChart() {
           countries={countries}
           name={"国"}
           h={contentHeight}
+          judgenumber={props.judgeNumber}
         />
-        <HorizontalAxis len={len} term={term} name={"期間"} w={contentWidth} />
+        <HorizontalAxis
+          len={len}
+          term={term}
+          name={"期間"}
+          w={contentWidth}
+          judgenumber={props.judgeNumber}
+        />
         <rect
           x="0"
           y="0"
@@ -286,10 +314,20 @@ function HeatMapChart() {
                     fill={colorjudge(item.value, item.start)}
                     onClick={() => {
                       //dispatch(changeDisplay("Yes"));
-                      //changeInfo(item.start, item.end, country.countryName); //Vis２のヒートマップに必要。
                       setClicked(i * country.timeData.length + j);
-                      console.log(country.countryName+" "+item.start+" "+item.end);
-                      dispatch(changeJudgeVis(3)); //棒グラフ
+                      console.log(
+                        country.countryName + " " + item.start + " " + item.end
+                      );
+                      {
+                        judgenumber === 1
+                          ? dispatch(changeJudgeVis(3))
+                          : changeInfo(
+                              item.start,
+                              item.end,
+                              country.countryName
+                            ); //Vis２のヒートマップに必要。
+                      }
+                      //dispatch(changeJudgeVis(3)); //棒グラフ
                     }}
                     onMouseEnter={() => {
                       setPos(item.value?.toFixed(2) || "");
