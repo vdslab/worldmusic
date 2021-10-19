@@ -9,6 +9,7 @@ import {
   changeDisplay,
   changeJudgeVis,
 } from "../stores/details";
+import HeatMap2 from "./HeatMap2";
 import WorldMap from "./WorldMap";
 
 const JudgeVis = () => {
@@ -43,7 +44,7 @@ const JudgeVis = () => {
     );
   } else if (judgeVis === 2) {
     //国が押された場合
-    return <div>ヒートマップの表示</div>;
+    return <div><HeatMap2 /></div>;
   } else {
     //セル（国と期間）が押された場合
     return <div>棒グラフの表示</div>;
