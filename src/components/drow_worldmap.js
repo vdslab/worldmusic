@@ -6,7 +6,6 @@ import { fetchData, fetchHeatmapData } from "../api";
 import { changeCountry, changeFeature, changeDisplay, changeChoosedCountry} from "../stores/details";
 import { useDispatch, useSelector } from "react-redux";
 import "../tooltip.css";
-import { createSerializableStateInvariantMiddleware } from "@reduxjs/toolkit";
 import "../../src/style.css";
 
 const WorldMap = ({ features }) => {
@@ -28,7 +27,7 @@ const WorldMap = ({ features }) => {
       setMin(data.min);
       setMax(data.max);
       setWorldMapData(data.dbData);
-      //console.log(data);
+      console.log(data);
     })();
   }, [feature]);
 

@@ -49,6 +49,7 @@ const Visualization = () => {
               <div class="tile is-parent">
               <article class="tile is-child">
                 <JudgeVis />
+                {/* <WorldMap /> */}
               </article>
               </div>
             </div>
