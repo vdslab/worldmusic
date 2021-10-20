@@ -19,7 +19,7 @@ exports.handler = async function (event) {
   /**TODO:応急処置, 後でちゃんとした書き方先輩に聞く */
 
   try {
-    const dbpath = "./netlify/functions/database.db";
+    const dbpath = "./netlify/functions/database70.db";
     const db = new sqlite3.Database(dbpath);
     // let max
     // let min
@@ -176,7 +176,16 @@ exports.handler = async function (event) {
 
     const result = await selectRows(
       db,
-      `SELECT Music.Musicid , Music.name , Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.startday BETWEEN '2017-01-01' AND '2020-12-31'`
+      `SELECT Music.Musicid , Music.name , Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid 
+      WHERE Ranking.countryid = "AU" 
+      OR Ranking.countryid = "CA"
+      OR Ranking.countryid = "DE"
+      OR Ranking.countryid = "FR"
+      OR Ranking.countryid = "JP"
+      OR Ranking.countryid = "NL"
+      OR Ranking.countryid = "GB"
+      OR Ranking.countryid = "US"
+      AND Ranking.startday BETWEEN '2017-01-01' AND '2020-12-31'`
     );
 
     function makeData(data) {
