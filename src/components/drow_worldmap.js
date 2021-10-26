@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 import * as d3 from "d3";
 import { select } from "d3-selection";
 import * as topojson from "topojson";
-import { fetchData, fetchHeatmapData } from "../api";
-import { changeCountry, changeFeature, changeDisplay, changeChoosedCountry} from "../stores/details";
+import { fetchData, fetchWorldMapData } from "../api";
+import {
+  changeCountry,
+  changeFeature,
+  changeDisplay,
+  changeChoosedCountry,
+} from "../stores/details";
 import { useDispatch, useSelector } from "react-redux";
 import "../tooltip.css";
 import "../../src/style.css";
@@ -13,35 +18,35 @@ const WorldMap = ({ features }) => {
   const startMonth = useSelector((state) => state.detail.startMonth);
   const feature = useSelector((state) => state.detail.feature);
   const display = useSelector((state) => state.detail.display);
+  const Min = useSelector((state) => state.detail.min);
+  const Max = useSelector((state) => state.detail.max);
 
   const [worldMapData, setWorldMapData] = useState([]);
-  const [Max, setMax] = useState(-Infinity);
-  const [Min, setMin] = useState(Infinity);
-  let a = -Infinity;
-  let b = Infinity;
 
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
-      const data = await fetchData(feature);
-      setMin(data.min);
-      setMax(data.max);
-      setWorldMapData(data.dbData);
-      console.log(data);
+      const weightAve = {};
+      const data = await fetchWorldMapData(feature, startMonth);
+      // console.log(data);
+      data.map((d) => {
+        weightAve[d.countryid] =
+          d[
+            `SUM ( Ranking.stream * Music.${feature} ) / SUM ( Ranking.stream)`
+          ];
+      });
+      setWorldMapData(weightAve);
+      console.log(weightAve);
     })();
-  }, [feature]);
+  }, [feature, startMonth]);
 
   const colorjudge = (item) => {
     let color = "white";
-    worldMapData.map((data) => {
-      if (data.countryName === item.properties.ISO_A2) {
-        data.timeData.map((t) => {
-          if (t.start === startMonth && t.value != null) {
-            color = d3.interpolateTurbo(opacityjudge(t.value));
-          }
-        });
-      }
-    });
+    if (worldMapData[item.properties.ISO_A2]) {
+      color = d3.interpolateTurbo(
+        opacityjudge(worldMapData[item.properties.ISO_A2])
+      );
+    }
     return color;
   };
 
@@ -68,16 +73,8 @@ const WorldMap = ({ features }) => {
 
   const [featureValue, setFeatureValue] = useState(null);
   function onChange(onCountry) {
-    //const data = worldMapData.filter((item) => {onCountry === item.countryName})
-    worldMapData.map((data) => {
-      if (data.countryName === onCountry) {
-        data.timeData.map((t) => {
-          if (t.start === startMonth && t.value != null) {
-            setFeatureValue(t.value.toFixed(2));
-          }
-        });
-      }
-    });
+    console.log(worldMapData[onCountry]);
+    setFeatureValue(worldMapData[onCountry]);
   }
 
   const [show, setShow] = useState(false);
@@ -107,7 +104,7 @@ const WorldMap = ({ features }) => {
         alignItems: "center",
       }}
     >
-    {/* <div className="heightMax" style={{ display: "flex" }}> */}
+      {/* <div className="heightMax" style={{ display: "flex" }}> */}
       <svg viewBox="-30 -30 770 310">
         <g>
           {features.map((item, i) => (
@@ -126,21 +123,21 @@ const WorldMap = ({ features }) => {
                 const c = item.properties.ISO_A2;
                 dispatch(changeChoosedCountry("Yes"));
                 dispatch(changeCountry(c));
-                //dispatch(changeDisplay("Yes"));
+                dispatch(changeDisplay("Yes"));
               }}
               key={i}
             />
           ))}
         </g>
       </svg>
-      {/* <Tooltip
+      <Tooltip
         clientX={clientX}
         clientY={clientY}
         show={show}
         country={onCountry}
         feature={feature}
         value={featureValue}
-      /> */}
+      />
     </div>
   );
 };

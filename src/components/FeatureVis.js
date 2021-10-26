@@ -9,7 +9,13 @@ import {
   changeChoosedFeature,
   changeChoosedPeriod,
 } from "../stores/details";
-import { fetchCountries, fetchTest, fetchTop3 } from "../api";
+import {
+  fetchCountries,
+  fetchTest,
+  fetchGLtop,
+  fetchJPtop,
+  fetchDectop,
+} from "../api";
 import * as d3 from "d3";
 
 import { fetchSongData } from "../api";
@@ -46,6 +52,38 @@ const TextDetail = ({ data, musicKey }) => {
   );
 };
 
+const Gltop = () => {
+  const [top, setTop] = useState({ musicid: 1 });
+  useEffect(() => {
+    (async () => {
+      const data = await fetchGLtop();
+      setTop({ musicid: data[0].musicid });
+    })();
+  }, []);
+  return <Song id={top.musicid} listnumber={0} />;
+};
+const Jptop = () => {
+  const [top, setTop] = useState({ musicid: 1 });
+  useEffect(() => {
+    (async () => {
+      const data = await fetchJPtop();
+      setTop({ musicid: data[0].musicid });
+    })();
+  }, []);
+  return <Song id={top.musicid} listnumber={1} />;
+};
+
+const Dectop = () => {
+  const [top, setTop] = useState({ musicid: 1 });
+  useEffect(() => {
+    (async () => {
+      const data = await fetchDectop();
+      setTop({ musicid: data[0].musicid });
+    })();
+  }, []);
+  return <Song id={top.musicid} listnumber={2} />;
+};
+
 const Song = (props) => {
   const dispatch = useDispatch();
   const country = useSelector((state) => state.detail.country);
@@ -60,10 +98,8 @@ const Song = (props) => {
     (async () => {
       const data = await fetchTest(musicId);
       setCountries(data);
-      //console.log(countries, props.listnumber);
     })();
   }, [musicId]); //変化するものを配列に入れておくこと。
-
   const [metaData, setMetaData] = useState(null);
   const [data, setData] = useState([]);
   const [key, setKey] = useState(null);
@@ -89,16 +125,7 @@ const Song = (props) => {
 
   useEffect(() => {
     (async () => {
-      /**TODO:リクエストの送り方 */
       const data = await fetchSongData("", "", "", "ALL", musicId);
-      setData(data);
-    })();
-  }, [musicId]);
-
-  useEffect(() => {
-    (async () => {
-      const data = await fetchSongData("", "", "", "ALL", musicId);
-      //console.log(data);
       setData(data);
       request.post(authOptions, function (error, response, body) {
         if (!error && response.statusCode === 200 && data.length > 0) {
@@ -227,29 +254,27 @@ const Song = (props) => {
 
 const FeatureVis = () => {
   // ここで最新のグローバルtop3を取得してSongに渡す（ここで最新の最新のグローバルtop3を取得＋それが配信されている国を取得してSongに渡す場合、共通関数使えないから×）。
-  const [top3, setTop3] = useState([{}, {}, {}]);
-  useEffect(() => {
-    (async () => {
-      const data = await fetchTop3();
-      setTop3(data);
-    })();
-  }, []);
+  const [top3, setTop3] = useState([
+    { musicid: "" },
+    { musicid: "" },
+    { musicid: "" },
+  ]);
 
   return (
     <div class="tile is-ancestor">
       <div class="tile is-parent">
         <article class="tile is-child box">
-          <Song id={top3[0].musicid} listnumber={0} />
+          <Gltop />
         </article>
       </div>
       <div class="tile is-parent">
         <article class="tile is-child box">
-          <Song id={top3[1].musicid} listnumber={1} />
+          <Jptop />
         </article>
       </div>
       <div class="tile is-parent">
         <article class="tile is-child box">
-          <Song id={top3[2].musicid} listnumber={2} />
+          <Dectop />
         </article>
       </div>
     </div>

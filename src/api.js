@@ -51,6 +51,21 @@ export function fetchCountries(musicId) {
   });
 }
 
-export function fetchTop3(){
-  return sendRequest("/getTop3", {});
+export function fetchGLtop() {
+  return sendRequest("/getGLtop", {});
+}
+
+export function fetchJPtop() {
+  return sendRequest("/getJPtop", {});
+}
+
+export function fetchDectop() {
+  return sendRequest("/getDectop", {});
+}
+
+export function fetchWorldMapData(feature, startmonth) {
+  return sendRequest("/getWorldmapData", {
+    feature: feature,
+    startmonth: startmonth,
+  });
 }
