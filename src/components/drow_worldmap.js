@@ -73,7 +73,7 @@ const WorldMap = ({ features }) => {
 
   const [featureValue, setFeatureValue] = useState(null);
   function onChange(onCountry) {
-    console.log(worldMapData[onCountry]);
+    //console.log(worldMapData[onCountry]);
     setFeatureValue(worldMapData[onCountry]);
   }
 

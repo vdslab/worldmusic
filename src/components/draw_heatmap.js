@@ -149,11 +149,9 @@ function Tooltip({ clientX, clientY, show, feature, value }) {
 }
 
 function HeatMapChart(props) {
-  const judgenumber = props.judgeNumber;
   /**startMonthとendMonth,countryは世界地図と連携づけるのに持っておく。今は未使用 */
   /**dispatch change country*/
   const dispatch = useDispatch();
-
   const startMonth = useSelector((state) => state.detail.startMonth);
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
@@ -180,25 +178,13 @@ function HeatMapChart(props) {
   ];
 
   const countries = ["AU", "CA", "DE", "FR", "JP", "NL", "GB", "US"];
-  const [heatMapData, setHeatMapData] = useState([]);
-  const [Max, setMax] = useState(-Infinity);
-  const [Min, setMin] = useState(Infinity);
   const [clicked, setClicked] = useState(-1);
   const [pos, setPos] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      /**TODO:改善 */
-      const data = await fetchData(feature);
-      setMin(data.min);
-      setMax(data.max);
-      setHeatMapData(data.dbData);
-      dispatch(changeMax(data.max));
-      dispatch(changeMin(data.min));
-      //console.log(data);
-    })();
-  }, [feature]);
-
+  const heatMapData = props.data;
+  const Max = props.max;
+  const Min = props.min;
+  const judgenumber = props.judgeNumber;
+  
   const colorjudge = (item, start) => {
     let color = "lightgray";
     if (item !== null) {
