@@ -29,7 +29,7 @@ function BarChart(props) {
     (async () => {
       /**TODO:改善 */
       const data = await fetchBarData(feature, startMonth, regionId);
-      console.log(data);
+      // console.log(data);
       setBarData(data);
       console.log(barData);
     })();
