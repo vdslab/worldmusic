@@ -19,7 +19,14 @@ const Swarmplt = ({ width, height }) => {
 
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height;
-  const checkcoutry = ["AU", "CA", "DE", "FR", "JP", "NL", "GB", "US"];
+  const checkcountry = [
+    "GB","US","AE","CH","CL","CO","CR","CY","CZ","EE","EC","DO",
+    "DK","DE","EG","FI","ES","AR","BR","CA","BO","BG","BE","AU",
+    "AT","IT","NL","NI","MY","MX","MA","LV","LU","LT","KR","JP",
+    "NO","SA","RU","RO","PY","PT","PL","PH","PE","PA","NZ","SE",
+    "VN","UY","UA","TW","TR","TH","SV","SK","SG","ZA","FR","GR",
+    "GT","HN","IE","HU","ID","HK","IS","IL","IN"
+  ];
 
   const ref = useRef();
   const svg = d3.select(ref.current);
@@ -102,7 +109,7 @@ const Swarmplt = ({ width, height }) => {
       .select("body")
       .append("div")
       .attr("class", "tooltip-swarm");
-    checkcoutry.map((item, i) => {
+    checkcountry.map((item, i) => {
       // //描画する国である＆空配列でない場合に描画
       if (country === item && dbData.length != 0) {
         const swarmplt = svg.select("g");
