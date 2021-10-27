@@ -15,7 +15,7 @@ function selectRows(db, sql) {
 
 exports.handler = async function () {
   try {
-    const dbpath = "./netlify/functions/database70.db"; //ここのファイル名変更忘れるの注意
+    const dbpath = "./netlify/functions/database2.db"; //ここのファイル名変更忘れるの注意
     const db = new sqlite3.Database(dbpath);
     const Dectop = await selectRows(
       db,
