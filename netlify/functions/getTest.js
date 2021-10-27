@@ -16,7 +16,7 @@ function selectRows(db, sql) {
 exports.handler = async function (event) {
   const musicid = event.queryStringParameters.musicId || null;
   try {
-    const dbpath = "./netlify/functions/database2.db";
+    const dbpath = "./netlify/functions/musicvisdatabase.db";
     const db = new sqlite3.Database(dbpath);
     console.log(1);
     const result = await selectRows(

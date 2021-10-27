@@ -8,7 +8,7 @@ import {
   changeMin,
 } from "../stores/details";
 
-const HeatMap2 = () => {
+const CountryHeatMap = () => {
   const dispatch = useDispatch();
   const feature = useSelector((state) => state.detail.feature);
   const [heatMapData, setHeatMapData] = useState([]);
@@ -36,4 +36,4 @@ const HeatMap2 = () => {
   );
 };
 
-export default HeatMap2;
+export default CountryHeatMap;
