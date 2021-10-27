@@ -25,7 +25,7 @@ exports.handler = async function (event) {
 
   console.log(regionId);
   try {
-    const dbpath = "./netlify/functions/database2.db"; //ここのファイル名変更忘れるの注意
+    const dbpath = "./netlify/functions/musicvisdatabase.db"; //ここのファイル名変更忘れるの注意
     const db = new sqlite3.Database(dbpath);
     const result = await selectRows(
       db,

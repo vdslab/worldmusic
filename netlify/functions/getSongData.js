@@ -17,7 +17,7 @@ exports.handler = async function (event) {
   const musicId = event.queryStringParameters.musicId || null;
 
   try {
-    const dbpath = "./netlify/functions/database2.db";
+    const dbpath = "./netlify/functions/musicvisdatabase.db";
     const db = new sqlite3.Database(dbpath);
 
     const result = await selectRows(

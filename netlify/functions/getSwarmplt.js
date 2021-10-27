@@ -29,7 +29,7 @@ exports.handler = async function (event) {
   /**TODO:応急処置, 後でちゃんとした書き方先輩に聞く */
 
   try {
-    const dbpath = "./netlify/functions/database2.db";
+    const dbpath = "./netlify/functions/musicvisdatabase.db";
     const db = new sqlite3.Database(dbpath);
 
     const result = await selectRows(

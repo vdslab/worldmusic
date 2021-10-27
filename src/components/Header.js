@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import FeatureVis from "./FeatureVis";
-import WorldMap from "./WorldMap";
-import SelectFeature from "./selectFeature";
-import ColorLegend from "./colorLegend";
-import HeatMap from "./HeatMap";
-import HeatMap1 from "./HeatMap1";
+import RegionHeatMap from "./RegionHeatMap";
 import SimilarSongs from "./SimilarSongs";
 import Song from "./Song";
 import Ranking from "./Ranking";
@@ -41,7 +37,7 @@ const Visualization = () => {
                   <HeatMap />
                 </div>
               </div> */}
-              <HeatMap1 />
+              <RegionHeatMap />
             </div>
           </article>
           <article class="tile is-child">
@@ -49,7 +45,6 @@ const Visualization = () => {
               <div class="tile is-parent">
               <article class="tile is-child">
                 <JudgeVis />
-                {/* <WorldMap /> */}
               </article>
               </div>
             </div>

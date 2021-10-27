@@ -9,8 +9,8 @@ import {
   changeDisplay,
   changeJudgeVis,
 } from "../stores/details";
-import HeatMap2 from "./HeatMap2";
 import WorldMap from "./WorldMap";
+import CountryHeatMap from "./CountryHeatMap";
 import Bargraph from "./Bargraph";
 
 const JudgeVis = () => {
@@ -47,7 +47,7 @@ const JudgeVis = () => {
     //国が押された場合
     return (
       <div>
-        <HeatMap2 />
+        <CountryHeatMap />
       </div>
     );
   } else {
