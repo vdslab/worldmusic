@@ -11,6 +11,7 @@ import {
 } from "../stores/details";
 import HeatMap2 from "./HeatMap2";
 import WorldMap from "./WorldMap";
+import Bargraph from "./Bargraph";
 
 const JudgeVis = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const JudgeVis = () => {
       <div className="card-content p-1">
         <div className="content heightMax">
           <div className="subtile">
-              {startMonth}~{endMonth}
+            {startMonth}~{endMonth}
           </div>
           <WorldMap />
         </div>
@@ -44,10 +45,18 @@ const JudgeVis = () => {
     );
   } else if (judgeVis === 2) {
     //国が押された場合
-    return <div><HeatMap2 /></div>;
+    return (
+      <div>
+        <HeatMap2 />
+      </div>
+    );
   } else {
     //セル（国と期間）が押された場合
-    return <div>棒グラフの表示</div>;
+    return (
+      <div>
+        <Bargraph />
+      </div>
+    );
   }
 };
 

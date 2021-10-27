@@ -7,14 +7,15 @@ const initialState = {
   feature: "acousticness",
   country: "JP",
   musicid: "a",
-  max: 0,
-  min: 0,
+  max: -Infinity,
+  min: Infinity,
   sorted: "昇順",
   display: "No",
   judgeVis: 0,
   choosedCountry: "No",
   choosedFeature: "No",
-  choosedPeriod:  "No",
+  choosedPeriod: "No",
+  regionId: "Asia",
 };
 
 //storeと呼ばれるデータの格納場所をsliceという名前で分割して役割ごとにそれぞれの変数で管理する
@@ -78,6 +79,9 @@ const slice = createSlice({
     changeChoosedPeriod: (state, action) => {
       state.choosedPeriod = action.payload;
     },
+    changeRegionId: (state, action) => {
+      state.regionId = action.payload;
+    },
   },
 });
 
@@ -96,4 +100,5 @@ export const {
   changeChoosedCountry,
   changeChoosedFeature,
   changeChoosedPeriod,
+  changeRegionId,
 } = slice.actions;

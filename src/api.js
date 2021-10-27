@@ -69,3 +69,11 @@ export function fetchWorldMapData(feature, startmonth) {
     startmonth: startmonth,
   });
 }
+
+export function fetchBarData(feature, startmonth, regionId) {
+  return sendRequest("/getBarData", {
+    feature: feature,
+    startmonth: startmonth,
+    regionId: regionId,
+  });
+}
