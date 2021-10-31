@@ -207,7 +207,7 @@ const Swarmplt = ({ width, height }) => {
   // }
   return (
     <div className="swarmplt-scroll">
-      <svg width="650" height="250" viewBox="0 -20 650 320" ref={ref} />
+      <svg width="650" height="250" viewBox="0 -20 650 300" ref={ref} />
     </div>
   );
 };
