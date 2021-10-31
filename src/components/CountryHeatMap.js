@@ -22,7 +22,7 @@ const CountryHeatMap = () => {
       setHeatMapData(data.dbData);
       dispatch(changeMax(data.max));
       dispatch(changeMin(data.min));
-      console.log(data);
+      //console.log(data);
     })();
   }, [feature]);
   return (

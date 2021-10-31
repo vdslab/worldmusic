@@ -77,3 +77,10 @@ export function fetchBarData(feature, startmonth, regionId) {
     regionId: regionId,
   });
 }
+
+export function fetchRegionHeatMapData(feature,startmonth) {
+  return sendRequest("/getRegionHeatmapData", {
+    feature: feature,
+    startmonth: startmonth,
+  });
+}
