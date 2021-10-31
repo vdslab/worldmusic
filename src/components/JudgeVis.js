@@ -35,12 +35,12 @@ const JudgeVis = () => {
     //期間が押された場合
     return (
       <div className="card-content p-1">
-        <div className="content heightMax">
-          <div className="subtile">
+        {/* <div className="content heightMax"> */}
+          {/* <div className="subtile">
             {startMonth}~{endMonth}
-          </div>
+          </div> */}
           <WorldMap />
-        </div>
+        {/* </div> */}
       </div>
     );
   } else if (judgeVis === 2) {

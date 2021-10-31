@@ -76,7 +76,7 @@ const RegionHeatMap = () => {
             style={{ height: "10%" }}
           >
             <div className="content" style={{ height: "100%" }}>
-              <ColorLegend />
+            <ColorLegend max={Max} min={Min} color={"interpolatePiYG"} id={"gradient1"}/>
             </div>
           </div>
         </div>

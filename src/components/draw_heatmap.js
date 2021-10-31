@@ -101,10 +101,9 @@ function HorizontalAxis({ len, term, name, w, judgenumber }) {
                 dispatch(changeChoosedPeriod("Yes"));
                 {
                   judgenumber === 1
-                    ? dispatch(changeJudgeVis(1))
+                    ? dispatch(changeJudgeVis(1)) //世界地図
                     : console.log("国別のヒートマップではセルのみ押せる。");
                 }
-                //dispatch(changeJudgeVis(1)); //世界地図
               }}
             >
               {t.start}
@@ -179,23 +178,18 @@ function HeatMapChart(props) {
     { start: "2021-07", end: "2021-09" },
   ];
 
-
-  const regions = ["Asia","Africa","MiddleEast","Oceania","NorthAmerica","CentralAmerica",
-                   "SouthAmerica","NorthEurope","EastEurope","WestEurope","SouthEurope"];
-  const yAxis = regions;
-  //const yAxis = props.y;
-
   const [clicked, setClicked] = useState(-1);
   const [pos, setPos] = useState(null);
   const heatMapData = props.data;
   const Max = props.max;
   const Min = props.min;
+  const yAxis = props.y;
   const judgenumber = props.judgeNumber;
 
   const colorjudge = (item, start) => {
     let color = "lightgray";
     if (item !== null) {
-      color = d3.interpolateTurbo(opacityjudge(item, start));
+      color = d3.interpolatePiYG(opacityjudge(item, start));
     }
     return color;
   };
@@ -205,8 +199,8 @@ function HeatMapChart(props) {
     let opacityMax = 1;
     let opacityMin = 0.1;
     const termData = heatMapData
-      .map((country) => {
-        return country.timeData.filter((item) => item.start === start).value;
+      .map((d) => {
+        return d.timeData.filter((item) => item.start === start).value;
       })
       .filter((t) => t);
 
@@ -313,14 +307,13 @@ function HeatMapChart(props) {
                       );
                       {
                         judgenumber === 1
-                          ? dispatch(changeJudgeVis(3))
+                          ? dispatch(changeJudgeVis(3)) //棒グラフ
                           : changeInfo(
                               item.start,
                               item.end,
                               d.countryName
                             ); //Vis２のヒートマップに必要。
                       }
-                      //dispatch(changeJudgeVis(3)); //棒グラフ
                     }}
                     onMouseEnter={() => {
                       setPos(item.value?.toFixed(2) || "");
