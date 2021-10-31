@@ -17,7 +17,7 @@ import {
 } from "../stores/details";
 import "../tooltip.css";
 
-function VerticalAxis({ len, countries, name, h, judgenumber }) {
+function VerticalAxis({ len, yAxis, name, h, judgenumber }) {
   const dispatch = useDispatch();
   const judgeVis = useSelector((state) => state.detail.judgeVis);
 
@@ -30,7 +30,7 @@ function VerticalAxis({ len, countries, name, h, judgenumber }) {
     <g>
       <text
         transform={`
-                translate(-30 ${h / 2})
+                translate(-80 ${h / 2})
                `}
         textAnchor="middle"
         dominantBaseline="central"
@@ -39,7 +39,7 @@ function VerticalAxis({ len, countries, name, h, judgenumber }) {
       >
         {name}
       </text>
-      {countries.map((country, i) => {
+      {yAxis.map((y, i) => {
         return (
           <g transform={`translate(0, ${len * i + len / 2})`} key={i}>
             <text
@@ -49,16 +49,15 @@ function VerticalAxis({ len, countries, name, h, judgenumber }) {
               fontSize="8"
               style={{ userSelect: "none" }}
               onClick={() => {
-                console.log(country);
+                console.log(y);
                 {
                   judgenumber === 1
-                    ? dispatch(changeJudgeVis(2))
-                    : changeInfo(country);
+                    ? dispatch(changeJudgeVis(2))//ヒートマップ
+                    : changeInfo(y);
                 }
-                //dispatch(changeJudgeVis(2)); //ヒートマップ
               }}
             >
-              {country}
+              {y}
             </text>
           </g>
         );
@@ -175,16 +174,24 @@ function HeatMapChart(props) {
     { start: "2020-04", end: "2020-06" },
     { start: "2020-07", end: "2020-09" },
     { start: "2020-10", end: "2020-12" },
+    { start: "2021-01", end: "2021-03" },
+    { start: "2021-04", end: "2021-06" },
+    { start: "2021-07", end: "2021-09" },
   ];
 
-  const countries = ["AU", "CA", "DE", "FR", "JP", "NL", "GB", "US"];
+
+  const regions = ["Asia","Africa","MiddleEast","Oceania","NorthAmerica","CentralAmerica",
+                   "SouthAmerica","NorthEurope","EastEurope","WestEurope","SouthEurope"];
+  const yAxis = regions;
+  //const yAxis = props.y;
+
   const [clicked, setClicked] = useState(-1);
   const [pos, setPos] = useState(null);
   const heatMapData = props.data;
   const Max = props.max;
   const Min = props.min;
   const judgenumber = props.judgeNumber;
-  
+
   const colorjudge = (item, start) => {
     let color = "lightgray";
     if (item !== null) {
@@ -217,13 +224,13 @@ function HeatMapChart(props) {
   }
 
   const margin = {
-    left: 50,
+    left: 100,
     right: 30,
     top: 45,
     bottom: 10,
   };
-  const contentWidth = 250;
-  const contentHeight = 120;
+  const contentWidth = 300;
+  const contentHeight = 170;
 
   const svgWidth = margin.left + margin.right + contentWidth;
   const svgHeight = margin.top + margin.bottom + contentHeight;
@@ -261,8 +268,8 @@ function HeatMapChart(props) {
       >
         <VerticalAxis
           len={len}
-          countries={countries}
-          name={"国"}
+          yAxis={yAxis}
+          name={judgenumber === 1 ? "地域" : "国"}
           h={contentHeight}
           judgenumber={props.judgeNumber}
         />
@@ -277,7 +284,7 @@ function HeatMapChart(props) {
           x="0"
           y="0"
           fill="lightgray"
-          height={len * countries.length}
+          height={len * yAxis.length}
           width={len * term.length}
         />
 
@@ -287,10 +294,10 @@ function HeatMapChart(props) {
             // .style("visibility", "hidden");
           }}
         >
-          {heatMapData.map((country, i) => {
-            return country.timeData.map((item, j) => {
+          {heatMapData.map((d, i) => {
+            return d.timeData.map((item, j) => {
               return (
-                <g key={i * country.timeData.length + j}>
+                <g key={i * d.timeData.length + j}>
                   <rect
                     className="cell"
                     x={len * j}
@@ -300,9 +307,9 @@ function HeatMapChart(props) {
                     fill={colorjudge(item.value, item.start)}
                     onClick={() => {
                       //dispatch(changeDisplay("Yes"));
-                      setClicked(i * country.timeData.length + j);
+                      setClicked(i * d.timeData.length + j);
                       console.log(
-                        country.countryName + " " + item.start + " " + item.end
+                        d.countryName + " " + item.start + " " + item.end
                       );
                       {
                         judgenumber === 1
@@ -310,7 +317,7 @@ function HeatMapChart(props) {
                           : changeInfo(
                               item.start,
                               item.end,
-                              country.countryName
+                              d.countryName
                             ); //Vis２のヒートマップに必要。
                       }
                       //dispatch(changeJudgeVis(3)); //棒グラフ
@@ -329,7 +336,7 @@ function HeatMapChart(props) {
                     fill="none"
                     stroke="black"
                     opacity={
-                      clicked === i * country.timeData.length + j ? 1 : 0
+                      clicked === i * d.timeData.length + j ? 1 : 0
                     }
                   />
                 </g>
