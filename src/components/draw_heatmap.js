@@ -155,9 +155,6 @@ function HeatMapChart(props) {
   const feature = useSelector((state) => state.detail.feature);
   const display = useSelector((state) => state.detail.display);
   const judgeVis = useSelector((state) => state.detail.judgeVis);
-  const Min = props.min;
-  const Max = props.max;
-  // console.log(Min, Max);
   const startdays = [
     "2017-01-01",
     "2017-04-01",
