@@ -36,11 +36,7 @@ exports.handler = async function (event) {
       GROUP BY Country.region`
     );
 
-    const start = String((startmonth.slice(0,7)));
-    const end = String(year+"-"+endmonth);
-    const status = { dbData: result, start: start, end: end}
-    
-    return { statusCode: 200, body: JSON.stringify(status) };
+    return { statusCode: 200, body: JSON.stringify(result) };
   } catch (e) {
     return { statusCode: 500, body: e.message };
   }
@@ -65,7 +61,7 @@ exports.handler = async function (event) {
 // WHEN Ranking.startday BETWEEN '2020-10-01' AND '2020-12-31' THEN '2020-10'
 // END Period,
 
-// `SELECT 
+// `SELECT
 // SUM(Music.${feature} * Ranking.stream) / SUM(Ranking.stream) AS value , Country.region
 // FROM Ranking
 // INNER JOIN Music ON Ranking.musicid = Music.musicid

@@ -52,7 +52,7 @@ function VerticalAxis({ len, yAxis, name, h, judgenumber }) {
                 console.log(y);
                 {
                   judgenumber === 1
-                    ? dispatch(changeJudgeVis(2))//ヒートマップ
+                    ? dispatch(changeJudgeVis(2)) //ヒートマップ
                     : changeInfo(y);
                 }
               }}
@@ -155,6 +155,27 @@ function HeatMapChart(props) {
   const feature = useSelector((state) => state.detail.feature);
   const display = useSelector((state) => state.detail.display);
   const judgeVis = useSelector((state) => state.detail.judgeVis);
+  const startdays = [
+    "2017-01-01",
+    "2017-04-01",
+    "2017-07-01",
+    "2017-10-01",
+    "2018-01-01",
+    "2018-04-01",
+    "2018-07-01",
+    "2018-10-01",
+    "2019-01-01",
+    "2019-04-01",
+    "2019-07-01",
+    "2019-10-01",
+    "2020-01-01",
+    "2020-04-01",
+    "2020-07-01",
+    "2020-10-01",
+    "2021-01-01",
+    "2021-04-01",
+    "2021-07-01",
+  ];
 
   const term = [
     { start: "2017-01", end: "2017-03" },
@@ -185,12 +206,15 @@ function HeatMapChart(props) {
   const Min = props.min;
   const yAxis = props.y;
   const judgenumber = props.judgeNumber;
+  console.log(Max, Min);
 
   const colorjudge = (item, start) => {
     let color = "lightgray";
-    if (item !== null) {
+
+    if (item) {
       color = d3.interpolatePiYG(opacityjudge(item, start));
     }
+    // console.log(color);
     return color;
   };
 
@@ -198,14 +222,15 @@ function HeatMapChart(props) {
     let opacity = 0;
     let opacityMax = 1;
     let opacityMin = 0.1;
-    const termData = heatMapData
-      .map((d) => {
-        return d.timeData.filter((item) => item.start === start).value;
-      })
-      .filter((t) => t);
+    // const termData = heatMapData
+    //   .map((country) => {
+    //     return country.timeData.filter((item) => item.start === start).value;
+    //   })
+    //   .filter((t) => t);
 
     opacity =
       ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) + opacityMin;
+    // console.log(Max - Min);
     return opacity;
   };
 
@@ -279,7 +304,7 @@ function HeatMapChart(props) {
           y="0"
           fill="lightgray"
           height={len * yAxis.length}
-          width={len * term.length}
+          width={len * startdays.length}
         />
 
         <g
@@ -288,7 +313,55 @@ function HeatMapChart(props) {
             // .style("visibility", "hidden");
           }}
         >
-          {heatMapData.map((d, i) => {
+          {yAxis.map((y, i) => {
+            return startdays.map((s, j) => {
+              const startmonth = s;
+              const year = String(Number(startmonth.split("-")[0]));
+              let endmonth = String(Number(startmonth.split("-")[1]) + 2);
+
+              return (
+                <g key={i * startdays.length + j}>
+                  <rect
+                    className="cell"
+                    x={len * j}
+                    y={len * i}
+                    width={len}
+                    height={len}
+                    fill={colorjudge(heatMapData[y][s], s)}
+                    onClick={() => {
+                      //dispatch(changeDisplay("Yes"));
+                      setClicked(i * startdays.length + j);
+                      // console.log(
+                      //   d.countryName + " " + item.start + " " + item.end
+                      // );
+                      {
+                        judgenumber === 1
+                          ? dispatch(changeJudgeVis(3))
+                          : changeInfo(s, year + "-" + endmonth, y); //Vis２のヒートマップに必要。
+                      }
+                      //dispatch(changeJudgeVis(3)); //棒グラフ
+                    }}
+                    onMouseEnter={() => {
+                      // setPos(heatMapData[y][s].toFixed(2) || "");
+                    }}
+                    onMouseMove={(e) => onHover(e)}
+                    onMouseLeave={(e) => onOut()}
+                  ></rect>
+                  <rect
+                    x={len * j}
+                    y={len * i}
+                    width={len - 0.5}
+                    height={len - 0.5}
+                    fill="none"
+                    stroke="black"
+                    opacity={clicked === i * startdays.length + j ? 1 : 0}
+                  />
+                </g>
+              );
+            });
+          })}
+
+          {/* {heatMapData.map((d, i) => {
             return d.timeData.map((item, j) => {
               return (
                 <g key={i * d.timeData.length + j}>
@@ -328,14 +401,12 @@ function HeatMapChart(props) {
                     height={len - 0.5}
                     fill="none"
                     stroke="black"
-                    opacity={
-                      clicked === i * d.timeData.length + j ? 1 : 0
-                    }
+                    opacity={clicked === i * d.timeData.length + j ? 1 : 0}
                   />
                 </g>
               );
             });
-          })}
+          })} */}
         </g>
       </svg>
       {/* <Tooltip
