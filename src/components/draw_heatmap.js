@@ -206,6 +206,7 @@ function HeatMapChart(props) {
   const Min = props.min;
   const yAxis = props.y;
   const judgenumber = props.judgeNumber;
+  console.log(Max, Min);
 
   const colorjudge = (item, start) => {
     let color = "lightgray";
