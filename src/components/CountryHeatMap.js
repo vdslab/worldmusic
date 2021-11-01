@@ -23,18 +23,13 @@ const CountryHeatMap = () => {
       //console.log(data);
     })();
   }, [feature]);
-
+  const countries = ["JP","US"]
   return (
     <div className="card-content p-1">
       <div className="content">
-        チェックボックスの出現 （チェック押してからヒートマップの出現）
-        <HeatMapChart
-          judgeNumber={2}
-          data={heatMapData}
-          max={Max}
-          min={Min}
-          y={country}
-        />
+        チェックボックスの出現
+        （チェック押してからヒートマップの出現）
+        <HeatMapChart judgeNumber={2} data={heatMapData} max={Max} min={Min} y={countries}/>
       </div>
     </div>
   );

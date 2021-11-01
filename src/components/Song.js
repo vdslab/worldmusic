@@ -22,15 +22,16 @@ const TextDetail = ({ data, musicKey }) => {
   };
 
   return (
-    <div style={{ width: "40%", fontSize: "0.85rem" }}>
-      <br />
-      <p style={{ marginBottom: "0px" }}>テンポ：{Math.round(data[0].tempo)}</p>
-      <p style={{ marginBottom: "0px" }}>拍子：{data[0].time_signature}　</p>
-      {/**TODO:キーの情報なしで単調長調だけかぁって感じ*/}
-      <p>
+    <div
+      className="has-text-centered"
+      style={{ width: "100%", fontSize: "0.3rem" }}
+    >
+      <p style={{ marginBottom: "0px" }}>
+        テンポ：{Math.round(data[0].tempo)}　 拍子：{data[0].time_signature}　
         調：{keyDict[musicKey]}
         {data[0].mode == 0 ? "短調" : "長調"}
       </p>
+      <br />
     </div>
   );
 };
@@ -113,10 +114,10 @@ const Song = () => {
 
   return (
     <div className="card" style={{ height: "100%" }}>
-      {/* <div
+      <div
         className="card-content"
-        style={{ paddingTop: "12px", paddingBottom: "12px" }}
-      > */}
+        style={{ paddingTop: "1px", paddingBottom: "1px" }}
+      >
       <div className="card-content">
         <div className="content">
           {data.length > 0 ? (
@@ -127,7 +128,7 @@ const Song = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <b style={{ fontSize: "1.25rem" }}>{data[0]?.name}</b>
+                  <b style={{ fontSize: "1.2rem" }}>{data[0]?.name}</b>
                 </a>
                 <br />
                 <div style={{ fontSize: "0.85rem" }}>
@@ -146,22 +147,16 @@ const Song = () => {
                   })}
                 </div>
               </div>
-              <div style={{ display: "flex" }}>
+              <br />
+              <div className="contens">
+                <RaderChart data={data} />
                 <TextDetail data={data} musicKey={key} />
-                <div
-                  style={{
-                    width: "150px",
-                    paddingTop: "5px",
-                  }}
-                >
-                  <RaderChart data={data} />
-                </div>
-              </div>
               <audio
                 controls
                 src={metaData?.preview_url}
                 style={{ width: "100%" }}
               />
+              </div>
             </div>
           ) : (
             <div>
@@ -169,6 +164,7 @@ const Song = () => {
             </div>
           )}
         </div>
+      </div>
       </div>
     </div>
   );

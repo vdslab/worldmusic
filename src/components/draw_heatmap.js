@@ -101,10 +101,9 @@ function HorizontalAxis({ len, term, name, w, judgenumber }) {
                 dispatch(changeChoosedPeriod("Yes"));
                 {
                   judgenumber === 1
-                    ? dispatch(changeJudgeVis(1))
+                    ? dispatch(changeJudgeVis(1)) //世界地図
                     : console.log("国別のヒートマップではセルのみ押せる。");
                 }
-                //dispatch(changeJudgeVis(1)); //世界地図
               }}
             >
               {t.start}
@@ -203,17 +202,19 @@ function HeatMapChart(props) {
     { start: "2021-07", end: "2021-09" },
   ];
 
-  const yAxis = props.y;
-
   const [clicked, setClicked] = useState(-1);
   const [pos, setPos] = useState(null);
   const heatMapData = props.data;
+  const Max = props.max;
+  const Min = props.min;
+  const yAxis = props.y;
   const judgenumber = props.judgeNumber;
 
   const colorjudge = (item, start) => {
     let color = "lightgray";
+
     if (item) {
-      color = d3.interpolateTurbo(opacityjudge(item, start));
+      color = d3.interpolatePiYG(opacityjudge(item, start));
     }
     // console.log(color);
     return color;
@@ -381,10 +382,13 @@ function HeatMapChart(props) {
                       );
                       {
                         judgenumber === 1
-                          ? dispatch(changeJudgeVis(3))
-                          : changeInfo(item.start, item.end, d.countryName); //Vis２のヒートマップに必要。
+                          ? dispatch(changeJudgeVis(3)) //棒グラフ
+                          : changeInfo(
+                              item.start,
+                              item.end,
+                              d.countryName
+                            ); //Vis２のヒートマップに必要。
                       }
-                      //dispatch(changeJudgeVis(3)); //棒グラフ
                     }}
                     onMouseEnter={() => {
                       setPos(item.value?.toFixed(2) || "");

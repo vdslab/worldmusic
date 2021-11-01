@@ -31,14 +31,12 @@ const Detail = () => {
   } else if (choosedCountry === "Yes" && choosedFeature === "Yes" && choosedPeriod === "Yes" || choosedCountry === "Yes" && choosedFeature === "No" && choosedPeriod === "Yes" ) {
     return (
       <div className="card" style={{ height: "100%" }}>
-      <div className="card-content p-2">
+      <div className="card-content">
         <div className="content">
-          <div className="card-content">
-            <div className="content">
+          
               {country}、{startMonth} ~ {endMonth}、{feature}
               <Swarmplt />
-            </div>
-          </div>
+         
         </div>
       </div>
     </div>
