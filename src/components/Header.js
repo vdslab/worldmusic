@@ -58,12 +58,12 @@ const Visualization = () => {
           </div>
           <div class="tile">
             <div class="tile is-parent is-6">
-              <article class="tile is-child is-12">
+              <article class="tile is-child">
                 <Song />
               </article>
             </div>
             <div class="tile is-parent is-6">
-              <article class="tile is-child is-12">
+              <article class="tile is-child">
                 <SimilarSongs />
               </article>
             </div>
