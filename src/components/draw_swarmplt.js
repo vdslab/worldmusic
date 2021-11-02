@@ -105,10 +105,7 @@ const Swarmplt = ({ width, height }) => {
   };
 
   const draw = () => {
-    var tooltip = d3
-      .select("body")
-      .append("div")
-      .attr("class", "tooltip-swarm");
+    const tooltip = d3.select(".tooltip-swarm")
     checkcountry.map((item, i) => {
       // //描画する国である＆空配列でない場合に描画
       if (country === item && dbData.length != 0) {
@@ -157,7 +154,7 @@ const Swarmplt = ({ width, height }) => {
                   .style("left", d.pageX + 10 + "px");
               })
               .on("mouseout", function (d) {
-                tooltip.style("visibility", "hidden");
+                tooltip.style("visibility", "hidden"); 
               })
               .on("click", (d, i) => {
                 dispatch(changeMusicId(i.musicid));

@@ -1,8 +1,25 @@
-#tooltip {
+.tooltip-rader {
   border: 1px solid black;
-  padding: 5px;
   position: absolute;
+  text-align: center;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  font: 12px;
   background-color: white;
+  visibility: hidden;
+}
+
+.tooltip-world {
+  border: 1px solid black;
+  position: absolute;
+  text-align: center;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  font: 12px;
+  background-color: white;
+  visibility: hidden;
 }
 
 .tooltip-swarm {
