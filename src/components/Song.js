@@ -114,10 +114,6 @@ const Song = () => {
 
   return (
     <div className="card" style={{ height: "100%" }}>
-      <div
-        className="card-content"
-        style={{ paddingTop: "1px", paddingBottom: "1px" }}
-      >
       <div className="card-content">
         <div className="content">
           {data.length > 0 ? (
@@ -151,20 +147,19 @@ const Song = () => {
               <div className="contens">
                 <RaderChart data={data} />
                 <TextDetail data={data} musicKey={key} />
-              <audio
-                controls
-                src={metaData?.preview_url}
-                style={{ width: "100%" }}
-              />
+                <audio
+                  controls
+                  src={metaData?.preview_url}
+                  style={{ width: "100%" }}
+                />
               </div>
             </div>
           ) : (
             <div>
-              <p style={{ fontSize: "1.25rem" }}>曲詳細</p>
+              <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>曲詳細</p>
             </div>
           )}
         </div>
-      </div>
       </div>
     </div>
   );

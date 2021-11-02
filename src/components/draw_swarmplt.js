@@ -12,7 +12,7 @@ const Swarmplt = ({ width, height }) => {
   const duration = 500;
   const margin = {
     top: 10,
-    bottom: 500,
+    bottom: 100,
     left: 50,
     right: 50,
   };
@@ -44,8 +44,8 @@ const Swarmplt = ({ width, height }) => {
   const [Min, setMin] = useState(Infinity);
 
   useEffect(() => {
-    let a = -Infinity;
-    let b = Infinity;
+    let max = -Infinity;
+    let min = Infinity;
     (async () => {
       const data = await fetchSwarmplt(
         startMonth,
@@ -72,16 +72,16 @@ const Swarmplt = ({ width, height }) => {
             dedupeMusicid[i].stream += data[l].stream;
           }
         }
-        if (a < dedupeMusicid[i][feature]) {
-          a = dedupeMusicid[i][feature];
+        if (max < dedupeMusicid[i][feature]) {
+          max = dedupeMusicid[i][feature];
         }
-        if (dedupeMusicid[i][feature] < b) {
-          b = dedupeMusicid[i][feature];
+        if (dedupeMusicid[i][feature] < min) {
+          min = dedupeMusicid[i][feature];
         }
       }
       setDbData(dedupeMusicid);
-      setMax(a);
-      setMin(b);
+      setMax(max);
+      setMin(min);
     })();
 
     d3.select(ref.current)
@@ -175,7 +175,7 @@ const Swarmplt = ({ width, height }) => {
           .data([null])
           .join("g")
           .classed("x axis", true)
-          .attr("transform", `translate(0,${innerHeight})`)
+          .attr("transform", `translate(0,-20)`)
           .transition()
           .duration(duration)
           .call(xAxis);
@@ -185,25 +185,8 @@ const Swarmplt = ({ width, height }) => {
     });
   };
 
-  // if (display === "No") {
-  //   return (
-  //     <div className="card-content">
-  //       <div className="content">
-  //         <p style={{ fontSize: "1.25rem" }}>
-  //           国・期限・特徴を選んでください。
-  //         </p>
-  //       </div>
-  //     </div>
-  //   );
-  // } else {
-  //   return (
-  //     <div className="swarmplt-scroll">
-  //       <svg width="650" height="250" viewBox="0 -20 650 320" ref={ref} />
-  //     </div>
-  //   );
-  // }
   return (
-    <div className="swarmplt-scroll">
+    <div>
       <svg width="650" height="250" viewBox="0 -20 650 300" ref={ref} />
     </div>
   );

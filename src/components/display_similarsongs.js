@@ -28,10 +28,8 @@ function display_similarsongs() {
 
   const country = useSelector((state) => state.detail.country);
   const musicId = useSelector((state) => state.detail.musicid);
-  //const musicId = "4MzXwWMhyBbmu6hOcLVD49";
   const [similarSongs, setSimilarSongs] = useState([]);
 
-  //console.log(musicId);
   useEffect(() => {
     (async () => {
       const data = await fetchSongData("", "", "", "ALL", musicId);
@@ -55,7 +53,6 @@ function display_similarsongs() {
   }, [musicId]);
 
   //console.log(similarSongs);
-
   return (
     <div>
       <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>類似曲</p>
@@ -69,32 +66,34 @@ function display_similarsongs() {
               style={{ float: "left", paddingRight: "10px" }}
             />
             <p>
-              曲名
+              <b style={{ fontSize: "1.2rem" }}>
+                <a
+                  href={item.external_urls.spotify}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.name}
+                </a>
+              </b>
               <br />
-              <a
-                href={item.external_urls.spotify}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {item.name}
-              </a>
-              <br />
-              歌手
-              <br />
-              <p>
-                {item.artists.map((item2, j) => {
-                  return (
-                    <a
-                      href={item2.external_urls.spotify}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {j !== 0 ? " / " : []}
-                      {item2.name}
-                    </a>
-                  );
-                })}
-              </p>
+              <div style={{ fontSize: "0.85rem" }}>
+                アーティスト：
+                <br />
+                <p>
+                  {item.artists.map((item2, j) => {
+                    return (
+                      <a
+                        href={item2.external_urls.spotify}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {j !== 0 ? " / " : []}
+                        {item2.name}
+                      </a>
+                    );
+                  })}
+                </p>
+              </div>
             </p>
           </div>
         );
