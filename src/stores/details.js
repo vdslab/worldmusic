@@ -15,7 +15,7 @@ const initialState = {
   choosedCountry: "No",
   choosedFeature: "No",
   choosedPeriod: "No",
-  regionId: "Asia",
+  regionId: "",
 };
 
 //storeと呼ばれるデータの格納場所をsliceという名前で分割して役割ごとにそれぞれの変数で管理する

@@ -38,6 +38,7 @@ function BarChart(props) {
       const countries = {};
       const data = await fetchBarData(feature, startMonth, regionId);
       data.map((d) => {
+        console.log(regionId);
         countries[d.countryid] = true;
         if (
           d[
