@@ -33,25 +33,46 @@ const CountryHeatMap = () => {
     "2021-04-01",
     "2021-07-01",
   ];
+
+  // const aveWeight = {
+  //   HK: {},
+  //   ID: {},
+  //   IN: {},
+  //   JP: {},
+  //   KR: {},
+  //   MY: {},
+  //   PH: {},
+  //   SG: {},
+  //   TH: {},
+  //   TW: {},
+  //   VN: {},
+  // };
   useEffect(() => {
     (async () => {
+      console.log(regionId);
       let min = Infinity;
       let max = -Infinity;
+      const aveWeight = {};
       for (let i = 0; i < startdays.length; i++) {
         //startdayを渡す用
         let data = await fetchData(feature, startdays[i], regionId);
-        console.log(regionId);
         console.log(data);
-        // data.map((d) => {
-        //   aveWeight[d.countryid][startdays[i]] = d.value;
-        //   if (d.value < min) {
-        //     min = d.value;
-        //   }
-        //   if (d.value > max) {
-        //     max = d.value;
-        //   }
-        // });
+        data.map((d, i) => {
+          if (!aveWeight[d.countryid]) {
+            aveWeight[d.countryid] = {};
+          }
+          console.log(startdays[i]);
+          // aveWeight[d.countryid][startdays[i]] = {};
+          if (d.value < min) {
+            min = d.value;
+          }
+          if (d.value > max) {
+            max = d.value;
+          }
+        });
+        // console.log(startdays[i]);
       }
+      console.log(aveWeight);
       // console.log(data);
       // setMin(data.min);
       // setMax(data.max);

@@ -328,11 +328,12 @@ function HeatMapChart(props) {
                     y={len * i}
                     width={len}
                     height={len}
-                    fill={colorjudge(heatMapData[y][s], s)}
+                    // fill={colorjudge(heatMapData[y][s], s)}
                     onClick={() => {
                       //dispatch(changeDisplay("Yes"));
                       setClicked(i * startdays.length + j);
                       dispatch(changeRegionId(y));
+                      dispatch(changeStartMonth(s));
                       {
                         judgenumber === 1
                           ? dispatch(changeJudgeVis(3))
