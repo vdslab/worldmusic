@@ -39,9 +39,11 @@ export function fetchTest(musicId) {
   });
 }
 
-export function fetchData(feature) {
+export function fetchData(feature, startmonth, region) {
   return sendRequest("/getData", {
     feature: feature,
+    startmonth: startmonth,
+    region: region,
   });
 }
 
@@ -78,7 +80,7 @@ export function fetchBarData(feature, startmonth, regionId) {
   });
 }
 
-export function fetchRegionHeatMapData(feature,startmonth) {
+export function fetchRegionHeatMapData(feature, startmonth) {
   return sendRequest("/getRegionHeatmapData", {
     feature: feature,
     startmonth: startmonth,

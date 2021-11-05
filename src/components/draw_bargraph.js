@@ -21,19 +21,48 @@ function BarChart(props) {
   const display = useSelector((state) => state.detail.display);
   const judgeVis = useSelector((state) => state.detail.judgeVis);
   const regionId = useSelector((state) => state.detail.regionId);
-  const Min = useSelector((state) => state.detail.min);
-  const Max = useSelector((state) => state.detail.max);
+  // const Min = useSelector((state) => state.detail.min);
+  // const Max = useSelector((state) => state.detail.max);
+
+  const [max, setMax] = useState(-Infinity);
+  const [min, setMin] = useState(Infinity);
 
   const [barData, setBarData] = useState([]);
+  console.log(regionId);
 
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
+      let regionMax = -Infinity;
+      let regionMin = Infinity;
       const countries = {};
       const data = await fetchBarData(feature, startMonth, regionId);
       data.map((d) => {
         countries[d.countryid] = true;
+        if (
+          d[
+            "SUM ( Ranking.stream * Music.acousticness ) / SUM ( Ranking.stream)"
+          ] < regionMin
+        ) {
+          regionMin =
+            d[
+              "SUM ( Ranking.stream * Music.acousticness ) / SUM ( Ranking.stream)"
+            ];
+        }
+        if (
+          d[
+            "SUM ( Ranking.stream * Music.acousticness ) / SUM ( Ranking.stream)"
+          ] > regionMax
+        ) {
+          regionMax =
+            d[
+              "SUM ( Ranking.stream * Music.acousticness ) / SUM ( Ranking.stream)"
+            ];
+        }
       });
+      console.log(data);
+      setMax(regionMax);
+      setMin(regionMin);
       setBarData(data);
       setIsChecked(countries);
     })();
@@ -41,7 +70,6 @@ function BarChart(props) {
 
   const colorjudge = (value) => {
     const color = d3.interpolateTurbo(opacityjudge(value));
-    // console.log(value, color);
     return color;
   };
 
@@ -50,7 +78,7 @@ function BarChart(props) {
     let opacityMax = 1;
     let opacityMin = 0.1;
     opacity =
-      ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) + opacityMin;
+      ((opacityMax - opacityMin) * (item - min)) / (max - min) + opacityMin;
     return opacity;
   };
 
@@ -133,13 +161,13 @@ function BarChart(props) {
                 {(cnt += 1)}
                 <rect
                   x="0"
-                  y={(contentHeight / barData.length) * (cnt - 1)}
+                  y={13 * (cnt - 1)}
                   width={
                     d[
                       `SUM ( Ranking.stream * Music.${feature} ) / SUM ( Ranking.stream)`
                     ] * 500
                   }
-                  height={contentHeight / barData.length}
+                  height={13}
                   fill={colorjudge(
                     d[
                       `SUM ( Ranking.stream * Music.${feature} ) / SUM ( Ranking.stream)`
@@ -147,11 +175,7 @@ function BarChart(props) {
                   )}
                   // stroke="black"
                 ></rect>
-                <text
-                  x="-50"
-                  y={(contentHeight / barData.length) * cnt}
-                  fontSize={contentHeight / barData.length}
-                >
+                <text x="-50" y={13 * cnt} fontSize={13}>
                   {d.countryid}
                 </text>
               </g>

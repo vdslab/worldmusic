@@ -14,6 +14,7 @@ import {
   changeChoosedPeriod,
   changeChoosedCountry,
   changeChoosedFeature,
+  changeRegionId,
 } from "../stores/details";
 import "../tooltip.css";
 
@@ -49,7 +50,7 @@ function VerticalAxis({ len, yAxis, name, h, judgenumber }) {
               fontSize="8"
               style={{ userSelect: "none" }}
               onClick={() => {
-                console.log(y);
+                dispatch(changeRegionId(y));
                 {
                   judgenumber === 1
                     ? dispatch(changeJudgeVis(2)) //ヒートマップ
@@ -206,7 +207,7 @@ function HeatMapChart(props) {
   const Min = props.min;
   const yAxis = props.y;
   const judgenumber = props.judgeNumber;
-  console.log(Max, Min);
+  // console.log(Max, Min);
 
   const colorjudge = (item, start) => {
     let color = "lightgray";
@@ -327,7 +328,7 @@ function HeatMapChart(props) {
                     y={len * i}
                     width={len}
                     height={len}
-                    fill={colorjudge(heatMapData[y][s], s)}
+                    // fill={colorjudge(heatMapData[y][s], s)}
                     onClick={() => {
                       //dispatch(changeDisplay("Yes"));
                       setClicked(i * startdays.length + j);

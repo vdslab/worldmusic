@@ -50,7 +50,6 @@ const RegionHeatMap = () => {
     SouthEurope: {},
   };
 
-  // console.log(aveWeight["Asia"]["ashia"]);
   useEffect(() => {
     (async () => {
       let min = Infinity;
@@ -62,11 +61,9 @@ const RegionHeatMap = () => {
           aveWeight[d.region][startdays[i]] = d.value;
           if (d.value < min) {
             min = d.value;
-            // console.log(d.value, "min");
           }
           if (d.value > max) {
             max = d.value;
-            // console.log(d.value, "max");
           }
         });
       }
@@ -105,7 +102,12 @@ const RegionHeatMap = () => {
             style={{ height: "10%" }}
           >
             <div className="content" style={{ height: "100%" }}>
-            <ColorLegend max={Max} min={Min} color={"interpolatePiYG"} id={"gradient1"}/>
+              <ColorLegend
+                max={Max}
+                min={Min}
+                color={"interpolatePiYG"}
+                id={"gradient1"}
+              />
             </div>
           </div>
         </div>
