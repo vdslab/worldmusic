@@ -83,11 +83,16 @@ const WorldMap = ({ features }) => {
     .translate([width / 2, height - 60])
     .scale(scale);
   const path = d3.geoPath().projection(projection);
+  const tooltip = d3.select(".tooltip-world");
 
   const [featureValue, setFeatureValue] = useState(null);
   function onChange(onCountry) {
-    //console.log(worldMapData[onCountry]);
-    setFeatureValue(worldMapData[onCountry]);
+    console.log(worldMapData[onCountry]);
+    if(worldMapData[onCountry] === undefined){
+      setFeatureValue("（データなし）")
+    }else{
+      setFeatureValue(worldMapData[onCountry].toFixed(3));
+    }
   }
 
   const [show, setShow] = useState(false);
@@ -146,7 +151,17 @@ const WorldMap = ({ features }) => {
                   strokeOpacity="0.5"
                   countryname={item}
                   onMouseOver={() => onChange(item.properties.ISO_A2)}
-                  onMouseMove={(e) => onHover(e, item.properties.NAME_JA)}
+                  onMouseMove={(e) => {
+                    onHover(e, item.properties.NAME_JA);
+                    tooltip.style("visibility", "visible");
+                      tooltip
+                        .style("top", e.pageY - 20 + "px")
+                        .style("left", e.pageX + 10 + "px")
+                        .html(onCountry+" "+featureValue);
+                  }}
+                  onMouseLeave={() => {
+                    tooltip.style("visibility", "hidden");
+                  }}
                   onMouseOut={() => onOut()}
                   onClick={() => {
                     //console.log(item.properties.ISO_A2);
@@ -160,33 +175,11 @@ const WorldMap = ({ features }) => {
               ))}
             </g>
           </svg>
-          <Tooltip
-            clientX={clientX}
-            clientY={clientY}
-            show={show}
-            country={onCountry}
-            feature={feature}
-            value={featureValue}
-          />
         </div>
       </div>
     </div>
   );
 };
-
-function Tooltip({ clientX, clientY, show, country, feature, value }) {
-  return (
-    <div>
-      {show && (
-        <div id="tooltip" style={{ top: `${clientY}px`, left: `${clientX}px` }}>
-          {country}
-          <br />
-          {feature}:{value}
-        </div>
-      )}
-    </div>
-  );
-}
 
 export const DrowWorldMap = () => {
   const [features, setFeatures] = useState([]);

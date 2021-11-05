@@ -12,7 +12,11 @@ const Detail = () => {
   const choosedFeature = useSelector((state) => state.detail.choosedFeature);
   const choosedPeriod = useSelector((state) => state.detail.choosedPeriod);
 
-  if (choosedCountry === "No" && choosedFeature === "No" && choosedPeriod === "No") {
+  if (
+    choosedCountry === "No" &&
+    choosedFeature === "No" &&
+    choosedPeriod === "No"
+  ) {
     return (
       <div className="card" style={{ height: "100%" }}>
         <div className="card-content p-2">
@@ -28,18 +32,29 @@ const Detail = () => {
         </div>
       </div>
     );
-  } else if (choosedCountry === "Yes" && choosedFeature === "Yes" && choosedPeriod === "Yes" || choosedCountry === "Yes" && choosedFeature === "No" && choosedPeriod === "Yes" ) {
+  } else if (
+    (choosedCountry === "Yes" &&
+      choosedFeature === "Yes" &&
+      choosedPeriod === "Yes") ||
+    (choosedCountry === "Yes" &&
+      choosedFeature === "No" &&
+      choosedPeriod === "Yes")
+  ) {
     return (
       <div className="card" style={{ height: "100%" }}>
-      <div className="card-content">
-        <div className="content">
-          
-              {country}、{startMonth} ~ {endMonth}、{feature}
-              <Swarmplt />
-         
+        <div className="card-content p-1" style={{ height: "100%" }}>
+          <div className="content">
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <div className="card-content m-1">
+                <div className="content">
+                  {country}（{startMonth}~{endMonth}）
+                </div>
+              </div>
+            </div>
+            <Swarmplt />
+          </div>
         </div>
       </div>
-    </div>
     );
   } else {
     if (choosedCountry === "No" && choosedFeature === "No") {
@@ -50,7 +65,8 @@ const Detail = () => {
               <div className="card-content">
                 <div className="content">
                   <p style={{ fontSize: "1.25rem" }}>
-                    国・特徴を選んでください。<br />
+                    国・特徴を選んでください。
+                    <br />
                     （期間：{startMonth} ~ {endMonth}）
                   </p>
                 </div>
@@ -59,7 +75,7 @@ const Detail = () => {
           </div>
         </div>
       );
-    }else if (choosedCountry === "No" && choosedPeriod === "No") {
+    } else if (choosedCountry === "No" && choosedPeriod === "No") {
       return (
         <div className="card" style={{ height: "100%" }}>
           <div className="card-content p-2">
@@ -67,7 +83,8 @@ const Detail = () => {
               <div className="card-content">
                 <div className="content">
                   <p style={{ fontSize: "1.25rem" }}>
-                    国・期間を選んでください。<br />
+                    国・期間を選んでください。
+                    <br />
                     （特徴：{feature}）
                   </p>
                 </div>
@@ -76,7 +93,7 @@ const Detail = () => {
           </div>
         </div>
       );
-    }else if (choosedFeature === "No" && choosedPeriod=== "No") {
+    } else if (choosedFeature === "No" && choosedPeriod === "No") {
       return (
         <div className="card" style={{ height: "100%" }}>
           <div className="card-content p-2">
@@ -84,7 +101,8 @@ const Detail = () => {
               <div className="card-content">
                 <div className="content">
                   <p style={{ fontSize: "1.25rem" }}>
-                    期間・特徴を選んでください。<br />
+                    期間・特徴を選んでください。
+                    <br />
                     （国：{country}）
                   </p>
                 </div>
@@ -93,7 +111,7 @@ const Detail = () => {
           </div>
         </div>
       );
-    }else if (choosedCountry === "No") {
+    } else if (choosedCountry === "No") {
       return (
         <div className="card" style={{ height: "100%" }}>
           <div className="card-content p-2">
@@ -101,7 +119,8 @@ const Detail = () => {
               <div className="card-content">
                 <div className="content">
                   <p style={{ fontSize: "1.25rem" }}>
-                    国を選んでください。<br />
+                    国を選んでください。
+                    <br />
                     （期間：{startMonth} ~ {endMonth}、特徴：{feature}）
                   </p>
                 </div>
@@ -110,7 +129,7 @@ const Detail = () => {
           </div>
         </div>
       );
-    }else if (choosedFeature === "No") {
+    } else if (choosedFeature === "No") {
       return (
         <div className="card" style={{ height: "100%" }}>
           <div className="card-content p-2">
@@ -118,7 +137,8 @@ const Detail = () => {
               <div className="card-content">
                 <div className="content">
                   <p style={{ fontSize: "1.25rem" }}>
-                    特徴を選んでください。<br />
+                    特徴を選んでください。
+                    <br />
                     （国：{country}、期間：{startMonth} ~ {endMonth}）
                   </p>
                 </div>
@@ -135,7 +155,8 @@ const Detail = () => {
               <div className="card-content">
                 <div className="content">
                   <p style={{ fontSize: "1.25rem" }}>
-                    期間を選んでください。<br />
+                    期間を選んでください。
+                    <br />
                     （国：{country}、特徴：{feature}）
                   </p>
                 </div>

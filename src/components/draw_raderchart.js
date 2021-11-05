@@ -39,7 +39,7 @@ function RaderChart({ data }) {
   let score = "";
   const scorePoint = [];
   const c = Math.PI / 180;
-  const tooltipStyle = d3.select("body").append("div").attr("class", "tooltip");
+  const tooltip = d3.select(".tooltip-rader");
 
   for (let _r = 0; _r < rs.length; _r++) {
     for (let i = 0; i <= len; i++) {
@@ -151,14 +151,14 @@ function RaderChart({ data }) {
                     stroke="lightgray"
                     strokeWidth="0.5"
                     onMouseMove={(e) => {
-                      tooltipStyle.style("visibility", "visible");
-                      tooltipStyle
-                        .style("top", e.pageY - 65 + "px")
-                        .style("left", e.pageX - 40 + "px")
-                        .html(p.name + "<br>" + p.value);
+                      tooltip.style("visibility", "visible");
+                      tooltip
+                        .style("top", e.pageY - 20 + "px")
+                        .style("left", e.pageX + 10 + "px")
+                        .html(p.value);
                     }}
                     onMouseLeave={() => {
-                      tooltipStyle.style("visibility", "hidden");
+                      tooltip.style("visibility", "hidden");
                     }}
                   />
                 ) : (
@@ -213,14 +213,14 @@ function RaderChart({ data }) {
                   stroke="#FF0099"
                   strokeWidth={0.5}
                   onMouseMove={(e) => {
-                    tooltipStyle.style("visibility", "visible");
-                    tooltipStyle
-                      .style("top", e.pageY - 65 + "px")
-                      .style("left", e.pageX - 40 + "px")
-                      .html(p.name + "<br>" + p.value);
+                    tooltip.style("visibility", "visible");
+                    tooltip
+                      .style("top", e.pageY - 20 + "px")
+                      .style("left", e.pageX + 10 + "px")
+                      .html(p.value);
                   }}
                   onMouseLeave={() => {
-                    tooltipStyle.style("visibility", "hidden");
+                    tooltip.style("visibility", "hidden");
                   }}
                 />
               </g>

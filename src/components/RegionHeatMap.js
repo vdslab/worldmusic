@@ -88,6 +88,38 @@ const RegionHeatMap = () => {
     "SouthEurope",
   ];
 
+  // ToDo：後で地域を日本語にすること
+  // const regions = [ 
+  //   "アジア",
+  //   "アフリカ",
+  //   "中東",
+  //   "オセアニア",
+  //   "北米",
+  //   "中米",
+  //   "南米",
+  //   "北欧",
+  //   "東欧",
+  //   "西欧",
+  //   "南欧",
+  // ];
+  
+  if (Max === -Infinity || Min === Infinity) { //ToDo：特徴を変えた時も取得中になるようにすること
+    return (
+      <div className="card" style={{ height: "100%" }}>
+        <div className="card-content p-2">
+          <div className="content">
+            <div className="card-content">
+              <div className="content">
+                <p style={{ fontSize: "1.25rem" }}>
+                  データ取得中・・・
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="card-content p-1">
       <div className="content">
