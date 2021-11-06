@@ -28,7 +28,6 @@ function BarChart(props) {
   const [min, setMin] = useState(Infinity);
 
   const [barData, setBarData] = useState([]);
-  console.log(regionId);
 
   const tooltip = d3.select(".tooltip-bar");
 
@@ -40,7 +39,6 @@ function BarChart(props) {
       const countries = {};
       const data = await fetchBarData(feature, startMonth, regionId);
       data.map((d) => {
-        console.log(regionId);
         countries[d.countryid] = true;
         if (
           d[
@@ -111,13 +109,13 @@ function BarChart(props) {
   const [clientY, setClientY] = useState(0);
   const [featureValue, setFeatureValue] = useState(null);
 
-  function onHover(e,value) {
+  function onHover(e, value) {
     const clientX = e.pageX;
     const clientY = e.pageY - 200;
     setShow(true);
     setClientX(clientX);
     setClientY(clientY);
-    if(value === undefined){
+    if (value === undefined) {
       setFeatureValue("（データなし）");
     } else {
       setFeatureValue(value.toFixed(3));
@@ -191,7 +189,13 @@ function BarChart(props) {
                       `SUM ( Ranking.stream * Music.${feature} ) / SUM ( Ranking.stream)`
                     ]
                   )}
-                  onMouseMove={(e) => { onHover(e,d["SUM ( Ranking.stream * Music.acousticness ) / SUM ( Ranking.stream)"])
+                  onMouseMove={(e) => {
+                    onHover(
+                      e,
+                      d[
+                        "SUM ( Ranking.stream * Music.acousticness ) / SUM ( Ranking.stream)"
+                      ]
+                    );
                   }}
                   onMouseLeave={() => {
                     tooltip.style("visibility", "hidden");
@@ -202,7 +206,18 @@ function BarChart(props) {
                     dispatch(changeChoosedCountry("Yes"));
                   }}
                 ></rect>
-                <text x="-50" y={13 * cnt} fontSize={8}>
+                <text
+                  x="-15"
+                  y={13 * cnt - 5}
+                  dominantBaseline="central"
+                  fontSize="8"
+                  style={{ userSelect: "none" }}
+                  onClick={() => {
+                    console.log(d.countryid);
+                    dispatch(changeCountry(d.countryid));
+                    dispatch(changeChoosedCountry("Yes"));
+                  }}
+                >
                   {d.countryid}
                 </text>
               </g>
