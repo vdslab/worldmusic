@@ -42,11 +42,7 @@ const Visualization = () => {
           </article>
           <article class="tile is-child">
             <div className="card" style={{ height: "100%" }}>
-              <div class="tile is-parent">
-                <article class="tile is-child">
-                  <JudgeVis />
-                </article>
-              </div>
+              <JudgeVis />
             </div>
           </article>
         </div>
