@@ -1,4 +1,5 @@
 import React from "react";
+import * as d3 from "d3";
 import HeatMapChart from "./draw_heatmap";
 import { useEffect, useState } from "react";
 import { fetchData } from "../api";
@@ -13,7 +14,6 @@ function VerticalAxis({ len, yAxis, name, h }) {
     dispatch(changeChoosedCountry("Yes"));
     dispatch(changeCountry(country));
   }
-  console.log(yAxis);
 
   return (
     <g>
@@ -130,7 +130,6 @@ function Tooltip({ clientX, clientY, show, feature, value }) {
 }
 
 const CountryHeatMap = () => {
-  let countries = [];
   const dispatch = useDispatch();
   const feature = useSelector((state) => state.detail.feature);
   const regionId = useSelector((state) => state.detail.regionId);
@@ -139,6 +138,7 @@ const CountryHeatMap = () => {
   const display = useSelector((state) => state.detail.display);
   const judgeVis = useSelector((state) => state.detail.judgeVis);
   const [heatMapData, setHeatMapData] = useState([]);
+  const [countries, setCountries] = useState([]);
   const [Max, setMax] = useState(-Infinity);
   const [Min, setMin] = useState(Infinity);
   const startdays = [
@@ -191,6 +191,7 @@ const CountryHeatMap = () => {
   useEffect(() => {
     (async () => {
       console.log(regionId);
+      let country = [];
       let min = Infinity;
       let max = -Infinity;
       const aveWeight = {};
@@ -199,7 +200,7 @@ const CountryHeatMap = () => {
         let data = await fetchData(feature, startdays[i], regionId);
         data.map((d, j) => {
           if (!aveWeight[d.countryid]) {
-            countries.push(d.countryid);
+            country.push(d.countryid);
             aveWeight[d.countryid] = {};
           }
 
@@ -212,18 +213,17 @@ const CountryHeatMap = () => {
           }
         });
       }
-      console.log(countries);
-      setMin(Min);
-      setMax(Max);
+      setCountries(country);
+      setMin(min);
+      setMax(max);
+      // console.log(Min)
       setHeatMapData(aveWeight);
-      // dispatch(changeMax(data.max));
-      // dispatch(changeMin(data.min));
-      //console.log(data);
     })();
   }, [feature, regionId]);
 
   const colorjudge = (item, start) => {
     let color = "lightgray";
+    console.log(item);
 
     if (item) {
       color = d3.interpolatePiYG(opacityjudge(item, start));
@@ -241,7 +241,6 @@ const CountryHeatMap = () => {
     //     return country.timeData.filter((item) => item.start === start).value;
     //   })
     //   .filter((t) => t);
-
     opacity =
       ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) + opacityMin;
     // console.log(Max - Min);
@@ -329,7 +328,7 @@ const CountryHeatMap = () => {
                     y={len * i}
                     width={len}
                     height={len}
-                    // fill={colorjudge(heatMapData[y][s], s)}
+                    fill={colorjudge(heatMapData[y][s], s)}
                     onClick={() => {
                       //dispatch(changeDisplay("Yes"));
                       setClicked(i * startdays.length + j);
