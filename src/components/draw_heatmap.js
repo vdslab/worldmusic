@@ -13,7 +13,6 @@ import {
   changeFeature,
   changeChoosedPeriod,
   changeChoosedCountry,
-  changeChoosedFeature,
   changeRegionId,
 } from "../stores/details";
 import "../tooltip.css";
@@ -157,25 +156,25 @@ function HeatMapChart(props) {
   const display = useSelector((state) => state.detail.display);
   const judgeVis = useSelector((state) => state.detail.judgeVis);
   const startdays = [
-    "2017-01-01",
-    "2017-04-01",
-    "2017-07-01",
-    "2017-10-01",
-    "2018-01-01",
-    "2018-04-01",
-    "2018-07-01",
-    "2018-10-01",
-    "2019-01-01",
-    "2019-04-01",
-    "2019-07-01",
-    "2019-10-01",
-    "2020-01-01",
-    "2020-04-01",
-    "2020-07-01",
-    "2020-10-01",
-    "2021-01-01",
-    "2021-04-01",
-    "2021-07-01",
+    "2017-01",
+    "2017-04",
+    "2017-07",
+    "2017-10",
+    "2018-01",
+    "2018-04",
+    "2018-07",
+    "2018-10",
+    "2019-01",
+    "2019-04",
+    "2019-07",
+    "2019-10",
+    "2020-01",
+    "2020-04",
+    "2020-07",
+    "2020-10",
+    "2021-01",
+    "2021-04",
+    "2021-07",
   ];
 
   const term = [
@@ -208,12 +207,13 @@ function HeatMapChart(props) {
   const yAxis = props.y;
   const judgenumber = props.judgeNumber;
   // console.log(Max, Min);
+  const tooltip = d3.select(".tooltip-regionheat");
 
   const colorjudge = (item, start) => {
     let color = "lightgray";
 
     if (item) {
-      color = d3.interpolatePiYG(opacityjudge(item, start));
+      color = d3.interpolateTurbo(opacityjudge(item, start));
     }
     // console.log(color);
     return color;
@@ -254,17 +254,29 @@ function HeatMapChart(props) {
   const [show, setShow] = useState(false);
   const [clientX, setClientX] = useState(0);
   const [clientY, setClientY] = useState(0);
-
-  function onHover(e) {
+  const [featureValue, setFeatureValue] = useState(null);
+  function onHover(e,value) {
     const clientX = e.pageX;
     const clientY = e.pageY - 200;
     setShow(true);
     setClientX(clientX);
     setClientY(clientY);
+
+    if(value === undefined){
+      setFeatureValue("（データなし）");
+    } else {
+      setFeatureValue(value.toFixed(3));
+    }
+    tooltip.style("visibility", "visible");
+    tooltip
+      .style("top", e.pageY - 20 + "px")
+      .style("left", e.pageX + 10 + "px")
+      .html(featureValue);
   }
 
   function onOut() {
     setShow(false);
+    tooltip.style("visibility", "hidden");
   }
 
   return (
@@ -313,6 +325,9 @@ function HeatMapChart(props) {
               const startmonth = s;
               const year = String(Number(startmonth.split("-")[0]));
               let endmonth = String(Number(startmonth.split("-")[1]) + 2);
+              if (endmonth.length === 1) {
+                endmonth = "0" + endmonth;
+              }
 
               return (
                 <g key={i * startdays.length + j}>
@@ -328,17 +343,19 @@ function HeatMapChart(props) {
                       setClicked(i * startdays.length + j);
                       dispatch(changeRegionId(y));
                       dispatch(changeStartMonth(s));
+                      dispatch(changeChoosedPeriod("Yes"));
+                      dispatch(changeEndMonth(year + "-" + endmonth));
                       {
                         judgenumber === 1
-                          ? dispatch(changeJudgeVis(3))
+                          ? dispatch(changeJudgeVis(3))//棒グラフ
                           : changeInfo(s, year + "-" + endmonth, y); //Vis２のヒートマップに必要。
                       }
-                      //dispatch(changeJudgeVis(3)); //棒グラフ
+                      console.log(heatMapData[y][s])
                     }}
                     onMouseEnter={() => {
                       // setPos(heatMapData[y][s].toFixed(2) || "");
                     }}
-                    onMouseMove={(e) => onHover(e)}
+                    onMouseMove={(e) => onHover(e,heatMapData[y][s])}
                     onMouseLeave={(e) => onOut()}
                   ></rect>
                   <rect
@@ -354,62 +371,8 @@ function HeatMapChart(props) {
               );
             });
           })}
-
-          {/* {heatMapData.map((d, i) => {
-            return d.timeData.map((item, j) => {
-              return (
-                <g key={i * d.timeData.length + j}>
-                  <rect
-                    className="cell"
-                    x={len * j}
-                    y={len * i}
-                    width={len}
-                    height={len}
-                    fill={colorjudge(item.value, item.start)}
-                    onClick={() => {
-                      //dispatch(changeDisplay("Yes"));
-                      setClicked(i * d.timeData.length + j);
-                      console.log(
-                        d.countryName + " " + item.start + " " + item.end
-                      );
-                      {
-                        judgenumber === 1
-                          ? dispatch(changeJudgeVis(3)) //棒グラフ
-                          : changeInfo(
-                              item.start,
-                              item.end,
-                              d.countryName
-                            ); //Vis２のヒートマップに必要。
-                      }
-                    }}
-                    onMouseEnter={() => {
-                      setPos(item.value?.toFixed(2) || "");
-                    }}
-                    onMouseMove={(e) => onHover(e)}
-                    onMouseLeave={(e) => onOut()}
-                  />
-                  <rect
-                    x={len * j}
-                    y={len * i}
-                    width={len - 0.5}
-                    height={len - 0.5}
-                    fill="none"
-                    stroke="black"
-                    opacity={clicked === i * d.timeData.length + j ? 1 : 0}
-                  />
-                </g>
-              );
-            });
-          })} */}
         </g>
       </svg>
-      {/* <Tooltip
-        clientX={clientX}
-        clientY={clientY}
-        show={show}
-        feature={feature}
-        value={pos}
-      /> */}
     </div>
   );
 }

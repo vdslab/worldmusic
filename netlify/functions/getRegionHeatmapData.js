@@ -31,7 +31,7 @@ exports.handler = async function (event) {
       FROM Ranking
       INNER JOIN Music ON Ranking.musicid = Music.musicid
       INNER JOIN Country ON Ranking.countryid = Country.countryid
-      WHERE Ranking.startday BETWEEN "${startmonth}" AND "${year}-${endmonth}-31"
+      WHERE Ranking.startday BETWEEN "${startmonth}-01" AND "${year}-${endmonth}-31"
       AND NOT Country.region = "Nothing"
       GROUP BY Country.region`
     );

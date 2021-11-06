@@ -35,19 +35,18 @@ const JudgeVis = () => {
     //期間が押された場合
     return (
       <div className="card-content p-1" style={{ height: "100%" }}>
-        {/* <div className="content heightMax"> */}
-          {/* <div className="subtile">
-            {startMonth}~{endMonth}
-          </div> */}
-          <WorldMap />
-        {/* </div> */}
+        <WorldMap />
       </div>
     );
   } else if (judgeVis === 2) {
     //国が押された場合
     return (
-      <div>
-        <CountryHeatMap />
+      <div className="card-content p-1" style={{ height: "100%" }}>
+        <div className="card-content p-1">
+          <div className="content">
+            <CountryHeatMap />
+          </div>
+        </div>
       </div>
     );
   } else {

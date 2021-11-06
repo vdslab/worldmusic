@@ -4,7 +4,15 @@ import HeatMapChart from "./draw_heatmap";
 import { useEffect, useState } from "react";
 import { fetchData } from "../api";
 import { useDispatch, useSelector } from "react-redux";
-import { changeMax, changeMin, changeCountry } from "../stores/details";
+import {
+  changeMax,
+  changeMin,
+  changeStartMonth,
+  changeEndMonth,
+  changeCountry,
+  changeChoosedCountry,
+  changeChoosedPeriod,
+} from "../stores/details";
 
 function VerticalAxis({ len, yAxis, name, h }) {
   const dispatch = useDispatch();
@@ -39,8 +47,6 @@ function VerticalAxis({ len, yAxis, name, h }) {
               style={{ userSelect: "none" }}
               onClick={() => {
                 {
-                  dispatch(changeRegionId(y));
-
                   changeInfo(y);
                 }
               }}
@@ -117,18 +123,6 @@ function Legend({ h, w }) {
   );
 }
 
-function Tooltip({ clientX, clientY, show, feature, value }) {
-  return (
-    <div>
-      {show && (
-        <div id="tooltip" style={{ top: `${clientY}px`, left: `${clientX}px` }}>
-          {feature}:{value}
-        </div>
-      )}
-    </div>
-  );
-}
-
 const CountryHeatMap = () => {
   const dispatch = useDispatch();
   const feature = useSelector((state) => state.detail.feature);
@@ -142,27 +136,26 @@ const CountryHeatMap = () => {
   const [countries, setCountries] = useState([]);
   const [Max, setMax] = useState(-Infinity);
   const [Min, setMin] = useState(Infinity);
-  console.log(c);
   const startdays = [
-    "2017-01-01",
-    "2017-04-01",
-    "2017-07-01",
-    "2017-10-01",
-    "2018-01-01",
-    "2018-04-01",
-    "2018-07-01",
-    "2018-10-01",
-    "2019-01-01",
-    "2019-04-01",
-    "2019-07-01",
-    "2019-10-01",
-    "2020-01-01",
-    "2020-04-01",
-    "2020-07-01",
-    "2020-10-01",
-    "2021-01-01",
-    "2021-04-01",
-    "2021-07-01",
+    "2017-01",
+    "2017-04",
+    "2017-07",
+    "2017-10",
+    "2018-01",
+    "2018-04",
+    "2018-07",
+    "2018-10",
+    "2019-01",
+    "2019-04",
+    "2019-07",
+    "2019-10",
+    "2020-01",
+    "2020-04",
+    "2020-07",
+    "2020-10",
+    "2021-01",
+    "2021-04",
+    "2021-07",
   ];
 
   const term = [
@@ -190,12 +183,17 @@ const CountryHeatMap = () => {
   const [clicked, setClicked] = useState(-1);
   const [pos, setPos] = useState(null);
 
+  let checkMin;
+  let checkMax;
+  const [showed, setShowed] = useState(false);
   useEffect(() => {
     (async () => {
-      console.log(regionId);
       let country = [];
       let min = Infinity;
       let max = -Infinity;
+      checkMin = min;
+      checkMax = max;
+      setShowed(false);
       const aveWeight = {};
       for (let i = 0; i < startdays.length; i++) {
         //startdayを渡す用
@@ -215,14 +213,19 @@ const CountryHeatMap = () => {
           }
         });
       }
+      if (max != checkMax && min != checkMin) {
+        checkMin = min;
+        checkMax = max;
+        setShowed(true);
+      }
       setCountries(country);
       setMin(min);
       setMax(max);
-      // console.log(Min)
       setHeatMapData(aveWeight);
     })();
   }, [feature, regionId]);
 
+  const tooltip = d3.select(".tooltip-countryheat");
   const colorjudge = (item, start) => {
     let color = "lightgray";
 
@@ -266,19 +269,44 @@ const CountryHeatMap = () => {
   const [show, setShow] = useState(false);
   const [clientX, setClientX] = useState(0);
   const [clientY, setClientY] = useState(0);
+  const [featureValue, setFeatureValue] = useState(null);
 
-  function onHover(e) {
+  function onHover(e,value) {
     const clientX = e.pageX;
     const clientY = e.pageY - 200;
     setShow(true);
     setClientX(clientX);
     setClientY(clientY);
+    if(value === undefined){
+      setFeatureValue("（データなし）");
+    } else {
+      setFeatureValue(value.toFixed(3));
+    }
+    tooltip.style("visibility", "visible");
+    tooltip
+      .style("top", e.pageY - 20 + "px")
+      .style("left", e.pageX + 10 + "px")
+      .html(featureValue);
   }
 
   function onOut() {
     setShow(false);
+    tooltip.style("visibility", "hidden");
   }
 
+  if (!showed) {
+    return (
+      <div className="card-content p-2">
+        <div className="content">
+          <div className="card-content">
+            <div className="content">
+              <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div
       style={{
@@ -313,6 +341,9 @@ const CountryHeatMap = () => {
               const startmonth = s;
               const year = String(Number(startmonth.split("-")[0]));
               let endmonth = String(Number(startmonth.split("-")[1]) + 2);
+              if (endmonth.length === 1) {
+                endmonth = "0" + endmonth;
+              }
 
               return (
                 <g key={i * startdays.length + j}>
@@ -322,20 +353,15 @@ const CountryHeatMap = () => {
                     y={len * i}
                     width={len}
                     height={len}
-                    fill={colorjudge(heatMapData[y][s], s)}
+                    //fill={colorjudge(heatMapData[y][s], s)}
                     onClick={() => {
-                      //dispatch(changeDisplay("Yes"));
                       setClicked(i * startdays.length + j);
-                      dispatch(changeCountry(y));
-                      // {
-                      //   changeInfo(s, year + "-" + endmonth, y); //Vis２のヒートマップに必要。
-                      // }
-                      //dispatch(changeJudgeVis(3)); //棒グラフ
+                      changeInfo(s, year + "-" + endmonth, y);
                     }}
                     onMouseEnter={() => {
                       // setPos(heatMapData[y][s].toFixed(2) || "");
                     }}
-                    onMouseMove={(e) => onHover(e)}
+                    onMouseMove={(e) => onHover(e,heatMapData[y][s])}
                     onMouseLeave={(e) => onOut()}
                   ></rect>
                   <rect
@@ -353,13 +379,6 @@ const CountryHeatMap = () => {
           })}
         </g>
       </svg>
-      {/* <Tooltip
-          clientX={clientX}
-          clientY={clientY}
-          show={show}
-          feature={feature}
-          value={pos}
-        /> */}
     </div>
   );
 };
