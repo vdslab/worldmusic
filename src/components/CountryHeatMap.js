@@ -4,7 +4,7 @@ import HeatMapChart from "./draw_heatmap";
 import { useEffect, useState } from "react";
 import { fetchData } from "../api";
 import { useDispatch, useSelector } from "react-redux";
-import { changeMax, changeMin } from "../stores/details";
+import { changeMax, changeMin, changeCountry } from "../stores/details";
 
 function VerticalAxis({ len, yAxis, name, h }) {
   const dispatch = useDispatch();
@@ -133,6 +133,7 @@ const CountryHeatMap = () => {
   const dispatch = useDispatch();
   const feature = useSelector((state) => state.detail.feature);
   const regionId = useSelector((state) => state.detail.regionId);
+  const c = useSelector((state) => state.detail.country);
   const startMonth = useSelector((state) => state.detail.startMonth);
   const endMonth = useSelector((state) => state.detail.endMonth);
   const display = useSelector((state) => state.detail.display);
@@ -141,6 +142,7 @@ const CountryHeatMap = () => {
   const [countries, setCountries] = useState([]);
   const [Max, setMax] = useState(-Infinity);
   const [Min, setMin] = useState(Infinity);
+  console.log(c);
   const startdays = [
     "2017-01-01",
     "2017-04-01",
@@ -223,12 +225,10 @@ const CountryHeatMap = () => {
 
   const colorjudge = (item, start) => {
     let color = "lightgray";
-    console.log(item);
 
     if (item) {
       color = d3.interpolatePiYG(opacityjudge(item, start));
     }
-    // console.log(color);
     return color;
   };
 
@@ -236,14 +236,8 @@ const CountryHeatMap = () => {
     let opacity = 0;
     let opacityMax = 1;
     let opacityMin = 0.1;
-    // const termData = heatMapData
-    //   .map((country) => {
-    //     return country.timeData.filter((item) => item.start === start).value;
-    //   })
-    //   .filter((t) => t);
     opacity =
       ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) + opacityMin;
-    // console.log(Max - Min);
     return opacity;
   };
 
@@ -332,11 +326,10 @@ const CountryHeatMap = () => {
                     onClick={() => {
                       //dispatch(changeDisplay("Yes"));
                       setClicked(i * startdays.length + j);
-                      dispatch(changeRegionId(y));
-                      dispatch(changeStartMonth(s));
-                      {
-                        changeInfo(s, year + "-" + endmonth, y); //Vis２のヒートマップに必要。
-                      }
+                      dispatch(changeCountry(y));
+                      // {
+                      //   changeInfo(s, year + "-" + endmonth, y); //Vis２のヒートマップに必要。
+                      // }
                       //dispatch(changeJudgeVis(3)); //棒グラフ
                     }}
                     onMouseEnter={() => {

@@ -213,7 +213,7 @@ function HeatMapChart(props) {
     let color = "lightgray";
 
     if (item) {
-      color = d3.interpolateTurbo(opacityjudge(item, start));
+      color = d3.interpolatePiYG(opacityjudge(item, start));
     }
     // console.log(color);
     return color;
@@ -223,15 +223,9 @@ function HeatMapChart(props) {
     let opacity = 0;
     let opacityMax = 1;
     let opacityMin = 0.1;
-    // const termData = heatMapData
-    //   .map((country) => {
-    //     return country.timeData.filter((item) => item.start === start).value;
-    //   })
-    //   .filter((t) => t);
 
     opacity =
       ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) + opacityMin;
-    // console.log(Max - Min);
     return opacity;
   };
 
@@ -241,12 +235,6 @@ function HeatMapChart(props) {
     dispatch(changeEndMonth(end));
     dispatch(changeChoosedCountry("Yes"));
     dispatch(changeChoosedPeriod("Yes"));
-  }
-
-  console.log(judgenumber)
-  function changeInfo1(){
-    dispatch(changeChoosedPeriod("Yes"));
-    dispatch(changeJudgeVis(3));
   }
 
   const margin = {
@@ -325,7 +313,7 @@ function HeatMapChart(props) {
               const startmonth = s;
               const year = String(Number(startmonth.split("-")[0]));
               let endmonth = String(Number(startmonth.split("-")[1]) + 2);
-              console.log(s);
+
               return (
                 <g key={i * startdays.length + j}>
                   <rect
@@ -340,10 +328,9 @@ function HeatMapChart(props) {
                       setClicked(i * startdays.length + j);
                       dispatch(changeRegionId(y));
                       dispatch(changeStartMonth(s));
-                      dispatch(changeEndMonth(year + "-" + endmonth));
                       {
                         judgenumber === 1
-                          ? changeInfo1()
+                          ? dispatch(changeJudgeVis(3))
                           : changeInfo(s, year + "-" + endmonth, y); //Vis２のヒートマップに必要。
                       }
                       //dispatch(changeJudgeVis(3)); //棒グラフ
