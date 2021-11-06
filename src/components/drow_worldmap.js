@@ -4,12 +4,12 @@ import { select } from "d3-selection";
 import * as topojson from "topojson";
 import { fetchData, fetchWorldMapData } from "../api";
 import {
-  changeMax,
-  changeMin,
   changeCountry,
   changeFeature,
   changeDisplay,
   changeChoosedCountry,
+  changeMin,
+  changeMax,
 } from "../stores/details";
 import { useDispatch, useSelector } from "react-redux";
 import "../tooltip.css";
@@ -21,6 +21,8 @@ const WorldMap = ({ features }) => {
   const startMonth = useSelector((state) => state.detail.startMonth);
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
+  const cMax = useSelector((state) => state.detail.max);
+  const cMin = useSelector((state) => state.detail.min);
   const display = useSelector((state) => state.detail.display);
   const [Max, setMax] = useState(-Infinity);
   const [Min, setMin] = useState(Infinity);
@@ -47,16 +49,33 @@ const WorldMap = ({ features }) => {
         }
       });
       setWorldMapData(weightAve);
-      console.log(weightAve);
-      setMax(max);
-      setMin(min);
+      // setMax(max);
+      // setMin(min);
+      if (max < cMax) {
+        max = cMax;
+        setMax(max);
+      } else if (cMax < max) {
+        setMax(max);
+        console.log("max変更");
+        dispatch(changeMax(max));
+      }
+      if (cMin < min) {
+        min = cMin;
+        setMin(min);
+      } else if (min < cMin) {
+        setMin(min);
+        console.log("min変更");
+        dispatch(changeMin(min));
+      }
     })();
   }, [feature, startMonth]);
+
+  console.log("worldMap : " + Min, Max);
 
   const colorjudge = (item) => {
     let color = "white";
     if (worldMapData[item.properties.ISO_A2]) {
-      color = d3.interpolateSpectral(
+      color = d3.interpolateTurbo(
         opacityjudge(worldMapData[item.properties.ISO_A2])
       );
     }
@@ -87,10 +106,10 @@ const WorldMap = ({ features }) => {
 
   const [featureValue, setFeatureValue] = useState(null);
   function onChange(onCountry) {
-    console.log(worldMapData[onCountry]);
-    if(worldMapData[onCountry] === undefined){
-      setFeatureValue("（データなし）")
-    }else{
+    //console.log(worldMapData[onCountry]);
+    if (worldMapData[onCountry] === undefined) {
+      setFeatureValue("（データなし）");
+    } else {
       setFeatureValue(worldMapData[onCountry].toFixed(3));
     }
   }
@@ -114,68 +133,70 @@ const WorldMap = ({ features }) => {
   }
 
   return (
-    <div>
-      <div className="content">
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <div className="card-content">
-            <div className="content">
-              {startMonth}~{endMonth}
-            </div>
+    <div className="content">
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div className="card-content">
+          <div className="content">
+            {startMonth}~{endMonth}
           </div>
-          <div
+        </div>
+        {/* <div
             className="card-content p-2 colorLegend"
             style={{ height: "10%" }}
           >
             <div className="content" style={{ height: "100%" }}>
-              <ColorLegend max={Max} min={Min} color={"interpolateSpectral"} id={"gradient2"} />
+              <ColorLegend
+                max={Max}
+                min={Min}
+                color={"interpolateSpectral"}
+                id={"gradient2"}
+              />
             </div>
-          </div>
-        </div>
-        <div
-          style={{
-            height: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {/* <div className="heightMax" style={{ display: "flex" }}> */}
-          <svg viewBox="-30 -30 770 310">
-            <g>
-              {features.map((item, i) => (
-                <path
-                  d={path(item)}
-                  fill={colorjudge(item)}
-                  stroke="black"
-                  strokeWidth="1"
-                  strokeOpacity="0.5"
-                  countryname={item}
-                  onMouseOver={() => onChange(item.properties.ISO_A2)}
-                  onMouseMove={(e) => {
-                    onHover(e, item.properties.NAME_JA);
-                    tooltip.style("visibility", "visible");
-                      tooltip
-                        .style("top", e.pageY - 20 + "px")
-                        .style("left", e.pageX + 10 + "px")
-                        .html(onCountry+" "+featureValue);
-                  }}
-                  onMouseLeave={() => {
-                    tooltip.style("visibility", "hidden");
-                  }}
-                  onMouseOut={() => onOut()}
-                  onClick={() => {
-                    //console.log(item.properties.ISO_A2);
-                    const c = item.properties.ISO_A2;
-                    dispatch(changeChoosedCountry("Yes"));
-                    dispatch(changeCountry(c));
-                    dispatch(changeDisplay("Yes"));
-                  }}
-                  key={i}
-                />
-              ))}
-            </g>
-          </svg>
-        </div>
+          </div> */}
+      </div>
+      <div
+        style={{
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <svg viewBox="-30 -30 770 325">
+          <g>
+            {features.map((item, i) => (
+              <path
+                d={path(item)}
+                fill={colorjudge(item)}
+                stroke="black"
+                strokeWidth="1"
+                strokeOpacity="0.5"
+                countryname={item}
+                onMouseOver={() => onChange(item.properties.ISO_A2)}
+                onMouseMove={(e) => {
+                  onHover(e, item.properties.NAME_JA);
+                  tooltip.style("visibility", "visible");
+                  tooltip
+                    .style("top", e.pageY - 20 + "px")
+                    .style("left", e.pageX + 10 + "px")
+                    .html(onCountry + " " + featureValue);
+                }}
+                onMouseLeave={() => {
+                  tooltip.style("visibility", "hidden");
+                }}
+                onMouseOut={() => onOut()}
+                onClick={() => {
+                  //console.log(item.properties.ISO_A2);
+                  const c = item.properties.ISO_A2;
+                  dispatch(changeChoosedCountry("Yes"));
+                  dispatch(changeCountry(c));
+                  dispatch(changeDisplay("Yes"));
+                }}
+                key={i}
+              />
+            ))}
+          </g>
+        </svg>
       </div>
     </div>
   );

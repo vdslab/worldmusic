@@ -129,7 +129,7 @@ function BarChart(props) {
     <div
       style={{
         height: "100%",
-        // display: "flex",
+        //display: "flex",
         justifyContent: "center",
         alignItems: "center",
       }}
@@ -174,9 +174,13 @@ function BarChart(props) {
                       `SUM ( Ranking.stream * Music.${feature} ) / SUM ( Ranking.stream)`
                     ]
                   )}
-                  // stroke="black"
+                  onClick={() => {
+                    dispatch(changeCountry(d.countryid));
+                    dispatch(changeChoosedPeriod("Yes"));
+                    dispatch(changeChoosedCountry("Yes"));
+                  }}
                 ></rect>
-                <text x="-50" y={13 * cnt} fontSize={13}>
+                <text x="-50" y={13 * cnt} fontSize={8}>
                   {d.countryid}
                 </text>
               </g>
