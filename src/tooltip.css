@@ -10,6 +10,30 @@
   visibility: hidden;
 }
 
+.tooltip-regionheat {
+  border: 1px solid black;
+  position: absolute;
+  text-align: center;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  font: 12px;
+  background: white;
+  visibility: hidden;
+}
+
+.tooltip-countryheat {
+  border: 1px solid black;
+  position: absolute;
+  text-align: center;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  font: 12px;
+  background: white;
+  visibility: hidden;
+}
+
 .tooltip-world {
   border: 1px solid black;
   position: absolute;
@@ -19,6 +43,18 @@
   padding: 5px;
   font: 12px;
   background-color: white;
+  visibility: hidden;
+}
+
+.tooltip-bar {
+  border: 1px solid black;
+  position: absolute;
+  text-align: center;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  font: 12px;
+  background: white;
   visibility: hidden;
 }
 

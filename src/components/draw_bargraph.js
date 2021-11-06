@@ -30,6 +30,8 @@ function BarChart(props) {
   const [barData, setBarData] = useState([]);
   console.log(regionId);
 
+  const tooltip = d3.select(".tooltip-bar");
+
   useEffect(() => {
     (async () => {
       /**TODO:改善 */
@@ -104,12 +106,27 @@ function BarChart(props) {
   const svgHeight = margin.top + margin.bottom + contentHeight;
   /**TODO:引数渡していい感じにサイズとか調整できるようにする */
 
-  function onHover(e) {
+  const [show, setShow] = useState(false);
+  const [clientX, setClientX] = useState(0);
+  const [clientY, setClientY] = useState(0);
+  const [featureValue, setFeatureValue] = useState(null);
+
+  function onHover(e,value) {
     const clientX = e.pageX;
     const clientY = e.pageY - 200;
     setShow(true);
     setClientX(clientX);
     setClientY(clientY);
+    if(value === undefined){
+      setFeatureValue("（データなし）");
+    } else {
+      setFeatureValue(value.toFixed(3));
+    }
+    tooltip.style("visibility", "visible");
+    tooltip
+      .style("top", e.pageY - 20 + "px")
+      .style("left", e.pageX + 10 + "px")
+      .html(featureValue);
   }
 
   function onOut() {
@@ -174,6 +191,11 @@ function BarChart(props) {
                       `SUM ( Ranking.stream * Music.${feature} ) / SUM ( Ranking.stream)`
                     ]
                   )}
+                  onMouseMove={(e) => { onHover(e,d["SUM ( Ranking.stream * Music.acousticness ) / SUM ( Ranking.stream)"])
+                  }}
+                  onMouseLeave={() => {
+                    tooltip.style("visibility", "hidden");
+                  }}
                   onClick={() => {
                     dispatch(changeCountry(d.countryid));
                     dispatch(changeChoosedPeriod("Yes"));

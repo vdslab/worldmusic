@@ -56,7 +56,6 @@ const WorldMap = ({ features }) => {
         setMax(max);
       } else if (cMax < max) {
         setMax(max);
-        console.log("max変更");
         dispatch(changeMax(max));
       }
       if (cMin < min) {
@@ -64,13 +63,10 @@ const WorldMap = ({ features }) => {
         setMin(min);
       } else if (min < cMin) {
         setMin(min);
-        console.log("min変更");
         dispatch(changeMin(min));
       }
     })();
   }, [feature, startMonth]);
-
-  console.log("worldMap : " + Min, Max);
 
   const colorjudge = (item) => {
     let color = "white";
