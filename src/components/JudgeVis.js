@@ -34,7 +34,7 @@ const JudgeVis = () => {
   } else if (judgeVis === 1) {
     //期間が押された場合
     return (
-      <div className="card-content p-1">
+      <div className="card-content p-1" style={{ height: "100%" }}>
         {/* <div className="content heightMax"> */}
           {/* <div className="subtile">
             {startMonth}~{endMonth}
@@ -53,7 +53,7 @@ const JudgeVis = () => {
   } else {
     //セル（国と期間）が押された場合
     return (
-      <div>
+      <div className="card-content" style={{ height: "100%" }}>
         <Bargraph />
       </div>
     );

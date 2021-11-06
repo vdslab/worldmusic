@@ -6,14 +6,17 @@ import { useEffect, useState } from "react";
 import { fetchRegionHeatMapData } from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import { changeMax, changeMin } from "../stores/details";
-//import { changeMax, changeMin } from "../stores/details";
 
 const RegionHeatMap = () => {
   const dispatch = useDispatch();
   const feature = useSelector((state) => state.detail.feature);
+  //const cMin = useSelector((state) => state.detail.min);
+  //const cMax = useSelector((state) => state.detail.max);
+  const Max = useSelector((state) => state.detail.max);
+  const Min = useSelector((state) => state.detail.min);
   const [heatMapData, setHeatMapData] = useState([]);
-  const [Max, setMax] = useState(-Infinity);
-  const [Min, setMin] = useState(Infinity);
+  //const [Max, setMax] = useState(-Infinity);
+  //const [Min, setMin] = useState(Infinity);
   const startdays = [
     "2017-01-01",
     "2017-04-01",
@@ -52,14 +55,14 @@ const RegionHeatMap = () => {
 
   let checkMin;
   let checkMax;
-  const [showed, setShowed] = useState("No");
+  const [showed, setShowed] = useState(false);
   useEffect(() => {
     (async () => {
       let min = Infinity;
       let max = -Infinity;
       checkMin = min;
       checkMax = max;
-      setShowed("No");
+      setShowed(false);
       for (let i = 0; i < startdays.length; i++) {
         //startdayを渡す用
         let data = await fetchRegionHeatMapData(feature, startdays[i]);
@@ -76,13 +79,13 @@ const RegionHeatMap = () => {
       if (max != checkMax && min != checkMin) {
         checkMin = min;
         checkMax = max;
-        setShowed("Yes");
+        setShowed(true);
       }
-      setMin(min);
-      setMax(max);
+      //setMin(min);
+      //setMax(max);
+      dispatch(changeMax(max));
+      dispatch(changeMin(min));
     })();
-    // console.log(Min, Max);
-    console.log(aveWeight);
     setHeatMapData(aveWeight);
   }, [feature]);
 
@@ -115,9 +118,7 @@ const RegionHeatMap = () => {
   //   "南欧",
   // ];
 
-  //if (Max === -Infinity || Min === Infinity) {
-  if (showed === "No") {
-    //ToDo：特徴を変えた時も取得中になるようにすること
+  if (!showed) {
     return (
       <div className="card" style={{ height: "100%" }}>
         <div className="card-content p-2">
@@ -149,7 +150,7 @@ const RegionHeatMap = () => {
               <ColorLegend
                 max={Max}
                 min={Min}
-                color={"interpolatePiYG"}
+                color={"interpolateTurbo"}
                 id={"gradient1"}
               />
             </div>
