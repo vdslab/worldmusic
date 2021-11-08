@@ -14,6 +14,7 @@ function BarChart(props) {
   const startMonth = useSelector((state) => state.detail.startMonth);
   const feature = useSelector((state) => state.detail.feature);
   const regionId = useSelector((state) => state.detail.regionId);
+  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
 
   const [isChecked, setIsChecked] = useState({});
   const [max, setMax] = useState(-Infinity);
@@ -58,7 +59,7 @@ function BarChart(props) {
       //今のところそれぞれ掛けて100以上になるようにしている状態
       if (feature === "danceability") {
         setControlWidth(200);
-      } else if (feature === "energy") {
+      } else if (feature === "energy" || feature === "valence") {
         setControlWidth(300);
       } else if (feature === "instrumentalness") {
         setControlWidth(10000);
@@ -70,7 +71,7 @@ function BarChart(props) {
         setControlWidth(1);
       } else if (feature === "time_signature") {
         setControlWidth(50);
-      } else if (feature === "valence" || feature === "acousticness") {
+      }else if (feature === "acousticness") {
         setControlWidth(500);
       }
     })();
@@ -110,6 +111,19 @@ function BarChart(props) {
     setIsChecked({ ...isChecked, [cid]: !isChecked[cid] });
   };
 
+  if (!isRegionShowed) {
+    return (
+      <div className="card-content p-2">
+        <div className="content">
+          <div className="card-content">
+            <div className="content">
+              <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div
       style={{
@@ -147,6 +161,7 @@ function BarChart(props) {
         <g>
           {(cnt = 0)}
           {barData.map((d, i) => {
+            console.log(d.value * controlWidth);
             return isChecked[d.countryid] ? (
               <g>
                 {(cnt += 1)}

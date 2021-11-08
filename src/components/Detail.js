@@ -11,6 +11,7 @@ const Detail = () => {
   const choosedCountry = useSelector((state) => state.detail.choosedCountry);
   const choosedFeature = useSelector((state) => state.detail.choosedFeature);
   const choosedPeriod = useSelector((state) => state.detail.choosedPeriod);
+  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
 
   if (
     choosedCountry === "No" &&
@@ -40,22 +41,38 @@ const Detail = () => {
       choosedFeature === "No" &&
       choosedPeriod === "Yes")
   ) {
-    return (
-      <div className="card" style={{ height: "100%" }}>
-        <div className="card-content p-1" style={{ height: "100%" }}>
-          <div className="content">
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <div className="card-content m-1">
+    if (!isRegionShowed) {
+      return (
+        <div className="card" style={{ height: "100%" }}>
+          <div className="card-content p-2">
+            <div className="content">
+              <div className="card-content">
                 <div className="content">
-                  {country}（{startMonth}~{endMonth}）
+                  <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
                 </div>
               </div>
             </div>
-            <Swarmplt />
           </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="card" style={{ height: "100%" }}>
+          <div className="card-content p-1" style={{ height: "100%" }}>
+            <div className="content">
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <div className="card-content m-1">
+                  <div className="content">
+                    {country}（{startMonth}~{endMonth}）
+                  </div>
+                </div>
+              </div>
+              <Swarmplt />
+            </div>
+          </div>
+        </div>
+      );
+    }
   } else {
     if (choosedCountry === "No" && choosedFeature === "No") {
       return (
