@@ -26,7 +26,7 @@ function BarChart(props) {
     left: 50,
     right: 30,
     top: 0,
-    bottom: 10,
+    bottom: 30,
   };
   const contentWidth = 250;
   const contentHeight = 120;
@@ -118,21 +118,27 @@ function BarChart(props) {
         alignItems: "center",
       }}
     >
-      <div style={{ marginBottom: "5px" }}>
-        {barData.map((data) => {
-          return (
-            <label className="checkbox">
-              <input
-                type="checkbox"
-                checked={isChecked[data.countryid]}
-                name={data.countryid}
-                value={isChecked[data.countryid]}
-                onChange={handleChange}
-              />
-              {data.countryid}
-            </label>
-          );
-        })}
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div className="card-content m-1">
+          <div className="content">
+            <div style={{ marginBottom: "5px" }}>
+              {barData.map((data) => {
+                return (
+                  <label className="checkbox">
+                    <input
+                      type="checkbox"
+                      checked={isChecked[data.countryid]}
+                      name={data.countryid}
+                      value={isChecked[data.countryid]}
+                      onChange={handleChange}
+                    />
+                    {data.countryid}
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
       <svg
         viewBox={`${-margin.left} ${-margin.top} ${svgWidth} ${svgHeight}`}
@@ -163,17 +169,18 @@ function BarChart(props) {
                   }}
                 ></rect>
                 <text
-                  x="-15"
+                  x="-10"
                   y={13 * cnt - 5}
+                  textAnchor="middle"
                   dominantBaseline="central"
-                  fontSize="8"
+                  fontSize="6"
                   style={{ userSelect: "none" }}
                   onClick={() => {
                     dispatch(changeCountry(d.countryid));
                     dispatch(changeChoosedCountry("Yes"));
                   }}
                 >
-                  {d.countryid}
+                  <a>{d.countryid}</a>
                 </text>
               </g>
             ) : (

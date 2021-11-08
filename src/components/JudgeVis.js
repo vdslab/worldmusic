@@ -52,7 +52,7 @@ const JudgeVis = () => {
   } else {
     //セル（国と期間）が押された場合
     return (
-      <div className="card-content" style={{ height: "100%" }}>
+      <div className="card-content p-1" style={{ height: "100%" }}>
         <Bargraph />
       </div>
     );

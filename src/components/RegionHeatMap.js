@@ -40,6 +40,20 @@ const RegionHeatMap = () => {
     "2021-07",
   ];
 
+  const regions = [
+    "Asia",
+    "Africa",
+    "MiddleEast",
+    "Oceania",
+    "NorthAmerica",
+    "CentralAmerica",
+    "SouthAmerica",
+    "NorthEurope",
+    "EastEurope",
+    "WestEurope",
+    "SouthEurope",
+  ];
+
   const aveWeight = {
     Asia: {},
     Africa: {},
@@ -57,6 +71,7 @@ const RegionHeatMap = () => {
   let checkMin;
   let checkMax;
   const [showed, setShowed] = useState(false);
+
   useEffect(() => {
     (async () => {
       let min = Infinity;
@@ -64,8 +79,7 @@ const RegionHeatMap = () => {
       checkMin = min;
       checkMax = max;
       setShowed(false);
-      for (let i = 0; i < startdays.length; i++) {
-        //startdayを渡す用
+      for (let i = 0; i < startdays.length; i++) { 
         let data = await fetchRegionHeatMapData(feature, startdays[i]);
         data.map((d) => {
           aveWeight[d.region][startdays[i]] = d.value;
@@ -89,35 +103,6 @@ const RegionHeatMap = () => {
     })();
     setHeatMapData(aveWeight);
   }, [feature]);
-
-  const regions = [
-    "Asia",
-    "Africa",
-    "MiddleEast",
-    "Oceania",
-    "NorthAmerica",
-    "CentralAmerica",
-    "SouthAmerica",
-    "NorthEurope",
-    "EastEurope",
-    "WestEurope",
-    "SouthEurope",
-  ];
-
-  // ToDo：後で地域を日本語にすること
-  // const regions = [
-  //   "アジア",
-  //   "アフリカ",
-  //   "中東",
-  //   "オセアニア",
-  //   "北米",
-  //   "中米",
-  //   "南米",
-  //   "北欧",
-  //   "東欧",
-  //   "西欧",
-  //   "南欧",
-  // ];
 
   if (!showed) {
     return (

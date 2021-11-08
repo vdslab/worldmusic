@@ -8,9 +8,7 @@ import {
   changeStartMonth,
   changeMax,
   changeMin,
-  changeDisplay,
   changeJudgeVis,
-  changeFeature,
   changeChoosedPeriod,
   changeChoosedCountry,
   changeRegionId,
@@ -19,18 +17,18 @@ import "../tooltip.css";
 
 function VerticalAxis({ len, yAxis, name, h, judgenumber }) {
   const dispatch = useDispatch();
-  const judgeVis = useSelector((state) => state.detail.judgeVis);
-
-  function changeInfo(country) {
-    dispatch(changeChoosedCountry("Yes"));
-    dispatch(changeCountry(country));
-  }
+  // ・地域ヒートマップでは国ヒートマップが表示されるようにする。
+  // ・国ヒートマップでは初めて国が選ばれた＋国が変わる判定が必要。
+  // function changeInfo(country) {
+  //   dispatch(changeCountry(country));
+  //   dispatch(changeChoosedCountry("Yes"));
+  // }
 
   return (
     <g>
       <text
         transform={`
-                translate(-80 ${h / 2})
+                translate(-65 ${h / 2})
                `}
         textAnchor="middle"
         dominantBaseline="central"
@@ -49,7 +47,7 @@ function VerticalAxis({ len, yAxis, name, h, judgenumber }) {
               fontSize="8"
               style={{ userSelect: "none" }}
               onClick={() => {
-                dispatch(changeRegionId(y));
+                dispatch(changeRegionId(y[0]));
                 {
                   judgenumber === 1
                     ? dispatch(changeJudgeVis(2)) //ヒートマップ
@@ -57,7 +55,7 @@ function VerticalAxis({ len, yAxis, name, h, judgenumber }) {
                 }
               }}
             >
-              {y}
+              <a>{y[1]}</a>
             </text>
           </g>
         );
@@ -68,11 +66,11 @@ function VerticalAxis({ len, yAxis, name, h, judgenumber }) {
 
 function HorizontalAxis({ len, term, name, w, judgenumber }) {
   const dispatch = useDispatch();
-  const judgeVis = useSelector((state) => state.detail.judgeVis);
 
   function changeInfo(start, end) {
     dispatch(changeStartMonth(start));
     dispatch(changeEndMonth(end));
+    dispatch(changeChoosedPeriod("Yes"));
   }
 
   return (
@@ -96,9 +94,7 @@ function HorizontalAxis({ len, term, name, w, judgenumber }) {
               fontSize="8"
               style={{ userSelect: "none" }}
               onClick={() => {
-                console.log(t.start + " " + t.end);
                 changeInfo(t.start, t.end);
-                dispatch(changeChoosedPeriod("Yes"));
                 {
                   judgenumber === 1
                     ? dispatch(changeJudgeVis(1)) //世界地図
@@ -106,7 +102,7 @@ function HorizontalAxis({ len, term, name, w, judgenumber }) {
                 }
               }}
             >
-              {t.start}
+              <a>{t.start}</a>
             </text>
           </g>
         );
@@ -115,46 +111,21 @@ function HorizontalAxis({ len, term, name, w, judgenumber }) {
   );
 }
 
-function Legend({ h, w }) {
-  const ticks = [...Array(11)].map((_, i) => i);
-  return (
-    <g transform={`translate(${w + 5},55)`}>
-      {ticks.map((value, i) => {
-        return (
-          <g transform={`translate(0,${(h / ticks.length / 2) * i})`}>
-            <rect
-              width={10}
-              height={h / ticks.length / 2}
-              fill={d3.interpolateTurbo(1 - value / 10)}
-            ></rect>
-          </g>
-        );
-      })}
-    </g>
-  );
-}
-
-function Tooltip({ clientX, clientY, show, feature, value }) {
-  return (
-    <div>
-      {show && (
-        <div id="tooltip" style={{ top: `${clientY}px`, left: `${clientX}px` }}>
-          {feature}:{value}
-        </div>
-      )}
-    </div>
-  );
-}
-
 function HeatMapChart(props) {
   /**startMonthとendMonth,countryは世界地図と連携づけるのに持っておく。今は未使用 */
-  /**dispatch change country*/
   const dispatch = useDispatch();
   const startMonth = useSelector((state) => state.detail.startMonth);
   const endMonth = useSelector((state) => state.detail.endMonth);
   const feature = useSelector((state) => state.detail.feature);
-  const display = useSelector((state) => state.detail.display);
-  const judgeVis = useSelector((state) => state.detail.judgeVis);
+  const [clicked, setClicked] = useState(-1);
+  const [pos, setPos] = useState(null);
+
+  const heatMapData = props.data;
+  const Max = props.max;
+  const Min = props.min;
+  const yAxis = props.y;
+  const judgenumber = props.judgeNumber;
+
   const startdays = [
     "2017-01",
     "2017-04",
@@ -199,43 +170,19 @@ function HeatMapChart(props) {
     { start: "2021-07", end: "2021-09" },
   ];
 
-  const [clicked, setClicked] = useState(-1);
-  const [pos, setPos] = useState(null);
-  const heatMapData = props.data;
-  const Max = props.max;
-  const Min = props.min;
-  const yAxis = props.y;
-  const judgenumber = props.judgeNumber;
-  // console.log(Max, Min);
-  const tooltip = d3.select(".tooltip-regionheat");
-
-  const colorjudge = (item, start) => {
-    let color = "lightgray";
-
-    if (item) {
-      color = d3.interpolateTurbo(opacityjudge(item, start));
-    }
-    // console.log(color);
-    return color;
-  };
-
-  const opacityjudge = (item, start) => {
-    let opacity = 0;
-    let opacityMax = 1;
-    let opacityMin = 0.1;
-
-    opacity =
-      ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) + opacityMin;
-    return opacity;
-  };
-
-  function changeInfo(start, end, countryId) {
-    dispatch(changeCountry(countryId));
-    dispatch(changeStartMonth(start));
-    dispatch(changeEndMonth(end));
-    dispatch(changeChoosedCountry("Yes"));
-    dispatch(changeChoosedPeriod("Yes"));
-  }
+  const japaneseRegions = [
+    ["Asia", "アジア"],
+    ["Africa", "アフリカ"],
+    ["MiddleEast", "中東"],
+    ["Oceania", "オセアニア"],
+    ["NorthAmerica", "北米"],
+    ["CentralAmerica", "中米"],
+    ["SouthAmerica", "南米"],
+    ["NorthEurope", "北欧"],
+    ["EastEurope", "東欧"],
+    ["WestEurope", "西欧"],
+    ["SouthEurope", "南欧"],
+  ];
 
   const margin = {
     left: 100,
@@ -245,24 +192,34 @@ function HeatMapChart(props) {
   };
   const contentWidth = 300;
   const contentHeight = 170;
-
   const svgWidth = margin.left + margin.right + contentWidth;
   const svgHeight = margin.top + margin.bottom + contentHeight;
-  /**TODO:引数渡していい感じにサイズとか調整できるようにする */
+  const tooltip = d3.select(".tooltip-regionheat");
+  const [featureValue, setFeatureValue] = useState(null);
   const len = 15;
 
-  const [show, setShow] = useState(false);
-  const [clientX, setClientX] = useState(0);
-  const [clientY, setClientY] = useState(0);
-  const [featureValue, setFeatureValue] = useState(null);
-  function onHover(e,value) {
+  const colorjudge = (item, start) => {
+    let color = "lightgray";
+
+    if (item) {
+      color = d3.interpolateTurbo(opacityjudge(item, start));
+    }
+    return color;
+  };
+
+  const opacityjudge = (item, start) => {
+    let opacity = 0;
+    let opacityMax = 1;
+    let opacityMin = 0.1;
+    opacity =
+      ((opacityMax - opacityMin) * (item - Min)) / (Max - Min) + opacityMin;
+    return opacity;
+  };
+
+  function onHover(e, value) {
     const clientX = e.pageX;
     const clientY = e.pageY - 200;
-    setShow(true);
-    setClientX(clientX);
-    setClientY(clientY);
-
-    if(value === undefined){
+    if (value === undefined) {
       setFeatureValue("（データなし）");
     } else {
       setFeatureValue(value.toFixed(3));
@@ -274,9 +231,14 @@ function HeatMapChart(props) {
       .html(featureValue);
   }
 
-  function onOut() {
-    setShow(false);
-    tooltip.style("visibility", "hidden");
+  // 国ヒートマップでは国と期間が変わった＋初めて国と期間が押された判定が必要。
+  // ヒートマップ描画を別々のプログラムで処理する場合は以下の関数必要なし。
+  function changeInfo(start, end, countryId) {
+    dispatch(changeCountry(countryId));
+    dispatch(changeStartMonth(start));
+    dispatch(changeEndMonth(end));
+    dispatch(changeChoosedCountry("Yes"));
+    dispatch(changeChoosedPeriod("Yes"));
   }
 
   return (
@@ -294,7 +256,7 @@ function HeatMapChart(props) {
       >
         <VerticalAxis
           len={len}
-          yAxis={yAxis}
+          yAxis={japaneseRegions}
           name={judgenumber === 1 ? "地域" : "国"}
           h={contentHeight}
           judgenumber={props.judgeNumber}
@@ -339,24 +301,25 @@ function HeatMapChart(props) {
                     height={len}
                     fill={colorjudge(heatMapData[y][s], s)}
                     onClick={() => {
-                      //dispatch(changeDisplay("Yes"));
                       setClicked(i * startdays.length + j);
+                      //地域ヒートマップでは、地域名と期間が変わる＋期間が初めて押された判定が必要。
                       dispatch(changeRegionId(y));
                       dispatch(changeStartMonth(s));
                       dispatch(changeChoosedPeriod("Yes"));
                       dispatch(changeEndMonth(year + "-" + endmonth));
                       {
                         judgenumber === 1
-                          ? dispatch(changeJudgeVis(3))//棒グラフ
+                          ? dispatch(changeJudgeVis(3)) //棒グラフ
                           : changeInfo(s, year + "-" + endmonth, y); //Vis２のヒートマップに必要。
                       }
-                      console.log(heatMapData[y][s])
                     }}
                     onMouseEnter={() => {
                       // setPos(heatMapData[y][s].toFixed(2) || "");
                     }}
-                    onMouseMove={(e) => onHover(e,heatMapData[y][s])}
-                    onMouseLeave={(e) => onOut()}
+                    onMouseMove={(e) => onHover(e, heatMapData[y][s])}
+                    onMouseLeave={() => {
+                      tooltip.style("visibility", "hidden");
+                    }}
                   ></rect>
                   <rect
                     x={len * j}
