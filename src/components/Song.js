@@ -37,6 +37,9 @@ const TextDetail = ({ data, musicKey }) => {
 };
 
 const Song = () => {
+  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
+  const isSwmpltChoosed = useSelector((state) => state.detail.isSwmpltChoosed);
+  console.log("song : "+isSwmpltChoosed)
   const musicId = useSelector((state) => state.detail.musicid);
   const [metaData, setMetaData] = useState(null);
   const [data, setData] = useState([]);
@@ -110,8 +113,21 @@ const Song = () => {
     })();
   }, [musicId]);
 
-  // console.log(metaData);
-
+  if (isSwmpltChoosed && !isRegionShowed) {
+    return (
+      <div className="card" style={{ height: "100%" }}>
+        <div className="card-content p-2">
+          <div className="content">
+            <div className="card-content">
+              <div className="content">
+                <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="card" style={{ height: "100%" }}>
       <div className="card-content">

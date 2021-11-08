@@ -24,6 +24,8 @@ const WorldMap = ({ features }) => {
   const cMax = useSelector((state) => state.detail.max);
   const cMin = useSelector((state) => state.detail.min);
   const display = useSelector((state) => state.detail.display);
+  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
+
   const [Max, setMax] = useState(-Infinity);
   const [Min, setMin] = useState(Infinity);
   const [worldMapData, setWorldMapData] = useState([]);
@@ -128,6 +130,19 @@ const WorldMap = ({ features }) => {
     setFeatureValue(null);
   }
 
+  if (!isRegionShowed) { 
+    return (
+      <div className="card-content p-2">
+        <div className="content">
+          <div className="card-content">
+            <div className="content">
+              <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="content">
       <div style={{ display: "flex", justifyContent: "center" }}>

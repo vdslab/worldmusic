@@ -5,7 +5,7 @@ import ColorLegend from "./colorLegend";
 import { useEffect, useState } from "react";
 import { fetchRegionHeatMapData } from "../api";
 import { useDispatch, useSelector } from "react-redux";
-import { changeMax, changeMin } from "../stores/details";
+import { changeMax, changeMin, changeIsRegionShowed } from "../stores/details";
 
 const RegionHeatMap = () => {
   const dispatch = useDispatch();
@@ -14,9 +14,9 @@ const RegionHeatMap = () => {
   //const cMax = useSelector((state) => state.detail.max);
   const Max = useSelector((state) => state.detail.max);
   const Min = useSelector((state) => state.detail.min);
-  const [heatMapData, setHeatMapData] = useState([]);
   //const [Max, setMax] = useState(-Infinity);
   //const [Min, setMin] = useState(Infinity);
+  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
 
   const startdays = [
     "2017-01",
@@ -67,6 +67,7 @@ const RegionHeatMap = () => {
     WestEurope: {},
     SouthEurope: {},
   };
+  const [heatMapData, setHeatMapData] = useState([]);
 
   let checkMin;
   let checkMax;
@@ -79,7 +80,9 @@ const RegionHeatMap = () => {
       checkMin = min;
       checkMax = max;
       setShowed(false);
-      for (let i = 0; i < startdays.length; i++) { 
+      dispatch(changeIsRegionShowed(false));
+      console.log(isRegionShowed);
+      for (let i = 0; i < startdays.length; i++) {
         let data = await fetchRegionHeatMapData(feature, startdays[i]);
         data.map((d) => {
           aveWeight[d.region][startdays[i]] = d.value;
@@ -118,6 +121,8 @@ const RegionHeatMap = () => {
         </div>
       </div>
     );
+  } else {
+    dispatch(changeIsRegionShowed(true));
   }
   return (
     <div className="card-content p-1">

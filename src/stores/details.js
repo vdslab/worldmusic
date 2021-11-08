@@ -16,6 +16,8 @@ const initialState = {
   choosedFeature: "No",
   choosedPeriod: "No",
   regionId: "",
+  isRegionShowed: false,
+  isSwmpltChoosed: false,
 };
 
 //storeと呼ばれるデータの格納場所をsliceという名前で分割して役割ごとにそれぞれの変数で管理する
@@ -82,6 +84,14 @@ const slice = createSlice({
     changeRegionId: (state, action) => {
       state.regionId = action.payload;
     },
+
+    changeIsRegionShowed: (state, action) => {
+      state.isRegionShowed = action.payload;
+    },
+
+    changeIsSwmpltChoosed: (state, action) => {
+      state.isSwmpltChoosed = action.payload;
+    },
   },
 });
 
@@ -101,4 +111,6 @@ export const {
   changeChoosedFeature,
   changeChoosedPeriod,
   changeRegionId,
+  changeIsRegionShowed,
+  changeIsSwmpltChoosed
 } = slice.actions;

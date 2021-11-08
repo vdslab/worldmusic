@@ -3,9 +3,9 @@ import { forceSimulation, forceX, forceY, forceCollide } from "d3-force";
 import { scaleLinear } from "d3-scale";
 import { extent } from "d3-array";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSwarmplt, fetchTest } from "../api";
+import { fetchSwarmplt } from "../api";
 import * as d3 from "d3";
-import { changeMusicId } from "../stores/details";
+import { changeMusicId, changeIsSwmpltChoosed } from "../stores/details";
 import "../tooltip.css";
 
 const Swarmplt = ({ width, height }) => {
@@ -20,12 +20,75 @@ const Swarmplt = ({ width, height }) => {
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height;
   const checkcountry = [
-    "GB","US","AE","CH","CL","CO","CR","CY","CZ","EE","EC","DO",
-    "DK","DE","EG","FI","ES","AR","BR","CA","BO","BG","BE","AU",
-    "AT","IT","NL","NI","MY","MX","MA","LV","LU","LT","KR","JP",
-    "NO","SA","RU","RO","PY","PT","PL","PH","PE","PA","NZ","SE",
-    "VN","UY","UA","TW","TR","TH","SV","SK","SG","ZA","FR","GR",
-    "GT","HN","IE","HU","ID","HK","IS","IL","IN"
+    "GB",
+    "US",
+    "AE",
+    "CH",
+    "CL",
+    "CO",
+    "CR",
+    "CY",
+    "CZ",
+    "EE",
+    "EC",
+    "DO",
+    "DK",
+    "DE",
+    "EG",
+    "FI",
+    "ES",
+    "AR",
+    "BR",
+    "CA",
+    "BO",
+    "BG",
+    "BE",
+    "AU",
+    "AT",
+    "IT",
+    "NL",
+    "NI",
+    "MY",
+    "MX",
+    "MA",
+    "LV",
+    "LU",
+    "LT",
+    "KR",
+    "JP",
+    "NO",
+    "SA",
+    "RU",
+    "RO",
+    "PY",
+    "PT",
+    "PL",
+    "PH",
+    "PE",
+    "PA",
+    "NZ",
+    "SE",
+    "VN",
+    "UY",
+    "UA",
+    "TW",
+    "TR",
+    "TH",
+    "SV",
+    "SK",
+    "SG",
+    "ZA",
+    "FR",
+    "GR",
+    "GT",
+    "HN",
+    "IE",
+    "HU",
+    "ID",
+    "HK",
+    "IS",
+    "IL",
+    "IN",
   ];
 
   const ref = useRef();
@@ -39,7 +102,7 @@ const Swarmplt = ({ width, height }) => {
   const feature = useSelector((state) => state.detail.feature);
   const country = useSelector((state) => state.detail.country);
   const musicid = useSelector((state) => state.detail.musicid);
-  const display = useSelector((state) => state.detail.display); //最初を非表示にする用。世界地図orヒートマップで押すと表示にする。
+  const isSwmpltChoosed = useSelector((state) => state.detail.isSwmpltChoosed);
   const [Max, setMax] = useState(-Infinity);
   const [Min, setMin] = useState(Infinity);
 
@@ -105,7 +168,7 @@ const Swarmplt = ({ width, height }) => {
   };
 
   const draw = () => {
-    const tooltip = d3.select(".tooltip-swarm")
+    const tooltip = d3.select(".tooltip-swarm");
     checkcountry.map((item, i) => {
       // //描画する国である＆空配列でない場合に描画
       if (country === item && dbData.length != 0) {
@@ -154,10 +217,11 @@ const Swarmplt = ({ width, height }) => {
                   .style("left", d.pageX + 10 + "px");
               })
               .on("mouseout", function (d) {
-                tooltip.style("visibility", "hidden"); 
+                tooltip.style("visibility", "hidden");
               })
               .on("click", (d, i) => {
                 dispatch(changeMusicId(i.musicid));
+                dispatch(changeIsSwmpltChoosed(true));
               })
               .attr("stroke-width", "0.1")
               .attr("opacity", 0.7)
@@ -184,7 +248,6 @@ const Swarmplt = ({ width, height }) => {
       }
     });
   };
-
   return (
     <div>
       <svg width="650" height="250" viewBox="0 -20 650 300" ref={ref} />

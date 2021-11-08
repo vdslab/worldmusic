@@ -94,6 +94,7 @@ const CountryHeatMap = () => {
   const dispatch = useDispatch();
   const feature = useSelector((state) => state.detail.feature);
   const regionId = useSelector((state) => state.detail.regionId);
+  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed); //
 
   const startdays = [
     "2017-01",
@@ -236,7 +237,7 @@ const CountryHeatMap = () => {
       .html(featureValue);
   }
 
-  if (!showed) {
+  if (!showed || !isRegionShowed) { //
     return (
       <div className="card-content p-2">
         <div className="content">
@@ -259,7 +260,7 @@ const CountryHeatMap = () => {
       }}
     >
       <svg
-        viewBox={`${-margin.left} ${-margin.top-10} ${svgWidth} ${svgHeight}`}
+        viewBox={`${-margin.left} ${-margin.top - 10} ${svgWidth} ${svgHeight}`}
         style={{ border: "solid 0px" }}
       >
         <VerticalAxis
@@ -300,10 +301,11 @@ const CountryHeatMap = () => {
                     y={len * i}
                     width={len}
                     height={len}
-                    //fill={colorjudge(heatMapData[y][s], s)}
+                    fill={colorjudge(heatMapData[y][s], s)}
+                    // ↑特徴を変えずに地域を選ぶとエラーが起きる
                     onClick={() => {
                       setClicked(i * startdays.length + j);
-                      //国ヒートマップは期間と国の変更＋初めて期間と国が押された判定が必要。
+                      // 国ヒートマップは期間と国の変更＋初めて期間と国が押された判定が必要。
                       dispatch(changeCountry(y));
                       dispatch(changeStartMonth(s));
                       dispatch(changeEndMonth(year + "-" + endmonth));
