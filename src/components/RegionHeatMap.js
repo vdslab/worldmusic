@@ -94,17 +94,17 @@ const RegionHeatMap = () => {
           }
         });
       }
+      //setMin(min);
+      //setMax(max);
+      dispatch(changeMax(max));
+      dispatch(changeMin(min));
+      setHeatMapData(aveWeight);
       if (max != checkMax && min != checkMin) {
         checkMin = min;
         checkMax = max;
         setShowed(true);
       }
-      //setMin(min);
-      //setMax(max);
-      dispatch(changeMax(max));
-      dispatch(changeMin(min));
     })();
-    setHeatMapData(aveWeight);
   }, [feature]);
 
   if (!showed) {

@@ -192,15 +192,15 @@ const CountryHeatMap = () => {
           }
         });
       }
+      setCountries(country);
+      setMin(min);
+      setMax(max);
+      setHeatMapData(aveWeight);
       if (max != checkMax && min != checkMin) {
         checkMin = min;
         checkMax = max;
         setShowed(true);
       }
-      setCountries(country);
-      setMin(min);
-      setMax(max);
-      setHeatMapData(aveWeight);
     })();
   }, [feature, regionId]);
 
