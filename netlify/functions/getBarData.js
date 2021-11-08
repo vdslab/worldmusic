@@ -25,12 +25,12 @@ exports.handler = async function (event) {
 
   console.log(regionId);
   try {
-    const dbpath = "./netlify/functions/musicvisdatabase.db"; //ここのファイル名変更忘れるの注意
+    const dbpath = "./netlify/functions/musicvisdatabase.db";
     const db = new sqlite3.Database(dbpath);
     const result = await selectRows(
       db,
       //   `SELECT * FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid JOIN Country ON Ranking.countryid = Country.countryid WHERE Ranking.startday BETWEEN '${startmonth}-01' AND '${year}-${endmonth}-31' GROUP BY Ranking.countryid`
-      `SELECT SUM ( Ranking.stream * Music.${feature} ) / SUM ( Ranking.stream) , Ranking.countryid  FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid JOIN Country ON Ranking.countryid = Country.countryid WHERE Ranking.startday BETWEEN '${startmonth}-01' AND '${year}-${endmonth}-31' AND Country.region = '${regionId}' GROUP BY Ranking.countryid`
+      `SELECT SUM ( Ranking.stream * Music.${feature} ) / SUM ( Ranking.stream) AS value , Ranking.countryid  FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid JOIN Country ON Ranking.countryid = Country.countryid WHERE Ranking.startday BETWEEN '${startmonth}-01' AND '${year}-${endmonth}-31' AND Country.region = '${regionId}' GROUP BY Ranking.countryid`
     );
 
     return { statusCode: 200, body: JSON.stringify(result) };
