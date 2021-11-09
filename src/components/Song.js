@@ -22,10 +22,7 @@ const TextDetail = ({ data, musicKey }) => {
   };
 
   return (
-    <div
-      className="has-text-centered"
-      style={{ width: "100%", fontSize: "0.3rem" }}
-    >
+    <div style={{ width: "100%", fontSize: "0.9rem" }}>
       <p style={{ marginBottom: "0px" }}>
         テンポ：{Math.round(data[0].tempo)}　 拍子：{data[0].time_signature}　
         調：{keyDict[musicKey]}
@@ -39,7 +36,6 @@ const TextDetail = ({ data, musicKey }) => {
 const Song = () => {
   const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
   const isSwmpltChoosed = useSelector((state) => state.detail.isSwmpltChoosed);
-  console.log("song : "+isSwmpltChoosed)
   const musicId = useSelector((state) => state.detail.musicid);
   const [metaData, setMetaData] = useState(null);
   const [data, setData] = useState([]);
@@ -128,40 +124,46 @@ const Song = () => {
       </div>
     );
   }
+
   return (
     <div className="card" style={{ height: "100%" }}>
       <div className="card-content">
         <div className="content">
           {data.length > 0 ? (
-            <div>
-              <div>
-                <a
-                  href={metaData?.external_urls.spotify}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <b style={{ fontSize: "1.2rem" }}>{data[0]?.name}</b>
-                </a>
-                <br />
-                <div style={{ fontSize: "0.85rem" }}>
-                  アーティスト : &ensp;
-                  {metaData?.artists.map((item2, j) => {
-                    return (
-                      <a
-                        href={item2.external_urls.spotify}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {j !== 0 ? " / " : []}
-                        {item2.name}
-                      </a>
-                    );
-                  })}
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <div
+                style={{
+                  width: "100%",
+                  paddingTop: "5px",
+                }}
+              >
+                <div>
+                  <a
+                    href={metaData?.external_urls.spotify}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <b style={{ fontSize: "1.2rem" }}>{data[0]?.name}</b>
+                  </a>
+                  <br />
+                  <div style={{ fontSize: "0.85rem" }}>
+                    アーティスト : &ensp;
+                    {metaData?.artists.map((item2, j) => {
+                      return (
+                        <a
+                          href={item2.external_urls.spotify}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {j !== 0 ? " / " : []}
+                          {item2.name}
+                        </a>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-              <br />
-              <div className="contens">
-                <RaderChart data={data} />
+                <br />
+                <br />
                 <TextDetail data={data} musicKey={key} />
                 <audio
                   controls
@@ -169,6 +171,15 @@ const Song = () => {
                   style={{ width: "100%" }}
                 />
               </div>
+              <div
+                style={{
+                  width: "100%",
+                  paddingTop: "5px"
+                }}
+              >
+                <RaderChart data={data} />
+              </div>
+              {/* </div> */}
             </div>
           ) : (
             <div>

@@ -45,7 +45,7 @@ function VerticalAxis({ len, yAxis, name, h, judgenumber }) {
               textAnchor="end"
               dominantBaseline="central"
               fontSize="8"
-              style={{ userSelect: "none" }}
+              style={{ userSelect: "none", cursor: "pointer" }}
               onClick={() => {
                 dispatch(changeRegionId(y[0]));
                 {
@@ -55,7 +55,7 @@ function VerticalAxis({ len, yAxis, name, h, judgenumber }) {
                 }
               }}
             >
-              <a>{y[1]}</a>
+              {y[1]}
             </text>
           </g>
         );
@@ -93,16 +93,16 @@ function HorizontalAxis({ len, term, name, w, judgenumber }) {
               dominantBaseline="central"
               fontSize="8"
               style={{ userSelect: "none" }}
-              onClick={() => {
-                changeInfo(t.start, t.end);
-                {
-                  judgenumber === 1
-                    ? dispatch(changeJudgeVis(1)) //世界地図
-                    : console.log("国別のヒートマップではセルのみ押せる。");
-                }
-              }}
+              // onClick={() => {
+              //   changeInfo(t.start, t.end);
+              //   {
+              //     judgenumber === 1
+              //       ? dispatch(changeJudgeVis(1)) //世界地図
+              //       : console.log("国別のヒートマップではセルのみ押せる。");
+              //   }
+              // }}
             >
-              <a>{t.start}</a>
+              {t.start}
             </text>
           </g>
         );
@@ -199,7 +199,7 @@ function HeatMapChart(props) {
   const len = 15;
 
   const colorjudge = (item, start) => {
-    let color = "lightgray";
+    let color = "#F2F2F2";
 
     if (item) {
       color = d3.interpolateTurbo(opacityjudge(item, start));
@@ -300,22 +300,22 @@ function HeatMapChart(props) {
                     width={len}
                     height={len}
                     fill={colorjudge(heatMapData[y][s], s)}
-                    onClick={() => {
-                      setClicked(i * startdays.length + j);
-                      //地域ヒートマップでは、地域名と期間が変わる＋期間が初めて押された判定が必要。
-                      dispatch(changeRegionId(y));
-                      dispatch(changeStartMonth(s));
-                      dispatch(changeChoosedPeriod("Yes"));
-                      dispatch(changeEndMonth(year + "-" + endmonth));
-                      {
-                        judgenumber === 1
-                          ? dispatch(changeJudgeVis(3)) //棒グラフ
-                          : changeInfo(s, year + "-" + endmonth, y); //Vis２のヒートマップに必要。
-                      }
-                    }}
-                    onMouseEnter={() => {
-                      // setPos(heatMapData[y][s].toFixed(2) || "");
-                    }}
+                    // onClick={() => {
+                    //   setClicked(i * startdays.length + j);
+                    //   //地域ヒートマップでは、地域名と期間が変わる＋期間が初めて押された判定が必要。
+                    //   dispatch(changeRegionId(y));
+                    //   dispatch(changeStartMonth(s));
+                    //   dispatch(changeChoosedPeriod("Yes"));
+                    //   dispatch(changeEndMonth(year + "-" + endmonth));
+                    //   {
+                    //     judgenumber === 1
+                    //       ? dispatch(changeJudgeVis(3)) //棒グラフ
+                    //       : changeInfo(s, year + "-" + endmonth, y); //Vis２のヒートマップに必要。
+                    //   }
+                    // }}
+                    //onMouseEnter={() => {
+                    // setPos(heatMapData[y][s].toFixed(2) || "");
+                    //}}
                     onMouseMove={(e) => onHover(e, heatMapData[y][s])}
                     onMouseLeave={() => {
                       tooltip.style("visibility", "hidden");

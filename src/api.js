@@ -33,12 +33,6 @@ export function fetchSongData(startMonth, endMonth, feature, country, musicId) {
   });
 }
 
-export function fetchTest(musicId) {
-  return sendRequest("/getTest", {
-    musicId: musicId,
-  });
-}
-
 export function fetchData(feature, startmonth, region) {
   return sendRequest("/getData", {
     feature: feature,
@@ -84,5 +78,17 @@ export function fetchRegionHeatMapData(feature, startmonth) {
   return sendRequest("/getRegionHeatmapData", {
     feature: feature,
     startmonth: startmonth,
+  });
+}
+
+export function fetchJPGLTopStreamCountry(musicId) {
+  return sendRequest("/getJPGLTopStreamCountry", {
+    musicId: musicId,
+  });
+}
+
+export function fetchgetDECStreamCountry(musicId) {
+  return sendRequest("/getDECStreamCountry", {
+    musicId: musicId,
   });
 }

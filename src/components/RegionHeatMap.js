@@ -81,7 +81,6 @@ const RegionHeatMap = () => {
       checkMax = max;
       setShowed(false);
       dispatch(changeIsRegionShowed(false));
-      console.log(isRegionShowed);
       for (let i = 0; i < startdays.length; i++) {
         let data = await fetchRegionHeatMapData(feature, startdays[i]);
         data.map((d) => {
@@ -125,7 +124,7 @@ const RegionHeatMap = () => {
     dispatch(changeIsRegionShowed(true));
   }
   return (
-    <div className="card-content p-1">
+    <div className="card-content p-1" style={{ height: "100%" }}>
       <div className="content">
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div className="card-content m-1">

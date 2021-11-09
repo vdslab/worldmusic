@@ -37,13 +37,13 @@ function VerticalAxis({ len, yAxis, name, h }) {
               textAnchor="end"
               dominantBaseline="central"
               fontSize="8"
-              style={{ userSelect: "none" }}
+              style={{ userSelect: "none", cursor: "pointer" }}
               onClick={() => {
                 dispatch(changeChoosedCountry("Yes"));
                 dispatch(changeCountry(y));
               }}
             >
-              <a>{y}</a>
+              {y}
             </text>
           </g>
         );
@@ -146,7 +146,7 @@ const CountryHeatMap = () => {
   const margin = {
     left: 100,
     right: 30,
-    top: 45,
+    top: 10,
     bottom: 10,
   };
   const contentWidth = 300;
@@ -205,7 +205,7 @@ const CountryHeatMap = () => {
   }, [feature, regionId]);
 
   const colorjudge = (item, start) => {
-    let color = "lightgray";
+    let color = "#F2F2F2";
 
     if (item) {
       color = d3.interpolatePiYG(opacityjudge(item, start));
@@ -237,14 +237,12 @@ const CountryHeatMap = () => {
       .html(featureValue);
   }
 
-  if (!showed || !isRegionShowed) { //
+  if (!showed || !isRegionShowed) {
     return (
-      <div className="card-content p-2">
-        <div className="content">
-          <div className="card-content">
-            <div className="content">
-              <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
-            </div>
+      <div className="content">
+        <div className="card-content">
+          <div className="content">
+            <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
           </div>
         </div>
       </div>
@@ -260,7 +258,7 @@ const CountryHeatMap = () => {
       }}
     >
       <svg
-        viewBox={`${-margin.left} ${-margin.top - 10} ${svgWidth} ${svgHeight}`}
+        viewBox={`${-margin.left} ${-margin.top} ${svgWidth} ${svgHeight}`}
         style={{ border: "solid 0px" }}
       >
         <VerticalAxis
@@ -269,7 +267,7 @@ const CountryHeatMap = () => {
           name={"国"}
           h={contentHeight}
         />
-        <HorizontalAxis len={len} term={term} name={"期間"} w={contentWidth} />
+        {/* <HorizontalAxis len={len} term={term} name={"期間"} w={contentWidth} /> */}
         <rect
           x="0"
           y="0"
@@ -302,7 +300,7 @@ const CountryHeatMap = () => {
                     width={len}
                     height={len}
                     fill={colorjudge(heatMapData[y][s], s)}
-                    // ↑特徴を変えずに地域を選ぶとエラーが起きる
+                    style={{ cursor: "pointer" }}
                     onClick={() => {
                       setClicked(i * startdays.length + j);
                       // 国ヒートマップは期間と国の変更＋初めて期間と国が押された判定が必要。
