@@ -11,16 +11,18 @@ import {
 } from "../stores/details";
 import {
   fetchCountries,
-  fetchTest,
   fetchGLtop,
   fetchJPtop,
   fetchDectop,
+  fetchJPGLTopStreamCountry,
+  fetchgetDECStreamCountry,
 } from "../api";
 import * as d3 from "d3";
 
 import { fetchSongData } from "../api";
 import RaderChart from "./draw_raderchart";
 import request from "request";
+import FeatureWorldmap from "./FeatureWorldmap";
 
 const TextDetail = ({ data, musicKey }) => {
   const keyDict = {
@@ -62,6 +64,7 @@ const Gltop = () => {
   }, []);
   return <Song id={top.musicid} listnumber={0} />;
 };
+
 const Jptop = () => {
   const [top, setTop] = useState({ musicid: 1 });
   useEffect(() => {
@@ -92,12 +95,19 @@ const Song = (props) => {
   const choosedPeriod = useSelector((state) => state.detail.choosedPeriod);
 
   const musicId = props.id;
+  const countryNumber = props.listnumber;
   //ここで渡されたtop3の配信されている国を取得して表示する。
   const [countries, setCountries] = useState([]);
   useEffect(() => {
     (async () => {
-      const data = await fetchTest(musicId);
-      setCountries(data);
+      if(countryNumber === 2){
+        const data = await fetchgetDECStreamCountry(musicId);
+        setCountries(data);
+      }else{
+        const data = await fetchJPGLTopStreamCountry(musicId);
+        setCountries(data);
+      }
+      console.log(countries);
     })();
   }, [musicId]); //変化するものを配列に入れておくこと。
   const [metaData, setMetaData] = useState(null);
@@ -222,13 +232,13 @@ const Song = (props) => {
           )}
         </div>
       </div>
-      <div
+      {/* <div
         className="card-content"
         style={{ paddingTop: "12px", paddingBottom: "12px" }}
-      >
+      > */}
         {data.length > 0 ? (
           <div className="content">
-            <div className="buttons are-small">
+            {/* <div className="buttons are-small">
               {countries.map((element) => {
                 return (
                   <button
@@ -242,12 +252,13 @@ const Song = (props) => {
                   </button>
                 );
               })}
-            </div>
+            </div> */}
+            <FeatureWorldmap data={countries}/>
           </div>
         ) : (
           <div className="content"></div>
         )}
-      </div>
+      {/* </div> */}
     </div>
   );
 };

@@ -28,7 +28,6 @@ function display_similarsongs() {
 
   const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
   const isSwmpltChoosed = useSelector((state) => state.detail.isSwmpltChoosed);
-  console.log("similar : "+isSwmpltChoosed)
   const country = useSelector((state) => state.detail.country);
   const musicId = useSelector((state) => state.detail.musicid);
   const [similarSongs, setSimilarSongs] = useState([]);
@@ -70,49 +69,51 @@ function display_similarsongs() {
   }
   return (
     <div className="card-content">
-      <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>類似曲</p>
-      {similarSongs.map((item, i) => {
-        return (
-          <div style={{ width: "100%", fontSize: "40" }}>
-            <img
-              src={item.album.images[0].url}
-              width="120"
-              height="120"
-              style={{ float: "left", paddingRight: "10px" }}
-            />
-            <p>
-              <b style={{ fontSize: "1.2rem" }}>
-                <a
-                  href={item.external_urls.spotify}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {item.name}
-                </a>
-              </b>
-              <br />
-              <div style={{ fontSize: "0.85rem" }}>
-                アーティスト：
+      <div className="content">
+        <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>類似曲</p>
+        {similarSongs.map((item, i) => {
+          return (
+            <div style={{ width: "100%", fontSize: "40" }}>
+              <img
+                src={item.album.images[0].url}
+                width="140"
+                height="140"
+                style={{ float: "left", paddingRight: "20px" }}
+              />
+              <p>
+                <b style={{ fontSize: "1.2rem" }}>
+                  <a
+                    href={item.external_urls.spotify}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {item.name}
+                  </a>
+                </b>
                 <br />
-                <p>
-                  {item.artists.map((item2, j) => {
-                    return (
-                      <a
-                        href={item2.external_urls.spotify}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {j !== 0 ? " / " : []}
-                        {item2.name}
-                      </a>
-                    );
-                  })}
-                </p>
-              </div>
-            </p>
-          </div>
-        );
-      })}
+                <div style={{ fontSize: "0.85rem" }}>
+                  アーティスト：
+                  <br />
+                  <p>
+                    {item.artists.map((item2, j) => {
+                      return (
+                        <a
+                          href={item2.external_urls.spotify}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {j !== 0 ? " / " : []}
+                          {item2.name}
+                        </a>
+                      );
+                    })}
+                  </p>
+                </div>
+              </p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

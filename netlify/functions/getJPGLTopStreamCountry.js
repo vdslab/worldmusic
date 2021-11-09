@@ -21,12 +21,10 @@ exports.handler = async function (event) {
     console.log(1);
     const result = await selectRows(
       db,
-      `SELECT * FROM Ranking WHERE Ranking.musicid = '${musicid}' AND Ranking.startday = '2020-12-25'`
+      `SELECT countryid, stream FROM Ranking WHERE Ranking.musicid = '${musicid}' AND NOT Ranking.countryid = 'GL'`
     );
     return { statusCode: 200, body: JSON.stringify(result) };
   } catch (e) {
     return { statusCode: 500, body: e.message };
   }
 };
-
-// データが作れたら、日にちをRanking.startday = (SELECT MAX(startday) FROM Ranking)に変更すること。

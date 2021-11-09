@@ -13,51 +13,34 @@ const Visualization = () => {
   return (
     <div>
       <FeatureVis />
-      <div class="tile is-ancestor">
-        <div class="tile is-parent is-vertical">
-          <article class="tile is-child">
+      <div className="tile is-ancestor">
+        <div className="tile is-parent is-vertical">
+          <article className="tile is-child">
             <div className="card">
               <RegionHeatMap />
-            </div>
-          </article>
-          <article class="tile is-child">
-            <div className="card" style={{ height: "100%" }}>
               <JudgeVis />
             </div>
           </article>
+          {/* <article class="tile is-child">
+            <div className="card" style={{ height: "100%" }}>
+              <JudgeVis />
+            </div>
+          </article> */}
         </div>
-        <div class="tile is-vertical is-6">
-          <div class="tile is-parent">
-            <article class="tile is-child">
+        <div className="tile is-vertical is-6">
+          <div className="tile is-parent">
+            <article className="tile is-child">
               <Detail />
             </article>
           </div>
-          <div class="tile">
-            <div class="tile is-parent is-6">
-              <article class="tile is-child">
-                <Song />
-              </article>
-            </div>
-            <div class="tile is-parent is-6">
-              <article class="tile is-child">
-                <SimilarSongs />
-              </article>
-            </div>
-            {/*  ランキングを入れる場合↓
-            <div class="tile is-parent is-6">
-              <article class="tile is-child is-12">
-                <Ranking />
-              </article>
-            </div>
-            <div class="tile is-parent is-vertical is-6">
-              <article class="tile is-child">
-                <Song />
-              </article>
-              <article class="tile is-child">
-                <SimilarSongs />
-              </article>
-            </div> */}
-          </div>
+        </div>
+      </div>
+      <div className="tile is-ancestor">
+        <div className="tile is-parent is-vertical">
+          <Song />
+        </div>
+        <div className="tile is-parent is-vertical">
+          <SimilarSongs />
         </div>
       </div>
     </div>
