@@ -66,6 +66,7 @@ const RegionHeatMap = () => {
       for (let i = 0; i < startdays.length; i++) {
         //startdayを渡す用
         let data = await fetchRegionHeatMapData(feature, startdays[i]);
+        console.log(data);
         data.map((d) => {
           aveWeight[d.region][startdays[i]] = d.value;
           if (d.value < min) {
