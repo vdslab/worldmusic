@@ -1,71 +1,79 @@
 import { useEffect, useState } from "react";
 import * as d3 from "d3";
-import { fetchData, fetchHeatmapData, fetchBarData } from "../api";
+import { fetchBarData } from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeCountry,
-  changeEndMonth,
-  changeStartMonth,
   changeChoosedPeriod,
   changeChoosedCountry,
-  changeRegionId,
 } from "../stores/details";
 import "../tooltip.css";
 
 function BarChart(props) {
   const dispatch = useDispatch();
-  const [isChecked, setIsChecked] = useState({});
-
   const startMonth = useSelector((state) => state.detail.startMonth);
   const feature = useSelector((state) => state.detail.feature);
-  const display = useSelector((state) => state.detail.display);
-  const judgeVis = useSelector((state) => state.detail.judgeVis);
   const regionId = useSelector((state) => state.detail.regionId);
-  // const Min = useSelector((state) => state.detail.min);
-  // const Max = useSelector((state) => state.detail.max);
+  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
 
+  const [isChecked, setIsChecked] = useState({});
   const [max, setMax] = useState(-Infinity);
   const [min, setMin] = useState(Infinity);
-
   const [barData, setBarData] = useState([]);
-  console.log(regionId);
+
+  let cnt = 0;
+  const [controlWidth, setControlWidth] = useState(500); //棒グラフの横幅を全体的に揃えるために掛ける数
+  const margin = {
+    left: 50,
+    right: 30,
+    top: 0,
+    bottom: 30,
+  };
+  const contentWidth = 250;
+  const contentHeight = 120;
+  const svgWidth = margin.left + margin.right + contentWidth;
+  const svgHeight = margin.top + margin.bottom + contentHeight;
+  const tooltip = d3.select(".tooltip-bar");
+  const [featureValue, setFeatureValue] = useState(null);
 
   useEffect(() => {
     (async () => {
-      /**TODO:改善 */
       let regionMax = -Infinity;
       let regionMin = Infinity;
       const countries = {};
       const data = await fetchBarData(feature, startMonth, regionId);
       data.map((d) => {
-        console.log(regionId);
         countries[d.countryid] = true;
-        if (
-          d[
-            "SUM ( Ranking.stream * Music.acousticness ) / SUM ( Ranking.stream)"
-          ] < regionMin
-        ) {
-          regionMin =
-            d[
-              "SUM ( Ranking.stream * Music.acousticness ) / SUM ( Ranking.stream)"
-            ];
+        if (d.value < regionMin) {
+          regionMin = d.value;
         }
-        if (
-          d[
-            "SUM ( Ranking.stream * Music.acousticness ) / SUM ( Ranking.stream)"
-          ] > regionMax
-        ) {
-          regionMax =
-            d[
-              "SUM ( Ranking.stream * Music.acousticness ) / SUM ( Ranking.stream)"
-            ];
+        if (d.value > regionMax) {
+          regionMax = d.value;
         }
       });
-      console.log(data);
       setMax(regionMax);
       setMin(regionMin);
       setBarData(data);
       setIsChecked(countries);
+
+      //今のところそれぞれ掛けて100以上になるようにしている状態
+      if (feature === "danceability") {
+        setControlWidth(200);
+      } else if (feature === "energy" || feature === "valence") {
+        setControlWidth(300);
+      } else if (feature === "instrumentalness") {
+        setControlWidth(10000);
+      } else if (feature === "liveness" || feature === "speechiness") {
+        setControlWidth(1000);
+      } else if (feature === "loudness") {
+        setControlWidth(-20);
+      } else if (feature === "tempo") {
+        setControlWidth(1);
+      } else if (feature === "time_signature") {
+        setControlWidth(50);
+      }else if (feature === "acousticness") {
+        setControlWidth(500);
+      }
     })();
   }, [feature, startMonth, regionId]);
 
@@ -83,37 +91,19 @@ function BarChart(props) {
     return opacity;
   };
 
-  function changeInfo(start, end, countryId) {
-    dispatch(changeCountry(countryId));
-    dispatch(changeStartMonth(start));
-    dispatch(changeEndMonth(end));
-    dispatch(changeChoosedCountry("Yes"));
-    dispatch(changeChoosedPeriod("Yes"));
-  }
-
-  const margin = {
-    left: 50,
-    right: 30,
-    top: 0,
-    bottom: 10,
-  };
-  const contentWidth = 250;
-  const contentHeight = 120;
-
-  const svgWidth = margin.left + margin.right + contentWidth;
-  const svgHeight = margin.top + margin.bottom + contentHeight;
-  /**TODO:引数渡していい感じにサイズとか調整できるようにする */
-
-  function onHover(e) {
+  function onHover(e, value) {
     const clientX = e.pageX;
     const clientY = e.pageY - 200;
-    setShow(true);
-    setClientX(clientX);
-    setClientY(clientY);
-  }
-
-  function onOut() {
-    setShow(false);
+    if (value === undefined) {
+      setFeatureValue("（データなし）");
+    } else {
+      setFeatureValue(value.toFixed(3));
+    }
+    tooltip.style("visibility", "visible");
+    tooltip
+      .style("top", e.pageY - 20 + "px")
+      .style("left", e.pageX + 10 + "px")
+      .html(featureValue);
   }
 
   const handleChange = (e) => {
@@ -121,34 +111,48 @@ function BarChart(props) {
     setIsChecked({ ...isChecked, [cid]: !isChecked[cid] });
   };
 
-  const countup = () => {
-    setCnt(cnt + 1);
-  };
-  let cnt = 0;
+  if (!isRegionShowed) {
+    return (
+      <div className="card-content p-2">
+        <div className="content">
+          <div className="card-content">
+            <div className="content">
+              <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div
       style={{
         height: "100%",
-        //display: "flex",
         justifyContent: "center",
         alignItems: "center",
       }}
     >
-      <div style={{ marginBottom: "5px" }}>
-        {barData.map((data) => {
-          return (
-            <label className="checkbox">
-              <input
-                type="checkbox"
-                checked={isChecked[data.countryid]}
-                name={data.countryid}
-                value={isChecked[data.countryid]}
-                onChange={handleChange}
-              />
-              {data.countryid}
-            </label>
-          );
-        })}
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div className="card-content m-1">
+          <div className="content">
+            <div style={{ marginBottom: "5px" }}>
+              {barData.map((data) => {
+                return (
+                  <label className="checkbox">
+                    <input
+                      type="checkbox"
+                      checked={isChecked[data.countryid]}
+                      name={data.countryid}
+                      value={isChecked[data.countryid]}
+                      onChange={handleChange}
+                    />
+                    {data.countryid}
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
       <svg
         viewBox={`${-margin.left} ${-margin.top} ${svgWidth} ${svgHeight}`}
@@ -157,31 +161,41 @@ function BarChart(props) {
         <g>
           {(cnt = 0)}
           {barData.map((d, i) => {
+            console.log(d.value * controlWidth);
             return isChecked[d.countryid] ? (
               <g>
                 {(cnt += 1)}
                 <rect
                   x="0"
                   y={13 * (cnt - 1)}
-                  width={
-                    d[
-                      `SUM ( Ranking.stream * Music.${feature} ) / SUM ( Ranking.stream)`
-                    ] * 500
-                  }
+                  width={d.value * controlWidth}
                   height={13}
-                  fill={colorjudge(
-                    d[
-                      `SUM ( Ranking.stream * Music.${feature} ) / SUM ( Ranking.stream)`
-                    ]
-                  )}
+                  fill={colorjudge(d.value)}
+                  onMouseMove={(e) => {
+                    onHover(e, d.value);
+                  }}
+                  onMouseLeave={() => {
+                    tooltip.style("visibility", "hidden");
+                  }}
                   onClick={() => {
                     dispatch(changeCountry(d.countryid));
                     dispatch(changeChoosedPeriod("Yes"));
                     dispatch(changeChoosedCountry("Yes"));
                   }}
                 ></rect>
-                <text x="-50" y={13 * cnt} fontSize={8}>
-                  {d.countryid}
+                <text
+                  x="-10"
+                  y={13 * cnt - 5}
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                  fontSize="6"
+                  style={{ userSelect: "none" }}
+                  onClick={() => {
+                    dispatch(changeCountry(d.countryid));
+                    dispatch(changeChoosedCountry("Yes"));
+                  }}
+                >
+                  <a>{d.countryid}</a>
                 </text>
               </g>
             ) : (
@@ -190,13 +204,6 @@ function BarChart(props) {
           })}
         </g>
       </svg>
-      {/* <Tooltip
-        clientX={clientX}
-        clientY={clientY}
-        show={show}
-        feature={feature}
-        value={pos}
-      /> */}
     </div>
   );
 }

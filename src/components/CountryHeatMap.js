@@ -1,25 +1,26 @@
 import React from "react";
 import * as d3 from "d3";
-import HeatMapChart from "./draw_heatmap";
 import { useEffect, useState } from "react";
 import { fetchData } from "../api";
 import { useDispatch, useSelector } from "react-redux";
-import { changeMax, changeMin, changeCountry } from "../stores/details";
+import {
+  changeMax,
+  changeMin,
+  changeStartMonth,
+  changeEndMonth,
+  changeCountry,
+  changeChoosedCountry,
+  changeChoosedPeriod,
+} from "../stores/details";
 
 function VerticalAxis({ len, yAxis, name, h }) {
   const dispatch = useDispatch();
-  const judgeVis = useSelector((state) => state.detail.judgeVis);
-
-  function changeInfo(country) {
-    dispatch(changeChoosedCountry("Yes"));
-    dispatch(changeCountry(country));
-  }
 
   return (
     <g>
       <text
         transform={`
-                translate(-80 ${h / 2})
+                translate(-60 ${h / 2})
                `}
         textAnchor="middle"
         dominantBaseline="central"
@@ -38,14 +39,11 @@ function VerticalAxis({ len, yAxis, name, h }) {
               fontSize="8"
               style={{ userSelect: "none" }}
               onClick={() => {
-                {
-                  dispatch(changeRegionId(y));
-
-                  changeInfo(y);
-                }
+                dispatch(changeChoosedCountry("Yes"));
+                dispatch(changeCountry(y));
               }}
             >
-              {y}
+              <a>{y}</a>
             </text>
           </g>
         );
@@ -56,12 +54,6 @@ function VerticalAxis({ len, yAxis, name, h }) {
 
 function HorizontalAxis({ len, term, name, w }) {
   const dispatch = useDispatch();
-  const judgeVis = useSelector((state) => state.detail.judgeVis);
-
-  function changeInfo(start, end) {
-    dispatch(changeStartMonth(start));
-    dispatch(changeEndMonth(end));
-  }
 
   return (
     <g>
@@ -84,12 +76,12 @@ function HorizontalAxis({ len, term, name, w }) {
               fontSize="8"
               style={{ userSelect: "none" }}
               onClick={() => {
-                console.log(t.start + " " + t.end);
-                changeInfo(t.start, t.end);
                 dispatch(changeChoosedPeriod("Yes"));
+                dispatch(changeStartMonth(t.start));
+                dispatch(changeEndMonth(t.end));
               }}
             >
-              {t.start}
+              <a>{t.start}</a>
             </text>
           </g>
         );
@@ -98,71 +90,32 @@ function HorizontalAxis({ len, term, name, w }) {
   );
 }
 
-function Legend({ h, w }) {
-  const ticks = [...Array(11)].map((_, i) => i);
-  return (
-    <g transform={`translate(${w + 5},55)`}>
-      {ticks.map((value, i) => {
-        return (
-          <g transform={`translate(0,${(h / ticks.length / 2) * i})`}>
-            <rect
-              width={10}
-              height={h / ticks.length / 2}
-              fill={d3.interpolateTurbo(1 - value / 10)}
-            ></rect>
-          </g>
-        );
-      })}
-    </g>
-  );
-}
-
-function Tooltip({ clientX, clientY, show, feature, value }) {
-  return (
-    <div>
-      {show && (
-        <div id="tooltip" style={{ top: `${clientY}px`, left: `${clientX}px` }}>
-          {feature}:{value}
-        </div>
-      )}
-    </div>
-  );
-}
-
 const CountryHeatMap = () => {
   const dispatch = useDispatch();
   const feature = useSelector((state) => state.detail.feature);
   const regionId = useSelector((state) => state.detail.regionId);
-  const c = useSelector((state) => state.detail.country);
-  const startMonth = useSelector((state) => state.detail.startMonth);
-  const endMonth = useSelector((state) => state.detail.endMonth);
-  const display = useSelector((state) => state.detail.display);
-  const judgeVis = useSelector((state) => state.detail.judgeVis);
-  const [heatMapData, setHeatMapData] = useState([]);
-  const [countries, setCountries] = useState([]);
-  const [Max, setMax] = useState(-Infinity);
-  const [Min, setMin] = useState(Infinity);
-  console.log(c);
+  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed); //
+
   const startdays = [
-    "2017-01-01",
-    "2017-04-01",
-    "2017-07-01",
-    "2017-10-01",
-    "2018-01-01",
-    "2018-04-01",
-    "2018-07-01",
-    "2018-10-01",
-    "2019-01-01",
-    "2019-04-01",
-    "2019-07-01",
-    "2019-10-01",
-    "2020-01-01",
-    "2020-04-01",
-    "2020-07-01",
-    "2020-10-01",
-    "2021-01-01",
-    "2021-04-01",
-    "2021-07-01",
+    "2017-01",
+    "2017-04",
+    "2017-07",
+    "2017-10",
+    "2018-01",
+    "2018-04",
+    "2018-07",
+    "2018-10",
+    "2019-01",
+    "2019-04",
+    "2019-07",
+    "2019-10",
+    "2020-01",
+    "2020-04",
+    "2020-07",
+    "2020-10",
+    "2021-01",
+    "2021-04",
+    "2021-07",
   ];
 
   const term = [
@@ -190,15 +143,39 @@ const CountryHeatMap = () => {
   const [clicked, setClicked] = useState(-1);
   const [pos, setPos] = useState(null);
 
+  const margin = {
+    left: 100,
+    right: 30,
+    top: 45,
+    bottom: 10,
+  };
+  const contentWidth = 300;
+  const contentHeight = 170;
+  const svgWidth = margin.left + margin.right + contentWidth;
+  const svgHeight = margin.top + margin.bottom + contentHeight;
+  const tooltip = d3.select(".tooltip-countryheat");
+  const [featureValue, setFeatureValue] = useState(null);
+  const len = 15;
+
+  const [heatMapData, setHeatMapData] = useState([]);
+  const [countries, setCountries] = useState([]);
+  const [Max, setMax] = useState(-Infinity);
+  const [Min, setMin] = useState(Infinity);
+
+  let checkMin;
+  let checkMax;
+  const [showed, setShowed] = useState(false);
+
   useEffect(() => {
     (async () => {
-      console.log(regionId);
       let country = [];
       let min = Infinity;
       let max = -Infinity;
+      checkMin = min;
+      checkMax = max;
+      setShowed(false);
       const aveWeight = {};
       for (let i = 0; i < startdays.length; i++) {
-        //startdayを渡す用
         let data = await fetchData(feature, startdays[i], regionId);
         data.map((d, j) => {
           if (!aveWeight[d.countryid]) {
@@ -218,8 +195,12 @@ const CountryHeatMap = () => {
       setCountries(country);
       setMin(min);
       setMax(max);
-      // console.log(Min)
       setHeatMapData(aveWeight);
+      if (max != checkMax && min != checkMin) {
+        checkMin = min;
+        checkMax = max;
+        setShowed(true);
+      }
     })();
   }, [feature, regionId]);
 
@@ -241,44 +222,34 @@ const CountryHeatMap = () => {
     return opacity;
   };
 
-  function changeInfo(start, end, countryId) {
-    dispatch(changeCountry(countryId));
-    dispatch(changeStartMonth(start));
-    dispatch(changeEndMonth(end));
-    dispatch(changeChoosedCountry("Yes"));
-    dispatch(changeChoosedPeriod("Yes"));
-  }
-
-  const margin = {
-    left: 100,
-    right: 30,
-    top: 45,
-    bottom: 10,
-  };
-  const contentWidth = 300;
-  const contentHeight = 170;
-
-  const svgWidth = margin.left + margin.right + contentWidth;
-  const svgHeight = margin.top + margin.bottom + contentHeight;
-  /**TODO:引数渡していい感じにサイズとか調整できるようにする */
-  const len = 15;
-
-  const [show, setShow] = useState(false);
-  const [clientX, setClientX] = useState(0);
-  const [clientY, setClientY] = useState(0);
-
-  function onHover(e) {
+  function onHover(e, value) {
     const clientX = e.pageX;
     const clientY = e.pageY - 200;
-    setShow(true);
-    setClientX(clientX);
-    setClientY(clientY);
+    if (value === undefined) {
+      setFeatureValue("（データなし）");
+    } else {
+      setFeatureValue(value.toFixed(3));
+    }
+    tooltip.style("visibility", "visible");
+    tooltip
+      .style("top", e.pageY - 20 + "px")
+      .style("left", e.pageX + 10 + "px")
+      .html(featureValue);
   }
 
-  function onOut() {
-    setShow(false);
+  if (!showed || !isRegionShowed) { //
+    return (
+      <div className="card-content p-2">
+        <div className="content">
+          <div className="card-content">
+            <div className="content">
+              <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
-
   return (
     <div
       style={{
@@ -289,10 +260,15 @@ const CountryHeatMap = () => {
       }}
     >
       <svg
-        viewBox={`${-margin.left} ${-margin.top} ${svgWidth} ${svgHeight}`}
+        viewBox={`${-margin.left} ${-margin.top - 10} ${svgWidth} ${svgHeight}`}
         style={{ border: "solid 0px" }}
       >
-        <VerticalAxis len={len} yAxis={countries} h={contentHeight} />
+        <VerticalAxis
+          len={len}
+          yAxis={countries}
+          name={"国"}
+          h={contentHeight}
+        />
         <HorizontalAxis len={len} term={term} name={"期間"} w={contentWidth} />
         <rect
           x="0"
@@ -313,6 +289,9 @@ const CountryHeatMap = () => {
               const startmonth = s;
               const year = String(Number(startmonth.split("-")[0]));
               let endmonth = String(Number(startmonth.split("-")[1]) + 2);
+              if (endmonth.length === 1) {
+                endmonth = "0" + endmonth;
+              }
 
               return (
                 <g key={i * startdays.length + j}>
@@ -323,20 +302,23 @@ const CountryHeatMap = () => {
                     width={len}
                     height={len}
                     fill={colorjudge(heatMapData[y][s], s)}
+                    // ↑特徴を変えずに地域を選ぶとエラーが起きる
                     onClick={() => {
-                      //dispatch(changeDisplay("Yes"));
                       setClicked(i * startdays.length + j);
+                      // 国ヒートマップは期間と国の変更＋初めて期間と国が押された判定が必要。
                       dispatch(changeCountry(y));
-                      // {
-                      //   changeInfo(s, year + "-" + endmonth, y); //Vis２のヒートマップに必要。
-                      // }
-                      //dispatch(changeJudgeVis(3)); //棒グラフ
+                      dispatch(changeStartMonth(s));
+                      dispatch(changeEndMonth(year + "-" + endmonth));
+                      dispatch(changeChoosedCountry("Yes"));
+                      dispatch(changeChoosedPeriod("Yes"));
                     }}
                     onMouseEnter={() => {
                       // setPos(heatMapData[y][s].toFixed(2) || "");
                     }}
-                    onMouseMove={(e) => onHover(e)}
-                    onMouseLeave={(e) => onOut()}
+                    onMouseMove={(e) => onHover(e, heatMapData[y][s])}
+                    onMouseLeave={() => {
+                      tooltip.style("visibility", "hidden");
+                    }}
                   ></rect>
                   <rect
                     x={len * j}
@@ -353,13 +335,6 @@ const CountryHeatMap = () => {
           })}
         </g>
       </svg>
-      {/* <Tooltip
-          clientX={clientX}
-          clientY={clientY}
-          show={show}
-          feature={feature}
-          value={pos}
-        /> */}
     </div>
   );
 };

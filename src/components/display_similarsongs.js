@@ -26,6 +26,9 @@ function display_similarsongs() {
     json: true,
   };
 
+  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
+  const isSwmpltChoosed = useSelector((state) => state.detail.isSwmpltChoosed);
+  console.log("similar : "+isSwmpltChoosed)
   const country = useSelector((state) => state.detail.country);
   const musicId = useSelector((state) => state.detail.musicid);
   const [similarSongs, setSimilarSongs] = useState([]);
@@ -52,9 +55,21 @@ function display_similarsongs() {
     })();
   }, [musicId]);
 
-  //console.log(similarSongs);
+  if (isSwmpltChoosed && !isRegionShowed) {
+    return (
+      <div className="card-content p-2">
+        <div className="content">
+          <div className="card-content">
+            <div className="content">
+              <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
-    <div>
+    <div className="card-content">
       <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>類似曲</p>
       {similarSongs.map((item, i) => {
         return (

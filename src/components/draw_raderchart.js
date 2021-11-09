@@ -111,7 +111,7 @@ function RaderChart({ data }) {
   return (
     <div>
       <svg
-        viewBox={`${-margin.left} ${-margin.top} ${svgWidth} ${svgHeight}`}
+        viewBox={`${-margin.left} ${-margin.top} ${svgWidth+10} ${svgHeight}`}
         style={{ border: "solid 0px" }}
       >
         <g>

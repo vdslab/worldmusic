@@ -5,7 +5,7 @@ import ColorLegend from "./colorLegend";
 import { useEffect, useState } from "react";
 import { fetchRegionHeatMapData } from "../api";
 import { useDispatch, useSelector } from "react-redux";
-import { changeMax, changeMin } from "../stores/details";
+import { changeMax, changeMin, changeIsRegionShowed } from "../stores/details";
 
 const RegionHeatMap = () => {
   const dispatch = useDispatch();
@@ -14,81 +14,31 @@ const RegionHeatMap = () => {
   //const cMax = useSelector((state) => state.detail.max);
   const Max = useSelector((state) => state.detail.max);
   const Min = useSelector((state) => state.detail.min);
-  const [heatMapData, setHeatMapData] = useState([]);
   //const [Max, setMax] = useState(-Infinity);
   //const [Min, setMin] = useState(Infinity);
+  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
+
   const startdays = [
-    "2017-01-01",
-    "2017-04-01",
-    "2017-07-01",
-    "2017-10-01",
-    "2018-01-01",
-    "2018-04-01",
-    "2018-07-01",
-    "2018-10-01",
-    "2019-01-01",
-    "2019-04-01",
-    "2019-07-01",
-    "2019-10-01",
-    "2020-01-01",
-    "2020-04-01",
-    "2020-07-01",
-    "2020-10-01",
-    "2021-01-01",
-    "2021-04-01",
-    "2021-07-01",
+    "2017-01",
+    "2017-04",
+    "2017-07",
+    "2017-10",
+    "2018-01",
+    "2018-04",
+    "2018-07",
+    "2018-10",
+    "2019-01",
+    "2019-04",
+    "2019-07",
+    "2019-10",
+    "2020-01",
+    "2020-04",
+    "2020-07",
+    "2020-10",
+    "2021-01",
+    "2021-04",
+    "2021-07",
   ];
-
-  const aveWeight = {
-    Asia: {},
-    Africa: {},
-    MiddleEast: {},
-    Oceania: {},
-    NorthAmerica: {},
-    CentralAmerica: {},
-    SouthAmerica: {},
-    NorthEurope: {},
-    EastEurope: {},
-    WestEurope: {},
-    SouthEurope: {},
-  };
-
-  let checkMin;
-  let checkMax;
-  const [showed, setShowed] = useState(false);
-  useEffect(() => {
-    (async () => {
-      let min = Infinity;
-      let max = -Infinity;
-      checkMin = min;
-      checkMax = max;
-      setShowed(false);
-      for (let i = 0; i < startdays.length; i++) {
-        //startdayを渡す用
-        let data = await fetchRegionHeatMapData(feature, startdays[i]);
-        console.log(data);
-        data.map((d) => {
-          aveWeight[d.region][startdays[i]] = d.value;
-          if (d.value < min) {
-            min = d.value;
-          }
-          if (d.value > max) {
-            max = d.value;
-          }
-        });
-      }
-      if (max != checkMax && min != checkMin) {
-        checkMin = min;
-        checkMax = max;
-        setShowed(true);
-      }
-      //setMin(min);
-      //setMax(max);
-      dispatch(changeMax(max));
-      dispatch(changeMin(min));
-    })();
-    setHeatMapData(aveWeight);
-  }, [feature]);
 
   const regions = [
     "Asia",
@@ -104,20 +54,59 @@ const RegionHeatMap = () => {
     "SouthEurope",
   ];
 
-  // ToDo：後で地域を日本語にすること
-  // const regions = [
-  //   "アジア",
-  //   "アフリカ",
-  //   "中東",
-  //   "オセアニア",
-  //   "北米",
-  //   "中米",
-  //   "南米",
-  //   "北欧",
-  //   "東欧",
-  //   "西欧",
-  //   "南欧",
-  // ];
+  const aveWeight = {
+    Asia: {},
+    Africa: {},
+    MiddleEast: {},
+    Oceania: {},
+    NorthAmerica: {},
+    CentralAmerica: {},
+    SouthAmerica: {},
+    NorthEurope: {},
+    EastEurope: {},
+    WestEurope: {},
+    SouthEurope: {},
+  };
+  const [heatMapData, setHeatMapData] = useState([]);
+
+  let checkMin;
+  let checkMax;
+  const [showed, setShowed] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      let min = Infinity;
+      let max = -Infinity;
+      checkMin = min;
+      checkMax = max;
+      setShowed(false);
+      dispatch(changeIsRegionShowed(false));
+      console.log(isRegionShowed);
+      for (let i = 0; i < startdays.length; i++) {
+        let data = await fetchRegionHeatMapData(feature, startdays[i]);
+        console.log(data);
+        data.map((d) => {
+          aveWeight[d.region][startdays[i]] = d.value;
+          if (d.value < min) {
+            min = d.value;
+          }
+          if (d.value > max) {
+            max = d.value;
+          }
+        });
+      }
+      //setMin(min);
+      //setMax(max);
+      dispatch(changeMax(max));
+      dispatch(changeMin(min));
+      setHeatMapData(aveWeight);
+      if (max != checkMax && min != checkMin) {
+        checkMin = min;
+        checkMax = max;
+        setShowed(true);
+      }
+    })();
+  }, [feature]);
 
   if (!showed) {
     return (
@@ -133,6 +122,8 @@ const RegionHeatMap = () => {
         </div>
       </div>
     );
+  } else {
+    dispatch(changeIsRegionShowed(true));
   }
   return (
     <div className="card-content p-1">
