@@ -130,7 +130,7 @@ const WorldMap = ({ features }) => {
     setFeatureValue(null);
   }
 
-  if (!isRegionShowed) { 
+  if (!isRegionShowed) {
     return (
       <div className="card-content p-2">
         <div className="content">
