@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { fetchData } from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  changeMax,
-  changeMin,
   changeStartMonth,
   changeEndMonth,
   changeCountry,
@@ -94,7 +92,9 @@ const CountryHeatMap = () => {
   const dispatch = useDispatch();
   const feature = useSelector((state) => state.detail.feature);
   const regionId = useSelector((state) => state.detail.regionId);
-  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed); //
+  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
+  const Max = useSelector((state) => state.detail.max);
+  const Min = useSelector((state) => state.detail.min);
 
   const startdays = [
     "2017-01",
@@ -159,8 +159,6 @@ const CountryHeatMap = () => {
 
   const [heatMapData, setHeatMapData] = useState([]);
   const [countries, setCountries] = useState([]);
-  const [Max, setMax] = useState(-Infinity);
-  const [Min, setMin] = useState(Infinity);
 
   let checkMin;
   let checkMax;
@@ -169,10 +167,10 @@ const CountryHeatMap = () => {
   useEffect(() => {
     (async () => {
       let country = [];
-      let min = Infinity;
-      let max = -Infinity;
-      checkMin = min;
-      checkMax = max;
+      let min = Min;
+      let max = Max;
+      checkMin = Infinity;
+      checkMax = -Infinity;
       setShowed(false);
       const aveWeight = {};
       for (let i = 0; i < startdays.length; i++) {
@@ -184,17 +182,9 @@ const CountryHeatMap = () => {
           }
 
           aveWeight[d.countryid][startdays[i]] = d.value;
-          if (d.value < min) {
-            min = d.value;
-          }
-          if (d.value > max) {
-            max = d.value;
-          }
         });
       }
       setCountries(country);
-      setMin(min);
-      setMax(max);
       setHeatMapData(aveWeight);
       if (max != checkMax && min != checkMin) {
         checkMin = min;
@@ -208,7 +198,7 @@ const CountryHeatMap = () => {
     let color = "#F2F2F2";
 
     if (item) {
-      color = d3.interpolatePiYG(opacityjudge(item, start));
+      color = d3.interpolateTurbo(opacityjudge(item, start));
     }
     return color;
   };
@@ -223,8 +213,6 @@ const CountryHeatMap = () => {
   };
 
   function onHover(e, value) {
-    const clientX = e.pageX;
-    const clientY = e.pageY - 200;
     if (value === undefined) {
       setFeatureValue("（データなし）");
     } else {
@@ -239,100 +227,98 @@ const CountryHeatMap = () => {
 
   if (!showed || !isRegionShowed) {
     return (
-      <div className="content">
-        <div className="card-content">
-          <div className="content">
-            <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
-          </div>
-        </div>
+      <div className="card-content">
+        <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
       </div>
     );
   }
   return (
-    <div
-      style={{
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <svg
-        viewBox={`${-margin.left} ${-margin.top} ${svgWidth} ${svgHeight}`}
-        style={{ border: "solid 0px" }}
+    <div className="card-content p-1" style={{ height: "100%" }}>
+      <div
+        style={{
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
-        <VerticalAxis
-          len={len}
-          yAxis={countries}
-          name={"国"}
-          h={contentHeight}
-        />
-        {/* <HorizontalAxis len={len} term={term} name={"期間"} w={contentWidth} /> */}
-        <rect
-          x="0"
-          y="0"
-          fill="lightgray"
-          height={len * countries.length}
-          width={len * startdays.length}
-        />
-
-        <g
-          onMouseLeave={() => {
-            setPos(null);
-            // .style("visibility", "hidden");
-          }}
+        <svg
+          viewBox={`${-margin.left} ${-margin.top} ${svgWidth} ${svgHeight}`}
+          style={{ border: "solid 0px" }}
         >
-          {countries.map((y, i) => {
-            return startdays.map((s, j) => {
-              const startmonth = s;
-              const year = String(Number(startmonth.split("-")[0]));
-              let endmonth = String(Number(startmonth.split("-")[1]) + 2);
-              if (endmonth.length === 1) {
-                endmonth = "0" + endmonth;
-              }
+          <VerticalAxis
+            len={len}
+            yAxis={countries}
+            name={"国"}
+            h={contentHeight}
+          />
+          {/* <HorizontalAxis len={len} term={term} name={"期間"} w={contentWidth} /> */}
+          <rect
+            x="0"
+            y="0"
+            fill="lightgray"
+            height={len * countries.length}
+            width={len * startdays.length}
+          />
 
-              return (
-                <g key={i * startdays.length + j}>
-                  <rect
-                    className="cell"
-                    x={len * j}
-                    y={len * i}
-                    width={len}
-                    height={len}
-                    fill={colorjudge(heatMapData[y][s], s)}
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      setClicked(i * startdays.length + j);
-                      // 国ヒートマップは期間と国の変更＋初めて期間と国が押された判定が必要。
-                      dispatch(changeCountry(y));
-                      dispatch(changeStartMonth(s));
-                      dispatch(changeEndMonth(year + "-" + endmonth));
-                      dispatch(changeChoosedCountry("Yes"));
-                      dispatch(changeChoosedPeriod("Yes"));
-                    }}
-                    onMouseEnter={() => {
-                      // setPos(heatMapData[y][s].toFixed(2) || "");
-                    }}
-                    onMouseMove={(e) => onHover(e, heatMapData[y][s])}
-                    onMouseLeave={() => {
-                      tooltip.style("visibility", "hidden");
-                    }}
-                  ></rect>
-                  <rect
-                    x={len * j}
-                    y={len * i}
-                    width={len - 0.5}
-                    height={len - 0.5}
-                    fill="none"
-                    stroke="black"
-                    opacity={clicked === i * startdays.length + j ? 1 : 0}
-                  />
-                </g>
-              );
-            });
-          })}
-        </g>
-      </svg>
+          <g
+            onMouseLeave={() => {
+              setPos(null);
+              // .style("visibility", "hidden");
+            }}
+          >
+            {countries.map((y, i) => {
+              return startdays.map((s, j) => {
+                const startmonth = s;
+                const year = String(Number(startmonth.split("-")[0]));
+                let endmonth = String(Number(startmonth.split("-")[1]) + 2);
+                if (endmonth.length === 1) {
+                  endmonth = "0" + endmonth;
+                }
+
+                return (
+                  <g key={i * startdays.length + j}>
+                    <rect
+                      className="cell"
+                      x={len * j}
+                      y={len * i}
+                      width={len}
+                      height={len}
+                      fill={colorjudge(heatMapData[y][s], s)}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        setClicked(i * startdays.length + j);
+                        // 国ヒートマップは期間と国の変更＋初めて期間と国が押された判定が必要。
+                        dispatch(changeCountry(y));
+                        dispatch(changeStartMonth(s));
+                        dispatch(changeEndMonth(year + "-" + endmonth));
+                        dispatch(changeChoosedCountry("Yes"));
+                        dispatch(changeChoosedPeriod("Yes"));
+                      }}
+                      onMouseEnter={() => {
+                        // setPos(heatMapData[y][s].toFixed(2) || "");
+                      }}
+                      onMouseMove={(e) => onHover(e, heatMapData[y][s])}
+                      onMouseLeave={() => {
+                        tooltip.style("visibility", "hidden");
+                      }}
+                    ></rect>
+                    <rect
+                      x={len * j}
+                      y={len * i}
+                      width={len - 0.5}
+                      height={len - 0.5}
+                      fill="none"
+                      stroke="black"
+                      opacity={clicked === i * startdays.length + j ? 1 : 0}
+                    />
+                  </g>
+                );
+              });
+            })}
+          </g>
+        </svg>
+      </div>
     </div>
   );
 };

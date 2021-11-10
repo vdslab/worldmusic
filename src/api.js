@@ -92,3 +92,10 @@ export function fetchgetDECStreamCountry(musicId) {
     musicId: musicId,
   });
 }
+
+export function fetchgetHeatMapMinMax(feature, startmonth) {
+  return sendRequest("/getHeatMapMinMax", {
+    feature: feature,
+    startmonth: startmonth,
+  });
+}

@@ -21,18 +21,11 @@ const Visualization = () => {
               <JudgeVis />
             </div>
           </article>
-          {/* <article class="tile is-child">
-            <div className="card" style={{ height: "100%" }}>
-              <JudgeVis />
-            </div>
-          </article> */}
         </div>
-        <div className="tile is-vertical is-6">
-          <div className="tile is-parent">
+        <div className="tile is-parent is-vertical">
             <article className="tile is-child">
               <Detail />
             </article>
-          </div>
         </div>
       </div>
       <div className="tile is-ancestor">

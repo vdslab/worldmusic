@@ -1,29 +1,14 @@
 import { useEffect, useState } from "react";
 import * as d3 from "d3";
-import { fetchData, fetchHeatmapData, fetchTest } from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  changeCountry,
-  changeEndMonth,
-  changeStartMonth,
-  changeMax,
-  changeMin,
   changeJudgeVis,
-  changeChoosedPeriod,
-  changeChoosedCountry,
   changeRegionId,
 } from "../stores/details";
 import "../tooltip.css";
 
-function VerticalAxis({ len, yAxis, name, h, judgenumber }) {
+function VerticalAxis({ len, yAxis, name, h}) {
   const dispatch = useDispatch();
-  // ・地域ヒートマップでは国ヒートマップが表示されるようにする。
-  // ・国ヒートマップでは初めて国が選ばれた＋国が変わる判定が必要。
-  // function changeInfo(country) {
-  //   dispatch(changeCountry(country));
-  //   dispatch(changeChoosedCountry("Yes"));
-  // }
-
   return (
     <g>
       <text
@@ -48,11 +33,7 @@ function VerticalAxis({ len, yAxis, name, h, judgenumber }) {
               style={{ userSelect: "none", cursor: "pointer" }}
               onClick={() => {
                 dispatch(changeRegionId(y[0]));
-                {
-                  judgenumber === 1
-                    ? dispatch(changeJudgeVis(2)) //ヒートマップ
-                    : changeInfo(y);
-                }
+                dispatch(changeJudgeVis(2)) //国ヒートマップ
               }}
             >
               {y[1]}
@@ -64,15 +45,7 @@ function VerticalAxis({ len, yAxis, name, h, judgenumber }) {
   );
 }
 
-function HorizontalAxis({ len, term, name, w, judgenumber }) {
-  const dispatch = useDispatch();
-
-  function changeInfo(start, end) {
-    dispatch(changeStartMonth(start));
-    dispatch(changeEndMonth(end));
-    dispatch(changeChoosedPeriod("Yes"));
-  }
-
+function HorizontalAxis({ len, term, name, w}) {
   return (
     <g>
       <text
@@ -95,11 +68,7 @@ function HorizontalAxis({ len, term, name, w, judgenumber }) {
               style={{ userSelect: "none" }}
               // onClick={() => {
               //   changeInfo(t.start, t.end);
-              //   {
-              //     judgenumber === 1
-              //       ? dispatch(changeJudgeVis(1)) //世界地図
-              //       : console.log("国別のヒートマップではセルのみ押せる。");
-              //   }
+              //   dispatch(changeJudgeVis(1)) //世界地図
               // }}
             >
               {t.start}
@@ -112,11 +81,7 @@ function HorizontalAxis({ len, term, name, w, judgenumber }) {
 }
 
 function HeatMapChart(props) {
-  /**startMonthとendMonth,countryは世界地図と連携づけるのに持っておく。今は未使用 */
   const dispatch = useDispatch();
-  const startMonth = useSelector((state) => state.detail.startMonth);
-  const endMonth = useSelector((state) => state.detail.endMonth);
-  const feature = useSelector((state) => state.detail.feature);
   const [clicked, setClicked] = useState(-1);
   const [pos, setPos] = useState(null);
 
@@ -124,7 +89,6 @@ function HeatMapChart(props) {
   const Max = props.max;
   const Min = props.min;
   const yAxis = props.y;
-  const judgenumber = props.judgeNumber;
 
   const startdays = [
     "2017-01",
@@ -217,8 +181,6 @@ function HeatMapChart(props) {
   };
 
   function onHover(e, value) {
-    const clientX = e.pageX;
-    const clientY = e.pageY - 200;
     if (value === undefined) {
       setFeatureValue("（データなし）");
     } else {
@@ -229,16 +191,6 @@ function HeatMapChart(props) {
       .style("top", e.pageY - 20 + "px")
       .style("left", e.pageX + 10 + "px")
       .html(featureValue);
-  }
-
-  // 国ヒートマップでは国と期間が変わった＋初めて国と期間が押された判定が必要。
-  // ヒートマップ描画を別々のプログラムで処理する場合は以下の関数必要なし。
-  function changeInfo(start, end, countryId) {
-    dispatch(changeCountry(countryId));
-    dispatch(changeStartMonth(start));
-    dispatch(changeEndMonth(end));
-    dispatch(changeChoosedCountry("Yes"));
-    dispatch(changeChoosedPeriod("Yes"));
   }
 
   return (
@@ -257,16 +209,14 @@ function HeatMapChart(props) {
         <VerticalAxis
           len={len}
           yAxis={japaneseRegions}
-          name={judgenumber === 1 ? "地域" : "国"}
+          name={"地域"}
           h={contentHeight}
-          judgenumber={props.judgeNumber}
         />
         <HorizontalAxis
           len={len}
           term={term}
           name={"期間"}
           w={contentWidth}
-          judgenumber={props.judgeNumber}
         />
         <rect
           x="0"
@@ -302,16 +252,11 @@ function HeatMapChart(props) {
                     fill={colorjudge(heatMapData[y][s], s)}
                     // onClick={() => {
                     //   setClicked(i * startdays.length + j);
-                    //   //地域ヒートマップでは、地域名と期間が変わる＋期間が初めて押された判定が必要。
                     //   dispatch(changeRegionId(y));
                     //   dispatch(changeStartMonth(s));
                     //   dispatch(changeChoosedPeriod("Yes"));
                     //   dispatch(changeEndMonth(year + "-" + endmonth));
-                    //   {
-                    //     judgenumber === 1
-                    //       ? dispatch(changeJudgeVis(3)) //棒グラフ
-                    //       : changeInfo(s, year + "-" + endmonth, y); //Vis２のヒートマップに必要。
-                    //   }
+                    //   dispatch(changeJudgeVis(3)) //棒グラフ
                     // }}
                     //onMouseEnter={() => {
                     // setPos(heatMapData[y][s].toFixed(2) || "");
