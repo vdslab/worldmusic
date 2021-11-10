@@ -228,6 +228,7 @@ const Swarmplt = ({ width, height }) => {
               .attr("cx", (d) => d.x)
               .attr("cy", (d) => d.y)
               .attr("r", (d) => size(Math.sqrt(d.stream)))
+              .style("cursor","pointer")
           );
         let init_decay = setTimeout(function () {
           simulation.alphaDecay(0.1);

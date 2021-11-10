@@ -10,6 +10,8 @@ import {
   changeFeature,
 } from "../stores/details";
 
+import "../style.css";
+
 function RaderChart({ data }) {
   const dispatch = useDispatch();
   const choosedCountry = useSelector((state) => state.detail.choosedCountry);
@@ -111,7 +113,7 @@ function RaderChart({ data }) {
   return (
     <div>
       <svg
-        viewBox={`${-margin.left} ${-margin.top} ${svgWidth+10} ${svgHeight}`}
+        viewBox={`${-margin.left} ${-margin.top} ${svgWidth + 10} ${svgHeight}`}
         style={{ border: "solid 0px" }}
       >
         <g>
@@ -168,7 +170,7 @@ function RaderChart({ data }) {
                     textAnchor="middle"
                     dominantBaseline="central"
                     fontSize="5"
-                    style={{ userSelect: "none" }}
+                    style={{ userSelect: "none", cursor: "pointer" }}
                     //fill={overed === "Yes" ? "#3273dc" : "#363636"}
                     onClick={() => {
                       dispatch(changeFeature(p.name));
@@ -183,9 +185,7 @@ function RaderChart({ data }) {
                     // }
                     // }
                   >
-                  <a>
                     {p.name}
-                  </a>
                   </text>
                 )}
               </g>
