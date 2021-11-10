@@ -1,22 +1,18 @@
 import React from "react";
-import HeatMapChart from "./draw_heatmap";
+import HeatMapChart from "./draw_regionHeatmap";
 import SelectFeature from "./selectFeature";
 import ColorLegend from "./colorLegend";
 import { useEffect, useState } from "react";
-import { fetchRegionHeatMapData } from "../api";
+import { fetchRegionHeatMapData, fetchgetHeatMapMinMax } from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import { changeMax, changeMin, changeIsRegionShowed } from "../stores/details";
 
 const RegionHeatMap = () => {
   const dispatch = useDispatch();
   const feature = useSelector((state) => state.detail.feature);
-  //const cMin = useSelector((state) => state.detail.min);
-  //const cMax = useSelector((state) => state.detail.max);
   const Max = useSelector((state) => state.detail.max);
   const Min = useSelector((state) => state.detail.min);
-  //const [Max, setMax] = useState(-Infinity);
-  //const [Min, setMin] = useState(Infinity);
-  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
+  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);//地域ヒートマップが表示されているか否か
 
   const startdays = [
     "2017-01",
@@ -67,24 +63,30 @@ const RegionHeatMap = () => {
     WestEurope: {},
     SouthEurope: {},
   };
+
+  const countriesAveWeight = {};
   const [heatMapData, setHeatMapData] = useState([]);
 
   let checkMin;
   let checkMax;
-  const [showed, setShowed] = useState(false);
+  const [showed, setShowed] = useState(false);//地域ヒートマップを表示していいか否か
 
   useEffect(() => {
     (async () => {
       let min = Infinity;
       let max = -Infinity;
-      checkMin = min;
-      checkMax = max;
-      setShowed(false);
-      dispatch(changeIsRegionShowed(false));
+      checkMin = min;      //minが変更されたかをチェックする変数
+      checkMax = max;      //maxが変更されたかをチェックする変数
+      setShowed(false);                      //データが揃ってから見せる
+      dispatch(changeIsRegionShowed(false)); //データが揃ってから見せる
       for (let i = 0; i < startdays.length; i++) {
-        let data = await fetchRegionHeatMapData(feature, startdays[i]);
-        data.map((d) => {
-          aveWeight[d.region][startdays[i]] = d.value;
+        //最大値・最小値を取得するために、まず３ヶ月ごとで各国のデータを取得する
+        let minmaxdata = await fetchgetHeatMapMinMax(feature, startdays[i]);
+        minmaxdata.map((d) => {
+          if (!countriesAveWeight[d.countryid]) {
+            countriesAveWeight[d.countryid] = {};
+          }
+          countriesAveWeight[d.countryid][startdays[i]] = d.value;
           if (d.value < min) {
             min = d.value;
           }
@@ -92,12 +94,17 @@ const RegionHeatMap = () => {
             max = d.value;
           }
         });
+        //地域ごとのデータを取得する
+        let data = await fetchRegionHeatMapData(feature, startdays[i]);
+        data.map((d) => {
+          aveWeight[d.region][startdays[i]] = d.value;
+        });
       }
-      //setMin(min);
-      //setMax(max);
+      //minとmaxが変更されたので、セットする（データも）
       dispatch(changeMax(max));
       dispatch(changeMin(min));
       setHeatMapData(aveWeight);
+      //チェック用変数と値が異なれば（＝最大値最小値の準備おk）、地域ヒートマップを表示する
       if (max != checkMax && min != checkMin) {
         checkMin = min;
         checkMax = max;
@@ -120,7 +127,7 @@ const RegionHeatMap = () => {
         </div>
       </div>
     );
-  } else {
+  } else { //地域ヒートマップを表示している扱いにする
     dispatch(changeIsRegionShowed(true));
   }
   return (
@@ -147,7 +154,6 @@ const RegionHeatMap = () => {
           </div>
         </div>
         <HeatMapChart
-          judgeNumber={1}
           data={heatMapData}
           max={Max}
           min={Min}
