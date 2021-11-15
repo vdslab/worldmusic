@@ -2,6 +2,8 @@ import { count } from "d3-array";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swarmplt from "./draw_swarmplt";
+import * as d3 from "d3";
+import "../tooltip.css";
 
 const Detail = () => {
   const country = useSelector((state) => state.detail.country);
@@ -12,6 +14,8 @@ const Detail = () => {
   const choosedFeature = useSelector((state) => state.detail.choosedFeature);
   const choosedPeriod = useSelector((state) => state.detail.choosedPeriod);
   const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
+
+  const tooltip = d3.select(".tooltip-questionMark");
 
   if (
     choosedCountry === "No" &&
@@ -59,6 +63,28 @@ const Detail = () => {
       return (
         <div className="card" style={{ height: "100%" }}>
           <div className="card-content p-1" style={{ height: "100%" }}>
+            <div
+              className="section p-1"
+              style={{ display: "flex", justifyContent: "flex-end" }}
+            >
+              <div
+                className="questionmark"
+                onMouseEnter={(e) => {
+                  tooltip.style("visibility", "visible");
+                  tooltip
+                    .style("top", e.pageY - 30 + "px")
+                    .style("left", e.pageX - 500 + "px")
+                    .html(
+                      "曲の再生回数が多いほど円の大きさは大きくなっている。"
+                    );
+                }}
+                onMouseLeave={() => {
+                  tooltip.style("visibility", "hidden");
+                }}
+              >
+                ?
+              </div>
+            </div>
             <div className="content">
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <div className="card-content m-1">
