@@ -8,29 +8,59 @@ import Ranking from "./Ranking";
 import Detail from "./Detail";
 import AboutFeatureAndData from "./aboutFeatureAndData";
 import JudgeVis from "./JudgeVis";
+import * as d3 from "d3";
+import "../tooltip.css";
 
 const Visualization = () => {
+  const tooltip = d3.select(".tooltip-questionMark");
   return (
     <div>
+      <div
+        className="section p-1"
+        style={{ display: "flex", justifyContent: "flex-end" }}
+      >
+        <div
+          className="questionmark"
+          onMouseEnter={(e) => {
+            tooltip.style("visibility", "visible");
+            tooltip
+              .style("top", e.pageY - 30 + "px")
+              .style("left", e.pageX - 550 + "px")
+              .html(
+                "これら3曲は左から順にグローバル・日本・クリスマスの各カテゴリの中で最も再生された曲となっている。 \
+                また、それぞれの曲が配信されている国を世界地図にて赤色で塗りつぶしている。"
+              );
+          }}
+          onMouseLeave={() => {
+            tooltip.style("visibility", "hidden");
+          }}
+        >
+          ?
+        </div>
+      </div>
       <FeatureVis />
       <div className="tile is-ancestor">
         <div className="tile is-parent is-vertical">
           <article className="tile is-child">
             <div className="card">
-              <RegionHeatMap />
-              <JudgeVis />
+              <div id="ScrollToHeatmap">
+                <RegionHeatMap />
+                <JudgeVis />
+              </div>
             </div>
           </article>
         </div>
         <div className="tile is-parent is-vertical">
-            <article className="tile is-child">
-              <Detail />
-            </article>
+          <article className="tile is-child">
+            <Detail />
+          </article>
         </div>
       </div>
       <div className="tile is-ancestor">
         <div className="tile is-parent is-vertical">
-          <Song />
+          <div id="ScrollToSong">
+            <Song />
+          </div>
         </div>
         <div className="tile is-parent is-vertical">
           <SimilarSongs />

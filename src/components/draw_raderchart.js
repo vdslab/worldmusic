@@ -9,8 +9,9 @@ import {
   changeChoosedPeriod,
   changeFeature,
 } from "../stores/details";
-
+import "./RegionHeatMap";
 import "../style.css";
+import { Link as Scroll } from "react-scroll";
 
 function RaderChart({ data }) {
   const dispatch = useDispatch();
@@ -164,29 +165,31 @@ function RaderChart({ data }) {
                     }}
                   />
                 ) : (
-                  <text
-                    x={p.x}
-                    y={p.y}
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                    fontSize="5"
-                    style={{ userSelect: "none", cursor: "pointer" }}
-                    //fill={overed === "Yes" ? "#3273dc" : "#363636"}
-                    onClick={() => {
-                      dispatch(changeFeature(p.name));
-                      dispatch(changeChoosedFeature("Yes"));
-                    }}
-                    // onMouseOver={(i) => {
-                    //   setOvered("Yes");
-                    //   console.log(p.name + "(over)");
-                    // }}
-                    // onMouseLeave={(i) => {
-                    //   setOvered("No");
-                    // }
-                    // }
-                  >
-                    {p.name}
-                  </text>
+                  <Scroll to="ScrollToHeatmap" smooth={true} offset={-20}>
+                    <text
+                      x={p.x}
+                      y={p.y}
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      fontSize="5"
+                      style={{ userSelect: "none", cursor: "pointer" }}
+                      //fill={overed === "Yes" ? "#3273dc" : "#363636"}
+                      onClick={() => {
+                        dispatch(changeFeature(p.name));
+                        dispatch(changeChoosedFeature("Yes"));
+                      }}
+                      // onMouseOver={(i) => {
+                      //   setOvered("Yes");
+                      //   console.log(p.name + "(over)");
+                      // }}
+                      // onMouseLeave={(i) => {
+                      //   setOvered("No");
+                      // }
+                      // }
+                    >
+                      {p.name}
+                    </text>
+                  </Scroll>
                 )}
               </g>
             );

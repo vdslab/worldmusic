@@ -74,42 +74,60 @@ function display_similarsongs() {
         {similarSongs.map((item, i) => {
           return (
             <div style={{ width: "100%", fontSize: "40" }}>
-              <img
-                src={item.album.images[0].url}
-                width="140"
-                height="140"
-                style={{ float: "left", paddingRight: "20px" }}
-              />
-              <p>
-                <b style={{ fontSize: "1.2rem" }}>
-                  <a
-                    href={item.external_urls.spotify}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {item.name}
-                  </a>
-                </b>
-                <br />
-                <div style={{ fontSize: "0.85rem" }}>
-                  アーティスト：
-                  <br />
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <div
+                  style={{
+                    width: "50%",
+                    paddingTop: "5px",
+                  }}
+                >
+                  <img
+                    src={item.album.images[0].url}
+                    width="250"
+                    style={{
+                      float: "left",
+                      paddingRight: "20px",
+                    }}
+                  />
+                </div>
+                <div
+                  style={{
+                    width: "100%",
+                    paddingTop: "5px",
+                  }}
+                >
                   <p>
-                    {item.artists.map((item2, j) => {
-                      return (
-                        <a
-                          href={item2.external_urls.spotify}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {j !== 0 ? " / " : []}
-                          {item2.name}
-                        </a>
-                      );
-                    })}
+                    <b style={{ fontSize: "1.2rem" }}>
+                      <a
+                        href={item.external_urls.spotify}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {item.name}
+                      </a>
+                    </b>
+                    <br />
+                    <div style={{ fontSize: "0.85rem" }}>
+                      アーティスト：
+                      <br />
+                      <p>
+                        {item.artists.map((item2, j) => {
+                          return (
+                            <a
+                              href={item2.external_urls.spotify}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {j !== 0 ? " / " : []}
+                              {item2.name}
+                            </a>
+                          );
+                        })}
+                      </p>
+                    </div>
                   </p>
                 </div>
-              </p>
+              </div>
             </div>
           );
         })}
