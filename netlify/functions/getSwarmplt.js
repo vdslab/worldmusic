@@ -15,17 +15,13 @@ function selectRows(db, sql) {
 
 exports.handler = async function (event) {
   const startMonth = event.queryStringParameters.startMonth || null;
-  const endMonth = event.queryStringParameters.endMonth || null;
   const feature = event.queryStringParameters.feature || null;
   const country = event.queryStringParameters.country || null;
-  //console.log(startMonth, endMonth, feature, country);
-
-  // const startMonth = "2017-01";
-  // const endMonth = "2017-03";
-  // const feature = "acousticness";
-  // const country = "AU";
-  // console.log(startMonth, endMonth, feature, country);
-
+  const year = String(Number(startMonth.split("-")[0]));
+  let endmonth = String(Number(startMonth.split("-")[1]) + 2);
+  if (endmonth.length === 1) {
+    endmonth = "0" + endmonth;
+  }
   /**TODO:応急処置, 後でちゃんとした書き方先輩に聞く */
 
   try {
@@ -34,7 +30,7 @@ exports.handler = async function (event) {
 
     const result = await selectRows(
       db,
-      `SELECT Music.Musicid , Music.name , Music.${feature} , Ranking.startday , Ranking.countryid , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.countryid='${country}' AND Ranking.startday BETWEEN '${startMonth}-01' AND '${endMonth}-31'`
+      `SELECT Music.Musicid , Music.name , Music.${feature} , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.countryid='${country}' AND Ranking.startday BETWEEN '${startMonth}-01' AND '${year}-${endmonth}-31'`
     );
     return { statusCode: 200, body: JSON.stringify(result) };
   } catch (e) {

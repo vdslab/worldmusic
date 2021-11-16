@@ -11,6 +11,7 @@ import {
   changeCountry,
   changeChoosedCountry,
   changeChoosedPeriod,
+  changeIsSwmpltShowed,
 } from "../stores/details";
 
 function VerticalAxis({ len, yAxis, name, h }) {
@@ -94,7 +95,10 @@ const CountryHeatMap = () => {
   const dispatch = useDispatch();
   const feature = useSelector((state) => state.detail.feature);
   const regionId = useSelector((state) => state.detail.regionId);
-  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed); //
+  const countryids = useSelector((state) => state.detail.country);
+  const period = useSelector((state) => state.detail.startMonth);
+  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
+  const isSwmpltShowed = useSelector((state) => state.detail.isSwmpltShowed);
 
   const startdays = [
     "2017-01",
@@ -304,8 +308,17 @@ const CountryHeatMap = () => {
                     onClick={() => {
                       setClicked(i * startdays.length + j);
                       // 国ヒートマップは期間と国の変更＋初めて期間と国が押された判定が必要。
-                      dispatch(changeCountry(y));
-                      dispatch(changeStartMonth(s));
+                      console.log(isSwmpltShowed);
+
+                      let selectedCountry = [...countryids];
+                      let selectedStartmonth = [...period];
+                      let selectedSwmplt = [...isSwmpltShowed];
+                      selectedCountry.push(y);
+                      selectedStartmonth.push(s);
+                      selectedSwmplt.push(true);
+                      dispatch(changeCountry(selectedCountry));
+                      dispatch(changeIsSwmpltShowed(selectedSwmplt));
+                      dispatch(changeStartMonth(selectedStartmonth));
                       dispatch(changeEndMonth(year + "-" + endmonth));
                       dispatch(changeChoosedCountry("Yes"));
                       dispatch(changeChoosedPeriod("Yes"));

@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 //変数の宣言
 const initialState = {
-  startMonth: "2018-01",
+  startMonth: [],
   endMonth: "2018-03",
   feature: "acousticness",
-  country: "JP",
+  country: [],
   musicid: "a",
   max: -Infinity,
   min: Infinity,
@@ -18,6 +18,7 @@ const initialState = {
   regionId: "",
   isRegionShowed: false,
   isSwmpltChoosed: false,
+  isSwmpltShowed: [],
 };
 
 //storeと呼ばれるデータの格納場所をsliceという名前で分割して役割ごとにそれぞれの変数で管理する
@@ -92,6 +93,10 @@ const slice = createSlice({
     changeIsSwmpltChoosed: (state, action) => {
       state.isSwmpltChoosed = action.payload;
     },
+
+    changeIsSwmpltShowed: (state, action) => {
+      state.isSwmpltShowed = action.payload;
+    },
   },
 });
 
@@ -112,5 +117,6 @@ export const {
   changeChoosedPeriod,
   changeRegionId,
   changeIsRegionShowed,
-  changeIsSwmpltChoosed
+  changeIsSwmpltChoosed,
+  changeIsSwmpltShowed,
 } = slice.actions;

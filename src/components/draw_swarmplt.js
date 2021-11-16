@@ -5,10 +5,25 @@ import { extent } from "d3-array";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSwarmplt } from "../api";
 import * as d3 from "d3";
-import { changeMusicId, changeIsSwmpltChoosed } from "../stores/details";
+import {
+  changeMax,
+  changeMin,
+  changeStartMonth,
+  changeEndMonth,
+  changeCountry,
+  changeChoosedCountry,
+  changeChoosedPeriod,
+  changeIsSwmpltShowed,
+  changeMusicId,
+  changeIsSwmpltChoosed,
+} from "../stores/details";
 import "../tooltip.css";
 
 const Swarmplt = ({ width, height }) => {
+  const countryids = useSelector((state) => state.detail.country);
+  const period = useSelector((state) => state.detail.startMonth);
+  const isSwmpltShowed = useSelector((state) => state.detail.isSwmpltShowed);
+  const dispatch = useDispatch();
   const duration = 500;
   const margin = {
     top: 10,
@@ -93,8 +108,6 @@ const Swarmplt = ({ width, height }) => {
 
   const ref = useRef();
   const svg = d3.select(ref.current);
-
-  const dispatch = useDispatch();
   const [dbData, setDbData] = useState([]);
 
   const startMonth = useSelector((state) => state.detail.startMonth);
@@ -107,46 +120,71 @@ const Swarmplt = ({ width, height }) => {
   const [Min, setMin] = useState(Infinity);
 
   useEffect(() => {
+    console.log(startMonth, country, isSwmpltShowed);
     let max = -Infinity;
     let min = Infinity;
     (async () => {
-      const data = await fetchSwarmplt(
-        startMonth,
-        endMonth,
-        feature,
-        country,
-        musicid
-      );
+      for (let i = 0; i < startMonth.length; i++) {
+        const data = await fetchSwarmplt(startMonth[i], feature, country[i]);
+        const musicdata = {};
+        data.map((d) => {
+          if (!musicdata[d.musicid]) {
+            musicdata[d.musicid] = {
+              stream: d.stream,
+              name: d.name,
+              feature: d[feature],
+            };
+            if (max < d[feature]) {
+              max = d[feature];
+            }
+
+            if (min > d[feature]) {
+              min = d[feature];
+            }
+          } else {
+            // console.log(musicdata[d.musicid].stream);
+            musicdata[d.musicid].stream =
+              musicdata[d.musicid].stream + d.stream;
+          }
+        });
+      }
+
+      // console.log(data);
       // ＜円の表示をstreamの合計で取る＞
       // ①musicidが重複なしかつstreamの値が０な配列（dedupeMusicid）を作る
       // ②dedupeMusicidとdataをfor文で見て、同じmusicidならstream値を足していく＋最大値・最小値も求める
       // ①
-      let dedupeMusicid = JSON.parse(JSON.stringify(data)).filter(
-        (item, i, self) =>
-          self.findIndex((i) => i.musicid === item.musicid) === i
-      );
-      for (let i = 0; i < dedupeMusicid.length; i++) {
-        dedupeMusicid[i].stream = 0;
-      }
-      // ②
-      for (let i = 0; i < dedupeMusicid.length; i++) {
-        for (let l = 0; l < data.length; l++) {
-          if (dedupeMusicid[i].musicid === data[l].musicid) {
-            dedupeMusicid[i].stream += data[l].stream;
-          }
-        }
-        if (max < dedupeMusicid[i][feature]) {
-          max = dedupeMusicid[i][feature];
-        }
-        if (dedupeMusicid[i][feature] < min) {
-          min = dedupeMusicid[i][feature];
-        }
-      }
-      setDbData(dedupeMusicid);
-      setMax(max);
-      setMin(min);
+      // let dedupeMusicid = JSON.parse(JSON.stringify(data)).filter(
+      //   (item, i, self) =>
+      //     self.findIndex((i) => i.musicid === item.musicid) === i
+      // );
+      // for (let i = 0; i < dedupeMusicid.length; i++) {
+      //   dedupeMusicid[i].stream = 0;
+      // }
+      // // ②
+      // for (let i = 0; i < dedupeMusicid.length; i++) {
+      //   for (let l = 0; l < data.length; l++) {
+      //     if (dedupeMusicid[i].musicid === data[l].musicid) {
+      //       dedupeMusicid[i].stream += data[l].stream;
+      //     }
+      //   }
+      //   if (max < dedupeMusicid[i][feature]) {
+      //     max = dedupeMusicid[i][feature];
+      //   }
+      //   if (dedupeMusicid[i][feature] < min) {
+      //     min = dedupeMusicid[i][feature];
+      //   }
+      // }
+      // setDbData(dedupeMusicid);
+      // setMax(max);
+      // setMin(min);
     })();
 
+    setMin(min);
+    setMax(max);
+
+    console.log(Min);
+    console.log(Max);
     d3.select(ref.current)
       .attr("width", width)
       .attr("height", height)
@@ -155,7 +193,7 @@ const Swarmplt = ({ width, height }) => {
   }, [startMonth, endMonth, feature, country]);
 
   useEffect(() => {
-    draw();
+    // draw();
   }, [dbData]);
 
   const checkColor = (item) => {
@@ -228,7 +266,7 @@ const Swarmplt = ({ width, height }) => {
               .attr("cx", (d) => d.x)
               .attr("cy", (d) => d.y)
               .attr("r", (d) => size(Math.sqrt(d.stream)))
-              .style("cursor","pointer")
+              .style("cursor", "pointer")
           );
         let init_decay = setTimeout(function () {
           simulation.alphaDecay(0.1);
@@ -245,13 +283,27 @@ const Swarmplt = ({ width, height }) => {
           .duration(duration)
           .call(xAxis);
       } else {
-        return;
+        return (
+          <div>
+            <button>a</button>
+          </div>
+        );
       }
     });
   };
   return (
     <div>
       <svg width="650" height="250" viewBox="0 -20 650 300" ref={ref} />
+      <button
+        className="button"
+        onClick={() => {
+          dispatch(changeCountry([]));
+          dispatch(changeStartMonth([]));
+          console.log(countryids, period);
+        }}
+      >
+        button
+      </button>
     </div>
   );
 };

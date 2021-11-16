@@ -14,10 +14,9 @@ async function sendRequest(path, args) {
   return await request.json();
 }
 
-export function fetchSwarmplt(startMonth, endMonth, feature, country) {
+export function fetchSwarmplt(startMonth, feature, country) {
   return sendRequest("/getSwarmplt", {
     startMonth: startMonth,
-    endMonth: endMonth,
     feature: feature,
     country: country,
   });
