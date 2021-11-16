@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   changeJudgeVis,
   changeRegionId,
+  changeCheckRegionClicked,
 } from "../stores/details";
 import "../tooltip.css";
 
 function VerticalAxis({ len, yAxis, name, h}) {
   const dispatch = useDispatch();
+  const checkRegionCheck = useSelector((state) => state.detail.checkRegionClicked);
+
   return (
     <g>
       <text
@@ -29,12 +32,12 @@ function VerticalAxis({ len, yAxis, name, h}) {
               x="-5"
               textAnchor="end"
               dominantBaseline="central"
-              fontSize="8"
-              style={{ userSelect: "none", cursor: "pointer" }}
               onClick={() => {
+                dispatch(changeCheckRegionClicked(checkRegionCheck.map((c,index) => (index === i ? true : false))))
                 dispatch(changeRegionId(y[0]));
                 dispatch(changeJudgeVis(2)) //国ヒートマップ
               }}
+              style={ checkRegionCheck[i] ? { userSelect: "none", cursor: "pointer" , fontSize: "13px", textDecoration: "underline"} : { userSelect: "none", cursor: "pointer" , fontSize: "8px"}}
             >
               {y[1]}
             </text>

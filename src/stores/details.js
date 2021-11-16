@@ -19,6 +19,38 @@ const initialState = {
   isRegionShowed: false,
   isSwmpltChoosed: false,
   isSwmpltShowed: [],
+  selectClicked: false,
+  checkRaderFeatureClicked: [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ],
+  checkRegionClicked: [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ],
 };
 
 //storeと呼ばれるデータの格納場所をsliceという名前で分割して役割ごとにそれぞれの変数で管理する
@@ -97,6 +129,18 @@ const slice = createSlice({
     changeIsSwmpltShowed: (state, action) => {
       state.isSwmpltShowed = action.payload;
     },
+
+    changeSelectClicked: (state, action) => {
+      state.selectClicked = action.payload;
+    },
+
+    changeCheckRaderFeatureClicked: (state, action) => {
+      state.checkRaderFeatureClicked = action.payload;
+    },
+
+    changeCheckRegionClicked: (state, action) => {
+      state.checkRegionClicked = action.payload;
+    },
   },
 });
 
@@ -119,4 +163,7 @@ export const {
   changeIsRegionShowed,
   changeIsSwmpltChoosed,
   changeIsSwmpltShowed,
+  changeSelectClicked,
+  changeCheckRaderFeatureClicked,
+  changeCheckRegionClicked
 } = slice.actions;

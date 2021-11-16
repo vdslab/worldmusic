@@ -107,7 +107,6 @@ const Song = (props) => {
         const data = await fetchJPGLTopStreamCountry(musicId);
         setCountries(data);
       }
-      console.log(countries);
     })();
   }, [musicId]); //変化するものを配列に入れておくこと。
   const [metaData, setMetaData] = useState(null);
