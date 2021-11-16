@@ -18,6 +18,8 @@ import {
   changeIsSwmpltChoosed,
 } from "../stores/details";
 import "../tooltip.css";
+import "../style.css";
+import { Link as Scroll } from "react-scroll";
 
 const Swarmplt = ({ width, height }) => {
   const countryids = useSelector((state) => state.detail.country);
@@ -239,44 +241,51 @@ const Swarmplt = ({ width, height }) => {
           )
           .alphaDecay(0)
           .alpha(0.3)
-          .on("tick", () =>
-            swarmplt
-              .selectAll("circle")
-              .data(dbData)
-              .join("circle")
-              .style("fill", (d) => d3.interpolatePuRd(checkColor(d[feature]))) //左側は重み付き平均の最大最小だけど、右側はトータルの最大最小だから、同じカラーレジェンドだと意味が変わる。→違うカラーを使う
-              .attr("stroke", "black")
-              .on("mouseover", function (d, i) {
-                tooltip.style("visibility", "visible").html("曲名 : " + i.name);
-              })
-              .on("mousemove", function (d) {
-                tooltip
-                  .style("top", d.pageY - 20 + "px")
-                  .style("left", d.pageX + 10 + "px");
-              })
-              .on("mouseout", function (d) {
-                tooltip.style("visibility", "hidden");
-              })
-              .on("click", (d, i) => {
-                dispatch(changeMusicId(i.musicid));
-                dispatch(changeIsSwmpltChoosed(true));
-              })
-              .attr("stroke-width", "0.1")
-              .attr("opacity", 0.7)
-              .attr("cx", (d) => d.x)
-              .attr("cy", (d) => d.y)
-              .attr("r", (d) => size(Math.sqrt(d.stream)))
-              .style("cursor", "pointer")
+
+          .on(
+            "tick",
+            () =>
+              swarmplt
+                .selectAll("circle")
+                .data(dbData)
+                .join("circle")
+                .style("fill", (d) =>
+                  d3.interpolatePuRd(checkColor(d[feature]))
+                ) //左側は重み付き平均の最大最小だけど、右側はトータルの最大最小だから、同じカラーレジェンドだと意味が変わる。→違うカラーを使う
+                .attr("stroke", "black")
+                .on("mouseover", function (d, i) {
+                  tooltip
+                    .style("visibility", "visible")
+                    .html("曲名 : " + i.name);
+                })
+                .on("mousemove", function (d) {
+                  tooltip
+                    .style("top", d.pageY - 20 + "px")
+                    .style("left", d.pageX + 10 + "px");
+                })
+                .on("mouseout", function (d) {
+                  tooltip.style("visibility", "hidden");
+                })
+                .on("click", (d, i) => {
+                  dispatch(changeMusicId(i.musicid));
+                  dispatch(changeIsSwmpltChoosed(true));
+                })
+                .attr("stroke-width", "0.1")
+                .attr("opacity", 0.7)
+                .attr("cx", (d) => d.x)
+                .attr("cy", (d) => d.y)
+                .attr("r", (d) => size(Math.sqrt(d.stream)))
+                .style("cursor", "pointer").append
           );
         let init_decay = setTimeout(function () {
           simulation.alphaDecay(0.1);
         }, 1000);
-
         const xAxis = d3.axisBottom().scale(xScale); //tickSize(200)で伸ばせる ticks(10)でメモリ数を制限できる
         swarmplt
           .selectAll(".x.axis")
           .data([null])
           .join("g")
+          .attr("class", "axisBlack")
           .classed("x axis", true)
           .attr("transform", `translate(0,-20)`)
           .transition()
@@ -293,17 +302,9 @@ const Swarmplt = ({ width, height }) => {
   };
   return (
     <div>
-      <svg width="650" height="250" viewBox="0 -20 650 300" ref={ref} />
-      <button
-        className="button"
-        onClick={() => {
-          dispatch(changeCountry([]));
-          dispatch(changeStartMonth([]));
-          console.log(countryids, period);
-        }}
-      >
-        button
-      </button>
+      <Scroll to="ScrollToSong" smooth={true} offset={-20}>
+        <svg width="650" height="250" viewBox="0 -20 650 300" ref={ref} />
+      </Scroll>
     </div>
   );
 };

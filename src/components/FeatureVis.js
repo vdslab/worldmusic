@@ -100,10 +100,10 @@ const Song = (props) => {
   const [countries, setCountries] = useState([]);
   useEffect(() => {
     (async () => {
-      if(countryNumber === 2){
+      if (countryNumber === 2) {
         const data = await fetchgetDECStreamCountry(musicId);
         setCountries(data);
-      }else{
+      } else {
         const data = await fetchJPGLTopStreamCountry(musicId);
         setCountries(data);
       }
@@ -236,9 +236,9 @@ const Song = (props) => {
         className="card-content"
         style={{ paddingTop: "12px", paddingBottom: "12px" }}
       > */}
-        {data.length > 0 ? (
-          <div className="content">
-            {/* <div className="buttons are-small">
+      {data.length > 0 ? (
+        <div className="content">
+          {/* <div className="buttons are-small">
               {countries.map((element) => {
                 return (
                   <button
@@ -253,11 +253,11 @@ const Song = (props) => {
                 );
               })}
             </div> */}
-            <FeatureWorldmap data={countries}/>
-          </div>
-        ) : (
-          <div className="content"></div>
-        )}
+          <FeatureWorldmap data={countries} />
+        </div>
+      ) : (
+        <div className="content"></div>
+      )}
       {/* </div> */}
     </div>
   );

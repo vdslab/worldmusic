@@ -69,3 +69,16 @@
   background: white;
   visibility: hidden;
 }
+
+.tooltip-questionMark {
+  border: 1px solid lightgray;
+  position: absolute;
+  right: 5.5%;
+  text-align: center;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  font: 12px;
+  background: white;
+  visibility: hidden;
+}
