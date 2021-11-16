@@ -80,12 +80,6 @@ const RegionHeatMap = () => {
       setShowed(false);                      //データが揃ってから見せる
       dispatch(changeIsRegionShowed(false)); //データが揃ってから見せる
       for (let i = 0; i < startdays.length; i++) {
-<<<<<<< HEAD
-        let data = await fetchRegionHeatMapData(feature, startdays[i]);
-        console.log(data);
-        data.map((d) => {
-          aveWeight[d.region][startdays[i]] = d.value;
-=======
         //最大値・最小値を取得するために、まず３ヶ月ごとで各国のデータを取得する
         let minmaxdata = await fetchgetHeatMapMinMax(feature, startdays[i]);
         minmaxdata.map((d) => {
@@ -93,7 +87,6 @@ const RegionHeatMap = () => {
             countriesAveWeight[d.countryid] = {};
           }
           countriesAveWeight[d.countryid][startdays[i]] = d.value;
->>>>>>> e29452d0f04928449c7774f184be322b7f7a894d
           if (d.value < min) {
             min = d.value;
           }
