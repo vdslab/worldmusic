@@ -1,21 +1,109 @@
 import { count } from "d3-array";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swarmplt from "./draw_swarmplt";
 import * as d3 from "d3";
 import "../tooltip.css";
+import "../style.css";
+import {
+  changeStartMonth,
+  changeCountry,
+  changeIsSwmpltShowed,
+} from "../stores/details";
+
+function AboutQuestion() {
+  const tooltip = d3.select(".tooltip-questionMark");
+  return (
+    <div
+      className="section p-1"
+      style={{ display: "flex", justifyContent: "flex-end" }}
+    >
+      <div
+        className="questionmark"
+        onMouseEnter={(e) => {
+          tooltip.style("visibility", "visible");
+          tooltip
+            .style("top", e.pageY - 30 + "px")
+            .style("left", e.pageX - 500 + "px")
+            .html("曲の再生回数が多いほど円の大きさは大きくなっている。");
+        }}
+        onMouseLeave={() => {
+          tooltip.style("visibility", "hidden");
+        }}
+      >
+        ?
+      </div>
+    </div>
+  );
+}
+
+function CheckBox({ countries, startMonths }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <div className="card-content py-0">
+        {countries.map((element, i) => {
+          const year = String(Number(startMonths[i].split("-")[0]));
+          let endmonth = String(Number(startMonths[i].split("-")[1]) + 2);
+          if (endmonth.length === 1) {
+            endmonth = "0" + endmonth;
+          }
+          return (
+            <label>
+              <input type="checkbox" value={element} 
+              onChange={(e) => {
+                if(e.target.checked){
+                  console.log(e)
+                }
+              }}
+              />
+              {element}({startMonths[i]}~{endmonth})　
+            </label>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function Delatebutton() {
+  const dispatch = useDispatch();
+
+  return (
+    <div className="content has-text-centered">
+      <button
+        className="button"
+        onClick={() => {
+          dispatch(changeCountry([]));
+          dispatch(changeStartMonth([]));
+          dispatch(changeIsSwmpltShowed([]));
+        }}
+      >
+        国・期限を選び直す
+      </button>
+    </div>
+  );
+}
 
 const Detail = () => {
   const country = useSelector((state) => state.detail.country);
   const feature = useSelector((state) => state.detail.feature);
   const startMonth = useSelector((state) => state.detail.startMonth);
-  const endMonth = useSelector((state) => state.detail.endMonth);
   const choosedCountry = useSelector((state) => state.detail.choosedCountry);
   const choosedFeature = useSelector((state) => state.detail.choosedFeature);
   const choosedPeriod = useSelector((state) => state.detail.choosedPeriod);
   const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
 
-  const tooltip = d3.select(".tooltip-questionMark");
+  const [checkboxCountry, setCheckboxCountry] = useState([]);
+  const [checkboxStartMonths, setCheckboxStartMonths] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      setCheckboxCountry(country);
+      setCheckboxStartMonths(startMonth);
+    })();
+  }, [country, startMonth]);
+
+  console.log(country, startMonth);
 
   if (
     choosedCountry === "No" &&
@@ -30,6 +118,22 @@ const Detail = () => {
               <div className="content">
                 <p style={{ fontSize: "1.25rem" }}>
                   国・期間・特徴を選んでください。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  } else if (checkboxCountry.length === 0 && checkboxStartMonths.length === 0) {
+    return (
+      <div className="card" style={{ height: "100%" }}>
+        <div className="card-content p-2">
+          <div className="content">
+            <div className="card-content">
+              <div className="content">
+                <p style={{ fontSize: "1.25rem" }}>
+                  国・期間を選んでください。
                 </p>
               </div>
             </div>
@@ -63,62 +167,21 @@ const Detail = () => {
       return (
         <div className="card" style={{ height: "100%" }}>
           <div className="card-content p-1" style={{ height: "100%" }}>
-            <div
-              className="section p-1"
-              style={{ display: "flex", justifyContent: "flex-end" }}
-            >
-              <div
-                className="questionmark"
-                onMouseEnter={(e) => {
-                  tooltip.style("visibility", "visible");
-                  tooltip
-                    .style("top", e.pageY - 30 + "px")
-                    .style("left", e.pageX - 500 + "px")
-                    .html(
-                      "曲の再生回数が多いほど円の大きさは大きくなっている。"
-                    );
-                }}
-                onMouseLeave={() => {
-                  tooltip.style("visibility", "hidden");
-                }}
-              >
-                ?
-              </div>
-            </div>
+            <AboutQuestion />
             <div className="content">
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <div className="card-content m-1">
-                  <div className="content">
-                    {country}（{startMonth}~{endMonth}）
-                  </div>
-                </div>
-              </div>
-              <Swarmplt />
+              <CheckBox
+                countries={checkboxCountry}
+                startMonths={checkboxStartMonths}
+              />
+              {/* <Swarmplt /> */}
             </div>
+            <Delatebutton />
           </div>
         </div>
       );
     }
   } else {
-    if (choosedCountry === "No" && choosedFeature === "No") {
-      return (
-        <div className="card" style={{ height: "100%" }}>
-          <div className="card-content p-2">
-            <div className="content">
-              <div className="card-content">
-                <div className="content">
-                  <p style={{ fontSize: "1.25rem" }}>
-                    国・特徴を選んでください。
-                    <br />
-                    （期間：{startMonth} ~ {endMonth}）
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    } else if (choosedCountry === "No" && choosedPeriod === "No") {
+    if (choosedCountry === "No" && choosedPeriod === "No") {
       return (
         <div className="card" style={{ height: "100%" }}>
           <div className="card-content p-2">
@@ -136,78 +199,97 @@ const Detail = () => {
           </div>
         </div>
       );
-    } else if (choosedFeature === "No" && choosedPeriod === "No") {
-      return (
-        <div className="card" style={{ height: "100%" }}>
-          <div className="card-content p-2">
-            <div className="content">
-              <div className="card-content">
-                <div className="content">
-                  <p style={{ fontSize: "1.25rem" }}>
-                    期間・特徴を選んでください。
-                    <br />
-                    （国：{country}）
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    } else if (choosedCountry === "No") {
-      return (
-        <div className="card" style={{ height: "100%" }}>
-          <div className="card-content p-2">
-            <div className="content">
-              <div className="card-content">
-                <div className="content">
-                  <p style={{ fontSize: "1.25rem" }}>
-                    国を選んでください。
-                    <br />
-                    （期間：{startMonth} ~ {endMonth}、特徴：{feature}）
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    } else if (choosedFeature === "No") {
-      return (
-        <div className="card" style={{ height: "100%" }}>
-          <div className="card-content p-2">
-            <div className="content">
-              <div className="card-content">
-                <div className="content">
-                  <p style={{ fontSize: "1.25rem" }}>
-                    特徴を選んでください。
-                    <br />
-                    （国：{country}、期間：{startMonth} ~ {endMonth}）
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    } else if (choosedPeriod === "No") {
-      return (
-        <div className="card" style={{ height: "100%" }}>
-          <div className="card-content p-2">
-            <div className="content">
-              <div className="card-content">
-                <div className="content">
-                  <p style={{ fontSize: "1.25rem" }}>
-                    期間を選んでください。
-                    <br />
-                    （国：{country}、特徴：{feature}）
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
+      // } else if (choosedCountry === "No" && choosedFeature === "No") {
+      //   return (
+      //     <div className="card" style={{ height: "100%" }}>
+      //       <div className="card-content p-2">
+      //         <div className="content">
+      //           <div className="card-content">
+      //             <div className="content">
+      //               <p style={{ fontSize: "1.25rem" }}>
+      //                 国・特徴を選んでください。
+      //                 <br />
+      //                 （期間：{startMonth} ~ {endMonth}）
+      //               </p>
+      //             </div>
+      //           </div>
+      //         </div>
+      //       </div>
+      //     </div>
+      //   );
+      // } else if (choosedFeature === "No" && choosedPeriod === "No") {
+      // return (
+      //   <div className="card" style={{ height: "100%" }}>
+      //     <div className="card-content p-2">
+      //       <div className="content">
+      //         <div className="card-content">
+      //           <div className="content">
+      //             <p style={{ fontSize: "1.25rem" }}>
+      //               期間・特徴を選んでください。
+      //               <br />
+      //               （国：{country}）
+      //             </p>
+      //           </div>
+      //         </div>
+      //       </div>
+      //     </div>
+      //   </div>
+      // );
+      // } else if (choosedCountry === "No") {
+      //   // return (
+      //   //   <div className="card" style={{ height: "100%" }}>
+      //   //     <div className="card-content p-2">
+      //   //       <div className="content">
+      //   //         <div className="card-content">
+      //   //           <div className="content">
+      //   //             <p style={{ fontSize: "1.25rem" }}>
+      //   //               国を選んでください。
+      //   //               <br />
+      //   //               （期間：{startMonth} ~ {endMonth}、特徴：{feature}）
+      //   //             </p>
+      //   //           </div>
+      //   //         </div>
+      //   //       </div>
+      //   //     </div>
+      //   //   </div>
+      //   // );
+      // } else if (choosedFeature === "No") {
+      //   // return (
+      //   //   <div className="card" style={{ height: "100%" }}>
+      //   //     <div className="card-content p-2">
+      //   //       <div className="content">
+      //   //         <div className="card-content">
+      //   //           <div className="content">
+      //   //             <p style={{ fontSize: "1.25rem" }}>
+      //   //               特徴を選んでください。
+      //   //               <br />
+      //   //               （国：{country}、期間：{startMonth} ~ {endMonth}）
+      //   //             </p>
+      //   //           </div>
+      //   //         </div>
+      //   //       </div>
+      //   //     </div>
+      //   //   </div>
+      //   );
+      // } else if (choosedPeriod === "No") {
+      //   // return (
+      //   //   <div className="card" style={{ height: "100%" }}>
+      //   //     <div className="card-content p-2">
+      //   //       <div className="content">
+      //   //         <div className="card-content">
+      //   //           <div className="content">
+      //   //             <p style={{ fontSize: "1.25rem" }}>
+      //   //               期間を選んでください。
+      //   //               <br />
+      //   //               （国：{country}、特徴：{feature}）
+      //   //             </p>
+      //   //           </div>
+      //   //         </div>
+      //   //       </div>
+      //   //     </div>
+      //   //   </div>
+      //   // );
+      // }
     }
   }
 };

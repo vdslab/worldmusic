@@ -36,11 +36,11 @@ function VerticalAxis({ len, yAxis, name, h }) {
               textAnchor="end"
               dominantBaseline="central"
               fontSize="8"
-              style={{ userSelect: "none", cursor: "pointer" }}
-              onClick={() => {
-                dispatch(changeChoosedCountry("Yes"));
-                dispatch(changeCountry(y));
-              }}
+              style={{ userSelect: "none" }}
+              // onClick={() => {
+              //   dispatch(changeChoosedCountry("Yes"));
+              //   dispatch(changeCountry(y));
+              // }}
             >
               {y}
             </text>
@@ -230,6 +230,36 @@ const CountryHeatMap = () => {
       .html(featureValue);
   }
 
+  function addData(country, startmonth, judge) {
+    let selectedCountry = [...countryids];
+    let selectedStartmonth = [...period];
+    let selectedSwmplt = [...isSwmpltShowed];
+    let isdouble = false; //もう選ばれているかどうかを判定する用
+
+    if (selectedCountry.length === 0) {
+      selectedCountry.push(country);
+      selectedStartmonth.push(startmonth);
+      selectedSwmplt.push(judge);
+      dispatch(changeCountry(selectedCountry));
+      dispatch(changeStartMonth(selectedStartmonth));
+      dispatch(changeIsSwmpltShowed(selectedSwmplt));
+    } else if (selectedCountry.length != 0) {
+      selectedCountry.map((element, i) => {
+        if (element === country && selectedStartmonth[i] === startmonth) {
+          isdouble = true;
+        }
+      });
+      if (!isdouble) {
+        selectedCountry.push(country);
+        selectedStartmonth.push(startmonth);
+        selectedSwmplt.push(judge);
+        dispatch(changeCountry(selectedCountry));
+        dispatch(changeStartMonth(selectedStartmonth));
+        dispatch(changeIsSwmpltShowed(selectedSwmplt));
+      }
+    }
+  }
+
   if (!showed || !isRegionShowed) {
     return (
       <div className="card-content">
@@ -279,54 +309,64 @@ const CountryHeatMap = () => {
                 if (endmonth.length === 1) {
                   endmonth = "0" + endmonth;
                 }
-
-                return (
-                  <g key={i * startdays.length + j}>
-                    <rect
-                      className="cell"
-                      x={len * j}
-                      y={len * i}
-                      width={len}
-                      height={len}
-                      fill={colorjudge(heatMapData[y][s], s)}
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        setClicked(i * startdays.length + j);
-                        // 国ヒートマップは期間と国の変更＋初めて期間と国が押された判定が必要。
-                        console.log(isSwmpltShowed);
-
-                        let selectedCountry = [...countryids];
-                        let selectedStartmonth = [...period];
-                        let selectedSwmplt = [...isSwmpltShowed];
-                        selectedCountry.push(y);
-                        selectedStartmonth.push(s);
-                        selectedSwmplt.push(true);
-                        dispatch(changeCountry(selectedCountry));
-                        dispatch(changeIsSwmpltShowed(selectedSwmplt));
-                        dispatch(changeStartMonth(selectedStartmonth));
-                        dispatch(changeEndMonth(year + "-" + endmonth));
-                        dispatch(changeChoosedCountry("Yes"));
-                        dispatch(changeChoosedPeriod("Yes"));
-                      }}
-                      onMouseEnter={() => {
-                        // setPos(heatMapData[y][s].toFixed(2) || "");
-                      }}
-                      onMouseMove={(e) => onHover(e, heatMapData[y][s])}
-                      onMouseLeave={() => {
-                        tooltip.style("visibility", "hidden");
-                      }}
-                    ></rect>
-                    <rect
-                      x={len * j}
-                      y={len * i}
-                      width={len - 0.5}
-                      height={len - 0.5}
-                      fill="none"
-                      stroke="black"
-                      opacity={clicked === i * startdays.length + j ? 1 : 0}
-                    />
-                  </g>
-                );
+                if (heatMapData[y][s] === undefined) {
+                  return (
+                    <g key={i * startdays.length + j}>
+                      <rect
+                        className="cell"
+                        x={len * j}
+                        y={len * i}
+                        width={len}
+                        height={len}
+                        fill={colorjudge(heatMapData[y][s], s)}
+                        style={{ cursor: "default" }}
+                        onMouseMove={(e) => onHover(e, heatMapData[y][s])}
+                        onMouseLeave={() => {
+                          tooltip.style("visibility", "hidden");
+                        }}
+                      ></rect>
+                    </g>
+                  );
+                } else {
+                  return (
+                    <g key={i * startdays.length + j}>
+                      <rect
+                        className="cell"
+                        x={len * j}
+                        y={len * i}
+                        width={len}
+                        height={len}
+                        fill={colorjudge(heatMapData[y][s], s)}
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          setClicked(i * startdays.length + j);
+                          // 国ヒートマップは期間と国の変更＋初めて期間と国が押された判定が必要。
+                          // console.log(isSwmpltShowed);
+                          addData(y, s, true);
+                          dispatch(changeEndMonth(year + "-" + endmonth));
+                          dispatch(changeChoosedCountry("Yes"));
+                          dispatch(changeChoosedPeriod("Yes"));
+                        }}
+                        onMouseEnter={() => {
+                          // setPos(heatMapData[y][s].toFixed(2) || "");
+                        }}
+                        onMouseMove={(e) => onHover(e, heatMapData[y][s])}
+                        onMouseLeave={() => {
+                          tooltip.style("visibility", "hidden");
+                        }}
+                      ></rect>
+                      <rect
+                        x={len * j}
+                        y={len * i}
+                        width={len - 0.5}
+                        height={len - 0.5}
+                        fill="none"
+                        stroke="black"
+                        opacity={clicked === i * startdays.length + j ? 1 : 0}
+                      />
+                    </g>
+                  );
+                }
               });
             })}
           </g>
