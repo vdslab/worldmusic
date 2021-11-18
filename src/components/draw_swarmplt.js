@@ -149,13 +149,14 @@ const Swarmplt = ({ width, height }) => {
               musicdata[d.musicid].stream + d.stream;
           }
         });
+        console.log(musicdata);
       }
 
       // console.log(data);
-      // ＜円の表示をstreamの合計で取る＞
-      // ①musicidが重複なしかつstreamの値が０な配列（dedupeMusicid）を作る
-      // ②dedupeMusicidとdataをfor文で見て、同じmusicidならstream値を足していく＋最大値・最小値も求める
-      // ①
+      // // ＜円の表示をstreamの合計で取る＞
+      // // ①musicidが重複なしかつstreamの値が０な配列（dedupeMusicid）を作る
+      // // ②dedupeMusicidとdataをfor文で見て、同じmusicidならstream値を足していく＋最大値・最小値も求める
+      // // ①
       // let dedupeMusicid = JSON.parse(JSON.stringify(data)).filter(
       //   (item, i, self) =>
       //     self.findIndex((i) => i.musicid === item.musicid) === i

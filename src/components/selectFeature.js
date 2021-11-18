@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { feature } from "topojson";
-import { changeChoosedFeature, changeFeature } from "../stores/details";
+import {
+  changeChoosedFeature,
+  changeFeature,
+  changeSelectClicked,
+} from "../stores/details";
 
 const selectFeature = () => {
   const dispatch = useDispatch();
@@ -21,19 +25,16 @@ const selectFeature = () => {
   ];
   return (
     <div>
-      <select 
+      <select
         value={feature}
         onChange={(event) => {
           dispatch(changeChoosedFeature("Yes"));
           dispatch(changeFeature(event.target.value));
+          dispatch(changeSelectClicked(true));
         }}
       >
         {elements.map((element) => {
-          return (
-            <option value={element}>
-              {element}
-            </option>
-          );
+          return <option value={element}>{element}</option>;
         })}
       </select>
     </div>

@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import * as d3 from "d3";
 import "../tooltip.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  changeChoosedCountry,
   changeChoosedFeature,
-  changeChoosedPeriod,
   changeFeature,
+  changeSelectClicked,
+  changeCheckRaderFeatureClicked
 } from "../stores/details";
 import "./RegionHeatMap";
 import "../style.css";
@@ -15,9 +15,8 @@ import { Link as Scroll } from "react-scroll";
 
 function RaderChart({ data }) {
   const dispatch = useDispatch();
-  const choosedCountry = useSelector((state) => state.detail.choosedCountry);
-  const choosedFeature = useSelector((state) => state.detail.choosedFeature);
-  const choosedPeriod = useSelector((state) => state.detail.choosedPeriod);
+  const selectClicked = useSelector((state) => state.detail.selectClicked);
+  const checkFeatureClicked = useSelector((state) => state.detail.checkRaderFeatureClicked);
 
   const useData = [
     "acousticness",
@@ -101,7 +100,7 @@ function RaderChart({ data }) {
     left: 35,
     right: 20,
     top: 10,
-    bottom: 10,
+    bottom: 15,
   };
   const contentWidth = 100;
   const contentHeight = 100;
@@ -109,7 +108,14 @@ function RaderChart({ data }) {
   const svgWidth = margin.left + margin.right + contentWidth;
   const svgHeight = margin.top + margin.bottom + contentHeight;
 
-  //const [overed, setOvered] = useState("No"); //マウスオーバしたときに文字色を変えるための変数
+  useEffect(() => {
+    if (selectClicked) {
+      dispatch(
+        changeCheckRaderFeatureClicked(checkFeatureClicked.map((c, index) => false))
+      );
+      dispatch(changeSelectClicked(false));
+    }
+  }, [selectClicked]);
 
   return (
     <div>
@@ -171,21 +177,31 @@ function RaderChart({ data }) {
                       y={p.y}
                       textAnchor="middle"
                       dominantBaseline="central"
-                      fontSize="5"
-                      style={{ userSelect: "none", cursor: "pointer" }}
-                      //fill={overed === "Yes" ? "#3273dc" : "#363636"}
                       onClick={() => {
+                        dispatch(
+                          changeCheckRaderFeatureClicked(
+                            checkFeatureClicked.map((c, index) =>
+                              index === i ? true : false
+                            )
+                          )
+                        );
                         dispatch(changeFeature(p.name));
                         dispatch(changeChoosedFeature("Yes"));
                       }}
-                      // onMouseOver={(i) => {
-                      //   setOvered("Yes");
-                      //   console.log(p.name + "(over)");
-                      // }}
-                      // onMouseLeave={(i) => {
-                      //   setOvered("No");
-                      // }
-                      // }
+                      style={
+                        checkFeatureClicked[i]
+                          ? {
+                              userSelect: "none",
+                              cursor: "pointer",
+                              fontSize: "8px",
+                              textDecoration: "underline",
+                            }
+                          : {
+                              userSelect: "none",
+                              cursor: "pointer",
+                              fontSize: "5px",
+                            }
+                      }
                     >
                       {p.name}
                     </text>
