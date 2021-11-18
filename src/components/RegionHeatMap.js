@@ -12,7 +12,7 @@ const RegionHeatMap = () => {
   const feature = useSelector((state) => state.detail.feature);
   const Max = useSelector((state) => state.detail.max);
   const Min = useSelector((state) => state.detail.min);
-  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);//地域ヒートマップが表示されているか否か
+  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed); //地域ヒートマップが表示されているか否か
 
   const startdays = [
     "2017-01",
@@ -69,23 +69,17 @@ const RegionHeatMap = () => {
 
   let checkMin;
   let checkMax;
-  const [showed, setShowed] = useState(false);//地域ヒートマップを表示していいか否か
+  const [showed, setShowed] = useState(false); //地域ヒートマップを表示していいか否か
 
   useEffect(() => {
     (async () => {
       let min = Infinity;
       let max = -Infinity;
-      checkMin = min;      //minが変更されたかをチェックする変数
-      checkMax = max;      //maxが変更されたかをチェックする変数
-      setShowed(false);                      //データが揃ってから見せる
+      checkMin = min; //minが変更されたかをチェックする変数
+      checkMax = max; //maxが変更されたかをチェックする変数
+      setShowed(false); //データが揃ってから見せる
       dispatch(changeIsRegionShowed(false)); //データが揃ってから見せる
       for (let i = 0; i < startdays.length; i++) {
-<<<<<<< HEAD
-        let data = await fetchRegionHeatMapData(feature, startdays[i]);
-        console.log(data);
-        data.map((d) => {
-          aveWeight[d.region][startdays[i]] = d.value;
-=======
         //最大値・最小値を取得するために、まず３ヶ月ごとで各国のデータを取得する
         let minmaxdata = await fetchgetHeatMapMinMax(feature, startdays[i]);
         minmaxdata.map((d) => {
@@ -93,7 +87,6 @@ const RegionHeatMap = () => {
             countriesAveWeight[d.countryid] = {};
           }
           countriesAveWeight[d.countryid][startdays[i]] = d.value;
->>>>>>> e29452d0f04928449c7774f184be322b7f7a894d
           if (d.value < min) {
             min = d.value;
           }
@@ -134,7 +127,8 @@ const RegionHeatMap = () => {
         </div>
       </div>
     );
-  } else { //地域ヒートマップを表示している扱いにする
+  } else {
+    //地域ヒートマップを表示している扱いにする
     dispatch(changeIsRegionShowed(true));
   }
   return (
@@ -160,12 +154,7 @@ const RegionHeatMap = () => {
             </div>
           </div>
         </div>
-        <HeatMapChart
-          data={heatMapData}
-          max={Max}
-          min={Min}
-          y={regions}
-        />
+        <HeatMapChart data={heatMapData} max={Max} min={Min} y={regions} />
       </div>
     </div>
   );
