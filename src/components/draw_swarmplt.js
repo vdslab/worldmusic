@@ -122,7 +122,7 @@ const Swarmplt = ({ width, height }) => {
   const [Min, setMin] = useState(Infinity);
 
   useEffect(() => {
-    console.log(startMonth, country, isSwmpltShowed);
+    //console.log(startMonth, country, isSwmpltShowed);
     let max = -Infinity;
     let min = Infinity;
     (async () => {
@@ -149,7 +149,7 @@ const Swarmplt = ({ width, height }) => {
               musicdata[d.musicid].stream + d.stream;
           }
         });
-        console.log(musicdata);
+        //console.log(musicdata);
       }
 
       // console.log(data);
@@ -186,8 +186,8 @@ const Swarmplt = ({ width, height }) => {
     setMin(min);
     setMax(max);
 
-    console.log(Min);
-    console.log(Max);
+    //console.log(Min);
+    //console.log(Max);
     d3.select(ref.current)
       .attr("width", width)
       .attr("height", height)

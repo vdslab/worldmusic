@@ -44,7 +44,7 @@ const TextDetail = ({ data, musicKey }) => {
       className="has-text-centered"
       style={{ width: "100%", fontSize: "0.9rem" }}
     >
-      <p style={{ marginBottom: "0px" }}>
+      <p style={{ marginBottom: "0px" , cursor: "default" }}>
         テンポ：{Math.round(data[0].tempo)}　 拍子：{data[0].time_signature}　
         調：{keyDict[musicKey]}
         {data[0].mode == 0 ? "短調" : "長調"}

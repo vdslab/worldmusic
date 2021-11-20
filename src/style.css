@@ -65,3 +65,7 @@
 .axisBlack text{
   fill: black;
 }
+
+label {
+  white-space: nowrap;
+}
