@@ -32,8 +32,8 @@ const Swarmplt = ({ width, height, c, s }) => {
   const margin = {
     top: 10,
     bottom: 100,
-    left: 50,
-    right: 50,
+    left: 60,
+    right: 60,
   };
 
   const innerWidth = width - margin.left - margin.right;
@@ -129,7 +129,7 @@ const Swarmplt = ({ width, height, c, s }) => {
       .force(
         "y",
         forceY((d) => {
-          return 125;
+          return 150;
         }).strength(0.2)
       )
       .force(
@@ -281,7 +281,9 @@ const Swarmplt = ({ width, height, c, s }) => {
   return (
     <div>
       <Scroll to="ScrollToSong" smooth={true} offset={-20}>
-        <svg width="650" height="250" viewBox="0 -20 650 250" ref={ref} />
+        <div className="swmplt-scroll">
+          <svg width="650" height="300" viewBox="0 -20 650 350" ref={ref} />
+        </div>
       </Scroll>
     </div>
   );
