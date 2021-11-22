@@ -37,7 +37,7 @@ const WorldMap = ({ features }) => {
       let min = Infinity;
       const weightAve = {};
       const data = await fetchWorldMapData(feature, startMonth);
-      // console.log(data);
+      console.log(data);
       data.map((d) => {
         weightAve[d.countryid] =
           d[

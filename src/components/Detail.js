@@ -37,9 +37,17 @@ function AboutQuestion() {
   );
 }
 
-function CheckBox({ countries, startMonths }) {
+function CheckBox({ countries, startMonths, isSwarmpltShowed }) {
+  const dispatch = useDispatch();
+  const deleteData = (index) => {
+    const newStartMonth = startMonths.filter((m, i) => index != i);
+    const newCountries = countries.filter((c, i) => index != i);
+    dispatch(changeStartMonth(newStartMonth));
+    dispatch(changeCountry(newCountries));
+  };
+  console.log(isSwarmpltShowed);
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
+    <div style={{ justifyContent: "center" }}>
       <div className="card-content py-0">
         {countries.map((element, i) => {
           const year = String(Number(startMonths[i].split("-")[0]));
@@ -48,16 +56,20 @@ function CheckBox({ countries, startMonths }) {
             endmonth = "0" + endmonth;
           }
           return (
-            <label>
-              <input type="checkbox" value={element} 
-              onChange={(e) => {
-                if(e.target.checked){
-                  console.log(e)
-                }
-              }}
-              />
-              {element}({startMonths[i]}~{endmonth})　
-            </label>
+            <div style={{ width: "100%", height: "30%" }}>
+              <div>
+                <label>
+                  {element}({startMonths[i]}~{endmonth})　
+                </label>
+                <button
+                  className="delete"
+                  onClick={() => deleteData(i)}
+                  style={{ float: "right" }}
+                />
+              </div>
+
+              <Swarmplt c={countries[i]} s={startMonths[i]} />
+            </div>
           );
         })}
       </div>
@@ -92,18 +104,19 @@ const Detail = () => {
   const choosedFeature = useSelector((state) => state.detail.choosedFeature);
   const choosedPeriod = useSelector((state) => state.detail.choosedPeriod);
   const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
+  const isSwarmpltShowed = useSelector((state) => state.detail.isSwmpltShowed);
 
   const [checkboxCountry, setCheckboxCountry] = useState([]);
   const [checkboxStartMonths, setCheckboxStartMonths] = useState([]);
+  const [checkboxIsSwartmpltShowed, setCheckboxIsSwarmpltShowed] = useState([]);
 
   useEffect(() => {
     (async () => {
       setCheckboxCountry(country);
       setCheckboxStartMonths(startMonth);
+      setCheckboxIsSwarmpltShowed(isSwarmpltShowed);
     })();
-  }, [country, startMonth]);
-
-  console.log(country, startMonth);
+  }, [country, startMonth, isSwarmpltShowed]);
 
   if (
     choosedCountry === "No" &&
@@ -165,15 +178,15 @@ const Detail = () => {
       );
     } else {
       return (
-        <div className="card" style={{ height: "100%" }}>
-          <div className="card-content p-1" style={{ height: "100%" }}>
+        <div className="card" style={{ width: "100%" }}>
+          <div className="card-content p-1" style={{ width: "100%" }}>
             <AboutQuestion />
-            <div className="content">
+            <div className="content" style={{ width: "100%" }}>
               <CheckBox
                 countries={checkboxCountry}
                 startMonths={checkboxStartMonths}
+                isSwarmpltShowed={checkboxIsSwartmpltShowed}
               />
-              {/* <Swarmplt /> */}
             </div>
             <Delatebutton />
           </div>

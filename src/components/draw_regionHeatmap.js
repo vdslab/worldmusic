@@ -8,9 +8,11 @@ import {
 } from "../stores/details";
 import "../tooltip.css";
 
-function VerticalAxis({ len, yAxis, name, h}) {
+function VerticalAxis({ len, yAxis, name, h }) {
   const dispatch = useDispatch();
-  const checkRegionCheck = useSelector((state) => state.detail.checkRegionClicked);
+  const checkRegionCheck = useSelector(
+    (state) => state.detail.checkRegionClicked
+  );
 
   return (
     <g>
@@ -33,11 +35,26 @@ function VerticalAxis({ len, yAxis, name, h}) {
               textAnchor="end"
               dominantBaseline="central"
               onClick={() => {
-                dispatch(changeCheckRegionClicked(checkRegionCheck.map((c,index) => (index === i ? true : false))))
+                dispatch(
+                  changeCheckRegionClicked(
+                    checkRegionCheck.map((c, index) =>
+                      index === i ? true : false
+                    )
+                  )
+                );
                 dispatch(changeRegionId(y[0]));
-                dispatch(changeJudgeVis(2)) //国ヒートマップ
+                dispatch(changeJudgeVis(2)); //国ヒートマップ
               }}
-              style={ checkRegionCheck[i] ? { userSelect: "none", cursor: "pointer" , fontSize: "13px", textDecoration: "underline"} : { userSelect: "none", cursor: "pointer" , fontSize: "8px"}}
+              style={
+                checkRegionCheck[i]
+                  ? {
+                      userSelect: "none",
+                      cursor: "pointer",
+                      fontSize: "13px",
+                      textDecoration: "underline",
+                    }
+                  : { userSelect: "none", cursor: "pointer", fontSize: "8px" }
+              }
             >
               {y[1]}
             </text>
@@ -48,7 +65,7 @@ function VerticalAxis({ len, yAxis, name, h}) {
   );
 }
 
-function HorizontalAxis({ len, term, name, w}) {
+function HorizontalAxis({ len, term, name, w }) {
   return (
     <g>
       <text
@@ -215,12 +232,7 @@ function HeatMapChart(props) {
           name={"地域"}
           h={contentHeight}
         />
-        <HorizontalAxis
-          len={len}
-          term={term}
-          name={"期間"}
-          w={contentWidth}
-        />
+        <HorizontalAxis len={len} term={term} name={"期間"} w={contentWidth} />
         <rect
           x="0"
           y="0"

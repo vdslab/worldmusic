@@ -309,7 +309,7 @@ const CountryHeatMap = () => {
                 if (endmonth.length === 1) {
                   endmonth = "0" + endmonth;
                 }
-                if (heatMapData[y][s] === undefined) {
+                if (heatMapData[y][s] === undefined || period.length === 3) {
                   return (
                     <g key={i * startdays.length + j}>
                       <rect
@@ -341,8 +341,8 @@ const CountryHeatMap = () => {
                         onClick={() => {
                           setClicked(i * startdays.length + j);
                           // 国ヒートマップは期間と国の変更＋初めて期間と国が押された判定が必要。
-                          // console.log(isSwmpltShowed);
                           addData(y, s, true);
+
                           dispatch(changeEndMonth(year + "-" + endmonth));
                           dispatch(changeChoosedCountry("Yes"));
                           dispatch(changeChoosedPeriod("Yes"));
