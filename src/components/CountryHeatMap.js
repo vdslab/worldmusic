@@ -10,6 +10,7 @@ import {
   changeChoosedCountry,
   changeChoosedPeriod,
   changeIsSwmpltShowed,
+  changeSlectedCount,
 } from "../stores/details";
 
 function VerticalAxis({ len, yAxis, name, h }) {
@@ -100,6 +101,7 @@ const CountryHeatMap = () => {
   const isSwmpltShowed = useSelector((state) => state.detail.isSwmpltShowed);
   const Max = useSelector((state) => state.detail.max);
   const Min = useSelector((state) => state.detail.min);
+  const selectedCount = useSelector((state) => state.detail.selectedCount);
 
   const startdays = [
     "2017-01",
@@ -309,7 +311,7 @@ const CountryHeatMap = () => {
                 if (endmonth.length === 1) {
                   endmonth = "0" + endmonth;
                 }
-                if (heatMapData[y][s] === undefined || period.length === 3) {
+                if (heatMapData[y][s] === undefined) {
                   return (
                     <g key={i * startdays.length + j}>
                       <rect
@@ -323,6 +325,28 @@ const CountryHeatMap = () => {
                         onMouseMove={(e) => onHover(e, heatMapData[y][s])}
                         onMouseLeave={() => {
                           tooltip.style("visibility", "hidden");
+                        }}
+                      ></rect>
+                    </g>
+                  );
+                } else if (period.length === 3) {
+                  return (
+                    <g key={i * startdays.length + j}>
+                      <rect
+                        className="cell"
+                        x={len * j}
+                        y={len * i}
+                        width={len}
+                        height={len}
+                        fill={colorjudge(heatMapData[y][s], s)}
+                        style={{ cursor: "default" }}
+                        onMouseMove={(e) => onHover(e, heatMapData[y][s])}
+                        onMouseLeave={() => {
+                          tooltip.style("visibility", "hidden");
+                        }}
+                        onClick={() => {
+                          dispatch(changeSlectedCount(false));
+                          console.log("selectedCount false");
                         }}
                       ></rect>
                     </g>

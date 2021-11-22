@@ -9,32 +9,63 @@ import {
   changeStartMonth,
   changeCountry,
   changeIsSwmpltShowed,
+  changeSlectedCount,
 } from "../stores/details";
 
 function AboutQuestion() {
+  const selectedCount = useSelector((state) => state.detail.selectedCount);
   const tooltip = d3.select(".tooltip-questionMark");
-  return (
-    <div
-      className="section p-1"
-      style={{ display: "flex", justifyContent: "flex-end" }}
-    >
+  if (selectedCount) {
+    return (
       <div
-        className="questionmark"
-        onMouseEnter={(e) => {
-          tooltip.style("visibility", "visible");
-          tooltip
-            .style("top", e.pageY - 30 + "px")
-            .style("left", e.pageX - 500 + "px")
-            .html("曲の再生回数が多いほど円の大きさは大きくなっている。");
-        }}
-        onMouseLeave={() => {
-          tooltip.style("visibility", "hidden");
-        }}
+        className="section p-1"
+        style={{ display: "flex", justifyContent: "flex-end" }}
       >
-        ?
+        <div
+          className="questionmark"
+          onMouseEnter={(e) => {
+            tooltip.style("visibility", "visible");
+            tooltip
+              .style("top", e.pageY - 30 + "px")
+              .style("left", e.pageX - 500 + "px")
+              .html("曲の再生回数が多いほど円の大きさは大きくなっている。");
+          }}
+          onMouseLeave={() => {
+            tooltip.style("visibility", "hidden");
+          }}
+        >
+          ?
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="section p-1">
+        <div
+          className="box has-background-danger-light"
+          style={{ float: "left" }}
+        >
+          一度に表示できるswarmplotは3つまでです
+        </div>
+        <div
+          className="questionmark"
+          onMouseEnter={(e) => {
+            tooltip.style("visibility", "visible");
+            tooltip
+              .style("top", e.pageY - 30 + "px")
+              .style("left", e.pageX - 500 + "px")
+              .html("曲の再生回数が多いほど円の大きさは大きくなっている。");
+          }}
+          onMouseLeave={() => {
+            tooltip.style("visibility", "hidden");
+          }}
+          style={{ float: "right" }}
+        >
+          ?
+        </div>
+      </div>
+    );
+  }
 }
 
 function CheckBox({ countries, startMonths, isSwarmpltShowed }) {
@@ -44,6 +75,7 @@ function CheckBox({ countries, startMonths, isSwarmpltShowed }) {
     const newCountries = countries.filter((c, i) => index != i);
     dispatch(changeStartMonth(newStartMonth));
     dispatch(changeCountry(newCountries));
+    dispatch(changeSlectedCount(true));
   };
   console.log(isSwarmpltShowed);
   return (
@@ -62,9 +94,10 @@ function CheckBox({ countries, startMonths, isSwarmpltShowed }) {
                   {element}({startMonths[i]}~{endmonth})　
                 </label>
                 <button
-                  className="delete"
+                  className="delete has-background-danger-light"
                   onClick={() => deleteData(i)}
                   style={{ float: "right" }}
+                  st
                 />
               </div>
 
@@ -88,6 +121,7 @@ function Delatebutton() {
           dispatch(changeCountry([]));
           dispatch(changeStartMonth([]));
           dispatch(changeIsSwmpltShowed([]));
+          dispatch(changeSlectedCount(true));
         }}
       >
         国・期限を選び直す
@@ -105,6 +139,7 @@ const Detail = () => {
   const choosedPeriod = useSelector((state) => state.detail.choosedPeriod);
   const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
   const isSwarmpltShowed = useSelector((state) => state.detail.isSwmpltShowed);
+  const selectedCount = useSelector((state) => state.detail.selectedCount);
 
   const [checkboxCountry, setCheckboxCountry] = useState([]);
   const [checkboxStartMonths, setCheckboxStartMonths] = useState([]);
@@ -181,6 +216,8 @@ const Detail = () => {
         <div className="card" style={{ width: "100%" }}>
           <div className="card-content p-1" style={{ width: "100%" }}>
             <AboutQuestion />
+            {selectedCount ? console.log("true") : console.log("false")}
+
             <div className="content" style={{ width: "100%" }}>
               <CheckBox
                 countries={checkboxCountry}

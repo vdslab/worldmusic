@@ -53,6 +53,7 @@ const initialState = {
   ],
   swarmpltMin: Infinity,
   swarmpltMax: -Infinity,
+  selectedCount: true,
 };
 
 //storeと呼ばれるデータの格納場所をsliceという名前で分割して役割ごとにそれぞれの変数で管理する
@@ -149,6 +150,9 @@ const slice = createSlice({
     changeSwarmpltMax: (state, action) => {
       state.swarmpltMax = action.payload;
     },
+    changeSlectedCount: (state, action) => {
+      state.selectedCount = action.payload;
+    },
   },
 });
 
@@ -176,4 +180,5 @@ export const {
   changeCheckRegionClicked,
   changeSwarmpltMax,
   changeSwarmpltMin,
+  changeSlectedCount,
 } = slice.actions;

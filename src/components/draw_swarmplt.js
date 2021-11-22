@@ -64,6 +64,7 @@ const Swarmplt = ({ width, height, c, s }) => {
       data.map((d) => {
         if (!musicdata[d.musicid]) {
           musicdata[d.musicid] = {
+            musicid: d.musicid,
             stream: d.stream,
             name: d.name,
             [feature]: d[feature],
@@ -163,6 +164,7 @@ const Swarmplt = ({ width, height, c, s }) => {
             .on("click", (d, i) => {
               dispatch(changeMusicId(i.musicid));
               dispatch(changeIsSwmpltChoosed(true));
+              console.log(i.musicid);
             })
             .attr("stroke-width", "0.1")
             .attr("opacity", 0.7)
