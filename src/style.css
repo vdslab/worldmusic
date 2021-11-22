@@ -42,16 +42,21 @@
   overflow: scroll;
 }
 
+.swmplt-scroll {
+  max-height: 250px;
+  overflow: scroll;
+}
+
 .questionmark {
   cursor: default;
   text-align: center;
   background-color: lightgray;
   color: white;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   font-size: 18px;
-  line-height: 30px;
+  line-height: 25px;
 }
 
 .axisBlack line{

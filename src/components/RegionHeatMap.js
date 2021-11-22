@@ -115,16 +115,8 @@ const RegionHeatMap = () => {
 
   if (!showed) {
     return (
-      <div className="card" style={{ height: "100%" }}>
-        <div className="card-content p-2">
-          <div className="content">
-            <div className="card-content">
-              <div className="content">
-                <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="card-content">
+        <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
       </div>
     );
   } else {
@@ -132,30 +124,25 @@ const RegionHeatMap = () => {
     dispatch(changeIsRegionShowed(true));
   }
   return (
-    <div className="card-content p-1" style={{ height: "100%" }}>
-      <div className="content">
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <div className="card-content m-1">
-            <div className="content">
-              <SelectFeature />
-            </div>
-          </div>
-          <div
-            className="card-content p-2 colorLegend"
-            style={{ height: "10%" }}
-          >
-            <div className="content" style={{ height: "100%" }}>
-              <ColorLegend
-                max={Max}
-                min={Min}
-                color={"interpolateTurbo"}
-                id={"gradient1"}
-              />
-            </div>
+    <div className="card-content p-1" style={{ width: "100%" }}>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div className="card-content m-1">
+          <div className="content">
+            <SelectFeature />
           </div>
         </div>
-        <HeatMapChart data={heatMapData} max={Max} min={Min} y={regions} />
+        <div className="card-content p-2 colorLegend" style={{ height: "10%" }}>
+          <div className="content" style={{ height: "100%" }}>
+            <ColorLegend
+              max={Max}
+              min={Min}
+              color={"interpolateTurbo"}
+              id={"gradient1"}
+            />
+          </div>
+        </div>
       </div>
+      <HeatMapChart data={heatMapData} max={Max} min={Min} y={regions} />
     </div>
   );
 };

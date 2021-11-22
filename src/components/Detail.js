@@ -47,32 +47,29 @@ function CheckBox({ countries, startMonths, isSwarmpltShowed }) {
   };
   console.log(isSwarmpltShowed);
   return (
-    <div style={{ justifyContent: "center" }}>
-      <div className="card-content py-0">
-        {countries.map((element, i) => {
-          const year = String(Number(startMonths[i].split("-")[0]));
-          let endmonth = String(Number(startMonths[i].split("-")[1]) + 2);
-          if (endmonth.length === 1) {
-            endmonth = "0" + endmonth;
-          }
-          return (
-            <div style={{ width: "100%", height: "30%" }}>
-              <div>
-                <label>
-                  {element}({startMonths[i]}~{endmonth})　
-                </label>
-                <button
-                  className="delete"
-                  onClick={() => deleteData(i)}
-                  style={{ float: "right" }}
-                />
-              </div>
-
-              <Swarmplt c={countries[i]} s={startMonths[i]} />
+    <div className="p-1" style={{ justifyContent: "center" }}>
+      {countries.map((element, i) => {
+        const year = String(Number(startMonths[i].split("-")[0]));
+        let endmonth = String(Number(startMonths[i].split("-")[1]) + 2);
+        if (endmonth.length === 1) {
+          endmonth = "0" + endmonth;
+        }
+        return (
+          <div style={{ width: "100%", height: "100%" }}>
+            <div>
+              <label>
+                {element}({startMonths[i]}~{endmonth})　
+              </label>
+              <button
+                className="delete is-medium"
+                onClick={() => deleteData(i)}
+                style={{ float: "right" }}
+              />
             </div>
-          );
-        })}
-      </div>
+            <Swarmplt c={countries[i]} s={startMonths[i]} />
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -124,34 +121,14 @@ const Detail = () => {
     choosedPeriod === "No"
   ) {
     return (
-      <div className="card" style={{ height: "100%" }}>
-        <div className="card-content p-2">
-          <div className="content">
-            <div className="card-content">
-              <div className="content">
-                <p style={{ fontSize: "1.25rem" }}>
-                  国・期間・特徴を選んでください。
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="card-content p-1" style={{ width: "100%" }}>
+        <p style={{ fontSize: "1.25rem" }}>国・期間・特徴を選んでください。</p>
       </div>
     );
   } else if (checkboxCountry.length === 0 && checkboxStartMonths.length === 0) {
     return (
-      <div className="card" style={{ height: "100%" }}>
-        <div className="card-content p-2">
-          <div className="content">
-            <div className="card-content">
-              <div className="content">
-                <p style={{ fontSize: "1.25rem" }}>
-                  国・期間を選んでください。
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="card-content " style={{ height: "100%" }}>
+        <p style={{ fontSize: "1.25rem" }}>国・期間を選んでください。</p>
       </div>
     );
   } else if (
@@ -164,52 +141,32 @@ const Detail = () => {
   ) {
     if (!isRegionShowed) {
       return (
-        <div className="card" style={{ height: "100%" }}>
-          <div className="card-content p-2">
-            <div className="content">
-              <div className="card-content">
-                <div className="content">
-                  <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="card-content " style={{ height: "100%" }}>
+          <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
         </div>
       );
     } else {
       return (
-        <div className="card" style={{ width: "100%" }}>
-          <div className="card-content p-1" style={{ width: "100%" }}>
-            <AboutQuestion />
-            <div className="content" style={{ width: "100%" }}>
-              <CheckBox
-                countries={checkboxCountry}
-                startMonths={checkboxStartMonths}
-                isSwarmpltShowed={checkboxIsSwartmpltShowed}
-              />
-            </div>
-            <Delatebutton />
-          </div>
+        <div className="card-content p-1" style={{ width: "100%" }}>
+          <AboutQuestion />
+          <CheckBox
+            countries={checkboxCountry}
+            startMonths={checkboxStartMonths}
+            isSwarmpltShowed={checkboxIsSwartmpltShowed}
+          />
+          <Delatebutton />
         </div>
       );
     }
   } else {
     if (choosedCountry === "No" && choosedPeriod === "No") {
       return (
-        <div className="card" style={{ height: "100%" }}>
-          <div className="card-content p-2">
-            <div className="content">
-              <div className="card-content">
-                <div className="content">
-                  <p style={{ fontSize: "1.25rem" }}>
-                    国・期間を選んでください。
-                    <br />
-                    （特徴：{feature}）
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="card-content " style={{ height: "100%" }}>
+          <p style={{ fontSize: "1.25rem" }}>
+            国・期間を選んでください。
+            <br />
+            （特徴：{feature}）
+          </p>
         </div>
       );
       // } else if (choosedCountry === "No" && choosedFeature === "No") {
