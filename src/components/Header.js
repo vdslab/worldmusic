@@ -40,18 +40,16 @@ const Visualization = () => {
       </div>
       <FeatureVis />
       <div className="tile is-ancestor">
-        <div className="tile is-parent is-vertical">
-          <article className="tile is-child">
-            <div className="card">
+        <div className="tile is-parent">
+          <article className="tile is-child box">
               <div id="ScrollToHeatmap">
                 <RegionHeatMap />
                 <JudgeVis />
-              </div>
             </div>
           </article>
         </div>
-        <div className="tile is-parent is-vertical">
-          <article className="tile is-child">
+        <div className="tile is-parent">
+          <article className="tile is-child box">
             <Detail />
           </article>
         </div>
@@ -93,7 +91,7 @@ const View = () => {
     <div>
       <section className="hero is-fluid is-danger is-small">
         <div className="hero-body">
-          <div className="container has-text-centered s-divider">
+          <div className="container has-text-centered is-divider">
             <h1 className="title">The music around the world.</h1>
           </div>
         </div>

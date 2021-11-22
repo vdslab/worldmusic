@@ -19,7 +19,7 @@ function VerticalAxis({ len, yAxis, name, h }) {
     <g>
       <text
         transform={`
-                translate(-60 ${h / 2})
+                translate(-60, ${(len * yAxis.length) / 2})
                `}
         textAnchor="middle"
         dominantBaseline="central"
@@ -268,11 +268,10 @@ const CountryHeatMap = () => {
     );
   }
   return (
-    <div className="card-content p-1" style={{ height: "100%" }}>
+    <div className="card-content p-1" style={{ width: "100%" }}>
       <div
         style={{
           height: "100%",
-          display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}

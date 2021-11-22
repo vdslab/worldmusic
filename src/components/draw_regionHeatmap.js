@@ -217,7 +217,6 @@ function HeatMapChart(props) {
     <div
       style={{
         height: "100%",
-        display: "flex",
         justifyContent: "center",
         alignItems: "center",
       }}
