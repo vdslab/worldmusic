@@ -40,13 +40,11 @@ function AboutQuestion() {
     );
   } else {
     return (
-      <div className="section p-1">
-        <div
-          className="box has-background-danger-light"
-          style={{ float: "left" }}
-        >
-          一度に表示できるswarmplotは3つまでです
-        </div>
+      <div
+        className="section p-1"
+        style={{ display: "flex", justifyContent: "flex-end" }}
+      >
+        {alert("一度に表示できるswarmplotは3つまでです。")}
         <div
           className="questionmark"
           onMouseEnter={(e) => {
@@ -155,13 +153,13 @@ const Detail = () => {
     choosedPeriod === "No"
   ) {
     return (
-      <div className="card-content p-1" style={{ width: "100%" }}>
+      <div className="card-content" style={{ width: "100%" }}>
         <p style={{ fontSize: "1.25rem" }}>国・期間・特徴を選んでください。</p>
       </div>
     );
   } else if (checkboxCountry.length === 0 && checkboxStartMonths.length === 0) {
     return (
-      <div className="card-content " style={{ height: "100%" }}>
+      <div className="card-content" style={{ height: "100%" }}>
         <p style={{ fontSize: "1.25rem" }}>国・期間を選んでください。</p>
       </div>
     );
@@ -181,16 +179,14 @@ const Detail = () => {
       );
     } else {
       return (
-        <div className="card" style={{ width: "100%" }}>
-          <div className="card-content p-1" style={{ width: "100%" }}>
-            <AboutQuestion />
-            <CheckBox
-              countries={checkboxCountry}
-              startMonths={checkboxStartMonths}
-              isSwarmpltShowed={checkboxIsSwartmpltShowed}
-            />
-            <Delatebutton />
-          </div>
+        <div className="card-content p-1" style={{ width: "100%" }}>
+          <AboutQuestion />
+          <CheckBox
+            countries={checkboxCountry}
+            startMonths={checkboxStartMonths}
+            isSwarmpltShowed={checkboxIsSwartmpltShowed}
+          />
+          <Delatebutton />
         </div>
       );
     }

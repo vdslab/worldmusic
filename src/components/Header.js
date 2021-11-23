@@ -42,9 +42,9 @@ const Visualization = () => {
       <div className="tile is-ancestor">
         <div className="tile is-parent">
           <article className="tile is-child box">
-              <div id="ScrollToHeatmap">
-                <RegionHeatMap />
-                <JudgeVis />
+            <div id="ScrollToHeatmap">
+              <RegionHeatMap />
+              <JudgeVis />
             </div>
           </article>
         </div>
@@ -55,13 +55,17 @@ const Visualization = () => {
         </div>
       </div>
       <div className="tile is-ancestor">
-        <div className="tile is-parent is-vertical">
-          <div id="ScrollToSong">
-            <Song />
-          </div>
+        <div className="tile is-parent">
+          <article className="tile is-child box">
+            <div id="ScrollToSong">
+              <Song />
+            </div>
+          </article>
         </div>
-        <div className="tile is-parent is-vertical">
-          <SimilarSongs />
+        <div className="tile is-parent">
+          <article className="tile is-child box">
+            <SimilarSongs />
+          </article>
         </div>
       </div>
     </div>
