@@ -3,7 +3,7 @@ import DisplaySimilarSongs from "./display_similarsongs";
 
 const SimilarSongs = () => {
   return (
-    <div className="card" style={{ height: "100%" }}>
+    <div>
       <DisplaySimilarSongs />
     </div>
   );

@@ -23,7 +23,7 @@ const TextDetail = ({ data, musicKey }) => {
 
   return (
     <div style={{ width: "100%", fontSize: "0.9rem" }}>
-      <p style={{ marginBottom: "0px" , cursor: "default"}}>
+      <p style={{ marginBottom: "0px", cursor: "default" }}>
         テンポ：{Math.round(data[0].tempo)}　 拍子：{data[0].time_signature}　
         調：{keyDict[musicKey]}
         {data[0].mode == 0 ? "短調" : "長調"}
@@ -36,6 +36,7 @@ const TextDetail = ({ data, musicKey }) => {
 const Song = () => {
   const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
   const isSwmpltChoosed = useSelector((state) => state.detail.isSwmpltChoosed);
+  const country = useSelector((state) => state.detail.country);
   const musicId = useSelector((state) => state.detail.musicid);
   const [metaData, setMetaData] = useState(null);
   const [data, setData] = useState([]);
@@ -111,83 +112,76 @@ const Song = () => {
 
   if (isSwmpltChoosed && !isRegionShowed) {
     return (
-      <div className="card" style={{ height: "100%" }}>
-        <div className="card-content p-2">
-          <div className="content">
-            <div className="card-content">
-              <div className="content">
-                <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="card-content" style={{ height: "100%" }}>
+        <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
+      </div>
+    );
+  } else if (country.length === 0) {
+    return (
+      <div className="card-content" style={{ height: "100%" }}>
+        <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>曲詳細</p>
       </div>
     );
   }
-
   return (
-    <div className="card" style={{ height: "100%" }}>
-      <div className="card-content">
-        <div className="content">
-          {data.length > 0 ? (
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <div
-                style={{
-                  width: "100%",
-                  paddingTop: "5px",
-                }}
-              >
-                <div>
-                  <a
-                    href={metaData?.external_urls.spotify}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <b style={{ fontSize: "1.2rem" }}>{data[0]?.name}</b>
-                  </a>
-                  <br />
-                  <div style={{ fontSize: "0.85rem" }}>
-                    アーティスト : &ensp;
-                    {metaData?.artists.map((item2, j) => {
-                      return (
-                        <a
-                          href={item2.external_urls.spotify}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {j !== 0 ? " / " : []}
-                          {item2.name}
-                        </a>
-                      );
-                    })}
-                  </div>
-                </div>
-                <br />
-                <br />
-                <TextDetail data={data} musicKey={key} />
-                <audio
-                  controls
-                  src={metaData?.preview_url}
-                  style={{ width: "100%" }}
-                />
-              </div>
-              <div
-                style={{
-                  width: "100%",
-                  paddingTop: "5px"
-                }}
-              >
-                <RaderChart data={data} />
-              </div>
-              {/* </div> */}
-            </div>
-          ) : (
+    <div className="card-content" style={{ height: "100%" }}>
+      {data.length > 0 ? (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            style={{
+              width: "100%",
+              paddingTop: "5px",
+            }}
+          >
             <div>
-              <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>曲詳細</p>
+              <a
+                href={metaData?.external_urls.spotify}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <b style={{ fontSize: "1.2rem" }}>{data[0]?.name}</b>
+              </a>
+              <br />
+              <div style={{ fontSize: "0.85rem" }}>
+                アーティスト : &ensp;
+                {metaData?.artists.map((item2, j) => {
+                  return (
+                    <a
+                      href={item2.external_urls.spotify}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {j !== 0 ? " / " : []}
+                      {item2.name}
+                    </a>
+                  );
+                })}
+              </div>
             </div>
-          )}
+            <br />
+            <br />
+            <TextDetail data={data} musicKey={key} />
+            <audio
+              controls
+              src={metaData?.preview_url}
+              style={{ width: "100%" }}
+            />
+          </div>
+          <div
+            style={{
+              width: "100%",
+              paddingTop: "5px",
+            }}
+          >
+            <RaderChart data={data} />
+          </div>
+          {/* </div> */}
         </div>
-      </div>
+      ) : (
+        <div>
+          <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>曲詳細</p>
+        </div>
+      )}
     </div>
   );
 };
