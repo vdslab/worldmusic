@@ -7,8 +7,8 @@ import { style } from "d3";
 import "../style.css";
 function display_similarsongs() {
   const spotify = {
-    ClientId: process.env.REACT_APP_CLIENTID,
-    ClientSecret: process.env.REACT_APP_CLIENTSECRET,
+    ClientId: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
+    ClientSecret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET,
   };
 
   let authOptions = {

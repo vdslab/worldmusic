@@ -23,7 +23,7 @@ const TextDetail = ({ data, musicKey }) => {
 
   return (
     <div style={{ width: "100%", fontSize: "0.9rem" }}>
-      <p style={{ marginBottom: "0px" , cursor: "default"}}>
+      <p style={{ marginBottom: "0px", cursor: "default" }}>
         テンポ：{Math.round(data[0].tempo)}　 拍子：{data[0].time_signature}　
         調：{keyDict[musicKey]}
         {data[0].mode == 0 ? "短調" : "長調"}
@@ -40,9 +40,10 @@ const Song = () => {
   const [metaData, setMetaData] = useState(null);
   const [data, setData] = useState([]);
   const [key, setKey] = useState(null);
+  // console.log(process.env.REACT_APPCLIENTID);
   const spotify = {
-    ClientId: process.env.REACT_APP_CLIENTID,
-    ClientSecret: process.env.REACT_APP_CLIENTSECRET,
+    ClientId: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
+    ClientSecret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET,
   };
 
   let authOptions = {
@@ -174,7 +175,7 @@ const Song = () => {
               <div
                 style={{
                   width: "100%",
-                  paddingTop: "5px"
+                  paddingTop: "5px",
                 }}
               >
                 <RaderChart data={data} />
