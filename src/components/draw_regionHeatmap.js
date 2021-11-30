@@ -51,7 +51,7 @@ function VerticalAxis({ len, yAxis, name, h }) {
                       userSelect: "none",
                       cursor: "pointer",
                       fontSize: "13px",
-                      textDecoration: "underline",
+                      textDecoration: "overline",
                     }
                   : { userSelect: "none", cursor: "pointer", fontSize: "8px" }
               }
@@ -184,7 +184,9 @@ function HeatMapChart(props) {
 
   const colorjudge = (item, start) => {
     let color = "#F2F2F2";
-
+    if(item === 0){
+      color = d3.interpolateTurbo(0);
+    }
     if (item) {
       color = d3.interpolateTurbo(opacityjudge(item, start));
     }

@@ -44,7 +44,7 @@ function AboutQuestion() {
         className="section p-1"
         style={{ display: "flex", justifyContent: "flex-end" }}
       >
-        {alert("一度に表示できるswarmplotは3つまでです。")}
+        {alert("一度に表示できるスワームプロットは3つまでです。")}
         <div
           className="questionmark"
           onMouseEnter={(e) => {
