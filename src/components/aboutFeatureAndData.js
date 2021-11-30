@@ -41,10 +41,10 @@ const aboutFeatureAndData = () => {
         音の強さ・大きさ、トラックの全体の音の強さ・大きさを示すデシベル数（dB）。値はトラック全体の平均値であり、相関するトラック（同じような感じのトラック）の音の強さ・大きさを比較するときに役立つ。主に物理的な強さ（大きさ）に心理的な相関をもたらす音の品質を指している。値は一般的には-60
         から 0 db までの範囲で示される。
       </p>
-      <li><h2 className="title is-5">modeとは？</h2></li>
+      {/* <li><h2 className="title is-5">modeとは？</h2></li>
       <p>
         モードはトラックの様式（長調または短調）、すなわち旋律の音階を示す。長調は１で示され、短調は０で示される。
-      </p>
+      </p> */}
       <li><h2 className="title is-5">speechinessとは？</h2></li>
       <p>
         そのトラックのなかにある話し言葉の存在を検出する。ただのスピーチ
@@ -76,8 +76,9 @@ const aboutFeatureAndData = () => {
         >
           Spotify Chart
         </a>
-        にて世界各国のDailyやWeeklyのTop200やViral50のランキングデータがCSV形式でダウンロードできる。
-        今回はそこからデータを集め、
+        にて世界各国のWeeklyTop200ランキングデータがCSV形式でダウンロードできる。
+        ここのランキングデータには、各曲のランキング順位・曲名・アーティスト名・再生回数・曲IDが付属しており、
+        この曲IDを
         <a
           href="https://developer.spotify.com/documentation/web-api/"
           target="_blank"
@@ -85,7 +86,8 @@ const aboutFeatureAndData = () => {
         >
           Spotify API
         </a>
-        を使用して可視化した。
+        に渡すと、渡した曲の発売日・類似曲・曲の特徴を指標化したものなど、その曲に関する更なる情報が取得できる。
+        我々はこれらSpotify ChartとSpotify APIから取得できるデータを使用して可視化した。
       </p>
     </div>
   );

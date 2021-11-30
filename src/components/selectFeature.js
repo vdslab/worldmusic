@@ -17,7 +17,7 @@ const selectFeature = () => {
     "instrumentalness",
     "liveness",
     "loudness",
-    "mode",
+    //"mode",
     "speechiness",
     "tempo",
     "time_signature",

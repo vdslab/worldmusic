@@ -194,7 +194,7 @@ function RaderChart({ data }) {
                               userSelect: "none",
                               cursor: "pointer",
                               fontSize: "8px",
-                              textDecoration: "underline",
+                              textDecoration: "overline",
                             }
                           : {
                               userSelect: "none",
