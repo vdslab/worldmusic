@@ -1,17 +1,4 @@
-const sqlite3 = require("sqlite3");
-
-function selectRows(db, sql) {
-  return new Promise((resolve, reject) => {
-    db.all(sql, (err, rows) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(rows);
-      }
-      db.close();
-    });
-  });
-}
+const { selectRows } = require("./db");
 
 exports.handler = async function (event) {
   const startMonth = event.queryStringParameters.startMonth || null;
@@ -25,12 +12,8 @@ exports.handler = async function (event) {
   /**TODO:応急処置, 後でちゃんとした書き方先輩に聞く */
 
   try {
-    const dbpath = "./netlify/functions/musicvisdatabase.db";
-    const db = new sqlite3.Database(dbpath);
-
     const result = await selectRows(
-      db,
-      `SELECT Music.Musicid , Music.name , Music.${feature} , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.countryid='${country}' AND Ranking.startday BETWEEN '${startMonth}-01' AND '${year}-${endmonth}-31'`
+      `SELECT Music.Musicid , Music.name , Music.${feature} , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.countryid='${country}' AND Ranking.startday BETWEEN '${startMonth}-01' AND '${year}-${endmonth}-31'`,
     );
     return { statusCode: 200, body: JSON.stringify(result) };
   } catch (e) {

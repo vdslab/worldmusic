@@ -1,17 +1,4 @@
-const sqlite3 = require("sqlite3");
-
-function selectRows(db, sql) {
-  return new Promise((resolve, reject) => {
-    db.all(sql, (err, rows) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(rows);
-      }
-      db.close();
-    });
-  });
-}
+const { selectRows } = require("./db");
 
 exports.handler = async function (event) {
   const feature = event.queryStringParameters.feature || null;
@@ -26,8 +13,6 @@ exports.handler = async function (event) {
   /**TODO:応急処置, 後でちゃんとした書き方先輩に聞く */
 
   try {
-    const dbpath = "./netlify/functions/musicvisdatabase.db";
-    const db = new sqlite3.Database(dbpath);
     // let max
     // let min
     // const [Max, setMax] = useState(-Infinity);
@@ -49,7 +34,6 @@ exports.handler = async function (event) {
     //   AND Ranking.startday BETWEEN '2017-01-01' AND '2020-12-31'`
     // );
     const result = await selectRows(
-      db,
       // `SELECT
       // SUM(Music.${feature} * Ranking.stream) / SUM(Ranking.stream) AS value , Country.countryid
       // FROM Ranking
@@ -62,8 +46,8 @@ exports.handler = async function (event) {
       FROM Ranking
       INNER JOIN Music ON Ranking.musicid = Music.musicid
       INNER JOIN Country ON Ranking.countryid = Country.countryid
-      WHERE Ranking.startday BETWEEN "${startmonth}-01" AND "${year}-${endmonth}-31"
-      AND Country.region = "${region}" GROUP BY Country.countryid`
+      WHERE Ranking.startday BETWEEN '${startmonth}-01' AND '${year}-${endmonth}-31'
+      AND Country.region = '${region}' GROUP BY Country.countryid`,
     );
 
     // function makeData(data) {
