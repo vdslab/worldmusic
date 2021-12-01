@@ -31,7 +31,7 @@ const Swarmplt = ({ width, height, c, s }) => {
   const duration = 500;
   const margin = {
     top: 10,
-    bottom: 100,
+    bottom: 10,
     left: 60,
     right: 60,
   };
@@ -75,10 +75,9 @@ const Swarmplt = ({ width, height, c, s }) => {
           if (swarmpltMin > d[feature]) {
             dispatch(changeSwarmpltMin(d[feature]));
           }
-        } else {
-          musicdata[d.musicid].stream = musicdata[d.musicid].stream + d.stream;
-        }
-      });
+        } else if (musicdata[d.musicid].musicid) {
+          musicdata[d.musicid].stream = Number(musicdata[d.musicid].stream)+ Number(d.stream);
+      }});
       const a = Object.keys(musicdata).map((m) => {
         return musicdata[m];
       });
