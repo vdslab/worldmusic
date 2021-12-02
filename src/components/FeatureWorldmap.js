@@ -40,11 +40,9 @@ const Worldmap = ({ features, data }) => {
 
   const colorjudge = (item) => {
     let color = "#F2F2F2";
-    worldMapData.map((element) => {
-      if (element.countryid === item.properties.ISO_A2) {
-        color = "red";
-      }
-    });
+    if(worldMapData[item.properties.ISO_A2]){
+      color = "red"
+    }
     return color;
   };
 
