@@ -117,6 +117,7 @@ const RegionHeatMap = () => {
     return (
       <div className="card-content">
         <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
+        <p style={{ fontSize: "1.25rem" }}>（データ取得に約1分ほど時間がかかります。）</p>
       </div>
     );
   } else {
