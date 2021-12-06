@@ -121,6 +121,7 @@ const Song = () => {
     return (
       <div className="card-content" style={{ height: "100%" }}>
         <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>曲詳細</p>
+        <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>スワームプロットより曲を選んでください。</p>
       </div>
     );
   }
@@ -181,6 +182,7 @@ const Song = () => {
       ) : (
         <div>
           <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>曲詳細</p>
+          <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>スワームプロットより曲を選んでください。</p>
         </div>
       )}
     </div>
