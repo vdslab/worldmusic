@@ -118,7 +118,7 @@ function Delatebutton() {
           dispatch(changeSlectedCount(true));
         }}
       >
-        国・期限を選び直す
+        国・期間を選び直す
       </button>
     </div>
   );
@@ -154,13 +154,13 @@ const Detail = () => {
   ) {
     return (
       <div className="card-content" style={{ width: "100%" }}>
-        <p style={{ fontSize: "1.25rem" }}>国・期間・特徴を選んでください。</p>
+        <p style={{ fontSize: "1.25rem" }}>ヒートマップより国・期間を選んでください。</p>
       </div>
     );
   } else if (checkboxCountry.length === 0 && checkboxStartMonths.length === 0) {
     return (
       <div className="card-content" style={{ height: "100%" }}>
-        <p style={{ fontSize: "1.25rem" }}>国・期間を選んでください。</p>
+        <p style={{ fontSize: "1.25rem" }}>ヒートマップより国・期間を選んでください。</p>
       </div>
     );
   } else if (

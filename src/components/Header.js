@@ -99,10 +99,8 @@ const View = () => {
             <h1 className="title">The music around the world.</h1>
           </div>
         </div>
-        <div className="hero-foot">
+        {/* <div className="hero-foot">
           <nav className="tabs is-boxed is-fullwidth has-text-black">
-            {" "}
-            {/* 文字色を設定しないとタブを選んでいる間白文字で見えない */}
             <div className="container">
               <ul>
                 <li
@@ -122,16 +120,17 @@ const View = () => {
               </ul>
             </div>
           </nav>
-        </div>
+        </div> */}
       </section>
       <div className="content">
         <section className="section">
-          <Route path="/" exact>
+          {/* <Route path="/" exact>
             <Visualization />
           </Route>
           <Route path="/aboutFeatureAndData" exact>
             <FeatureAndData />
-          </Route>
+          </Route> */}
+          <Visualization />
         </section>
       </div>
     </div>

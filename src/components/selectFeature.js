@@ -19,9 +19,9 @@ const selectFeature = () => {
     "loudness",
     //"mode",
     "speechiness",
+    "valence",
     "tempo",
     "time_signature",
-    "valence",
   ];
   return (
     <div>
