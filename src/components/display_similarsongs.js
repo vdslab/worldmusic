@@ -32,7 +32,8 @@ function display_similarsongs() {
   const musicId = useSelector((state) => state.detail.musicid);
   const [similarSongs, setSimilarSongs] = useState([]);
 
-  console.log(country);
+  // console.log(process.env.REACT_APP_FUGA_TAKATA);
+  console.log(process.env);
 
   useEffect(() => {
     (async () => {

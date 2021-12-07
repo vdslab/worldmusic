@@ -76,8 +76,10 @@ const Swarmplt = ({ width, height, c, s }) => {
             dispatch(changeSwarmpltMin(d[feature]));
           }
         } else if (musicdata[d.musicid].musicid) {
-          musicdata[d.musicid].stream = Number(musicdata[d.musicid].stream)+ Number(d.stream);
-      }});
+          musicdata[d.musicid].stream =
+            Number(musicdata[d.musicid].stream) + Number(d.stream);
+        }
+      });
       const a = Object.keys(musicdata).map((m) => {
         return musicdata[m];
       });
