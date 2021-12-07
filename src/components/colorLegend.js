@@ -5,10 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 const colorLegend = (props) => {
   const feature = useSelector((state) => state.detail.feature);
-  //const max = useSelector((state) => state.detail.max);
-  //const min = useSelector((state) => state.detail.min);
-  const max = props.max;
-  const min = props.min;
+  const max = Number(props.max);
+  const min = Number(props.min);
   const color = props.color;
   const id = props.id;
   const url = "url('#"+id+"')";
@@ -27,7 +25,7 @@ const colorLegend = (props) => {
 
   for (let i = 1; i <= 10; i++) {
     const p = (max - min) / 10;
-    let value = min + p * i;
+    let value = Number(min + p * i);
     if (i === 10) {
       value = Math.ceil(max * Math.pow(10, n)) / Math.pow(10, n);
     } else {
@@ -35,7 +33,6 @@ const colorLegend = (props) => {
     }
     aboutColorGradations.push([value, 0 + (w / 10) * i]);
   }
-
   return (
     <svg viewBox="0 0 265 60" width={w + 20} height="55">
       <defs>

@@ -117,7 +117,7 @@ const Song = () => {
         <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
       </div>
     );
-  } else if (country.length === 0) {
+  } else if (country.length === 0 || !isSwmpltChoosed) {
     return (
       <div className="card-content" style={{ height: "100%" }}>
         <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>曲詳細</p>
