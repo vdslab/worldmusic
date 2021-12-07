@@ -82,3 +82,15 @@
   background: white;
   visibility: hidden;
 }
+
+.tooltip-aboutFeature {
+  border: 1px solid black;
+  position: absolute;
+  text-align: center;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  font: 12px;
+  background-color: white;
+  visibility: hidden;
+}

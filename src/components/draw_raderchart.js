@@ -7,7 +7,7 @@ import {
   changeChoosedFeature,
   changeFeature,
   changeSelectClicked,
-  changeCheckRaderFeatureClicked
+  changeCheckRaderFeatureClicked,
 } from "../stores/details";
 import "./RegionHeatMap";
 import "../style.css";
@@ -16,7 +16,9 @@ import { Link as Scroll } from "react-scroll";
 function RaderChart({ data }) {
   const dispatch = useDispatch();
   const selectClicked = useSelector((state) => state.detail.selectClicked);
-  const checkFeatureClicked = useSelector((state) => state.detail.checkRaderFeatureClicked);
+  const checkFeatureClicked = useSelector(
+    (state) => state.detail.checkRaderFeatureClicked
+  );
 
   const useData = [
     "acousticness",
@@ -42,6 +44,7 @@ function RaderChart({ data }) {
   const scorePoint = [];
   const c = Math.PI / 180;
   const tooltip = d3.select(".tooltip-rader");
+  const tooltip2 = d3.select(".tooltip-aboutFeature");
 
   for (let _r = 0; _r < rs.length; _r++) {
     for (let i = 0; i <= len; i++) {
@@ -111,11 +114,57 @@ function RaderChart({ data }) {
   useEffect(() => {
     if (selectClicked) {
       dispatch(
-        changeCheckRaderFeatureClicked(checkFeatureClicked.map((c, index) => false))
+        changeCheckRaderFeatureClicked(
+          checkFeatureClicked.map((c, index) => false)
+        )
       );
       dispatch(changeSelectClicked(false));
     }
   }, [selectClicked]);
+
+  function onHover(e,value) {
+    let text = "曲がアコースティックかどうかを示す。\
+      値が1.0に近いほどアコースティックであることを表す。";
+    if(value === "danceability"){
+      text = "テンポ、リズムの安定性、ビートの強さ、全体的な規則性などの音楽要素の組み合わせに基づき、\
+      曲がダンスにどの程度適しているかを示す。\
+      値が1.0に近いほど踊りやすいことを表す。";
+    }else if(value === "energy"){
+      text = "ダイナミックレンジ、音の大きさ、音色、出だし（頭子音）、および一般的なエントロピーの判断要素に基づき、\
+      曲の激しさと活発さを示す。\
+      値が1.0に近いほど激しい、活発であることを表す。";
+    }else if(value === "instrumentalness"){
+      text = "曲にボーカルが含まれているかどうかを示す。\
+      なお、「Ooh」と「aah」の音は楽器として取り扱い、\
+      ラップやスポークンワード（喋り言葉）の曲はボーカルである。\
+      値が1.0に近いほど曲にボーカルコンテンツが含まれていない可能性が高いことを表す。\
+      0.5を超える場合は楽器性の高い曲を表すが、値が1.0に近づくにつれ、ボーカルを含まないことを表す。";
+    }else if(value === "liveness"){
+      text = "曲のなかに聴衆の存在がどれくらいあるのかを示す。\
+      値が1.0に近いほど曲がライブで演奏された可能性が高いことを表す。\
+      値が0.8を超す場合は曲がライブ（生演奏）である可能性が高いことを表す。";
+    }else if(value === "loudness"){
+      text = "音の強さ・大きさ、曲全体の音の強さ・大きさをデシベル数（dB）で示す。\
+      値は曲全体の平均値であり、主に物理的な強さ・大きさに心理的な相関をもたらす音の品質を指している。\
+      値は一般的には-60から0dbまでの範囲で示される（レーダーチャートでは値を0~1に正規化している）。\
+      値が小さいほど音・曲が強い、大きいことを表す。";
+    }else if(value === "speechiness"){
+      text = "曲のなかにある話し言葉の存在を検出し、示している。ただのスピーチ\
+      （トークショー、オーディオブック、詩等）に似ているような録音であるほど、値は1.0に近づく。 \
+      値が0.66を超す場合は完全に話し言葉でできている曲であろうことを表す。\
+      値が0.33から0.66までの場合はセクションまたはレイヤーのいずれかで音楽とスピーチの両方を含む可能性のある曲（ラップ音楽等の場合も含む）を表す。\
+      値が0.33未満であれば曲はほとんど音楽であり、言葉が含まれていない可能性が高いことを表す。";
+    }else if(value === "valence"){
+      text = "曲の音楽的なポジティブさ（陽気さ）を示す。\
+      値が1.0に近いほど曲はよりポジティブに聞こえ（例：幸せ、陽気、陶酔）、\
+      値が0.0に近いほど曲はよりネガティブに聞こえる（例：悲しい、落ち込んだ、怒っている）。";
+    }
+    tooltip2.style("visibility", "visible");
+    tooltip2
+      .style("top", e.pageY - 20 + "px")
+      .style("left", e.pageX + 10 + "px")
+      .html(text);
+  }
 
   return (
     <div>
@@ -187,6 +236,12 @@ function RaderChart({ data }) {
                         );
                         dispatch(changeFeature(p.name));
                         dispatch(changeChoosedFeature("Yes"));
+                      }}
+                      onMouseMove={(e) => {
+                        onHover(e,p.name);
+                      }}
+                      onMouseLeave={() => {
+                        tooltip2.style("visibility", "hidden");
                       }}
                       style={
                         checkFeatureClicked[i]

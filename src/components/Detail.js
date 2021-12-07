@@ -10,6 +10,7 @@ import {
   changeCountry,
   changeIsSwmpltShowed,
   changeSlectedCount,
+  changeIsSwmpltChoosed,
 } from "../stores/details";
 
 function AboutQuestion() {
@@ -74,6 +75,7 @@ function CheckBox({ countries, startMonths, isSwarmpltShowed }) {
     dispatch(changeStartMonth(newStartMonth));
     dispatch(changeCountry(newCountries));
     dispatch(changeSlectedCount(true));
+    dispatch(changeIsSwmpltChoosed(false)); //曲詳細＋類似曲の表示条件用
   };
   console.log(isSwarmpltShowed);
   return (
@@ -116,9 +118,10 @@ function Delatebutton() {
           dispatch(changeStartMonth([]));
           dispatch(changeIsSwmpltShowed([]));
           dispatch(changeSlectedCount(true));
+          dispatch(changeIsSwmpltChoosed(false)); //曲詳細＋類似曲の表示条件用
         }}
       >
-        国・期限を選び直す
+        国・期間を選び直す
       </button>
     </div>
   );
@@ -154,13 +157,13 @@ const Detail = () => {
   ) {
     return (
       <div className="card-content" style={{ width: "100%" }}>
-        <p style={{ fontSize: "1.25rem" }}>国・期間・特徴を選んでください。</p>
+        <p style={{ fontSize: "1.25rem" }}>ヒートマップより国・期間を選んでください。</p>
       </div>
     );
   } else if (checkboxCountry.length === 0 && checkboxStartMonths.length === 0) {
     return (
       <div className="card-content" style={{ height: "100%" }}>
-        <p style={{ fontSize: "1.25rem" }}>国・期間を選んでください。</p>
+        <p style={{ fontSize: "1.25rem" }}>ヒートマップより国・期間を選んでください。</p>
       </div>
     );
   } else if (

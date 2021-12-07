@@ -65,77 +65,90 @@ function display_similarsongs() {
         <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
       </div>
     );
-  } else if (country.length === 0) {
+  } else if (country.length === 0 || !isSwmpltChoosed) {
     return (
       <div className="card-content" style={{ height: "100%" }}>
         <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>類似曲</p>
+        <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>
+          スワームプロットより曲を選んでください。
+        </p>
       </div>
     );
   }
   return (
     <div className="card-content" style={{ height: "100%" }}>
-      <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>類似曲</p>
-      {console.log(similarSongs)}
-      {similarSongs.map((item, i) => {
-        return (
-          <div style={{ width: "100%", fontSize: "40" }}>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <div
-                style={{
-                  width: "50%",
-                  paddingTop: "5px",
-                }}
-              >
-                <img
-                  src={item.album.images[0].url}
-                  width="250"
-                  style={{
-                    float: "left",
-                    paddingRight: "20px",
-                  }}
-                />
-              </div>
-              <div
-                style={{
-                  width: "100%",
-                  paddingTop: "5px",
-                }}
-              >
-                <p>
-                  <b style={{ fontSize: "1.2rem" }}>
-                    <a
-                      href={item.external_urls.spotify}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {item.name}
-                    </a>
-                  </b>
-                  <br />
-                  <div style={{ fontSize: "0.85rem" }}>
-                    アーティスト：
-                    <br />
+      {similarSongs.length > 0 ? (
+        <div>
+          <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>類似曲</p>
+          {similarSongs.map((item, i) => {
+            return (
+              <div style={{ width: "100%", fontSize: "40" }}>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div
+                    style={{
+                      width: "50%",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    <img
+                      src={item.album.images[0].url}
+                      width="250"
+                      style={{
+                        float: "left",
+                        paddingRight: "20px",
+                      }}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      paddingTop: "5px",
+                    }}
+                  >
                     <p>
-                      {item.artists.map((item2, j) => {
-                        return (
-                          <a
-                            href={item2.external_urls.spotify}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {j !== 0 ? " / " : []}
-                            {item2.name}
-                          </a>
-                        );
-                      })}
+                      <b style={{ fontSize: "1.2rem" }}>
+                        <a
+                          href={item.external_urls.spotify}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {item.name}
+                        </a>
+                      </b>
+                      <br />
+                      <div style={{ fontSize: "0.85rem" }}>
+                        アーティスト：
+                        <br />
+                        <p>
+                          {item.artists.map((item2, j) => {
+                            return (
+                              <a
+                                href={item2.external_urls.spotify}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {j !== 0 ? " / " : []}
+                                {item2.name}
+                              </a>
+                            );
+                          })}
+                        </p>
+                      </div>
                     </p>
                   </div>
-                </p>
+                </div>
               </div>
-            </div>
-          </div>
-        );
-      })}
+            );
+          })}
+        </div>
+      ) : (
+        <div>
+          <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>類似曲</p>
+          <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>
+            スワームプロットより曲を選んでください。
+          </p>
+        </div>
+      )}
     </div>
   );
 }

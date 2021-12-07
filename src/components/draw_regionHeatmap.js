@@ -13,7 +13,6 @@ function VerticalAxis({ len, yAxis, name, h }) {
   const checkRegionCheck = useSelector(
     (state) => state.detail.checkRegionClicked
   );
-
   return (
     <g>
       <text
@@ -206,7 +205,7 @@ function HeatMapChart(props) {
     if (value === undefined) {
       setFeatureValue("（データなし）");
     } else {
-      setFeatureValue(value.toFixed(3));
+      setFeatureValue(Number(value).toFixed(3));
     }
     tooltip.style("visibility", "visible");
     tooltip
