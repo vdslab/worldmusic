@@ -223,7 +223,7 @@ const CountryHeatMap = () => {
     if (value === undefined) {
       setFeatureValue("（データなし）");
     } else {
-      setFeatureValue(value.toFixed(3));
+      setFeatureValue(Number(value).toFixed(3));
     }
     tooltip.style("visibility", "visible");
     tooltip

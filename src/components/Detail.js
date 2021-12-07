@@ -10,6 +10,7 @@ import {
   changeCountry,
   changeIsSwmpltShowed,
   changeSlectedCount,
+  changeIsSwmpltChoosed,
 } from "../stores/details";
 
 function AboutQuestion() {
@@ -74,6 +75,7 @@ function CheckBox({ countries, startMonths, isSwarmpltShowed }) {
     dispatch(changeStartMonth(newStartMonth));
     dispatch(changeCountry(newCountries));
     dispatch(changeSlectedCount(true));
+    dispatch(changeIsSwmpltChoosed(false)); //曲詳細＋類似曲の表示条件用
   };
   console.log(isSwarmpltShowed);
   return (
@@ -116,6 +118,7 @@ function Delatebutton() {
           dispatch(changeStartMonth([]));
           dispatch(changeIsSwmpltShowed([]));
           dispatch(changeSlectedCount(true));
+          dispatch(changeIsSwmpltChoosed(false)); //曲詳細＋類似曲の表示条件用
         }}
       >
         国・期間を選び直す
