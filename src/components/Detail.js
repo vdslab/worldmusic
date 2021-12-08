@@ -70,35 +70,42 @@ function AboutQuestion() {
 function CheckBox({ countries, startMonths, isSwarmpltShowed }) {
   const dispatch = useDispatch();
   const deleteData = (index) => {
+    console.log(index);
     const newStartMonth = startMonths.filter((m, i) => index != i);
+    console.log(newStartMonth);
     const newCountries = countries.filter((c, i) => index != i);
     dispatch(changeStartMonth(newStartMonth));
     dispatch(changeCountry(newCountries));
     dispatch(changeSlectedCount(true));
     dispatch(changeIsSwmpltChoosed(false)); //曲詳細＋類似曲の表示条件用
   };
-  console.log(isSwarmpltShowed);
+  console.log(countries, startMonths);
   return (
     <div className="p-1" style={{ justifyContent: "center" }}>
       {countries.map((element, i) => {
-        const year = String(Number(startMonths[i].split("-")[0]));
+        let index = i;
         let endmonth = String(Number(startMonths[i].split("-")[1]) + 2);
         if (endmonth.length === 1) {
           endmonth = "0" + endmonth;
         }
         return (
-          <div style={{ width: "100%", height: "100%" }}>
+          <div
+            style={{ width: "100%", height: "100%" }}
+            key={`${element + startMonths[i]}`}
+          >
             <div>
               <label>
                 {element}({startMonths[i]}~{endmonth})　
               </label>
               <button
                 className="delete is-medium"
-                onClick={() => deleteData(i)}
+                onClick={() => {
+                  deleteData(i);
+                }}
                 style={{ float: "right" }}
               />
+              <Swarmplt c={countries[i]} s={startMonths[i]} />
             </div>
-            <Swarmplt c={countries[i]} s={startMonths[i]} />
           </div>
         );
       })}
@@ -157,13 +164,17 @@ const Detail = () => {
   ) {
     return (
       <div className="card-content" style={{ width: "100%" }}>
-        <p style={{ fontSize: "1.25rem" }}>ヒートマップより国・期間を選んでください。</p>
+        <p style={{ fontSize: "1.25rem" }}>
+          ヒートマップより国・期間を選んでください。
+        </p>
       </div>
     );
   } else if (checkboxCountry.length === 0 && checkboxStartMonths.length === 0) {
     return (
       <div className="card-content" style={{ height: "100%" }}>
-        <p style={{ fontSize: "1.25rem" }}>ヒートマップより国・期間を選んでください。</p>
+        <p style={{ fontSize: "1.25rem" }}>
+          ヒートマップより国・期間を選んでください。
+        </p>
       </div>
     );
   } else if (
