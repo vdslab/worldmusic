@@ -16,8 +16,7 @@ const Visualization = () => {
       <div
         className="section p-1"
         style={{ display: "flex", justifyContent: "flex-end" }}
-      >
-      </div>
+      ></div>
       <FeatureVis />
       <div className="tile is-ancestor">
         <div className="tile is-parent">

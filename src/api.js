@@ -98,9 +98,3 @@ export function fetchgetHeatMapMinMax(feature, startmonth) {
     startmonth: startmonth,
   });
 }
-
-// export function fetchgetHeatMapMinMax(feature) {
-//   return sendRequest("/getHeatMapMinMax", {
-//     feature: feature,
-//   });
-// }

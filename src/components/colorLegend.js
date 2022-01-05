@@ -9,7 +9,7 @@ const colorLegend = (props) => {
   const min = Number(props.min);
   const color = props.color;
   const id = props.id;
-  const url = "url('#"+id+"')";
+  const url = "url('#" + id + "')";
   const w = 250;
   let n = 2;
 
@@ -37,7 +37,7 @@ const colorLegend = (props) => {
     <svg viewBox="0 0 265 60" width={w + 20} height="55">
       <defs>
         <linearGradient id={id}>
-        <stop offset="0%" stopColor={d3[color](0)} />
+          <stop offset="0%" stopColor={d3[color](0)} />
           <stop offset="5%" stopColor={d3[color](0.05)} />
           <stop offset="10%" stopColor={d3[color](0.1)} />
           <stop offset="15%" stopColor={d3[color](0.15)} />
@@ -61,7 +61,7 @@ const colorLegend = (props) => {
         </linearGradient>
       </defs>
       <rect x="0" y="10" width={w} height="20" fill={url} />
-      {aboutColorGradations.map((item, i) => {
+      {/* {aboutColorGradations.map((item, i) => {
         return (
           <line
             key={i}
@@ -74,12 +74,21 @@ const colorLegend = (props) => {
         );
       })}
       {aboutColorGradations.map((item, i) => {
+        console.log(item);
         return (
           <text key={i} x={item[1]} y="50" fontSize="10" textAnchor="start">
             {item[0]}
           </text>
         );
-      })}
+      })} */}
+      <line x1={10} y1={30} x2={10} y2={40} stroke="black" />
+      <line x1={240} y1={30} x2={240} y2={40} stroke="black" />
+      <text x={5} y={50} fontSize="10" textAnchor="start">
+        低
+      </text>
+      <text x={235} y={50} fontSize="10" textAnchor="start">
+        高
+      </text>
     </svg>
   );
 };

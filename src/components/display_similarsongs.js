@@ -25,7 +25,7 @@ function display_similarsongs() {
     },
     json: true,
   };
-
+  const regionId = useSelector((state) => state.detail.regionId);
   const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
   const isSwmpltChoosed = useSelector((state) => state.detail.isSwmpltChoosed);
   const country = useSelector((state) => state.detail.country);
@@ -65,12 +65,21 @@ function display_similarsongs() {
         <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
       </div>
     );
-  } else if (country.length === 0 || !isSwmpltChoosed) {
+  } else if (regionId === "") {
     return (
       <div className="card-content" style={{ height: "100%" }}>
-        <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>類似曲</p>
+        <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>曲詳細</p>
         <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>
-          スワームプロットより曲を選んでください。
+          ヒートマップより地域を選んでください。
+        </p>
+      </div>
+    );
+  } else if (country.length === 0) {
+    return (
+      <div className="card-content" style={{ height: "100%" }}>
+        <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>曲詳細</p>
+        <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>
+          ヒートマップより国・期間を選んでください。
         </p>
       </div>
     );

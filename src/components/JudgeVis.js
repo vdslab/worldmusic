@@ -14,12 +14,8 @@ import CountryHeatMap from "./CountryHeatMap";
 import Bargraph from "./Bargraph";
 
 const JudgeVis = () => {
-  const dispatch = useDispatch();
-  const startMonth = useSelector((state) => state.detail.startMonth);
-  const endMonth = useSelector((state) => state.detail.endMonth);
   const judgeVis = useSelector((state) => state.detail.judgeVis);
-  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed); //
-  //console.log("judgeVis :" + judgeVis);
+  const isRegionShowed = useSelector((state) => state.detail.isRegionShowed);
 
   if (
     (judgeVis === 0 && !isRegionShowed) ||
@@ -44,9 +40,7 @@ const JudgeVis = () => {
     );
   } else if (judgeVis === 2) {
     //国が押された場合
-    return (
-      <CountryHeatMap />
-    );
+    return <CountryHeatMap />;
   } else {
     //セル（国と期間）が押された場合
     return (

@@ -88,12 +88,6 @@ const Dectop = () => {
 };
 
 const Song = (props) => {
-  const dispatch = useDispatch();
-  const country = useSelector((state) => state.detail.country);
-  const choosedCountry = useSelector((state) => state.detail.choosedCountry);
-  const choosedFeature = useSelector((state) => state.detail.choosedFeature);
-  const choosedPeriod = useSelector((state) => state.detail.choosedPeriod);
-
   const musicId = props.id;
   const countryNumber = props.listnumber;
   let aboutVisMsg =
@@ -240,34 +234,14 @@ const Song = (props) => {
           )}
         </div>
       </div>
-      {/* <div
-        className="card-content"
-        style={{ paddingTop: "12px", paddingBottom: "12px" }}
-      > */}
       {data.length > 0 ? (
         <div className="content">
-          {/* <div className="buttons are-small">
-              {countries.map((element) => {
-                return (
-                  <button
-                    className="button"
-                    onClick={() => {
-                      dispatch(changeCountry(element.countryid));
-                      dispatch(changeChoosedCountry("Yes"));
-                    }}
-                  >
-                    {element.countryid}
-                  </button>
-                );
-              })}
-            </div> */}
           <FeatureWorldmap data={countries} />
           <div style={{ fontSize: "0.5rem" }}>{aboutVisMsg}</div>
         </div>
       ) : (
         <div className="content"></div>
       )}
-      {/* </div> */}
     </div>
   );
 };

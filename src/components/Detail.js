@@ -136,6 +136,7 @@ function Delatebutton() {
 
 const Detail = () => {
   const country = useSelector((state) => state.detail.country);
+  const regionId = useSelector((state) => state.detail.regionId);
   const feature = useSelector((state) => state.detail.feature);
   const startMonth = useSelector((state) => state.detail.startMonth);
   const choosedCountry = useSelector((state) => state.detail.choosedCountry);
@@ -158,14 +159,15 @@ const Detail = () => {
   }, [country, startMonth, isSwarmpltShowed]);
 
   if (
-    choosedCountry === "No" &&
-    choosedFeature === "No" &&
-    choosedPeriod === "No"
+    regionId === ""
+    // choosedCountry === "No" &&
+    // choosedFeature === "No" &&
+    // choosedPeriod === "No"
   ) {
     return (
       <div className="card-content" style={{ width: "100%" }}>
         <p style={{ fontSize: "1.25rem" }}>
-          ヒートマップより国・期間を選んでください。
+          ヒートマップより地域を選んでください。
         </p>
       </div>
     );
@@ -215,97 +217,6 @@ const Detail = () => {
           </p>
         </div>
       );
-      // } else if (choosedCountry === "No" && choosedFeature === "No") {
-      //   return (
-      //     <div className="card" style={{ height: "100%" }}>
-      //       <div className="card-content p-2">
-      //         <div className="content">
-      //           <div className="card-content">
-      //             <div className="content">
-      //               <p style={{ fontSize: "1.25rem" }}>
-      //                 国・特徴を選んでください。
-      //                 <br />
-      //                 （期間：{startMonth} ~ {endMonth}）
-      //               </p>
-      //             </div>
-      //           </div>
-      //         </div>
-      //       </div>
-      //     </div>
-      //   );
-      // } else if (choosedFeature === "No" && choosedPeriod === "No") {
-      // return (
-      //   <div className="card" style={{ height: "100%" }}>
-      //     <div className="card-content p-2">
-      //       <div className="content">
-      //         <div className="card-content">
-      //           <div className="content">
-      //             <p style={{ fontSize: "1.25rem" }}>
-      //               期間・特徴を選んでください。
-      //               <br />
-      //               （国：{country}）
-      //             </p>
-      //           </div>
-      //         </div>
-      //       </div>
-      //     </div>
-      //   </div>
-      // );
-      // } else if (choosedCountry === "No") {
-      //   // return (
-      //   //   <div className="card" style={{ height: "100%" }}>
-      //   //     <div className="card-content p-2">
-      //   //       <div className="content">
-      //   //         <div className="card-content">
-      //   //           <div className="content">
-      //   //             <p style={{ fontSize: "1.25rem" }}>
-      //   //               国を選んでください。
-      //   //               <br />
-      //   //               （期間：{startMonth} ~ {endMonth}、特徴：{feature}）
-      //   //             </p>
-      //   //           </div>
-      //   //         </div>
-      //   //       </div>
-      //   //     </div>
-      //   //   </div>
-      //   // );
-      // } else if (choosedFeature === "No") {
-      //   // return (
-      //   //   <div className="card" style={{ height: "100%" }}>
-      //   //     <div className="card-content p-2">
-      //   //       <div className="content">
-      //   //         <div className="card-content">
-      //   //           <div className="content">
-      //   //             <p style={{ fontSize: "1.25rem" }}>
-      //   //               特徴を選んでください。
-      //   //               <br />
-      //   //               （国：{country}、期間：{startMonth} ~ {endMonth}）
-      //   //             </p>
-      //   //           </div>
-      //   //         </div>
-      //   //       </div>
-      //   //     </div>
-      //   //   </div>
-      //   );
-      // } else if (choosedPeriod === "No") {
-      //   // return (
-      //   //   <div className="card" style={{ height: "100%" }}>
-      //   //     <div className="card-content p-2">
-      //   //       <div className="content">
-      //   //         <div className="card-content">
-      //   //           <div className="content">
-      //   //             <p style={{ fontSize: "1.25rem" }}>
-      //   //               期間を選んでください。
-      //   //               <br />
-      //   //               （国：{country}、特徴：{feature}）
-      //   //             </p>
-      //   //           </div>
-      //   //         </div>
-      //   //       </div>
-      //   //     </div>
-      //   //   </div>
-      //   // );
-      // }
     }
   }
 };
