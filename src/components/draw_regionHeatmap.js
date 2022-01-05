@@ -13,6 +13,19 @@ function VerticalAxis({ len, yAxis, name, h }) {
   const checkRegionCheck = useSelector(
     (state) => state.detail.checkRegionClicked
   );
+  const [isRegionOver, setIsRegionOver] = useState({
+    Asia: false,
+    Africa: false,
+    MiddleEast: false,
+    Oceania: false,
+    NorthAmerica: false,
+    CentralAmerica: false,
+    SouthAmerica: false,
+    NorthEurope: false,
+    EastEurope: false,
+    WestEurope: false,
+    SouthEurope: false,
+  });
   return (
     <g>
       <text
@@ -44,6 +57,21 @@ function VerticalAxis({ len, yAxis, name, h }) {
                 dispatch(changeRegionId(y[0]));
                 dispatch(changeJudgeVis(2)); //国ヒートマップ
               }}
+              onMouseLeave={() => {
+                setIsRegionOver({
+                  ...isRegionOver,
+                  [y[0]]: false,
+                });
+              }}
+              onMouseOver={() => {
+                // console.log(isRegionOver);
+                setIsRegionOver({
+                  ...isRegionOver,
+                  [y[0]]: true,
+                });
+                console.log(isRegionOver[y[0]]);
+                // console.log(isRegionOver);
+              }}
               style={
                 checkRegionCheck[i]
                   ? {
@@ -54,6 +82,7 @@ function VerticalAxis({ len, yAxis, name, h }) {
                     }
                   : { userSelect: "none", cursor: "pointer", fontSize: "8px" }
               }
+              fill={isRegionOver[y[0]] ? "black" : "#FF9872"}
             >
               {y[1]}
             </text>
@@ -85,10 +114,6 @@ function HorizontalAxis({ len, term, name, w }) {
               dominantBaseline="central"
               fontSize="8"
               style={{ userSelect: "none" }}
-              // onClick={() => {
-              //   changeInfo(t.start, t.end);
-              //   dispatch(changeJudgeVis(1)) //世界地図
-              // }}
             >
               {t.start}
             </text>
@@ -183,7 +208,7 @@ function HeatMapChart(props) {
 
   const colorjudge = (item, start) => {
     let color = "#F2F2F2";
-    if(item === 0){
+    if (item === 0) {
       color = d3.interpolateTurbo(0);
     }
     if (item) {
@@ -244,13 +269,11 @@ function HeatMapChart(props) {
         <g
           onMouseLeave={() => {
             setPos(null);
-            // .style("visibility", "hidden");
           }}
         >
           {yAxis.map((y, i) => {
             return startdays.map((s, j) => {
               const startmonth = s;
-              const year = String(Number(startmonth.split("-")[0]));
               let endmonth = String(Number(startmonth.split("-")[1]) + 2);
               if (endmonth.length === 1) {
                 endmonth = "0" + endmonth;
@@ -265,17 +288,6 @@ function HeatMapChart(props) {
                     width={len}
                     height={len}
                     fill={colorjudge(heatMapData[y][s], s)}
-                    // onClick={() => {
-                    //   setClicked(i * startdays.length + j);
-                    //   dispatch(changeRegionId(y));
-                    //   dispatch(changeStartMonth(s));
-                    //   dispatch(changeChoosedPeriod("Yes"));
-                    //   dispatch(changeEndMonth(year + "-" + endmonth));
-                    //   dispatch(changeJudgeVis(3)) //棒グラフ
-                    // }}
-                    //onMouseEnter={() => {
-                    // setPos(heatMapData[y][s].toFixed(2) || "");
-                    //}}
                     onMouseMove={(e) => onHover(e, heatMapData[y][s])}
                     onMouseLeave={() => {
                       tooltip.style("visibility", "hidden");

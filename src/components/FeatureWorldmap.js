@@ -38,7 +38,7 @@ const Worldmap = ({ features, data }) => {
   const path = d3.geoPath().projection(projection);
   const tooltip = d3.select(".tooltip-world");
 
-  console.log(worldMapData);
+  // console.log(worldMapData);
   const colorjudge = (item) => {
     let color = "#F2F2F2";
     if (worldMapData[item.properties.ISO_A2]) {
