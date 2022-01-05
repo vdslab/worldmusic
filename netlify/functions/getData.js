@@ -42,7 +42,7 @@ exports.handler = async function (event) {
       // WHERE Ranking.startday BETWEEN "${startmonth}" AND "${year}-${endmonth}-31"
       // AND Country.region = "${region}" GROUP BY`
       `SELECT 
-      SUM(Music.${feature} * Ranking.stream) / SUM(Ranking.stream) AS value , Country.countryid , ${startmonth}
+      SUM(Music.${feature} * Ranking.stream) / SUM(Ranking.stream) AS value , Country.countryid , ${startmonth} , Country.country
       FROM Ranking
       INNER JOIN Music ON Ranking.musicid = Music.musicid
       INNER JOIN Country ON Ranking.countryid = Country.countryid
