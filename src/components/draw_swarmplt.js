@@ -138,7 +138,7 @@ const Swarmplt = ({ width, height, c, s }) => {
             .selectAll("circle")
             .data(dbData)
             .join("circle")
-            .style("fill", "#FFBBFF") //左側は重み付き平均の最大最小だけど、右側はトータルの最大最小だから、同じカラーレジェンドだと意味が変わる。→違うカラーを使う
+            .style("fill", "#FF55BB") //左側は重み付き平均の最大最小だけど、右側はトータルの最大最小だから、同じカラーレジェンドだと意味が変わる。→違うカラーを使う
             .attr("stroke", "black")
             .on("mouseover", function (d, i) {
               tooltip.style("visibility", "visible").html("曲名 : " + i.name);
