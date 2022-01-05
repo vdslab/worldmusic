@@ -33,15 +33,16 @@ const Worldmap = ({ features, data }) => {
   const projection = d3
     .geoMercator()
     .center(centerPos)
-    .translate([svgWidth / 2, svgHeight /2])
+    .translate([svgWidth / 2, svgHeight / 2])
     .scale(scale);
   const path = d3.geoPath().projection(projection);
   const tooltip = d3.select(".tooltip-world");
 
+  console.log(worldMapData);
   const colorjudge = (item) => {
     let color = "#F2F2F2";
-    if(worldMapData[item.properties.ISO_A2]){
-      color = "red"
+    if (worldMapData[item.properties.ISO_A2]) {
+      color = "red";
     }
     return color;
   };
@@ -57,7 +58,9 @@ const Worldmap = ({ features, data }) => {
         }}
       >
         <svg
-          viewBox={`${-margin.left+45} ${-margin.top-55} ${svgWidth} ${svgHeight}`}
+          viewBox={`${-margin.left + 45} ${
+            -margin.top - 55
+          } ${svgWidth} ${svgHeight}`}
           style={{ border: "solid 0px" }}
         >
           <g>
@@ -76,18 +79,11 @@ const Worldmap = ({ features, data }) => {
                   tooltip
                     .style("top", e.pageY - 20 + "px")
                     .style("left", e.pageX + 10 + "px")
-                    .html(onCountryJapanese+"("+onCountryEnglish+")");
+                    .html(onCountryJapanese + "(" + onCountryEnglish + ")");
                 }}
                 onMouseLeave={() => {
                   tooltip.style("visibility", "hidden");
                 }}
-                // onClick={() => {
-                //   //console.log(item.properties.ISO_A2);
-                //   const c = item.properties.ISO_A2;
-                //   dispatch(changeChoosedCountry("Yes"));
-                //   dispatch(changeCountry(c));
-                //   dispatch(changeDisplay("Yes"));
-                // }}
                 key={i}
               />
             ))}

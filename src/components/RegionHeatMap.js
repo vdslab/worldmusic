@@ -73,6 +73,21 @@ const RegionHeatMap = () => {
 
   useEffect(() => {
     (async () => {
+      // fuga tuiki
+      // const data = await Promise.all(
+      //   startdays.map((s) => fetchRegionHeatMapData(feature, s))
+      // );
+      // console.log("data", data);
+      // const a = data.reduce((acc, cur) => {
+      //   acc.push(...cur.map((c) => c.value));
+      //   return acc;
+      // }, []);
+      // const max = Math.max(...a);
+      // const min = Math.min(...a);
+
+      const maxdata = await fetchgetHeatMapMinMax(feature, "startdays[i]");
+      console.log("minmax", maxdata);
+
       let min = Infinity;
       let max = -Infinity;
       checkMin = min; //minが変更されたかをチェックする変数
@@ -82,11 +97,12 @@ const RegionHeatMap = () => {
       for (let i = 0; i < startdays.length; i++) {
         //最大値・最小値を取得するために、まず３ヶ月ごとで各国のデータを取得する
         let minmaxdata = await fetchgetHeatMapMinMax(feature, startdays[i]);
+        console.log("minmaxdata", minmaxdata);
         minmaxdata.map((d) => {
-          if (!countriesAveWeight[d.countryid]) {
-            countriesAveWeight[d.countryid] = {};
-          }
-          countriesAveWeight[d.countryid][startdays[i]] = d.value;
+          // if (!countriesAveWeight[d.countryid]) {
+          //   countriesAveWeight[d.countryid] = {};
+          // }
+          // countriesAveWeight[d.countryid][startdays[i]] = d.value;
           if (d.value < min) {
             min = d.value;
           }
@@ -96,6 +112,7 @@ const RegionHeatMap = () => {
         });
         //地域ごとのデータを取得する
         let data = await fetchRegionHeatMapData(feature, startdays[i]);
+        console.log("region", data);
         data.map((d) => {
           aveWeight[d.region][startdays[i]] = d.value;
         });
@@ -113,11 +130,55 @@ const RegionHeatMap = () => {
     })();
   }, [feature]);
 
+  // useEffect(() => {
+  //   (async () => {
+  //     let min = Infinity;
+  //     let max = -Infinity;
+  //     checkMin = min; //minが変更されたかをチェックする変数
+  //     checkMax = max; //maxが変更されたかをチェックする変数
+  //     setShowed(false); //データが揃ってから見せる
+  //     dispatch(changeIsRegionShowed(false)); //データが揃ってから見せる
+  //     for (let i = 0; i < startdays.length; i++) {
+  //       //最大値・最小値を取得するために、まず３ヶ月ごとで各国のデータを取得する
+  //       let minmaxdata = await fetchgetHeatMapMinMax(feature, startdays[i]);
+  //       minmaxdata.map((d) => {
+  //         if (!countriesAveWeight[d.countryid]) {
+  //           countriesAveWeight[d.countryid] = {};
+  //         }
+  //         countriesAveWeight[d.countryid][startdays[i]] = d.value;
+  //         if (d.value < min) {
+  //           min = d.value;
+  //         }
+  //         if (d.value > max) {
+  //           max = d.value;
+  //         }
+  //       });
+  //       //地域ごとのデータを取得する
+  //       let data = await fetchRegionHeatMapData(feature, startdays[i]);
+  //       data.map((d) => {
+  //         aveWeight[d.region][startdays[i]] = d.value;
+  //       });
+  //     }
+  //     //minとmaxが変更されたので、セットする（データも）
+  //     dispatch(changeMax(max));
+  //     dispatch(changeMin(min));
+  //     setHeatMapData(aveWeight);
+  //     //チェック用変数と値が異なれば（＝最大値最小値の準備おk）、地域ヒートマップを表示する
+  //     if (max != checkMax && min != checkMin) {
+  //       checkMin = min;
+  //       checkMax = max;
+  //       setShowed(true);
+  //     }
+  //   })();
+  // }, [feature]);
+
   if (!showed) {
     return (
       <div className="card-content">
         <p style={{ fontSize: "1.25rem" }}>データ取得中・・・</p>
-        <p style={{ fontSize: "1.25rem" }}>（データ取得に約1分ほど時間がかかります。）</p>
+        <p style={{ fontSize: "1.25rem" }}>
+          （データ取得に約1分ほど時間がかかります。）
+        </p>
       </div>
     );
   } else {

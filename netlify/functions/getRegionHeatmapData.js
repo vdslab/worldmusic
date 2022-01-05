@@ -17,7 +17,7 @@ exports.handler = async function (event) {
       INNER JOIN Country ON Ranking.countryid = Country.countryid
       WHERE Ranking.startday BETWEEN '${startmonth}-01' AND '${year}-${endmonth}-31'
       AND NOT Country.region = 'Nothing'
-      GROUP BY Country.region`,
+      GROUP BY Country.region`
     );
 
     return { statusCode: 200, body: JSON.stringify(result) };
