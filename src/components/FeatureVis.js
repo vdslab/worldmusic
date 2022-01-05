@@ -96,6 +96,15 @@ const Song = (props) => {
 
   const musicId = props.id;
   const countryNumber = props.listnumber;
+  let aboutVisMsg =
+    "世界で最も再生回数が多かった曲とSpotifyランキングにランクインした国";
+  if (countryNumber === 1) {
+    aboutVisMsg =
+      "日本で最も再生回数が多かった曲とSpotifyランキングにランクインした国";
+  } else if (countryNumber === 2) {
+    aboutVisMsg =
+      "クリスマスで最も再生回数が多かった曲とSpotifyランキングにランクインした国";
+  }
   //ここで渡されたtop3の配信されている国を取得して表示する。
   const [countries, setCountries] = useState([]);
   useEffect(() => {
@@ -253,6 +262,7 @@ const Song = (props) => {
               })}
             </div> */}
           <FeatureWorldmap data={countries} />
+          <div style={{ fontSize: "0.5rem" }}>{aboutVisMsg}</div>
         </div>
       ) : (
         <div className="content"></div>

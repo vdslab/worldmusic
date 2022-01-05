@@ -9,34 +9,14 @@ import Detail from "./Detail";
 import AboutFeatureAndData from "./aboutFeatureAndData";
 import JudgeVis from "./JudgeVis";
 import * as d3 from "d3";
-import "../tooltip.css";
 
 const Visualization = () => {
-  const tooltip = d3.select(".tooltip-questionMark");
   return (
     <div>
       <div
         className="section p-1"
         style={{ display: "flex", justifyContent: "flex-end" }}
       >
-        <div
-          className="questionmark"
-          onMouseEnter={(e) => {
-            tooltip.style("visibility", "visible");
-            tooltip
-              .style("top", e.pageY - 30 + "px")
-              .style("left", e.pageX - 550 + "px")
-              .html(
-                "これら3曲は左から順にグローバル・日本・クリスマスの各カテゴリの中で最も再生された曲となっている。 \
-                また、それぞれの曲が配信されている国を世界地図にて赤色で塗りつぶしている。"
-              );
-          }}
-          onMouseLeave={() => {
-            tooltip.style("visibility", "hidden");
-          }}
-        >
-          ?
-        </div>
       </div>
       <FeatureVis />
       <div className="tile is-ancestor">
