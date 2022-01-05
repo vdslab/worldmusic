@@ -32,6 +32,7 @@ function VerticalAxis({ len, yAxis, name, h }) {
         transform={`
                 translate(-65 ${h / 2})
                `}
+        x="-15"
         textAnchor="middle"
         dominantBaseline="central"
         fontSize="12"

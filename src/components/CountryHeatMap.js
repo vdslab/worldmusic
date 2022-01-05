@@ -22,6 +22,7 @@ function VerticalAxis({ len, yAxis, name, h }) {
         transform={`
                 translate(-60, ${(len * yAxis.length) / 2})
                `}
+        x="-20"
         textAnchor="middle"
         dominantBaseline="central"
         fontSize="12"
@@ -166,6 +167,7 @@ const CountryHeatMap = () => {
 
   const [heatMapData, setHeatMapData] = useState([]);
   const [countries, setCountries] = useState([]);
+  const [countriesJP, setCountriesJP] = useState([]);
 
   let checkMin;
   let checkMax;
@@ -174,6 +176,7 @@ const CountryHeatMap = () => {
   useEffect(() => {
     (async () => {
       let country = [];
+      let countryJP = [];
       let min = Min;
       let max = Max;
       checkMin = Infinity;
@@ -185,12 +188,13 @@ const CountryHeatMap = () => {
         data.map((d, j) => {
           if (!aveWeight[d.countryid]) {
             country.push(d.countryid);
+            countryJP.push(d.country);
             aveWeight[d.countryid] = {};
           }
-
           aveWeight[d.countryid][startdays[i]] = d.value;
         });
       }
+      setCountriesJP(countryJP);
       setCountries(country);
       setHeatMapData(aveWeight);
       if (max != checkMax && min != checkMin) {
@@ -284,7 +288,7 @@ const CountryHeatMap = () => {
         >
           <VerticalAxis
             len={len}
-            yAxis={countries}
+            yAxis={countriesJP}
             name={"国"}
             h={contentHeight}
           />
