@@ -5,7 +5,7 @@ exports.handler = async function (event) {
   try {
     console.log(1);
     const result = await selectRows(
-      `SELECT countryid FROM Ranking WHERE Ranking.musicid = '${musicid}' 
+      `SELECT countryid FROM Ranking WHERE Ranking.musicid = $1::text 
       AND ( 
         (Ranking.startday BETWEEN '2017-12-01' AND '2017-12-31') 
         OR (Ranking.startday BETWEEN '2018-12-01' AND '2018-12-31') 
@@ -13,15 +13,16 @@ exports.handler = async function (event) {
         OR (Ranking.startday BETWEEN '2020-12-01' AND '2020-12-31') 
       )
       AND NOT Ranking.countryid = 'GL'`,
+      [musicid]
     );
     const countrys = {};
     result.map((r) => {
       if (!countrys[r.countryid]) {
         countrys[r.countryid] = {
-          countryid : r.countryid,
-          count : 1
-        }
-      }else if(countrys[r.countryid]){
+          countryid: r.countryid,
+          count: 1,
+        };
+      } else if (countrys[r.countryid]) {
         countrys[r.countryid].count += 1;
       }
     });

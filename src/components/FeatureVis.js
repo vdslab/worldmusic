@@ -91,13 +91,13 @@ const Song = (props) => {
   const musicId = props.id;
   const countryNumber = props.listnumber;
   let aboutVisMsg =
-    "世界で最も再生回数が多かった曲とSpotifyランキングにランクインした国";
+    "世界で最も再生回数が多かった曲とSpotifyランキングにランクインした回数が最も多かった国";
   if (countryNumber === 1) {
     aboutVisMsg =
-      "日本で最も再生回数が多かった曲とSpotifyランキングにランクインした国";
+      "日本で最も再生回数が多かった曲とSpotifyランキングにランクインした回数が最も多かった国";
   } else if (countryNumber === 2) {
     aboutVisMsg =
-      "クリスマスで最も再生回数が多かった曲とSpotifyランキングにランクインした国";
+      "クリスマスで最も再生回数が多かった曲とSpotifyランキングにランクインした回数が最も多かった国";
   }
   //ここで渡されたtop3の配信されている国を取得して表示する。
   const [countries, setCountries] = useState([]);

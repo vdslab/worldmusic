@@ -73,8 +73,8 @@ const RegionHeatMap = () => {
 
   useEffect(() => {
     (async () => {
-      const maxdata = await fetchgetHeatMapMinMax(feature, "startdays[i]");
-      console.log("minmax", maxdata);
+      // const maxdata = await fetchgetHeatMapMinMax(feature, startdays[i]);
+      // console.log("minmax", maxdata);
 
       let min = Infinity;
       let max = -Infinity;

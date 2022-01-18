@@ -281,7 +281,7 @@ function RaderChart({ data }) {
                               fontSize: "5px",
                             }
                       }
-                      fill={isFeatureOver[p.name] ? "black" : "#FF9872"}
+                      fill={isFeatureOver[p.name] ? "black" : "#3273DC"}
                     >
                       {p.name}
                     </text>

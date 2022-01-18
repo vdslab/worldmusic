@@ -68,7 +68,7 @@ function display_similarsongs() {
   } else if (regionId === "") {
     return (
       <div className="card-content" style={{ height: "100%" }}>
-        <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>曲詳細</p>
+        <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>類似曲</p>
         <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>
           ヒートマップより地域を選んでください。
         </p>
@@ -77,7 +77,7 @@ function display_similarsongs() {
   } else if (country.length === 0) {
     return (
       <div className="card-content" style={{ height: "100%" }}>
-        <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>曲詳細</p>
+        <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>類似曲</p>
         <p style={{ fontSize: "1.25rem", marginBottom: "5px" }}>
           ヒートマップより国・期間を選んでください。
         </p>

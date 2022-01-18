@@ -5,7 +5,8 @@ exports.handler = async function (event) {
 
   try {
     const result = await selectRows(
-      `SELECT Music.Musicid , Music.name , Music.acousticness, Music.danceability, Music.energy , Music.instrumentalness, Music.liveness, Music.loudness,Music.mode, Music.speechiness, Music.tempo, Music.time_signature, Music.valence FROM Music WHERE Music.musicid='${musicId}'`,
+      `SELECT Music.Musicid , Music.name , Music.acousticness, Music.danceability, Music.energy , Music.instrumentalness, Music.liveness, Music.loudness,Music.mode, Music.speechiness, Music.tempo, Music.time_signature, Music.valence FROM Music WHERE Music.musicid=$1::text`,
+      [musicId]
     );
     return { statusCode: 200, body: JSON.stringify(result) };
   } catch (e) {

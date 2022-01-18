@@ -83,7 +83,7 @@ function VerticalAxis({ len, yAxis, name, h }) {
                     }
                   : { userSelect: "none", cursor: "pointer", fontSize: "8px" }
               }
-              fill={isRegionOver[y[0]] ? "black" : "#FF9872"}
+              fill={isRegionOver[y[0]] ? "black" : "#3273DC"}
             >
               {y[1]}
             </text>

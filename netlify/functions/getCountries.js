@@ -7,7 +7,8 @@ exports.handler = async function (event) {
 
   try {
     const result = await selectRows(
-      `SELECT * FROM Ranking WHERE Ranking.startday = '2020-12-25' Ranking.musicid ='${musicid}'`,
+      `SELECT * FROM Ranking WHERE Ranking.startday = '2020-12-25' Ranking.musicid =$1::text`,
+      [musicid]
     );
     return { statusCode: 200, body: JSON.stringify(result) };
   } catch (e) {

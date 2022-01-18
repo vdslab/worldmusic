@@ -10,12 +10,29 @@ exports.handler = async function (event) {
     endmonth = "0" + endmonth;
   }
   /**TODO:応急処置, 後でちゃんとした書き方先輩に聞く */
+  const s = String(startMonth + "-01");
+  const e = String(year + "-" + endmonth + "-31");
+  const features = [
+    "acousticness",
+    "danceability",
+    "energy",
+    "instrumentalness",
+    "liveness",
+    "loudness",
+    "speechiness",
+    "valence",
+    "tempo",
+    "time_signature",
+  ];
 
   try {
-    const result = await selectRows(
-      `SELECT Music.Musicid , Music.name , Music.${feature} , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.countryid='${country}' AND Ranking.startday BETWEEN '${startMonth}-01' AND '${year}-${endmonth}-31'`,
-    );
-    return { statusCode: 200, body: JSON.stringify(result) };
+    if (features.includes(feature)) {
+      const result = await selectRows(
+        `SELECT Music.Musicid , Music.name , Music.${feature} , Ranking.stream FROM Music INNER JOIN Ranking ON Music.musicid=Ranking.musicid WHERE Ranking.countryid=$1::text AND Ranking.startday BETWEEN $2::text AND $3::text`,
+        [country, s, e]
+      );
+      return { statusCode: 200, body: JSON.stringify(result) };
+    }
   } catch (e) {
     return { statusCode: 500, body: e.message };
   }
