@@ -37,6 +37,8 @@ exports.handler = async function (event) {
         [s, e, "Nothing"]
       );
       return { statusCode: 200, body: JSON.stringify(result) };
+    } else {
+      return { statusCode: 400, body: "feature is not available" };
     }
   } catch (e) {
     return { statusCode: 500, body: e.message };

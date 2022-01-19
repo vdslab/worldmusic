@@ -43,7 +43,7 @@ exports.handler = async function (event) {
       );
       return { statusCode: 200, body: JSON.stringify(result) };
     } else {
-      return { statusCode: 500, body: "data is not available" };
+      return { statusCode: 400, body: "data is not available" };
     }
   } catch (e) {
     return { statusCode: 500, body: e.message };
